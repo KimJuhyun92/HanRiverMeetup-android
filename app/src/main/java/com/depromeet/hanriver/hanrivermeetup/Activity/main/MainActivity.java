@@ -1,87 +1,57 @@
-package com.depromeet.hanriver.hanrivermeetup.Activity.main;
+package com.depromeet.hanriver.hanrivermeetup.activity.main;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.TextView;
 
-import com.depromeet.hanriver.hanrivermeetup.HanRiverMeetupApplication;
 import com.depromeet.hanriver.hanrivermeetup.R;
-import com.depromeet.hanriver.hanrivermeetup.model.meeting.Activity;
-
-import java.util.List;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
+    @NonNull
+    private TabLayout tabLayout;
 
     @NonNull
-    private CompositeDisposable mCompositeDisposable;
-
-    @NonNull
-    private MainViewModel mViewModel;
-
-    @Nullable
-    private TextView mActivitesView;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mViewModel = getViewModel();
-        setupViews();
-    }
+        // Initializing the TabLayout
+        tabLayout = findViewById(R.id.tablayout);
+        tabLayout.addTab(tabLayout.newTab().setText("Tab One"));
+        tabLayout.addTab(tabLayout.newTab().setText("Tab Two"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-    private void setupViews() {
-        mActivitesView = (TextView)findViewById(R.id.activity);
-    }
+        // Initializing ViewPager
+        viewPager = findViewById(R.id.viewpager);
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        bind();
-    }
+        // Creating TabPagerAdapter adapter
+        MainTabPagerAdapter pagerAdapter = new MainTabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        unBind();
-    }
+        // Set TabSelectedListener
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
-    private void bind() {
-        mCompositeDisposable = new CompositeDisposable();
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
 
-        mCompositeDisposable.add(mViewModel.getAvailableActivites()
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::setActivites));
-    }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
 
-    private void unBind() {
-        mCompositeDisposable.clear();
-    }
+            }
 
-    private void setActivites(@NonNull final List<Activity> activites) {
-        assert mActivitesView != null;
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
 
-        mActivitesView.setText("hello");
-    }
-
-//    private void setActivites(@NonNull final List<Activity> languages) {
-//        assert mLanguagesSpinner != null;
-//
-//        mLanguageSpinnerAdapter = new LanguageSpinnerAdapter(this,
-//                R.layout.language_item,
-//                languages);
-//        mLanguagesSpinner.setAdapter(mLanguageSpinnerAdapter);
-//    }
-
-    @NonNull
-    private MainViewModel getViewModel() {
-        return ((HanRiverMeetupApplication)getApplication()).getMainViewModel();
+            }
+        });
     }
 }

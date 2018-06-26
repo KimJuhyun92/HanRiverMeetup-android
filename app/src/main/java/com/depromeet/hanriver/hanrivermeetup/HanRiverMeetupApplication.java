@@ -3,9 +3,9 @@ package com.depromeet.hanriver.hanrivermeetup;
 import android.app.Application;
 import android.support.annotation.NonNull;
 
-import com.depromeet.hanriver.hanrivermeetup.Activity.main.MainViewModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ActivityDataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.IActivityDataModel;
+import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingCategoryViewModel;
 import com.depromeet.hanriver.hanrivermeetup.schedulers.ISchedulerProvider;
 import com.depromeet.hanriver.hanrivermeetup.schedulers.SchedulerProvider;
 
@@ -29,7 +29,7 @@ public class HanRiverMeetupApplication extends Application {
     }
 
     @NonNull
-    public MainViewModel getMainViewModel() {
-        return new MainViewModel(getActivityDataModel(), getSchedulerProvider());
+    public MeetingCategoryViewModel getMeetingCategoryViewModel() {
+        return new MeetingCategoryViewModel(getActivityDataModel(), getSchedulerProvider());
     }
 }

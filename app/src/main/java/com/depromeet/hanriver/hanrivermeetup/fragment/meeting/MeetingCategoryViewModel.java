@@ -1,4 +1,4 @@
-package com.depromeet.hanriver.hanrivermeetup.Activity.main;
+package com.depromeet.hanriver.hanrivermeetup.fragment.meeting;
 
 import android.support.annotation.NonNull;
 
@@ -11,8 +11,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.subjects.BehaviorSubject;
 
-public class MainViewModel {
-
+public class MeetingCategoryViewModel {
     @NonNull
     IActivityDataModel mActivityDataModel;
 
@@ -22,7 +21,7 @@ public class MainViewModel {
     @NonNull
     private final BehaviorSubject<Activity> mSelectedActivity = BehaviorSubject.create();
 
-    public MainViewModel(@NonNull final IActivityDataModel activityDataModel,
+    public MeetingCategoryViewModel(@NonNull final IActivityDataModel activityDataModel,
                          @NonNull final ISchedulerProvider schedulerProvider) {
         mActivityDataModel = activityDataModel;
         mSchedulerProvider = schedulerProvider;
