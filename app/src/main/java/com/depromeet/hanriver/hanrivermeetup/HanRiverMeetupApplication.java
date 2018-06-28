@@ -32,4 +32,5 @@ public class HanRiverMeetupApplication extends Application {
     public MeetingCategoryViewModel getMeetingCategoryViewModel() {
         return new MeetingCategoryViewModel(getActivityDataModel(), getSchedulerProvider());
     }
+
 }

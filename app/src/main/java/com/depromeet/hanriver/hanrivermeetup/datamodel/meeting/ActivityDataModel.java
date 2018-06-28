@@ -11,6 +11,7 @@ import io.reactivex.Observable;
 
 public class ActivityDataModel implements IActivityDataModel{
     @NonNull
+
     @Override
     public Observable<List<Activity>> getAvailableActivites() {
         return Observable.fromCallable(this::getActivites);

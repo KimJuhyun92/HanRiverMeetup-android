@@ -9,6 +9,9 @@ public class Activity {
     @NonNull
     private final String mDescription;
 
+//    @NonNull
+//    private final String mImage;
+
     public Activity(@NonNull final String name, @NonNull final String description) {
         mName = name;
         mDescription = description;

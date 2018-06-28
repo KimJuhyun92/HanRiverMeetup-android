@@ -4,13 +4,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import com.depromeet.hanriver.hanrivermeetup.HanRiverMeetupApplication;
 import com.depromeet.hanriver.hanrivermeetup.R;
+import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.GridAdapter;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.Activity;
 
 import java.util.List;
@@ -29,6 +32,7 @@ public class MeetingCategoryFragment extends Fragment {
 
     @Nullable
     private TextView mActivitesView;
+    private GridView gridview;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,8 @@ public class MeetingCategoryFragment extends Fragment {
 
     private void setupViews(View v) {
         mActivitesView = v.findViewById(R.id.test_text);
+        gridview = v.findViewById(R.id.gridview);
+//        gridview.setAdapter(new GridAdapter(this.getActivity(),));
     }
 
     @Override
@@ -77,7 +83,9 @@ public class MeetingCategoryFragment extends Fragment {
 
     private void setActivites(@NonNull final List<Activity> activites) {
         assert mActivitesView != null;
-        mActivitesView.setText("hello");
+        gridview.setAdapter(new GridAdapter(getActivity(),activites));
+//        mActivitesView.setText("한강에서\n" +
+//                "원하는 모임을 선택하세요");
     }
 
 //    private void setActivites(@NonNull final List<Activity> languages) {

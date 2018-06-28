@@ -1,4 +1,4 @@
-package com.depromeet.hanriver.hanrivermeetup.activity.main;
+package com.depromeet.hanriver.hanrivermeetup.Activity.main;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

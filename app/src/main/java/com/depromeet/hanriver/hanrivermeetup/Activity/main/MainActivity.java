@@ -1,4 +1,4 @@
-package com.depromeet.hanriver.hanrivermeetup.activity.main;
+package com.depromeet.hanriver.hanrivermeetup.Activity.main;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
+
+import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
     @NonNull
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewpager);
 
         // Creating TabPagerAdapter adapter
-        MainTabPagerAdapter pagerAdapter = new MainTabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        com.depromeet.hanriver.hanrivermeetup.Activity.main.MainTabPagerAdapter pagerAdapter = new com.depromeet.hanriver.hanrivermeetup.Activity.main.MainTabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
