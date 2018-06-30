@@ -5,7 +5,10 @@ import android.support.annotation.NonNull;
 
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ActivityDataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.IActivityDataModel;
+import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ITimelineDataModel;
+import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.TimelineDataModel;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingCategoryViewModel;
+import com.depromeet.hanriver.hanrivermeetup.fragment.timeline.TimelineViewModel;
 import com.depromeet.hanriver.hanrivermeetup.schedulers.ISchedulerProvider;
 import com.depromeet.hanriver.hanrivermeetup.schedulers.SchedulerProvider;
 
@@ -14,14 +17,25 @@ public class HanRiverMeetupApplication extends Application {
     @NonNull
     private final IActivityDataModel mActivityDataModel;
 
+    @NonNull
+    private final ITimelineDataModel mTimelineDataModel;
+
+
     public HanRiverMeetupApplication() {
         mActivityDataModel = new ActivityDataModel();
+        mTimelineDataModel = new TimelineDataModel();
     }
 
     @NonNull
     public IActivityDataModel getActivityDataModel() {
         return mActivityDataModel;
     }
+
+    @NonNull
+    public ITimelineDataModel getTimelineDataModel() {
+        return mTimelineDataModel;
+    }
+
 
     @NonNull
     public ISchedulerProvider getSchedulerProvider() {
@@ -32,5 +46,11 @@ public class HanRiverMeetupApplication extends Application {
     public MeetingCategoryViewModel getMeetingCategoryViewModel() {
         return new MeetingCategoryViewModel(getActivityDataModel(), getSchedulerProvider());
     }
+
+    @NonNull
+    public TimelineViewModel getTimelineViewModel() {
+        return new TimelineViewModel(getTimelineDataModel(), getSchedulerProvider());
+    }
+
 
 }
