@@ -1,19 +1,26 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.meeting;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 
 import com.depromeet.hanriver.hanrivermeetup.HanRiverMeetupApplication;
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.GridAdapter;
+import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.MeetingCategoryAdapter;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.Activity;
 
 import java.util.List;
@@ -33,6 +40,9 @@ public class MeetingCategoryFragment extends Fragment {
     @Nullable
     private TextView mActivitesView;
     private GridView gridview;
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager rvManager;
+    Button button;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,12 +57,20 @@ public class MeetingCategoryFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_meeting_category, container, false);
         setupViews(v);
+        Log.d("TAG","oncreateView");
         return v;
+
     }
 
     private void setupViews(View v) {
         mActivitesView = v.findViewById(R.id.test_text);
-        gridview = v.findViewById(R.id.gridview);
+//        gridview = v.findViewById(R.id.gridview);
+        recyclerView = v.findViewById(R.id.category_rv);
+        rvManager = new LinearLayoutManager(getContext());
+        button = v.findViewById(R.id.testbutton);
+        button.setOnClickListener(mClick);
+        Log.d("TAG","setupViews");
+
 //        gridview.setAdapter(new GridAdapter(this.getActivity(),));
     }
 
@@ -75,6 +93,7 @@ public class MeetingCategoryFragment extends Fragment {
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::setActivites));
+
     }
 
     private void unBind() {
@@ -83,10 +102,31 @@ public class MeetingCategoryFragment extends Fragment {
 
     private void setActivites(@NonNull final List<Activity> activites) {
         assert mActivitesView != null;
-        gridview.setAdapter(new GridAdapter(getActivity(),activites));
+//        gridview.setAdapter(new GridAdapter(getActivity(),activites));
+        recyclerView.setLayoutManager(rvManager);
+        recyclerView.setAdapter(new MeetingCategoryAdapter(activites,getContext(),this));
+
+//        TestFrag frag = new TestFrag();
+//        FragmentManager fragmentManager = getFragmentManager();
+
+
 //        mActivitesView.setText("한강에서\n" +
 //                "원하는 모임을 선택하세요");
     }
+
+    View.OnClickListener mClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
+//        TestFrag frag = new TestFrag();
+            MeetingListFragment frag = MeetingListFragment.newInstance();
+            fragTransaction.replace(R.id.meeting_root, frag);
+            fragTransaction.addToBackStack(null);
+            fragTransaction.commit();
+            Log.d("TAG","setActivities");
+        }
+    };
+
 
 //    private void setActivites(@NonNull final List<Activity> languages) {
 //        assert mLanguagesSpinner != null;
@@ -96,6 +136,7 @@ public class MeetingCategoryFragment extends Fragment {
 //                languages);
 //        mLanguagesSpinner.setAdapter(mLanguageSpinnerAdapter);
 //    }
+
 
     @NonNull
     private MeetingCategoryViewModel getViewModel() {

@@ -11,4 +11,6 @@ import io.reactivex.Observable;
 public interface IActivityDataModel {
     @NonNull
     Observable<List<Activity>> getAvailableActivites();
+
+//    Observable<> loadMeetinglistFragment();
 }
