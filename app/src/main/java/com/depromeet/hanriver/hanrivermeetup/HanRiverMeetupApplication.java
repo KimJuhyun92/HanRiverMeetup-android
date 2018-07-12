@@ -4,7 +4,9 @@ import android.app.Application;
 import android.support.annotation.NonNull;
 
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ActivityDataModel;
+import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.CreateRoomDataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.IActivityDataModel;
+import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ICreateRoomDataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ITimelineDataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.TimelineDataModel;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingCategoryViewModel;
@@ -19,6 +21,9 @@ public class HanRiverMeetupApplication extends Application {
 
     @NonNull
     private final ITimelineDataModel mTimelineDataModel;
+
+//    @NonNull
+//    private final ICreateRoomDataModel mCreateRoomDataModel;
 
 
     public HanRiverMeetupApplication() {
@@ -36,6 +41,11 @@ public class HanRiverMeetupApplication extends Application {
         return mTimelineDataModel;
     }
 
+//    @NonNull
+//    public ICreateRoomDataModel getCreateRoomDataModel(){
+//        return mCreateRoomDataModel;
+//    }
+
 
     @NonNull
     public ISchedulerProvider getSchedulerProvider() {
@@ -51,6 +61,11 @@ public class HanRiverMeetupApplication extends Application {
     public TimelineViewModel getTimelineViewModel() {
         return new TimelineViewModel(getTimelineDataModel(), getSchedulerProvider());
     }
+
+//    @NonNull
+//    public CreateRoomDataModel getCreateRoomDataModel(){
+//        return new CreateRoomDataModel(getCreateRoomDataModel(),getSchedulerProvider());
+//    }
 
 
 }

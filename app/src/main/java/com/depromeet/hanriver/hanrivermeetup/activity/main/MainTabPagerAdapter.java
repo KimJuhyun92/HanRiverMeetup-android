@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingCategoryFragment;
+import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.meetingRootFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.timeline.TimelineFragment;
 
 public class MainTabPagerAdapter extends FragmentStatePagerAdapter {
@@ -22,7 +23,7 @@ public class MainTabPagerAdapter extends FragmentStatePagerAdapter {
         // Returning the current tabs
         switch (position) {
             case 0:
-                return new MeetingCategoryFragment();
+                return new meetingRootFragment();
             case 1:
                 return new TimelineFragment();
             default:

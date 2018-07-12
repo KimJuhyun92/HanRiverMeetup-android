@@ -11,26 +11,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="49dp"
+        android:layout_marginTop="33dp"
         android:layout_marginBottom="43dp"
         android:lineSpacingExtra="10sp"
         android:text="한강에서\n원하는 모임을 선택하세요"
         android:textColor="#333333"
         android:textSize="22sp" />
 
-    <GridView
-        android:layout_below="@+id/test_text"
-        android:id="@+id/gridview"
+    <Button
+        android:id="@+id/testbutton"
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/category_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:numColumns="2"
-        android:columnWidth="152dp"
-        android:gravity="center"
-        android:horizontalSpacing="8dp"
-        android:verticalSpacing="8dp"
+        android:layout_below="@+id/test_text"
+        android:columnWidth="7dp"
         >
+    </android.support.v7.widget.RecyclerView>
 
-    </GridView>>
-
+    <FrameLayout
+        android:id="@+id/meeting_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
 
 </RelativeLayout>
