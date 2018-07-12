@@ -5,8 +5,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingCategoryFragment;
+
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.meetingRootFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.timeline.TimelineFragment;
+
+import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.MyPageFragment;
 
 public class MainTabPagerAdapter extends FragmentStatePagerAdapter {
     // Count number of tabs
@@ -25,7 +28,7 @@ public class MainTabPagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new meetingRootFragment();
             case 1:
-                return new TimelineFragment();
+                return new MyPageFragment();
             default:
                 return null;
         }
