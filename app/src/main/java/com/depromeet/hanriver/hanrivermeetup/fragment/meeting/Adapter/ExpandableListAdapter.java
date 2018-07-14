@@ -10,7 +10,7 @@
 //import android.widget.TextView;
 //
 //import com.depromeet.hanriver.hanrivermeetup.R;
-//import com.depromeet.hanriver.hanrivermeetup.model.meeting.Room;
+//import com.depromeet.hanriver.hanrivermeetup.model.meeting.MeetingDetail;
 //
 //import java.util.List;
 //
@@ -19,9 +19,9 @@
 //    public static final int HEADER = 0;
 //    public static final int CHILD = 1;
 //
-//    private List<Room> data ;
+//    private List<MeetingDetail> data ;
 //
-//    public ExpandableListAdapter(List<Room> data){
+//    public ExpandableListAdapter(List<MeetingDetail> data){
 //        this.data=data;
 //
 //    }
@@ -57,7 +57,7 @@
 //
 //
 //    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-//        final Room room = data.get(position);
+//        final MeetingDetail room = data.get(position);
 //        switch (room.type) {
 //            case HEADER:
 //                final ListHeaderViewHolder itemController = (ListHeaderViewHolder) holder;
@@ -116,7 +116,7 @@
 //        public TextView location;
 //        public TextView time;
 //        public TextView member;
-//        public Room room;
+//        public MeetingDetail room;
 //
 //        public ListHeaderViewHolder(View itemView) {
 //            super(itemView);

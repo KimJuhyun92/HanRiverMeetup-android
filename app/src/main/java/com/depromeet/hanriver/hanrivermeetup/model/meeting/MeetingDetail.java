@@ -2,7 +2,7 @@ package com.depromeet.hanriver.hanrivermeetup.model.meeting;
 
 import android.support.annotation.NonNull;
 
-public class Room {
+public class MeetingDetail {
     @NonNull
     private int profileImage;
     @NonNull
@@ -20,7 +20,7 @@ public class Room {
     @NonNull
     private String phonenumber;
 
-    public Room(int profileImage,String roomName,String location,String time,int numOfmember,int fee,String roomContent,String phonenumber){
+    public MeetingDetail(int profileImage, String roomName, String location, String time, int numOfmember, int fee, String roomContent, String phonenumber){
         this.profileImage=profileImage;
         this.roomName=roomName;
         this.location=location;
