@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:id="@+id/meeting_list_item"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="100dp">
+
+    <ImageView
+        android:id="@+id/list_item_img"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="20dp"
+        app:srcCompat="@mipmap/ic_launcher_round" />
+
+    <TextView
+        android:id="@+id/list_item_title"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="108dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:lineSpacingExtra="18sp"
+        android:text="주말에 난지에서 캠핑할 분 구해요!"
+        />
+
+    <TextView
+        android:id="@+id/list_item_location"
+        android:layout_marginTop="38dp"
+        android:layout_marginLeft="108dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="#2186f8"
+        android:lineSpacingExtra="20sp"
+        android:text="여의도 한강공원"
+        />
+
+    <TextView
+        android:layout_marginTop="57dp"
+        android:layout_marginLeft="108dp"
+        android:textSize="12sp"
+        android:textColor="#949494"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="시간"/>
+    <TextView
+        android:id="@+id/list_item_time"
+        android:layout_marginTop="57dp"
+        android:layout_marginLeft="134dp"
+        android:textSize="12sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="11:00"/>
+
+    <TextView
+        android:layout_marginTop="76dp"
+        android:layout_marginLeft="108dp"
+        android:textSize="12sp"
+        android:textColor="#949494"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="인원" />
+    <TextView
+        android:id="@+id/list_item_numofmem"
+        android:layout_marginTop="76dp"
+        android:layout_marginLeft="134dp"
+        android:textSize="12sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5명"/>
+
+    <TextView
+        android:layout_marginTop="76dp"
+        android:layout_marginLeft="170dp"
+        android:textSize="12sp"
+        android:textColor="#949494"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="회비" />
+    <TextView
+        android:id="@+id/list_item_fee"
+        android:layout_marginTop="76dp"
+        android:layout_marginLeft="196dp"
+        android:textSize="12sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="20,000원"/>
+
+</FrameLayout>

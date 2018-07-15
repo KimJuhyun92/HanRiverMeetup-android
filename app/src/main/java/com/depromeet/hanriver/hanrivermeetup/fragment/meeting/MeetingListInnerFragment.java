@@ -16,7 +16,9 @@ import android.widget.TextView;
 import com.depromeet.hanriver.hanrivermeetup.HanRiverMeetupApplication;
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.Category.MeetingCategoryAdapter;
+import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.List.MeetingListAdapter;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.Activity;
+import com.depromeet.hanriver.hanrivermeetup.model.meeting.Room;
 
 import java.util.List;
 
@@ -24,17 +26,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class MeetingCategoryFragment extends Fragment {
-
+public class MeetingListInnerFragment extends Fragment{
     @NonNull
     private CompositeDisposable mCompositeDisposable;
 
     @NonNull
-    private MeetingCategoryViewModel mViewModel;
+    private MeetingListInnerViewModel mViewModel;
 
     @Nullable
-    private TextView mActivitesView;
-    private GridView gridview;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager rvManager;
 
@@ -49,19 +48,16 @@ public class MeetingCategoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_meeting_category, container, false);
+        View v = inflater.inflate(R.layout.fragment_meeting_list_inner, container, false);
         setupViews(v);
-        Log.d("TAG","oncreateView");
         return v;
 
     }
 
     private void setupViews(View v) {
-        mActivitesView = v.findViewById(R.id.test_text);
 //        gridview = v.findViewById(R.id.gridview);
-        recyclerView = v.findViewById(R.id.category_rv);
+        recyclerView = v.findViewById(R.id.list_room_rv);
         rvManager = new LinearLayoutManager(getContext());
-        Log.d("TAG","setupViews");
 
 //        gridview.setAdapter(new GridAdapter(this.getActivity(),));
     }
@@ -81,10 +77,10 @@ public class MeetingCategoryFragment extends Fragment {
     private void bind() {
         mCompositeDisposable = new CompositeDisposable();
 
-        mCompositeDisposable.add(mViewModel.getAvailableActivites()
+        mCompositeDisposable.add(mViewModel.getAvailableRooms()
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::setActivites));
+                .subscribe(this::setRooms));
 
     }
 
@@ -92,18 +88,12 @@ public class MeetingCategoryFragment extends Fragment {
         mCompositeDisposable.clear();
     }
 
-    private void setActivites(@NonNull final List<Activity> activites) {
-        assert mActivitesView != null;
+    private void setRooms(@NonNull final List<Room> Rooms) {
+
 //        gridview.setAdapter(new GridAdapter(getActivity(),activites));
         recyclerView.setLayoutManager(rvManager);
-        recyclerView.setAdapter(new MeetingCategoryAdapter(activites,getContext(),this));
+        recyclerView.setAdapter(new MeetingListAdapter(Rooms,getContext(),this));
 
-//        TestFrag frag = new TestFrag();
-//        FragmentManager fragmentManager = getFragmentManager();
-
-
-//        mActivitesView.setText("한강에서\n" +
-//                "원하는 모임을 선택하세요");
     }
 
 
@@ -120,7 +110,7 @@ public class MeetingCategoryFragment extends Fragment {
 
 
     @NonNull
-    private MeetingCategoryViewModel getViewModel() {
-        return ((HanRiverMeetupApplication)getActivity().getApplicationContext()).getMeetingCategoryViewModel();
+    private MeetingListInnerViewModel getViewModel() {
+        return ((HanRiverMeetupApplication)getActivity().getApplicationContext()).getMeetingListInnerViewModel();
     }
 }

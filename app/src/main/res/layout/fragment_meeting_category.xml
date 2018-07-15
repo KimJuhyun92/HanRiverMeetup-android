@@ -10,7 +10,7 @@
         android:id="@+id/test_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
+        android:layout_marginLeft="23dp"
         android:layout_marginTop="33dp"
         android:layout_marginBottom="43dp"
         android:lineSpacingExtra="10sp"
@@ -18,16 +18,31 @@
         android:textColor="#333333"
         android:textSize="22sp" />
 
-    <Button
-        android:id="@+id/testbutton"
-        android:layout_width="30dp"
-        android:layout_height="30dp" />
+    <ImageView
+        android:id="@+id/weather_img"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="126dp"
+        android:src="@drawable/com_facebook_button_icon_blue" />
+
+    <TextView
+        android:id="@+id/weather_text"
+        android:layout_marginTop="126dp"
+        android:layout_marginLeft="68dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:lineSpacingExtra="6sp"
+        android:text="ＴODAY\n맑음, 20℃ / 32℃"
+
+        />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/category_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/test_text"
+        android:layout_marginTop="227dp"
         android:columnWidth="7dp"
         >
     </android.support.v7.widget.RecyclerView>
