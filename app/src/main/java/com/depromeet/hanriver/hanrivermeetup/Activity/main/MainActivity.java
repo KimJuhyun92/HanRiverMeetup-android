@@ -1,14 +1,24 @@
 package com.depromeet.hanriver.hanrivermeetup.Activity.main;
 
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
@@ -56,4 +66,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }

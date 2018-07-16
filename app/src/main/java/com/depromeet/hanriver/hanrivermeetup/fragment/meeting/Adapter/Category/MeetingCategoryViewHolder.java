@@ -1,10 +1,8 @@
-package com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter;
+package com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.Category;
 
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
