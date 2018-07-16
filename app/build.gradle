@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+def keystorePropertiesFile = rootProject.file("keystore.properties");
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -11,9 +15,14 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            buildConfigField "String", "APIServerBaseURL", keystoreProperties.getProperty("apiServerURL")
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "APIServerBaseURL", keystoreProperties.getProperty("apiServerURL")
         }
     }
     compileOptions {
@@ -37,9 +46,15 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:2.1.14"
     implementation "com.android.support:design:28.0.0-alpha3"
 
-    //View
+    // View
     implementation 'com.android.support:recyclerview-v7:28.0.0-alpha1'
+
 
     //facebook Login
     implementation 'com.facebook.android:facebook-login:[4,5)'
+}
+    // Network
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.google.code.gson:gson:2.6.1'
 }
