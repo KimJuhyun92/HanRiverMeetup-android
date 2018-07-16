@@ -1,6 +1,7 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.meeting;
 
 import android.support.annotation.NonNull;
+import android.view.View;
 
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.IActivityDataModel;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.Activity;
@@ -31,4 +32,6 @@ public class MeetingCategoryViewModel {
     public Observable<List<Activity>> getAvailableActivites() {
         return mActivityDataModel.getAvailableActivites();
     }
+
+
 }

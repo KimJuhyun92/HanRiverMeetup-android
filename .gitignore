@@ -19,6 +19,9 @@ bin/
 gen/
 out/
 
+# Properties
+keystore.properties
+
 # Gradle files
 .gradle/
 build/
