@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.IActivityDataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.IMeetingListInnerDataModel;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.Activity;
-import com.depromeet.hanriver.hanrivermeetup.model.meeting.Room;
+import com.depromeet.hanriver.hanrivermeetup.model.meeting.MeetingDetail;
 import com.depromeet.hanriver.hanrivermeetup.schedulers.ISchedulerProvider;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class MeetingListInnerViewModel {
     private final ISchedulerProvider mSchedulerProvider;
 
     @NonNull
-    private final BehaviorSubject<Room> mSelectedRoom = BehaviorSubject.create();
+    private final BehaviorSubject<MeetingDetail> mSelectedRoom = BehaviorSubject.create();
 
     public MeetingListInnerViewModel(@NonNull final IMeetingListInnerDataModel roomDataModel,
                                     @NonNull final ISchedulerProvider schedulerProvider) {
@@ -30,7 +30,7 @@ public class MeetingListInnerViewModel {
     }
 
     @NonNull
-    public Observable<List<Room>> getAvailableRooms() {
+    public Observable<List<MeetingDetail>> getAvailableRooms() {
         return mRoomDataModel.getAvailableRooms();
     }
 }
