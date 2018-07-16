@@ -2,7 +2,7 @@ package com.depromeet.hanriver.hanrivermeetup.fragment.timeline;
 
 import android.support.annotation.NonNull;
 
-import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ITimelineDataModel;
+import com.depromeet.hanriver.hanrivermeetup.datamodel.timeline.ITimelineDataModel;
 import com.depromeet.hanriver.hanrivermeetup.model.timeline.TimeLineVO;
 import com.depromeet.hanriver.hanrivermeetup.schedulers.ISchedulerProvider;
 
