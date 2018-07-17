@@ -15,16 +15,16 @@ import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.Category.M
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.Category.OnListItemClickListener;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingListFragment;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.Activity;
-import com.depromeet.hanriver.hanrivermeetup.model.meeting.Room;
+import com.depromeet.hanriver.hanrivermeetup.model.meeting.MeetingDetail;
 
 import java.util.List;
 
 public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListViewHolder> implements OnListItemClickListener {
-    List<Room> list;
+    List<MeetingDetail> list;
     Context context;
     Fragment fragment;
 
-    public MeetingListAdapter(List<Room> list,Context context,Fragment frag){
+    public MeetingListAdapter(List<MeetingDetail> list,Context context,Fragment frag){
         this.list = list;
         this.context=context;
         fragment = frag;
@@ -42,7 +42,7 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListViewHold
 
     @Override
     public void onBindViewHolder(@NonNull MeetingListViewHolder meetingListViewHolder, int i) {
-        Room room = list.get(i);
+        MeetingDetail room = list.get(i);
         meetingListViewHolder.title.setText(room.getRoomName());
         meetingListViewHolder.imgview.setImageResource(room.getProfileImage());
         meetingListViewHolder.location.setText(room.getLocation());

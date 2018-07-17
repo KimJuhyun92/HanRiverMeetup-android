@@ -18,7 +18,7 @@ import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.Category.MeetingCategoryAdapter;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.List.MeetingListAdapter;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.Activity;
-import com.depromeet.hanriver.hanrivermeetup.model.meeting.Room;
+import com.depromeet.hanriver.hanrivermeetup.model.meeting.MeetingDetail;
 
 import java.util.List;
 
@@ -88,7 +88,7 @@ public class MeetingListInnerFragment extends Fragment{
         mCompositeDisposable.clear();
     }
 
-    private void setRooms(@NonNull final List<Room> Rooms) {
+    private void setRooms(@NonNull final List<MeetingDetail> Rooms) {
 
 //        gridview.setAdapter(new GridAdapter(getActivity(),activites));
         recyclerView.setLayoutManager(rvManager);

@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
 
@@ -23,7 +24,7 @@ import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
     @NonNull
-    private TabLayout tabLayout;
+    private static TabLayout tabLayout;
 
     @NonNull
     private ViewPager viewPager;
@@ -33,10 +34,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         // Initializing the TabLayout
         tabLayout = findViewById(R.id.tablayout);
-        tabLayout.addTab(tabLayout.newTab().setText("Tab One"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab Two"));
+        tabLayout.addTab(tabLayout.newTab().setText("같이놀강"));
+        tabLayout.addTab(tabLayout.newTab().setText("마이한강"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         // Initializing ViewPager
@@ -65,6 +67,10 @@ public class MainActivity extends AppCompatActivity {
                 
             }
         });
+    }
+
+    public static void tabVisible(int visible){
+        tabLayout.setVisibility(visible);
     }
 
 }
