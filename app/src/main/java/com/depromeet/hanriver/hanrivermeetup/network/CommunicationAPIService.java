@@ -10,7 +10,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-public interface CommunicationService {
+public interface CommunicationAPIService {
     @GET("comments/{meetingID}")
     Comment getComments(@Path("meetingID") int meetingID);
 

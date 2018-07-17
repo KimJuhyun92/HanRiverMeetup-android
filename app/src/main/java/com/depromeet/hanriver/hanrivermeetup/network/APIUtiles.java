@@ -11,19 +11,19 @@ public class APIUtiles {
     public static final String COMM_API_URL = BASE_URL + "comm/";
     public static final String ACCESS_API_URL = BASE_URL + "access/";
 
-    public static HostService getHostService(){
-        return RetrofitClient.getClient(HOST_API_URL).create(HostService.class);
+    public static LoginAPIService getLoginService(){
+        return RetrofitClient.getClient(ACCESS_API_URL).create(LoginAPIService.class);
     }
 
-    public static GuestService getGuestService(){
-        return RetrofitClient.getClient(GUEST_API_URL).create(GuestService.class);
+    public static HostAPIService getHostService(String accessToken){
+        return RetrofitClient.getClientWithToken(HOST_API_URL, accessToken).create(HostAPIService.class);
     }
 
-    public static LoginService getLoginService(){
-        return RetrofitClient.getClient(ACCESS_API_URL).create(LoginService.class);
+    public static GuestAPIService getGuestService(String accessToken){
+        return RetrofitClient.getClientWithToken(GUEST_API_URL, accessToken).create(GuestAPIService.class);
     }
 
-    public static CommunicationService getCommunicationService(){
-        return RetrofitClient.getClient(COMM_API_URL).create(CommunicationService.class);
+    public static CommunicationAPIService getCommunicationService(String accessToken){
+        return RetrofitClient.getClientWithToken(COMM_API_URL, accessToken).create(CommunicationAPIService.class);
     }
 }

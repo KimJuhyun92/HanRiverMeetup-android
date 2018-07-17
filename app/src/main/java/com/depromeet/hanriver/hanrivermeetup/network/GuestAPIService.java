@@ -7,7 +7,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-public interface GuestService {
+public interface GuestAPIService {
     @POST("join/")
     JoinRequest joinMeeting(@Body JoinRequest joinRequest);
 

@@ -4,7 +4,6 @@ import android.app.Application;
 import android.support.annotation.NonNull;
 
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ActivityDataModel;
-import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.CreateRoomDataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.IActivityDataModel;
 
 import com.depromeet.hanriver.hanrivermeetup.datamodel.mypage.IMyPageTab1DataModel;
@@ -14,12 +13,8 @@ import com.depromeet.hanriver.hanrivermeetup.datamodel.timeline.TimelineDataMode
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingCategoryViewModel;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.ViewModel.Tab1ViewModel;
 
-import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ICreateRoomDataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.IMeetingListInnerDataModel;
-import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ITimelineDataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.MeetingListInnerDataModel;
-import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.TimelineDataModel;
-import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingCategoryViewModel;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingListInnerViewModel;
 
 import com.depromeet.hanriver.hanrivermeetup.fragment.timeline.TimelineViewModel;
