@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
+import com.depromeet.hanriver.hanrivermeetup.activity.main.MainActivity;
+import com.depromeet.hanriver.hanrivermeetup.model.meeting.Activity;
+import com.depromeet.hanriver.hanrivermeetup.service.LoginService;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -32,25 +35,28 @@ public class LoginFragment extends Fragment{
 
         if(AccessToken.getCurrentAccessToken() != null) { //기존 로그인 되어있을 경우
             accessed_token = AccessToken.getCurrentAccessToken().getToken();
-            Log.d("accessed_token@@: "," "+getAccessed_token());
+
+            Intent i = new Intent(getActivity(), MainActivity.class);
+            startActivity(i);
         }
 
-        //FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
-
         fb_loginButton = view.findViewById(R.id.login_button);
         fb_loginButton.setFragment(this);
         fb_loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) { //로그인 버튼 눌러서 로그인 성공 시
-                // App code
-                Log.d("AccessToken@@ : "," "+loginResult.getAccessToken().getToken());
-                Log.d("UserId@@ : ",""+loginResult.getAccessToken().getUserId());
+                String id = loginResult.getAccessToken().getUserId();
+                String token = loginResult.getAccessToken().getToken();
+
                 setAccessed_token(loginResult.getAccessToken().getToken());
 
-                getFragmentManager().beginTransaction().
-                        replace(R.id.login_activity_container, new CreateAccountFragment()).
-                        addToBackStack("frags").commit();
+                LoginService.getInstance().login(id, token)
+                .subscribe(b -> {
+                    getFragmentManager().beginTransaction().
+                            replace(R.id.login_activity_container, new CreateAccountFragment()).
+                            addToBackStack("frags").commit();
+                });
             }
 
             @Override
