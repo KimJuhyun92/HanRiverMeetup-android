@@ -38,9 +38,7 @@ public class TimelineFragment extends Fragment {
     private TimelineViewModel mViewModel;
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<TimeLineVO> myDataset;
 
     public TimelineFragment() {
 
@@ -89,17 +87,17 @@ public class TimelineFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
 
-        btn= v.findViewById(R.id.btn);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                TestFragment test = TestFragment.newInstance();
-                ft.replace(R.id.root_frame,new TestFragment());
-                ft.addToBackStack(null);
-                ft.commit();
-            }
-        });
+//        btn= v.findViewById(R.id.btn);
+//        btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                FragmentTransaction ft = getFragmentManager().beginTransaction();
+//                TestFragment test = TestFragment.newInstance();
+//                ft.replace(R.id.root_frame,new TestFragment());
+//                ft.addToBackStack(null);
+//                ft.commit();
+//            }
+//        });
     }
 
 
@@ -129,7 +127,6 @@ public class TimelineFragment extends Fragment {
     }
 
     private void setTimeLines(@NonNull final List<TimeLineVO> timeLines) {
-//        mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setAdapter(new TimeLineAdapter(getActivity(),timeLines));
     }
 
