@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.depromeet.hanriver.hanrivermeetup.Activity.main.MainActivity;
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.List.MeetingListTapPagerAdapter;
 
@@ -40,7 +41,7 @@ public class MeetingListFragment extends Fragment{
     private void setupViews(View v) {
         fab = v.findViewById(R.id.meeting_list_fab);
         fab.setOnClickListener(mClick);
-
+        MainActivity.tabVisible(View.GONE);
         viewpager = v.findViewById(R.id.meeting_list_vp);
         Log.d("TAG","setupViews");
         tabLayout = v.findViewById(R.id.list_tablayout);

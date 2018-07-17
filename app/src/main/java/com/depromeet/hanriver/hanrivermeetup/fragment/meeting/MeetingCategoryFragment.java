@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.depromeet.hanriver.hanrivermeetup.Activity.main.MainActivity;
 import com.depromeet.hanriver.hanrivermeetup.HanRiverMeetupApplication;
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.Category.MeetingCategoryAdapter;
@@ -62,6 +63,7 @@ public class MeetingCategoryFragment extends Fragment {
         recyclerView = v.findViewById(R.id.category_rv);
         rvManager = new LinearLayoutManager(getContext());
         Log.d("TAG","setupViews");
+        MainActivity.tabVisible(View.VISIBLE);
 
 //        gridview.setAdapter(new GridAdapter(this.getActivity(),));
     }

@@ -24,7 +24,7 @@
         android:layout_height="35dp"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="126dp"
-        android:src="@drawable/com_facebook_button_icon_blue" />
+        android:src="@drawable/ic_weather_sunny" />
 
     <TextView
         android:id="@+id/weather_text"
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:lineSpacingExtra="6sp"
-        android:text="ＴODAY\n맑음, 20℃ / 32℃"
+        android:text="TODAY\n맑음, 20℃ / 32℃"
 
         />
 

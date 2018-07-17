@@ -28,6 +28,7 @@ public class MainTabPagerAdapter extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
                 return new meetingRootFragment();
+//                return new LoginFragment();
 //                return null;
             case 1:
                 return new MyPageFragment();
