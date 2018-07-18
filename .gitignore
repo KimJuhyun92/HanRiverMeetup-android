@@ -21,6 +21,7 @@ out/
 
 # Properties
 keystore.properties
+string_key.xml
 
 # Gradle files
 .gradle/

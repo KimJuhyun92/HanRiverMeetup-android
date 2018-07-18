@@ -1,15 +1,10 @@
-package com.depromeet.hanriver.hanrivermeetup.Activity.main;
+package com.depromeet.hanriver.hanrivermeetup.activity.main;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.depromeet.hanriver.hanrivermeetup.fragment.login.LoginFragment;
-import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingCategoryFragment;
-
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.meetingRootFragment;
-import com.depromeet.hanriver.hanrivermeetup.fragment.timeline.TimelineFragment;
-
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.MyPageFragment;
 
 public class MainTabPagerAdapter extends FragmentStatePagerAdapter {
