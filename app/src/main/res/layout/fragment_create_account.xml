@@ -1,14 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.login.CreateAccountFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/create_nickname_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment"
+        android:inputType="textMultiLine"
+        android:textSize="22sp"
+        android:lineHeight="39sp"
+        android:lineSpacingExtra="17sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="160dp"
+        android:layout_marginLeft="23dp"
+        />
+    <android.support.v7.widget.AppCompatEditText android:id="@+id/edit_message"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:hint="@string/insert_nickname_hint"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/create_nickname_title"
+        android:layout_marginTop="79dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginRight="23dp"
+        app:backgroundTint="@color/greyish"
+        android:textCursorDrawable="@null"
+        android:paddingBottom="16dp"
+        android:textColor="@color/clear_blue"/>
+    <Button
+        android:id="@+id/create_nickname_button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/greyish"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:text="등록하기"/>
+</android.support.constraint.ConstraintLayout>

@@ -36,8 +36,12 @@ public class LoginFragment extends Fragment{
         if(AccessToken.getCurrentAccessToken() != null) { //기존 로그인 되어있을 경우
             accessed_token = AccessToken.getCurrentAccessToken().getToken();
 
-            Intent i = new Intent(getActivity(), MainActivity.class);
-            startActivity(i);
+//            Intent i = new Intent(getActivity(), MainActivity.class);
+//            startActivity(i);
+
+            getFragmentManager().beginTransaction().
+                    replace(R.id.login_activity_container, new CreateAccountFragment()).
+                    addToBackStack("frags").commit();
         }
 
         callbackManager = CallbackManager.Factory.create();
