@@ -16,7 +16,7 @@
         android:lineSpacingExtra="10sp"
         android:text="한강에서\n원하는 모임을 선택하세요"
         android:textColor="#333333"
-        android:textSize="22sp" />
+        android:textSize="30sp" />
 
     <ImageView
         android:id="@+id/weather_img"

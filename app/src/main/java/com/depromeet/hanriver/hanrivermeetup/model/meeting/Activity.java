@@ -9,12 +9,13 @@ public class Activity {
     @NonNull
     private final String mDescription;
 
-//    @NonNull
-//    private final String mImage;
+    @NonNull
+    private final int mImage;
 
-    public Activity(@NonNull final String name, @NonNull final String description) {
+    public Activity(@NonNull final String name, @NonNull final String description,final int Image) {
         mName = name;
         mDescription = description;
+        mImage = Image;
     }
 
     @NonNull
@@ -25,6 +26,11 @@ public class Activity {
     @NonNull
     public String getDescription() {
         return mDescription;
+    }
+
+    @NonNull
+    public int getmImage() {
+        return mImage;
     }
 }
 
