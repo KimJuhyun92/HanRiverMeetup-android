@@ -19,16 +19,16 @@ public class RetrofitClient {
         return retrofit;
     }
 
-    public static Retrofit getClientWithToken(String url, final String AccessToken) {
+    public static Retrofit getClientWithToken(String url, final String accessToken, final String id) {
         Retrofit retrofit = null;
         Retrofit.Builder builder = new Retrofit.Builder().baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync());
 
 
-        if (!TextUtils.isEmpty(AccessToken)) {
+        if (!TextUtils.isEmpty(accessToken)  && !TextUtils.isEmpty(id)) {
             AuthenticationInterceptor interceptor =
-                    new AuthenticationInterceptor(AccessToken);
+                    new AuthenticationInterceptor(accessToken, id);
 
             if (!httpClient.interceptors().contains(interceptor)) {
                 httpClient.addInterceptor(interceptor);

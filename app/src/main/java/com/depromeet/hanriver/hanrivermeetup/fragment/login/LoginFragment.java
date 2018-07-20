@@ -3,6 +3,7 @@ package com.depromeet.hanriver.hanrivermeetup.fragment.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ public class LoginFragment extends Fragment{
     CallbackManager callbackManager; //요청 응답 받을 것
 
     private static String accessed_token; // 로그인 되어있을 경우 저장된 토큰
+    private static String user_id;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,13 +37,9 @@ public class LoginFragment extends Fragment{
 
         if(AccessToken.getCurrentAccessToken() != null) { //기존 로그인 되어있을 경우
             accessed_token = AccessToken.getCurrentAccessToken().getToken();
+            user_id = AccessToken.getCurrentAccessToken().getUserId();
 
-            Intent i = new Intent(getActivity(), MainActivity.class);
-            startActivity(i);
-
-//            getFragmentManager().beginTransaction().
-//                    replace(R.id.login_activity_container, new CreateAccountFragment()).
-//                    addToBackStack("frags").commit();
+            login(user_id, accessed_token);
         }
 
         callbackManager = CallbackManager.Factory.create();
@@ -55,12 +53,7 @@ public class LoginFragment extends Fragment{
 
                 setAccessed_token(loginResult.getAccessToken().getToken());
 
-                LoginService.getInstance().login(id, token)
-                .subscribe(b -> {
-                    getFragmentManager().beginTransaction().
-                            replace(R.id.login_activity_container, new CreateAccountFragment()).
-                            addToBackStack("frags").commit();
-                });
+                login(id, token);
             }
 
             @Override
@@ -75,6 +68,26 @@ public class LoginFragment extends Fragment{
         });
 
         return view;
+    }
+
+    private void login(String id, String token) {
+        LoginService.getInstance().login(id, token)
+                .subscribe(user -> {
+                    if(user != null && TextUtils.isEmpty(user.nickname)) {
+                        getFragmentManager().beginTransaction().
+                                replace(R.id.login_activity_container, new CreateAccountFragment()).
+                                commitAllowingStateLoss();
+                    }
+                    else if(!TextUtils.isEmpty(user.nickname)) {
+                        moveToMain();
+                    }
+                });
+    }
+
+    private void moveToMain() {
+        // TODO : 추후 로그인 백스택을 모두 지워야함
+        Intent i = new Intent(getActivity(), MainActivity.class);
+        startActivity(i);
     }
 
     @Override
