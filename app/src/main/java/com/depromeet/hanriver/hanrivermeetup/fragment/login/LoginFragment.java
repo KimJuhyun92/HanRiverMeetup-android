@@ -60,6 +60,8 @@ public class LoginFragment extends Fragment{
                     getFragmentManager().beginTransaction().
                             replace(R.id.login_activity_container, new CreateAccountFragment()).
                             addToBackStack("frags").commit();
+
+
                 });
             }
 

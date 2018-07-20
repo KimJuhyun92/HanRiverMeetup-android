@@ -35,6 +35,15 @@ public class LoginService {
 
         return mService.getAccessToken(loginInfo)
                 .subscribeOn(Schedulers.io())
-                .map(it -> it != null);
+                .map(it -> {
+                    setServices(it.hangangToken, it.userID);
+                    return it != null;
+                });
+    }
+
+    private void setServices(String token, String id) {
+        HostService.getInstance().setService(token, id);
+        GuestService.getInstance().setService(token, id);
+        CommunicationService.getInstance().setService(token, id);
     }
 }

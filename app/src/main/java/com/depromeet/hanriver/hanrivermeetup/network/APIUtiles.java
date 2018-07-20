@@ -15,15 +15,15 @@ public class APIUtiles {
         return RetrofitClient.getClient(ACCESS_API_URL).create(LoginAPIService.class);
     }
 
-    public static HostAPIService getHostService(String accessToken){
-        return RetrofitClient.getClientWithToken(HOST_API_URL, accessToken).create(HostAPIService.class);
+    public static HostAPIService getHostService(String accessToken, String id){
+        return RetrofitClient.getClientWithToken(HOST_API_URL, accessToken, id).create(HostAPIService.class);
     }
 
-    public static GuestAPIService getGuestService(String accessToken){
-        return RetrofitClient.getClientWithToken(GUEST_API_URL, accessToken).create(GuestAPIService.class);
+    public static GuestAPIService getGuestService(String accessToken, String id){
+        return RetrofitClient.getClientWithToken(GUEST_API_URL, accessToken, id).create(GuestAPIService.class);
     }
 
-    public static CommunicationAPIService getCommunicationService(String accessToken){
-        return RetrofitClient.getClientWithToken(COMM_API_URL, accessToken).create(CommunicationAPIService.class);
+    public static CommunicationAPIService getCommunicationService(String accessToken, String id){
+        return RetrofitClient.getClientWithToken(COMM_API_URL, accessToken, id).create(CommunicationAPIService.class);
     }
 }
