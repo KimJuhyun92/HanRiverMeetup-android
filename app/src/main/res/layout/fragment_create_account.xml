@@ -23,7 +23,8 @@
         android:layout_marginTop="160dp"
         android:layout_marginLeft="23dp"
         />
-    <android.support.v7.widget.AppCompatEditText android:id="@+id/edit_message"
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/edit_nickname"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
