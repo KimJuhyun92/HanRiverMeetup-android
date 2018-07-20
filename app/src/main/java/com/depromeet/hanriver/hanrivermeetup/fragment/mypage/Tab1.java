@@ -48,7 +48,7 @@ public class Tab1 extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        LinearLayout v = (LinearLayout) inflater.inflate(R.layout.tab1_fragment, container, false);
+        LinearLayout v = (LinearLayout) inflater.inflate(R.layout.mypage_tab1_maked_room, container, false);
         setupViews(v);
 
 

@@ -30,10 +30,22 @@ public class MyPageFragment extends Fragment{
 
         // Initializing the TabLayout
         tabLayout = view.findViewById(R.id.tablayout2);
-        tabLayout.addTab(tabLayout.newTab().setText("test1"));
-        tabLayout.addTab(tabLayout.newTab().setText("test2"));
-        tabLayout.addTab(tabLayout.newTab().setText("test3"));
+
+        View tabView1 = LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab1_layout, null, false);
+        tabLayout.addTab(tabLayout.newTab().setCustomView(tabView1));
+
+        View tabView2 = LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab2_layout, null, false);
+        tabLayout.addTab(tabLayout.newTab().setCustomView(tabView2));
+
+        View tabView3 = LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab3_layout, null, false);
+        tabLayout.addTab(tabLayout.newTab().setCustomView(tabView3));
+
+//        tabLayout.addTab(tabLayout.newTab().setText("내가 만든 모임"));
+//        tabLayout.addTab(tabLayout.newTab().setText("내가 신청한 모임"));
+//        tabLayout.addTab(tabLayout.newTab().setText("매칭된 모임"));
+
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
 
         // Initializing ViewPager
         viewPager = view.findViewById(R.id.viewpager2);

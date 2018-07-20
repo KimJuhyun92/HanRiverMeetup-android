@@ -6,6 +6,7 @@ keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
     compileSdkVersion 28
+
     defaultConfig {
         applicationId "com.depromeet.hanriver.hanrivermeetup"
         minSdkVersion 16
