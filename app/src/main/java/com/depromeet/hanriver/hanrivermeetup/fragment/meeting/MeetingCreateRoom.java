@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,12 +16,17 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
+import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.CreateRoom.ExpandableListAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MeetingCreateRoom extends DialogFragment{
-    RecyclerView rv;
+//    RecyclerView rv;
     EditText roomname,roomcontent;
     ImageButton profileimg;
     Button createbtn;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +55,18 @@ public class MeetingCreateRoom extends DialogFragment{
         roomcontent= v.findViewById(R.id.room_content);
         profileimg = v.findViewById(R.id.profile_img);
         createbtn = v.findViewById(R.id.create_btn);
+//        rv = v.findViewById(R.id.createroom_rv);
+//        rv.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+//        List<ExpandableListAdapter.Item> data = new ArrayList<>();
+//        ExpandableListAdapter.Item places = new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "시간","11:00");
+//        places.invisibleChildren = new ArrayList<>();
+//        places.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Kerala","a"));
+//        places.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Tamil Nadu","a"));
+//        places.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Karnataka","a"));
+//        places.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Maharashtra","a"));
+//        data.add(places);
+//        rv.setAdapter(new ExpandableListAdapter(data));
+
     }
 
     @Override

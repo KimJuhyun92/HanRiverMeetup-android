@@ -42,6 +42,7 @@ public class MeetingCategoryAdapter extends RecyclerView.Adapter<MeetingCategory
     public void onBindViewHolder(@NonNull MeetingCategoryViewHolder meetingCategoryViewHolder, int i) {
         Activity act = list.get(i);
         meetingCategoryViewHolder.textview.setText(act.getName());
+        meetingCategoryViewHolder.imgview.setImageResource(act.getmImage());
         //meetingCategoryViewHolder.imgview.setImageResource(// 해당 이미지 아이디 넣어줄 것);
 
     }

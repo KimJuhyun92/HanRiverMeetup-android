@@ -2,6 +2,7 @@ package com.depromeet.hanriver.hanrivermeetup.datamodel.meeting;
 
 import android.support.annotation.NonNull;
 
+import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.Activity;
 
 import java.util.Arrays;
@@ -20,8 +21,11 @@ public class ActivityDataModel implements IActivityDataModel{
     @NonNull
     private List<Activity> getActivites() {
         return Arrays
-                .asList(new Activity("자전거타기", "자전거를 같이 타요!"),
-                        new Activity("산책하기", "한강을 거닐어요"),
-                        new Activity("오리배타기", "오리배를 같이 타요!"));
+                .asList(new Activity("치킨 같이먹을 사람~", "!", R.drawable.ic_chicken_icon),
+                        new Activity("자전거 같이 탈래?", "!",R.drawable.ic_bike_icon),
+                        new Activity("오리배 타자!", "!",R.drawable.ic_ori_icon),
+                        new Activity("캠핑 함께 즐겨요~", "!",R.drawable.ic_camping_icon),
+                        new Activity("사진 같이 찍을래?", "!",R.drawable.ic_photo_icon),
+                        new Activity("그 밖의 한강모임들", "!",R.drawable.ic_etc_icon));
     }
 }

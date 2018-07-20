@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="48dp">
+    android:layout_height="50dp">
 
     <TextView
         android:id="@+id/rv_item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
-        android:layout_marginLeft="23dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="25dp"
         android:textSize="12sp"
         android:textColor="#000000"
         android:lineSpacingExtra="20sp"
@@ -19,7 +19,8 @@
     <TextView
         android:id="@+id/rv_item_text"
         android:layout_marginTop="24dp"
-        android:layout_marginLeft="53dp"
+        android:layout_toRightOf="@id/rv_item_name"
+        android:layout_marginLeft="7dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="12sp"
@@ -30,10 +31,12 @@
 
     <ImageView
         android:id="@+id/createroom_rv_img"
-        android:layout_width="21dp"
+        android:layout_width="30dp"
         android:layout_height="13dp"
-        android:layout_marginLeft="316dp"
-        android:layout_marginTop="20dp" />
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="23dp"
+        android:layout_marginTop="23dp"
+        android:src="@drawable/ic_down_arrow"/>
 
 
-</FrameLayout>
+</RelativeLayout>
