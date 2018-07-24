@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -94,8 +95,8 @@ public class MeetingListFragment extends Fragment{
         public void onClick(View view) {
 //            FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
 ////        TestFrag frag = new TestFrag();
-//            MeetingCreateRoom frag = MeetingCreateRoom.newInstance();
-//            fragTransaction.add(R.id.meeting_root, frag);
+//            MeetingDetailFragment frag = MeetingDetailFragment.newInstance();
+//            fragTransaction.replace(R.id.meeting_root, frag);
 //            fragTransaction.addToBackStack(null);
 //            fragTransaction.commit();
             MeetingCreateRoom dialog = MeetingCreateRoom.newInstance();
