@@ -1,6 +1,7 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.mypage.Adapter;
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,14 +10,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
+import com.depromeet.hanriver.hanrivermeetup.model.mypage.ApplicantVO;
 import com.depromeet.hanriver.hanrivermeetup.model.mypage.Tab1VO;
 
-import org.w3c.dom.Text;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class Tab1Adapter extends RecyclerView.Adapter<Tab1Adapter.ItemViewHolder>{
-    LayoutInflater inflater;
+    private LayoutInflater inflater;
+    private Context mContext;
     private List<Tab1VO> mItems;
     private android.app.Activity mAct;
 
@@ -33,6 +35,7 @@ public class Tab1Adapter extends RecyclerView.Adapter<Tab1Adapter.ItemViewHolder
         public TextView mTime;
         public TextView mCost;
         public TextView mParticipants;
+        public RecyclerView applicant_list;
 
         public ItemViewHolder(View view) {
             super(view);
@@ -40,6 +43,7 @@ public class Tab1Adapter extends RecyclerView.Adapter<Tab1Adapter.ItemViewHolder
             mTime = view.findViewById(R.id.meeting_time);
             mCost = view.findViewById(R.id.expected_cost);
             mParticipants = view.findViewById(R.id.participants_cnt);
+            applicant_list = view.findViewById(R.id.applicant_list);
         }
     }
 
@@ -56,6 +60,28 @@ public class Tab1Adapter extends RecyclerView.Adapter<Tab1Adapter.ItemViewHolder
         holder.mTime.setText(mItems.get(position).getMeeting_time());
         holder.mCost.setText(String.valueOf(mItems.get(position).getExpected_cost()));
         holder.mParticipants.setText(String.valueOf(mItems.get(position).getParticipants_cnt()));
+
+
+        //Horizontal RecyclerView TEST
+
+        ArrayList<ApplicantVO> test = new ArrayList<ApplicantVO>();
+        test.add(new ApplicantVO("test1",R.drawable.ic_chicken_icon));
+        test.add(new ApplicantVO("test2",R.drawable.ic_camping_icon));
+        test.add(new ApplicantVO("test3",R.drawable.ic_chicken_icon));
+        test.add(new ApplicantVO("test4",R.drawable.ic_camping_icon));
+        test.add(new ApplicantVO("test5",R.drawable.ic_camping_icon));
+        test.add(new ApplicantVO("test6",R.drawable.ic_camping_icon));
+        test.add(new ApplicantVO("test7",R.drawable.ic_camping_icon));
+        test.add(new ApplicantVO("test8",R.drawable.ic_camping_icon));
+        test.add(new ApplicantVO("test9",R.drawable.ic_camping_icon));
+
+        ApplicantListAdapter applicantListAdapter = new ApplicantListAdapter(mContext,test);
+        holder.applicant_list.setHasFixedSize(true);
+        holder.applicant_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+        holder.applicant_list.setAdapter(applicantListAdapter);
+
+
+
     }
 
     // 데이터 셋의 크기를 리턴해줍니다. 
