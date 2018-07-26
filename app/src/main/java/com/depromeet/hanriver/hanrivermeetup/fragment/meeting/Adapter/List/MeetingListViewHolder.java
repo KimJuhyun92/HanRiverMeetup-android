@@ -7,10 +7,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
-import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.Category.OnListItemClickListener;
 
 public class MeetingListViewHolder extends RecyclerView.ViewHolder{
-    OnListItemClickListener mListener;
+    OnListitemClickListener mListener;
     public ImageView imgview;
     public TextView title;
     public TextView location;
@@ -34,7 +33,7 @@ public class MeetingListViewHolder extends RecyclerView.ViewHolder{
         });
     }
 
-    public void setOnListItemClickListener(OnListItemClickListener onListItemClickListener){
+    public void setOnListItemClickListener(OnListitemClickListener onListItemClickListener){
         mListener=onListItemClickListener;
     }
 }

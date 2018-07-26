@@ -1,7 +1,9 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.List;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
@@ -11,15 +13,14 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
-import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.Category.MeetingCategoryViewHolder;
-import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.Category.OnListItemClickListener;
-import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingListFragment;
-import com.depromeet.hanriver.hanrivermeetup.model.meeting.Activity;
+import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingCategoryFragment;
+import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingCreateRoom;
+import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingDetailFragment;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.MeetingDetail;
 
 import java.util.List;
 
-public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListViewHolder> implements OnListItemClickListener {
+public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListViewHolder> implements OnListitemClickListener {
     List<MeetingDetail> list;
     Context context;
     Fragment fragment;
@@ -60,11 +61,13 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListViewHold
 
     @Override
     public void onListItemClick(int position) {
-//        FragmentTransaction fragTransaction = fragment.getFragmentManager().beginTransaction();
-////        TestFrag frag = new TestFrag();
-//        MeetingListFragment frag = MeetingListFragment.newInstance();
-//        fragTransaction.replace(R.id.meeting_root, frag);
-//        fragTransaction.addToBackStack(null);
-//        fragTransaction.commit();
+//        FragmentTransaction fragmentTransaction = fragment.getFragmentManager().beginTransaction();
+//        MeetingDetailFragment frag = MeetingDetailFragment.newInstance();
+//        fragmentTransaction.replace(R.id.meeting_root,frag);
+//        fragmentTransaction.addToBackStack(null);
+//        fragmentTransaction.commit();
+        MeetingDetailFragment dialog = MeetingDetailFragment.newInstance();
+        dialog.setStyle(DialogFragment.STYLE_NO_TITLE,android.R.style.Theme_Holo_Light);
+        dialog.show(fragment.getFragmentManager(),"meeting_detail");
     }
 }

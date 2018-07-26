@@ -25,11 +25,8 @@ public class MeetingListTapPagerAdapter extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
                 return new MeetingListInnerFragment();
-//                return new meetingRootFragment();
             case 1:
                 return new MeetingListInnerFragment();
-//                return new MyPageFragment();
-//                return new LoginFragment();
             case 2:
                 return new MeetingListInnerFragment();
             case 3:

@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingDetailFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.meetingRootFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.MyPageFragment;
 
@@ -23,6 +24,7 @@ public class MainTabPagerAdapter extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
                 return new meetingRootFragment();
+//                return new MeetingDetailFragment();
 //                return new LoginFragment();
 //                return null;
             case 1:
