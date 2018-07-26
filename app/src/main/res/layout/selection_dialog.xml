@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:weightSum="1"
+    android:layout_width="312dp"
+    android:layout_height="102dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.45"
+        android:background="#2186f8">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="24dp"
+            android:textSize="14sp"
+            android:textColor="#ffffff"
+            android:lineSpacingExtra="18sp"
+            android:text="이분과 매칭하고 싶으싶니까?" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#ffffff"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.45"
+        android:background="#2186f8">
+        
+        <ImageView
+            android:id="@+id/nagative_button"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/mypage_profile"
+            />
+
+        <ImageView
+            android:id="@+id/positive_button"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_marginLeft="279dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/mypage_profile"
+            />
+
+    </FrameLayout>
+
+</LinearLayout>

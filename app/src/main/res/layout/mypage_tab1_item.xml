@@ -64,8 +64,8 @@
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/applied_people"
-        android:layout_marginTop="88dp"
+        android:id="@+id/applicant_list"
+        android:layout_marginTop="75dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="#2186f8"
