@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="220dp"
+        android:layout_height="15dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="24dp"
+        android:textSize="14sp"
+        android:text="TEST"/>
+    
+    <ImageView
+        android:layout_width="10dp"
+        android:layout_height="13dp"
+        android:background="@drawable/ic_positive_icon"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="44dp"
+        android:backgroundTint="#2186f8"/>
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="81dp"
+        android:layout_height="12dp"
+        android:layout_marginLeft="43dp"
+        android:layout_marginTop="44dp"
+        android:textColor="#2186f8"
+        android:textSize="10sp"
+        android:text="여의도 한강공원"/>
+
+    <LinearLayout
+        android:layout_width="195dp"
+        android:layout_height="17dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="64dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="14dp"
+            android:textSize="12sp"
+            android:text="시간"/>
+
+        <TextView
+            android:id="@+id/meeting_time"
+            android:layout_width="50dp"
+            android:layout_height="14dp" />
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="14dp"
+            android:textSize="12sp"
+            android:text="인원"/>
+
+        <TextView
+            android:id="@+id/participants_cnt"
+            android:layout_width="15dp"
+            android:layout_height="14dp" />
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="14dp"
+            android:textSize="12sp"
+            android:text="회비"/>
+
+        <TextView
+            android:id="@+id/expected_cost"
+            android:layout_width="40dp"
+            android:layout_height="14dp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/state"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginLeft="282dp"
+        android:layout_marginTop="23dp"
+        android:background="@drawable/mypage_profile"/>
+
+
+
+</FrameLayout>

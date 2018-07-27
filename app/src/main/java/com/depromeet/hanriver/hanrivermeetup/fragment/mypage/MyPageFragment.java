@@ -7,6 +7,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -19,7 +20,7 @@ public class MyPageFragment extends Fragment{
     private TabLayout tabLayout;
 
     @NonNull
-    private ViewPager viewPager;
+    private CustomViewpager viewPager;
 
 
     @Nullable
@@ -54,6 +55,7 @@ public class MyPageFragment extends Fragment{
         MyPageTabAdapter pagerAdapter = new MyPageTabAdapter(getChildFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
 
         // Set TabSelectedListener
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
