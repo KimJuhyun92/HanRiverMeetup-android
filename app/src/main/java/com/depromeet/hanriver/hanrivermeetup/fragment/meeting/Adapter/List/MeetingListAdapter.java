@@ -7,6 +7,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,12 +45,15 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListViewHold
     @Override
     public void onBindViewHolder(@NonNull MeetingListViewHolder meetingListViewHolder, int i) {
         MeetingDetail room = list.get(i);
-        meetingListViewHolder.title.setText(room.getRoomName());
-        meetingListViewHolder.imgview.setImageResource(room.getProfileImage());
-        meetingListViewHolder.location.setText(room.getLocation());
-        meetingListViewHolder.time.setText(room.getTime());
-        meetingListViewHolder.numofmem.setText(""+room.getNumOfmember()+"명");
-        meetingListViewHolder.fee.setText(""+room.getFee()+"원");
+        meetingListViewHolder.title.setText(room.getTitle());
+//        meetingListViewHolder.imgview.setImageResource();
+        meetingListViewHolder.location.setText(room.getMeeting_location());
+        String time = room.getMeeting_time();
+        time = time.substring(11,16);
+        Log.d("@@@@@","!@#!@#"+time);
+        meetingListViewHolder.time.setText(time);
+        meetingListViewHolder.numofmem.setText(""+room.getParticipants_cnt()+"명");
+        meetingListViewHolder.fee.setText(""+room.getExpected_cost()+"원");
         //meetingCategoryViewHolder.imgview.setImageResource(// 해당 이미지 아이디 넣어줄 것);
 
     }

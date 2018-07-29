@@ -9,6 +9,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.telecom.Call;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,21 +18,35 @@ import android.view.ViewGroup;
 import com.depromeet.hanriver.hanrivermeetup.activity.main.MainActivity;
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.List.MeetingListTapPagerAdapter;
+import com.depromeet.hanriver.hanrivermeetup.model.meeting.MeetingDetail;
+import com.depromeet.hanriver.hanrivermeetup.network.RetrofitClient;
+import com.depromeet.hanriver.hanrivermeetup.service.HostService;
+import com.google.gson.Gson;
+
+import java.util.List;
 
 public class MeetingListFragment extends Fragment{
 
     private FloatingActionButton fab;
     private ViewPager viewpager;
     private TabLayout tabLayout;
-
+    public static int  first_position;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        HostService.getInstance().getTodayList().subscribe(
+                list ->{
+                    Log.d("@@@@","@@@: "+list.get(0).getTitle());
+                    Log.d("@@@@","@@@: "+list.get(0).getUser_id());
+                    Log.d("@@@@","@@@: "+list.get(0).getExpected_cost());
+                    Log.d("@@@@","@@@: "+list.get(0).getParticipants_cnt());
+                    Log.d("@@@@","@@@: "+list.get(0).getMeeting_location());
+                }
+        );
     }
 
-    public static MeetingListFragment newInstance() {
-
+    public static MeetingListFragment newInstance(int position) {
+        first_position = position;
         Bundle args = new Bundle();
         MeetingListFragment fragment = new MeetingListFragment();
         fragment.setArguments(args);
@@ -55,6 +70,7 @@ public class MeetingListFragment extends Fragment{
 
         MeetingListTapPagerAdapter adapter = new MeetingListTapPagerAdapter(getChildFragmentManager(),tabLayout.getTabCount());
         viewpager.setAdapter(adapter);
+        viewpager.setCurrentItem(first_position);
         viewpager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
@@ -88,6 +104,9 @@ public class MeetingListFragment extends Fragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+
     }
 
     View.OnClickListener mClick = new View.OnClickListener() {

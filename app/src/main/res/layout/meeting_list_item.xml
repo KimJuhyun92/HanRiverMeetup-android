@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
     android:id="@+id/meeting_list_item"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -38,6 +38,7 @@
         />
 
     <TextView
+        android:id="@+id/listitem_time"
         android:layout_marginTop="57dp"
         android:layout_marginLeft="108dp"
         android:textSize="12sp"
@@ -47,16 +48,19 @@
         android:text="시간"/>
     <TextView
         android:id="@+id/list_item_time"
+        android:layout_toRightOf="@id/listitem_time"
         android:layout_marginTop="57dp"
-        android:layout_marginLeft="134dp"
+        android:layout_marginLeft="5dp"
         android:textSize="12sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="11:00"/>
 
     <TextView
-        android:layout_marginTop="76dp"
-        android:layout_marginLeft="108dp"
+        android:id="@+id/listitem_num"
+        android:layout_toRightOf="@id/list_item_time"
+        android:layout_marginTop="57dp"
+        android:layout_marginLeft="10dp"
         android:textSize="12sp"
         android:textColor="#949494"
         android:layout_width="wrap_content"
@@ -64,16 +68,19 @@
         android:text="인원" />
     <TextView
         android:id="@+id/list_item_numofmem"
-        android:layout_marginTop="76dp"
-        android:layout_marginLeft="134dp"
+        android:layout_toRightOf="@+id/listitem_num"
+        android:layout_marginTop="57dp"
+        android:layout_marginLeft="5dp"
         android:textSize="12sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="5명"/>
 
     <TextView
-        android:layout_marginTop="76dp"
-        android:layout_marginLeft="170dp"
+        android:id="@+id/listitem_fee"
+        android:layout_toRightOf="@id/list_item_numofmem"
+        android:layout_marginTop="57dp"
+        android:layout_marginLeft="10dp"
         android:textSize="12sp"
         android:textColor="#949494"
         android:layout_width="wrap_content"
@@ -81,11 +88,12 @@
         android:text="회비" />
     <TextView
         android:id="@+id/list_item_fee"
-        android:layout_marginTop="76dp"
-        android:layout_marginLeft="196dp"
+        android:layout_toRightOf="@id/listitem_fee"
+        android:layout_marginTop="57dp"
+        android:layout_marginLeft="5dp"
         android:textSize="12sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="20,000원"/>
 
-</FrameLayout>
+</RelativeLayout>

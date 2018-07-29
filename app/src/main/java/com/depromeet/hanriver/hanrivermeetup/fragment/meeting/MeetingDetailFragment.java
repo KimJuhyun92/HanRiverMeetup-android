@@ -98,10 +98,10 @@ public class MeetingDetailFragment extends DialogFragment{
 
     private void setMeetingDetail(@NonNull final MeetingDetail meetingDetail) {
 //        gridview.setAdapter(new GridAdapter(getActivity(),activites));
-            room_title.setText(""+meetingDetail.getRoomName());
-            detail_info.setText("시간 "+meetingDetail.getTime().toString()+" / 인원 "+String.valueOf(meetingDetail.getNumOfmember()+"명 / 회비 "+String.valueOf(meetingDetail.getFee())+"원"));
-            detail_location.setText(meetingDetail.getLocation()+"");
-            detail_content.setText(meetingDetail.getRoomContent()+"");
+            room_title.setText(""+meetingDetail.getTitle());
+            detail_info.setText("시간 "+meetingDetail.getMeeting_time().toString()+" / 인원 "+String.valueOf(meetingDetail.getParticipants_cnt())+"명 / 회비 "+String.valueOf(meetingDetail.getExpected_cost())+"원");
+            detail_location.setText(meetingDetail.getMeeting_location()+"");
+            detail_content.setText(meetingDetail.getDescription()+"");
             // TestFrag frag = new TestFrag();
 //        FragmentManager fragmentManager = getFragmentManager();
 

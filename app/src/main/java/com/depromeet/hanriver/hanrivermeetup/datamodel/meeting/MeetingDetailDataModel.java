@@ -18,6 +18,7 @@ public class MeetingDetailDataModel implements IMeetingDetailDataModel {
     }
     @NonNull
     private MeetingDetail getDetail() {
-        return new MeetingDetail(R.drawable.ic_app_logo,"같이 놀아요!!","여의도 한강 공원","13:00",3,20000,"캠핑 용품은 모두 구비 된 상태라 회비와 몸만 오시면 재밌게 즐기다 가실 수 있을거라고 장담합니다!","010-1234-1234");
+//        return new MeetingDetail(R.drawable.ic_app_logo,"같이 놀아요!!","여의도 한강 공원","13:00",3,20000,"캠핑 용품은 모두 구비 된 상태라 회비와 몸만 오시면 재밌게 즐기다 가실 수 있을거라고 장담합니다!","010-1234-1234");
+        return new MeetingDetail(0,"123123123","여의도 한강공원에서 놀아요",3,"여의도","12:00",30000,"12:00","12:00","한강 공원 가자","01012341234");
     }
 }

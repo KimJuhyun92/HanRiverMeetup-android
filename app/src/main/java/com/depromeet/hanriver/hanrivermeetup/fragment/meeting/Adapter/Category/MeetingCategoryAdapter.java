@@ -57,7 +57,7 @@ public class MeetingCategoryAdapter extends RecyclerView.Adapter<MeetingCategory
         Toast.makeText(context,""+list.get(position).getName()+" 눌림!",Toast.LENGTH_SHORT).show();
         FragmentTransaction fragTransaction = fragment.getFragmentManager().beginTransaction();
 //        TestFrag frag = new TestFrag();
-        MeetingListFragment frag = MeetingListFragment.newInstance();
+        MeetingListFragment frag = MeetingListFragment.newInstance(position);
         fragTransaction.replace(R.id.meeting_root, frag);
         fragTransaction.addToBackStack(null);
         fragTransaction.commit();

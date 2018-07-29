@@ -1,6 +1,7 @@
 package com.depromeet.hanriver.hanrivermeetup.service;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.depromeet.hanriver.hanrivermeetup.model.user.LoginInfo;
 import com.depromeet.hanriver.hanrivermeetup.model.user.User;
