@@ -7,6 +7,12 @@ import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ActivityDataModel
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.IActivityDataModel;
 
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.IMeetingDetailDataModel;
+import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ListFragment.BikeDataModel;
+import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ListFragment.BoatDataModel;
+import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ListFragment.CampingDataModel;
+import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ListFragment.ChickenDataModel;
+import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ListFragment.EtcDataModel;
+import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ListFragment.PhotoDataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.MeetingDetailDataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.mypage.IMyPageTab1DataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.timeline.ITimelineDataModel;
@@ -16,8 +22,8 @@ import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingCategoryVie
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingDetailViewModel;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.ViewModel.Tab1ViewModel;
 
-import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.IMeetingListInnerDataModel;
-import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.MeetingListInnerDataModel;
+import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ListFragment.IMeetingListInnerDataModel;
+import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ListFragment.MeetingListInnerDataModel;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingListInnerViewModel;
 
 import com.depromeet.hanriver.hanrivermeetup.fragment.timeline.TimelineViewModel;
@@ -41,6 +47,21 @@ public class HanRiverMeetupApplication extends Application {
     @NonNull
     private final IMeetingDetailDataModel mMeetingDetailDataModel;
 
+    @NonNull
+    private final IMeetingListInnerDataModel mChickenDataModel;
+
+    @NonNull
+    private final IMeetingListInnerDataModel mBoatDataModel;
+    @NonNull
+    private final IMeetingListInnerDataModel mCampingDataModel;
+    @NonNull
+    private final IMeetingListInnerDataModel mBikeDataModel;
+    @NonNull
+    private final IMeetingListInnerDataModel mPhotoDataModel;
+    @NonNull
+    private final IMeetingListInnerDataModel mEtcDataModel;
+
+
 //    @NonNull
 //    private final ICreateRoomDataModel mCreateRoomDataModel;
 
@@ -52,7 +73,12 @@ public class HanRiverMeetupApplication extends Application {
         mTab1DataModel =  new MyPageTab1DataModel();
         mMeetingListInnerDataModel = new MeetingListInnerDataModel();
         mMeetingDetailDataModel = new MeetingDetailDataModel();
-
+        mChickenDataModel = new ChickenDataModel();
+        mBikeDataModel = new BikeDataModel();
+        mBoatDataModel = new BoatDataModel();
+        mCampingDataModel = new CampingDataModel();
+        mPhotoDataModel = new PhotoDataModel();
+        mEtcDataModel = new EtcDataModel();
     }
 
     @NonNull
@@ -71,6 +97,13 @@ public class HanRiverMeetupApplication extends Application {
     public IMeetingListInnerDataModel getMeetingListInnerDataModel(){ return mMeetingListInnerDataModel;}
 
     public IMeetingDetailDataModel getMeetingDeailtDataModel(){ return mMeetingDetailDataModel; }
+
+    public IMeetingListInnerDataModel getChickenListDataModel(){ return mChickenDataModel; }
+    public IMeetingListInnerDataModel getCampingDataModel(){ return mCampingDataModel; }
+    public IMeetingListInnerDataModel getBikeDataModel(){ return mBikeDataModel; }
+    public IMeetingListInnerDataModel getBoatDataModel(){ return mBoatDataModel; }
+    public IMeetingListInnerDataModel getPhotoDataModel(){ return mPhotoDataModel; }
+    public IMeetingListInnerDataModel getEtcDataModel(){ return mEtcDataModel; }
 //    @NonNull
 //    public ICreateRoomDataModel getCreateRoomDataModel(){
 //        return mCreateRoomDataModel;
@@ -106,6 +139,27 @@ public class HanRiverMeetupApplication extends Application {
     public MeetingDetailViewModel getMeetingDetailViewModel(){
         return new MeetingDetailViewModel(getMeetingDeailtDataModel(),getSchedulerProvider());
     }
+
+    public MeetingListInnerViewModel getChickenListViewModel(){
+        return new MeetingListInnerViewModel(getChickenListDataModel(),getSchedulerProvider());
+    }
+
+    public MeetingListInnerViewModel getBikeListViewModel(){
+        return new MeetingListInnerViewModel(getBikeDataModel(),getSchedulerProvider());
+    }
+    public MeetingListInnerViewModel getBoatListViewModel(){
+        return new MeetingListInnerViewModel(getBoatDataModel(),getSchedulerProvider());
+    }
+    public MeetingListInnerViewModel getCampingListViewModel(){
+        return new MeetingListInnerViewModel(getCampingDataModel(),getSchedulerProvider());
+    }
+    public MeetingListInnerViewModel getPhotoListViewModel(){
+        return new MeetingListInnerViewModel(getPhotoDataModel(),getSchedulerProvider());
+    }
+    public MeetingListInnerViewModel getEtcListViewModel(){
+        return new MeetingListInnerViewModel(getEtcDataModel(),getSchedulerProvider());
+    }
+
 //    @NonNull
 //    public CreateRoomDataModel getCreateRoomDataModel(){
 //        return new CreateRoomDataModel(getCreateRoomDataModel(),getSchedulerProvider());

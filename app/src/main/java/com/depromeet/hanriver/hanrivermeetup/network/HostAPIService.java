@@ -3,6 +3,9 @@ package com.depromeet.hanriver.hanrivermeetup.network;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.MeetingDetail;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.JoinRequest;
 
+import java.util.List;
+
+import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -24,7 +27,7 @@ public interface HostAPIService {
     boolean deleteMeeting(@Path("meetingID") int meetingID);
 
     @GET("meetings/today")
-    MeetingDetail getMeetingsOnToday();
+    Observable<List<MeetingDetail>> getMeetingsOnToday();
 
     @GET("requests/{requestID}")
     JoinRequest getRequestsById(@Path("requestID") int id);

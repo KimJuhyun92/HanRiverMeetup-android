@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <TextView
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@color/clear_blue"
+        android:lineSpacingExtra="12sp"
+        android:text="김태성 님의
+모임에 참여하시겠습니까?"
+        />
+
+    <ImageButton
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/ic_plus"/>
+
+    <ImageView
+        android:id="@+id/join_profile_img"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="160dp"
+        app:srcCompat="@drawable/person_icon"
+        ></ImageView>
+
+    <TextView
+        android:id="@+id/join_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:textColor="@color/black"
+        android:lineSpacingExtra="6.2sp"
+        android:text="닉네임"
+        android:layout_marginTop="180dp"
+        android:layout_marginLeft="110dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/meeting_join_ll1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_below="@id/join_profile_img">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:lineSpacingExtra="20sp"
+            android:text="참여인원"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="25dp"
+            android:textStyle="bold" />
+        <EditText
+            android:id="@+id/join_participants_cnt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:lineSpacingExtra="20sp"
+            android:text="20"
+            android:textColor="@color/warm_grey"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="24dp"
+            android:background="@null"
+            />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            ></View>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/warm_grey"
+            android:lineSpacingExtra="20sp"
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="30dp"
+            android:text="명"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/meeting_join_ll2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_below="@id/meeting_join_ll1">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:lineSpacingExtra="20sp"
+            android:text="연락처"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="25dp"
+            android:textStyle="bold" />
+        <EditText
+            android:id="@+id/join_contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:lineSpacingExtra="20sp"
+            android:text="카카오톡 아이디 또는 연락처 11자리"
+            android:textColor="@color/warm_grey"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="24dp"
+            android:background="@null"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/meeting_join_ll3"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_below="@id/meeting_join_ll2">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:lineSpacingExtra="20sp"
+            android:text="참여이유"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="25dp"
+            android:textStyle="bold" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            ></View>
+        <TextView
+            android:id="@+id/join_content_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="[10/150]"
+            android:layout_marginTop="25dp"
+            android:textSize="12sp"
+            android:layout_marginRight="25dp"
+            />
+    </LinearLayout>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="@color/warm_grey"
+        android:lineSpacingExtra="8sp"
+        android:text="모임에 참여하게 된 이유를 적어주세요!"
+        android:background="@null"
+        android:layout_below="@id/meeting_join_ll3"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        />
+
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginBottom="12dp"
+        android:layout_above="@id/join_btn"
+        app:srcCompat="@drawable/icon_check" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="@color/clear_blue"
+        android:lineSpacingExtra="20sp"
+        android:text="연락처는 매칭됐을 때만 상대방에게 공개됩니다."
+        android:layout_above="@id/join_btn"
+        android:layout_marginLeft="80dp"
+        android:layout_marginBottom="14dp"
+        />
+
+    <Button
+        android:id="@+id/join_btn"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:padding="0dp"
+        android:text="게시판 등록하기"
+        android:textColor="#ffffff"
+        android:background="#2186f8"/>
+
+
+
+
+
+
+
+
+
+</RelativeLayout>

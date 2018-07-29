@@ -36,7 +36,7 @@
         android:id="@+id/detail_profile_img"
         android:layout_width="110dp"
         android:layout_height="110dp"
-        android:layout_marginLeft="152dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="106dp"
         app:srcCompat="@drawable/app_logo" />
 

@@ -5,6 +5,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.CategoryListFragment.BikeFragment;
+import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.CategoryListFragment.BoatFragment;
+import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.CategoryListFragment.CampingFragment;
+import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.CategoryListFragment.ChickenFragment;
+import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.CategoryListFragment.EtcFragment;
+import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.CategoryListFragment.PhotoFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingListInnerFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.meetingRootFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.MyPageFragment;
@@ -24,17 +30,17 @@ public class MeetingListTapPagerAdapter extends FragmentStatePagerAdapter {
         // Returning the current tabs
         switch (position) {
             case 0:
-                return new MeetingListInnerFragment();
+                return new ChickenFragment();
             case 1:
-                return new MeetingListInnerFragment();
+                return new BikeFragment();
             case 2:
-                return new MeetingListInnerFragment();
+                return new BoatFragment();
             case 3:
-                return new MeetingListInnerFragment();
+                return new CampingFragment();
             case 4:
-                return new MeetingListInnerFragment();
+                return new PhotoFragment();
             case 5:
-                return new MeetingListInnerFragment();
+                return new EtcFragment();
             default:
                 return null;
         }
