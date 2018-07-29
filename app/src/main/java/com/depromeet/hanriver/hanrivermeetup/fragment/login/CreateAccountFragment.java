@@ -6,22 +6,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatEditText;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.activity.main.MainActivity;
 import com.depromeet.hanriver.hanrivermeetup.service.LoginService;
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.login.LoginResult;
 
 public class CreateAccountFragment extends Fragment {
 

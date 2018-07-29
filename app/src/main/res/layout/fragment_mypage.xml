@@ -48,7 +48,7 @@
         android:layout_centerInParent="true"
         android:background="#000000"/>
 
-    <android.support.v4.view.ViewPager
+    <com.depromeet.hanriver.hanrivermeetup.fragment.mypage.CustomViewpager
         android:id="@+id/viewpager2"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

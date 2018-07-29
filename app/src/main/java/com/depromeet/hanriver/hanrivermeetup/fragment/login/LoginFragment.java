@@ -4,25 +4,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.activity.main.MainActivity;
-import com.depromeet.hanriver.hanrivermeetup.model.meeting.Activity;
 import com.depromeet.hanriver.hanrivermeetup.service.LoginService;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
 public class LoginFragment extends Fragment{
-//    LoginManager loginManager; // 로그인 상태인지 아닌지 확인 할 것 (버튼을 커스텀으로 생성할 시 필요)
+    // LoginManager loginManager; // 로그인 상태인지 아닌지 확인 할 것 (버튼을 커스텀으로 생성할 시 필요)
     LoginButton fb_loginButton; // 커스텀 아닌 기본 제공되는 버튼.
     CallbackManager callbackManager; //요청 응답 받을 것
 

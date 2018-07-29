@@ -10,10 +10,16 @@ public class APIUtiles {
     public static final String GUEST_API_URL = BASE_URL + "guest/";
     public static final String COMM_API_URL = BASE_URL + "comm/";
     public static final String ACCESS_API_URL = BASE_URL + "access/";
+    public static final String FACEBOOK_API_URL = "https://graph.facebook.com/";
 
     public static LoginAPIService getLoginService(){
         return RetrofitClient.getClient(ACCESS_API_URL).create(LoginAPIService.class);
     }
+
+    public static FacebookAPIService getFacebookService(){
+        return RetrofitClient.getClient(FACEBOOK_API_URL).create(FacebookAPIService.class);
+    }
+
 
     public static HostAPIService getHostService(String accessToken, String id){
         return RetrofitClient.getClientWithToken(HOST_API_URL, accessToken, id).create(HostAPIService.class);
