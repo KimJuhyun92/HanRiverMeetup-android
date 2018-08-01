@@ -1,6 +1,7 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.mypage.Adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,6 +59,8 @@ public class Tab2Adapter extends BaseAdapter{
             holder.mTime = (TextView)view.findViewById(R.id.meeting_time);
             holder.mCost = (TextView)view.findViewById(R.id.expected_cost);
             holder.mParticipants=(TextView)view.findViewById(R.id.participants_cnt);
+            holder.imageView = (ImageView)view.findViewById(R.id.state);
+
 
             view.setTag(holder);
         } else {
@@ -90,6 +93,7 @@ public class Tab2Adapter extends BaseAdapter{
         private TextView mTime;
         private TextView mCost;
         private TextView mParticipants;
+        private ImageView imageView;
     }
 
 }

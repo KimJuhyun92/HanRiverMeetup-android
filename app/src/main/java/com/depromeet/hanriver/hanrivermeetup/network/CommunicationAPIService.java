@@ -4,6 +4,9 @@ import com.depromeet.hanriver.hanrivermeetup.model.meeting.Comment;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.MatchingDetail;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.MeetingDetail;
 
+import java.util.List;
+
+import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -12,10 +15,10 @@ import retrofit2.http.Path;
 
 public interface CommunicationAPIService {
     @GET("comments/{meetingID}")
-    Comment getComments(@Path("meetingID") int meetingID);
+    Observable<List<Comment>> getComments(@Path("meetingID") int meetingID);
 
     @POST("comment/")
-    MeetingDetail addComment(@Body Comment comment);
+    Observable<Comment> addComment(@Body Comment comment);
 
     @DELETE("comment/{commentID}")
     boolean deleteComment(@Path("commentID") int commentID);

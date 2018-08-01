@@ -7,9 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.telecom.Call;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,20 +15,18 @@ import android.view.ViewGroup;
 
 import com.depromeet.hanriver.hanrivermeetup.activity.main.MainActivity;
 import com.depromeet.hanriver.hanrivermeetup.R;
+import com.depromeet.hanriver.hanrivermeetup.fragment.login.LoginFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.List.MeetingListTapPagerAdapter;
-import com.depromeet.hanriver.hanrivermeetup.model.meeting.MeetingDetail;
-import com.depromeet.hanriver.hanrivermeetup.network.RetrofitClient;
 import com.depromeet.hanriver.hanrivermeetup.service.HostService;
-import com.google.gson.Gson;
 
-import java.util.List;
+import java.sql.Time;
 
 public class MeetingListFragment extends Fragment{
 
     private FloatingActionButton fab;
     private ViewPager viewpager;
     private TabLayout tabLayout;
-    public static int  first_position;
+    public static int current_position;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +42,7 @@ public class MeetingListFragment extends Fragment{
     }
 
     public static MeetingListFragment newInstance(int position) {
-        first_position = position;
+        current_position = position;
         Bundle args = new Bundle();
         MeetingListFragment fragment = new MeetingListFragment();
         fragment.setArguments(args);
@@ -70,13 +66,14 @@ public class MeetingListFragment extends Fragment{
 
         MeetingListTapPagerAdapter adapter = new MeetingListTapPagerAdapter(getChildFragmentManager(),tabLayout.getTabCount());
         viewpager.setAdapter(adapter);
-        viewpager.setCurrentItem(first_position);
+        viewpager.setCurrentItem(current_position);
         viewpager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewpager.setCurrentItem(tab.getPosition());
+                current_position = tab.getPosition();
             }
 
             @Override
@@ -86,7 +83,6 @@ public class MeetingListFragment extends Fragment{
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
 
@@ -118,7 +114,7 @@ public class MeetingListFragment extends Fragment{
 //            fragTransaction.replace(R.id.meeting_root, frag);
 //            fragTransaction.addToBackStack(null);
 //            fragTransaction.commit();
-            MeetingCreateRoom dialog = MeetingCreateRoom.newInstance();
+            MeetingCreateRoom dialog = MeetingCreateRoom.newInstance(current_position+1);
             dialog.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light);
             dialog.show(getFragmentManager(), "tag");
 

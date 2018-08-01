@@ -22,8 +22,8 @@ public class MeetingListInnerDataModel implements IMeetingListInnerDataModel {
     @NonNull
     private List<MeetingDetail> getRooms() {
 
-        return Arrays.asList(new MeetingDetail(0,"123123123","여의도 한강공원에서 놀아요",3,"여의도","12:00",30000,"12:00","12:00","한강 공원 가자","01012341234"),
-                new MeetingDetail(0,"123123123","여의도 한강공원에서 놀아요",3,"여의도","12:00",30000,"12:00","12:00","한강 공원 가자","01012341234"));
+        return Arrays.asList(new MeetingDetail(0,0,"123123123","여의도 한강공원에서 놀아요",3,"여의도","12:00",30000,"12:00","12:00","한강 공원 가자","01012341234",0,"nick"),
+                new MeetingDetail(0,0,"123123123","여의도 한강공원에서 놀아요",3,"여의도","12:00",30000,"12:00","12:00","한강 공원 가자","01012341234",0,"nick"));
 //                new MeetingDetail(R.drawable.ic_chicken_icon,"같이 놀아요!","여의도 한강공원","12:00",5,20000,"같이 재밌게 놀아요 ~~~","010-0000-0000"),
 //                new MeetingDetail(R.drawable.ic_chicken_icon,"같이 놀아요!","여의도 한강공원","12:00",5,20000,"같이 재밌게 놀아요 ~~~","010-0000-0000"),
 //                new MeetingDetail(R.drawable.ic_chicken_icon,"같이 놀아요!","여의도 한강공원","12:00",5,20000,"같이 재밌게 놀아요 ~~~","010-0000-0000"),

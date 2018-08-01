@@ -4,6 +4,9 @@ import android.support.annotation.NonNull;
 
 public class MeetingDetail {
     @NonNull
+    private int meeting_seq;
+
+    @NonNull
     private int activity_seq;
 
     @NonNull
@@ -36,7 +39,15 @@ public class MeetingDetail {
     @NonNull
     private String contact;
 
-    public MeetingDetail(@NonNull int activity_seq, @NonNull String user_id, @NonNull String description, @NonNull int participants_cnt, @NonNull String meeting_location, @NonNull String meeting_time, @NonNull int expected_cost, @NonNull String creation_time, @NonNull String modification_time, @NonNull String title, @NonNull String contact) {
+    @NonNull
+    private int contact_seq;
+
+    @NonNull
+    private String nickname;
+
+
+    public MeetingDetail(@NonNull int meeting_seq, @NonNull int activity_seq, @NonNull String user_id, @NonNull String description, @NonNull int participants_cnt, @NonNull String meeting_location, @NonNull String meeting_time, @NonNull int expected_cost, @NonNull String creation_time, @NonNull String modification_time, @NonNull String title, @NonNull String contact, @NonNull int contact_seq, @NonNull String nickname) {
+        this.meeting_seq = meeting_seq;
         this.activity_seq = activity_seq;
         this.user_id = user_id;
         this.description = description;
@@ -48,6 +59,11 @@ public class MeetingDetail {
         this.modification_time = modification_time;
         this.title = title;
         this.contact = contact;
+        this.contact_seq = contact_seq;
+        this.nickname = nickname;
+    }
+
+    public MeetingDetail() {
     }
 
     @NonNull
@@ -147,6 +163,33 @@ public class MeetingDetail {
 
     public void setContact(@NonNull String contact) {
         this.contact = contact;
+    }
+
+    @NonNull
+    public int getMeeting_seq() {
+        return meeting_seq;
+    }
+
+    public void setMeeting_seq(@NonNull int meeting_seq) {
+        this.meeting_seq = meeting_seq;
+    }
+
+    @NonNull
+    public int getContact_seq() {
+        return contact_seq;
+    }
+
+    public void setContact_seq(@NonNull int contact_seq) {
+        this.contact_seq = contact_seq;
+    }
+
+    @NonNull
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(@NonNull String nickname) {
+        this.nickname = nickname;
     }
 }
 

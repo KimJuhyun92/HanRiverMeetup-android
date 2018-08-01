@@ -14,6 +14,7 @@ public class JoinRequest {
     @SerializedName("user_id")
     private String userID;
 
+    @SerializedName("description")
     private String description;
 
     @SerializedName("participants_cnt")
@@ -22,6 +23,7 @@ public class JoinRequest {
     @SerializedName("application_time")
     private Date applicationTime;
 
+    @SerializedName("contact")
     private String contact;
 
     public int getId() {

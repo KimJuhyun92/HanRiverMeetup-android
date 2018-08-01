@@ -4,8 +4,10 @@ import android.app.Application;
 import android.support.annotation.NonNull;
 
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ActivityDataModel;
+import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.CommentDataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.IActivityDataModel;
 
+import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ICommentDataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.IMeetingDetailDataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ListFragment.BikeDataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ListFragment.BoatDataModel;
@@ -19,6 +21,7 @@ import com.depromeet.hanriver.hanrivermeetup.datamodel.timeline.ITimelineDataMod
 import com.depromeet.hanriver.hanrivermeetup.datamodel.mypage.MyPageTab1DataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.timeline.TimelineDataModel;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingCategoryViewModel;
+import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingCommentViewModel;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingDetailViewModel;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.ViewModel.Tab1ViewModel;
 
@@ -62,6 +65,8 @@ public class HanRiverMeetupApplication extends Application {
     private final IMeetingListInnerDataModel mEtcDataModel;
 
 
+    @NonNull
+    private final ICommentDataModel mCommentDataModel;
 //    @NonNull
 //    private final ICreateRoomDataModel mCreateRoomDataModel;
 
@@ -79,6 +84,7 @@ public class HanRiverMeetupApplication extends Application {
         mCampingDataModel = new CampingDataModel();
         mPhotoDataModel = new PhotoDataModel();
         mEtcDataModel = new EtcDataModel();
+        mCommentDataModel = new CommentDataModel();
     }
 
     @NonNull
@@ -94,27 +100,42 @@ public class HanRiverMeetupApplication extends Application {
     @NonNull
     public IMyPageTab1DataModel getTab1DataModel() { return mTab1DataModel; }
 
+    @NonNull
     public IMeetingListInnerDataModel getMeetingListInnerDataModel(){ return mMeetingListInnerDataModel;}
 
+    @NonNull
     public IMeetingDetailDataModel getMeetingDeailtDataModel(){ return mMeetingDetailDataModel; }
 
+    @NonNull
     public IMeetingListInnerDataModel getChickenListDataModel(){ return mChickenDataModel; }
+    @NonNull
     public IMeetingListInnerDataModel getCampingDataModel(){ return mCampingDataModel; }
+    @NonNull
     public IMeetingListInnerDataModel getBikeDataModel(){ return mBikeDataModel; }
+    @NonNull
     public IMeetingListInnerDataModel getBoatDataModel(){ return mBoatDataModel; }
+    @NonNull
     public IMeetingListInnerDataModel getPhotoDataModel(){ return mPhotoDataModel; }
+    @NonNull
     public IMeetingListInnerDataModel getEtcDataModel(){ return mEtcDataModel; }
+
+    @NonNull
+    public ICommentDataModel getCommentDataModel(){ return mCommentDataModel;}
 //    @NonNull
 //    public ICreateRoomDataModel getCreateRoomDataModel(){
 //        return mCreateRoomDataModel;
 //    }
 
-
-
     @NonNull
     public ISchedulerProvider getSchedulerProvider() {
         return SchedulerProvider.getInstance();
     }
+
+
+
+
+
+
 
     @NonNull
     public MeetingCategoryViewModel getMeetingCategoryViewModel() {
@@ -158,6 +179,10 @@ public class HanRiverMeetupApplication extends Application {
     }
     public MeetingListInnerViewModel getEtcListViewModel(){
         return new MeetingListInnerViewModel(getEtcDataModel(),getSchedulerProvider());
+    }
+
+    public MeetingCommentViewModel getCommentViewModel(){
+        return new MeetingCommentViewModel(getCommentDataModel(),getSchedulerProvider());
     }
 
 //    @NonNull

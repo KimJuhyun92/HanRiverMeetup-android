@@ -1,10 +1,21 @@
 package com.depromeet.hanriver.hanrivermeetup.service;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.depromeet.hanriver.hanrivermeetup.network.APIUtiles;
 import com.depromeet.hanriver.hanrivermeetup.network.FacebookAPIService;
+import com.facebook.Profile;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.security.InvalidParameterException;
 
 import io.reactivex.Observable;
@@ -31,6 +42,34 @@ public class FacebookService {
 
         return mService.getProfileById(userID)
                 .subscribeOn(Schedulers.io())
-                .map(it -> it);
+                .map(it -> {
+                    return it;
+                });
     }
+
+    public Bitmap getProfileURI(String userID) {
+//        Profile profile = Profile.getCurrentProfile();
+//        String link = profile.getProfilePictureUri(240, 240).toString();
+//        Log.d("@@@@@@","@@@@@"+link);
+        String link = "https://graph.facebook.com/v3.1/"+userID+"/picture?height=240&width=240";
+        URL url = null;
+        try {
+            url = new URL(link);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        InputStream is = null;
+        try {
+            is = url.openStream();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Bitmap bitmap = BitmapFactory.decodeStream(is);
+        Log.d("@@@@#","@@: "+bitmap);
+            return bitmap;
+    }
+
+
 }
