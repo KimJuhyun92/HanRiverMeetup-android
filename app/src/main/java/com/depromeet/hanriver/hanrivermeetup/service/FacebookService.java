@@ -33,4 +33,9 @@ public class FacebookService {
                 .subscribeOn(Schedulers.io())
                 .map(it -> it);
     }
+
+    public String getProfileURL(String userID) {
+        return "https://graph.facebook.com/" + userID + "/picture?type=large";
+    }
+
 }

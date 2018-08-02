@@ -26,8 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="120dp"
-        android:background="@color/greyish" />
+        android:layout_marginTop="120dp"/>
 
     <TextView
         android:id="@+id/intro_text"

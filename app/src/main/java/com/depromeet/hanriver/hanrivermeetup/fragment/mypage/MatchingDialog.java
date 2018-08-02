@@ -7,9 +7,13 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.text.Html;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
+import com.depromeet.hanriver.hanrivermeetup.helper.CircleTransform;
+import com.depromeet.hanriver.hanrivermeetup.service.FacebookService;
+import com.squareup.picasso.Picasso;
 
 public class MatchingDialog extends Dialog {
     public MatchingDialog(@NonNull Context context) {
@@ -19,6 +23,7 @@ public class MatchingDialog extends Dialog {
 
         SetData("김태성",
                 "이미영",
+                "2038859999519484",
                 3,
                 "010-6864-2758",
                 "모임에 참여하게 된 이유를 적어주세요!모임에 참여하게 된 이유를 적어주세요!모임에 참여하게 된 이유를 적어주세요!!!");
@@ -35,7 +40,17 @@ public class MatchingDialog extends Dialog {
         setContentView(R.layout.matching_dialog);
     }
 
-    private void SetData(String hostName, String guestName, int attendantNumber, String contact, String reason) {
+    private void SetData(String hostName,
+                         String guestName,
+                         String userID,
+                         int attendantNumber,
+                         String contact,
+                         String reason) {
+
+        ImageView imageView = findViewById(R.id.profile_img);
+        Picasso.get().load(FacebookService.getInstance().getProfileURL(userID))
+                .transform(CircleTransform.getInstance()).into(imageView);
+
         ((TextView) findViewById(R.id.intro_text)).
                 setText(Html.fromHtml(
                         "<font color='#2186F8'>" + hostName + "</font>"
