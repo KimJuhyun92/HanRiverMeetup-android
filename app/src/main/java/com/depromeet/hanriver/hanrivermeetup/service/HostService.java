@@ -1,5 +1,7 @@
 package com.depromeet.hanriver.hanrivermeetup.service;
 
+import com.depromeet.hanriver.hanrivermeetup.model.mypage.ApplicantVO;
+import com.depromeet.hanriver.hanrivermeetup.model.mypage.Tab1VO;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.CreateRoom;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.MeetingDetail;
 import com.depromeet.hanriver.hanrivermeetup.network.APIUtiles;
@@ -10,6 +12,11 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
+import io.reactivex.schedulers.Schedulers;
+
+import java.util.List;
+
+import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
 public class HostService {
@@ -26,6 +33,11 @@ public class HostService {
         mService = APIUtiles.getHostService(token, id);
     }
 
+    public Observable<List<ApplicantVO>> getMeetingApplicants(int meeting_seq){
+        return mService.getMeetingApplicants(meeting_seq)
+                .subscribeOn(Schedulers.io())
+                .map(it -> it);
+    }
     public Observable<List<MeetingDetail>> getTodayList(){
         return mService.getMeetingsOnToday()
                 .subscribeOn(Schedulers.io())

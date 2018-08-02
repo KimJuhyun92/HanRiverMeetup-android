@@ -17,18 +17,25 @@ import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ListFragment.EtcD
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ListFragment.PhotoDataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.MeetingDetailDataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.mypage.IMyPageTab1DataModel;
+import com.depromeet.hanriver.hanrivermeetup.datamodel.mypage.IMyPageTab2DataModel;
+import com.depromeet.hanriver.hanrivermeetup.datamodel.mypage.IMyPageTab3DataModel;
+import com.depromeet.hanriver.hanrivermeetup.datamodel.mypage.MyPageTab2DataModel;
+import com.depromeet.hanriver.hanrivermeetup.datamodel.mypage.MyPageTab3DataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.timeline.ITimelineDataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.mypage.MyPageTab1DataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.timeline.TimelineDataModel;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingCategoryViewModel;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingCommentViewModel;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingDetailViewModel;
+import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.Tab3;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.ViewModel.Tab1ViewModel;
 
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ListFragment.IMeetingListInnerDataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ListFragment.MeetingListInnerDataModel;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingListInnerViewModel;
 
+import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.ViewModel.Tab2ViewModel;
+import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.ViewModel.Tab3ViewModel;
 import com.depromeet.hanriver.hanrivermeetup.fragment.timeline.TimelineViewModel;
 import com.depromeet.hanriver.hanrivermeetup.schedulers.ISchedulerProvider;
 import com.depromeet.hanriver.hanrivermeetup.schedulers.SchedulerProvider;
@@ -43,6 +50,14 @@ public class HanRiverMeetupApplication extends Application {
 
     @NonNull
     private final IMyPageTab1DataModel mTab1DataModel;
+
+    @NonNull
+    private final IMyPageTab2DataModel mTab2DataModel;
+
+    @NonNull
+    private final IMyPageTab3DataModel mTab3DataModel;
+
+
 
     @NonNull
     private final IMeetingListInnerDataModel mMeetingListInnerDataModel;
@@ -76,6 +91,8 @@ public class HanRiverMeetupApplication extends Application {
         mActivityDataModel = new ActivityDataModel();
         mTimelineDataModel = new TimelineDataModel();
         mTab1DataModel =  new MyPageTab1DataModel();
+        mTab2DataModel =  new MyPageTab2DataModel();
+        mTab3DataModel =  new MyPageTab3DataModel();
         mMeetingListInnerDataModel = new MeetingListInnerDataModel();
         mMeetingDetailDataModel = new MeetingDetailDataModel();
         mChickenDataModel = new ChickenDataModel();
@@ -101,6 +118,11 @@ public class HanRiverMeetupApplication extends Application {
     public IMyPageTab1DataModel getTab1DataModel() { return mTab1DataModel; }
 
     @NonNull
+    public IMyPageTab2DataModel getTab2DataModel() { return mTab2DataModel; }
+
+    @NonNull
+    public IMyPageTab3DataModel getTab3DataModel() { return mTab3DataModel; }
+
     public IMeetingListInnerDataModel getMeetingListInnerDataModel(){ return mMeetingListInnerDataModel;}
 
     @NonNull
@@ -150,6 +172,16 @@ public class HanRiverMeetupApplication extends Application {
     @NonNull
     public Tab1ViewModel getTab1ViewModel() {
         return new Tab1ViewModel(getTab1DataModel(), getSchedulerProvider());
+    }
+
+    @NonNull
+    public Tab2ViewModel getTab2ViewModel() {
+        return new Tab2ViewModel(getTab2DataModel(), getSchedulerProvider());
+    }
+
+    @NonNull
+    public Tab3ViewModel getTab3ViewModel() {
+        return new Tab3ViewModel(getTab3DataModel(), getSchedulerProvider());
     }
 
 

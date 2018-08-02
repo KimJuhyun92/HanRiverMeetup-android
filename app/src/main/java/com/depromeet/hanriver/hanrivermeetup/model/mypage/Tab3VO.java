@@ -1,53 +1,31 @@
 package com.depromeet.hanriver.hanrivermeetup.model.mypage;
 
-import android.support.annotation.NonNull;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class Tab3VO {
-    @NonNull
-    private final String title;
 
-    @NonNull
-    private final String location;
+    @SerializedName("join_detail")
+    @Expose
+    private JoinDetail joinDetail;
+    @SerializedName("meeting_detail")
+    @Expose
+    private MeetingDetail meetingDetail;
 
-    @NonNull
-    private final String meeting_time;
-
-    @NonNull
-    private final int expected_cost;
-
-    @NonNull
-    private final int participants_cnt;
-
-    public Tab3VO(@NonNull final String title, @NonNull final String location, @NonNull final String meeting_time, @NonNull final int expected_cost, @NonNull final int participants_cnt) {
-        this.title = title;
-        this.location = location;
-        this.meeting_time = meeting_time;
-        this.expected_cost = expected_cost;
-        this.participants_cnt = participants_cnt;
+    public JoinDetail getJoinDetail() {
+        return joinDetail;
     }
 
-    @NonNull
-    public String getTitle(){
-        return title;
+    public void setJoinDetail(JoinDetail joinDetail) {
+        this.joinDetail = joinDetail;
     }
 
-    @NonNull
-    public String getLocation() {
-        return location;
+    public MeetingDetail getMeetingDetail() {
+        return meetingDetail;
     }
 
-    @NonNull
-    public String getMeeting_time() {
-        return meeting_time;
+    public void setMeetingDetail(MeetingDetail meetingDetail) {
+        this.meetingDetail = meetingDetail;
     }
 
-    @NonNull
-    public int getExpected_cost(){
-        return expected_cost;
-    }
-
-    @NonNull
-    public int getParticipants_cnt(){
-        return participants_cnt;
-    }
 }

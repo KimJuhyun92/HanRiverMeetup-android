@@ -36,12 +36,12 @@
         android:background="#2186f8">
         
         <ImageView
-            android:id="@+id/nagative_button"
+            android:id="@+id/negative_button"
             android:layout_width="13dp"
             android:layout_height="13dp"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/ic_nagative_icon"
+            android:background="@drawable/ic_negative_icon"
             />
 
         <ImageView

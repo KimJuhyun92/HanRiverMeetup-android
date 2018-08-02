@@ -67,5 +67,6 @@ public class LoginService {
         HostService.getInstance().setService(token, id);
         GuestService.getInstance().setService(token, id);
         CommunicationService.getInstance().setService(token, id);
+        MyPageService.getInstance().setService(token, id);
     }
 }

@@ -3,7 +3,7 @@ package com.depromeet.hanriver.hanrivermeetup.model.mypage;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ApplicantVO {
+public class JoinDetail {
 
     @SerializedName("application_seq")
     @Expose
@@ -29,9 +29,6 @@ public class ApplicantVO {
     @SerializedName("contact_seq")
     @Expose
     private Integer contactSeq;
-    @SerializedName("nickname")
-    @Expose
-    private String nickname;
 
     public Integer getApplicationSeq() {
         return applicationSeq;
@@ -95,14 +92,6 @@ public class ApplicantVO {
 
     public void setContactSeq(Integer contactSeq) {
         this.contactSeq = contactSeq;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
     }
 
 }

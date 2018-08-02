@@ -3,6 +3,7 @@ package com.depromeet.hanriver.hanrivermeetup.network;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.Comment;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.MatchingDetail;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.MeetingDetail;
+import com.depromeet.hanriver.hanrivermeetup.model.mypage.TestVO;
 
 import java.util.List;
 
