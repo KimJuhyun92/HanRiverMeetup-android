@@ -21,7 +21,7 @@ public class JoinRequest {
     private int participantsCnt;
 
     @SerializedName("application_time")
-    private Date applicationTime;
+    private String applicationTime;
 
     @SerializedName("contact")
     private String contact;
@@ -66,11 +66,11 @@ public class JoinRequest {
         this.participantsCnt = participantsCnt;
     }
 
-    public Date getApplicationTime() {
+    public String getApplicationTime() {
         return applicationTime;
     }
 
-    public void setApplicationTime(Date applicationTime) {
+    public void setApplicationTime(String applicationTime) {
         this.applicationTime = applicationTime;
     }
 

@@ -32,7 +32,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -117,8 +119,7 @@ public class MeetingCreateRoom extends DialogFragment{
                 md.setDescription(roomcontent.getText().toString());
                 md.setExpected_cost(Integer.parseInt(fee.getText().toString()));
                 md.setMeeting_location(location.getText().toString());
-//                md.setMeeting_time(time.getText().toString());
-                md.setMeeting_time("2018-08-01 12:40:00");
+                md.setMeeting_time(getCurrentDate(time.getText().toString()));
                 md.setTitle(roomname.getText().toString());
                 md.setParticipants_cnt(Integer.parseInt(num.getText().toString()));
                 md.setUser_id(LoginFragment.getUser_id().toString());
@@ -167,5 +168,15 @@ public class MeetingCreateRoom extends DialogFragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    public String getCurrentDate(String time) {
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy-MM-dd ");
+        String formatDate = sdfNow.format(date);
+        time = time+":00";
+
+        return formatDate+time;
     }
 }
