@@ -2,7 +2,7 @@ package com.depromeet.hanriver.hanrivermeetup.model.meeting;
 
 import android.support.annotation.NonNull;
 
-public class MeetingDetail2 {
+public class CreateRoom {
 
     @NonNull
     private int activity_seq;
@@ -26,30 +26,13 @@ public class MeetingDetail2 {
     private int expected_cost;
 
     @NonNull
-    private String creation_time;
-
-    @NonNull
-    private String modification_time;
-
-    @NonNull
     private String title;
 
     @NonNull
     private String contact;
 
-    public MeetingDetail2(@NonNull int activity_seq, @NonNull String user_id, @NonNull String description, @NonNull int participants_cnt, @NonNull String meeting_location, @NonNull String meeting_time, @NonNull int expected_cost, @NonNull String creation_time, @NonNull String modification_time, @NonNull String title, @NonNull String contact) {
-        this.activity_seq = activity_seq;
-        this.user_id = user_id;
-        this.description = description;
-        this.participants_cnt = participants_cnt;
-        this.meeting_location = meeting_location;
-        this.meeting_time = meeting_time;
-        this.expected_cost = expected_cost;
-        this.creation_time = creation_time;
-        this.modification_time = modification_time;
-        this.title = title;
-        this.contact = contact;
-    }
+
+
 
     @NonNull
     public int getActivity_seq() {
@@ -114,23 +97,6 @@ public class MeetingDetail2 {
         this.expected_cost = expected_cost;
     }
 
-    @NonNull
-    public String getCreation_time() {
-        return creation_time;
-    }
-
-    public void setCreation_time(@NonNull String creation_time) {
-        this.creation_time = creation_time;
-    }
-
-    @NonNull
-    public String getModification_time() {
-        return modification_time;
-    }
-
-    public void setModification_time(@NonNull String modification_time) {
-        this.modification_time = modification_time;
-    }
 
     @NonNull
     public String getTitle() {

@@ -25,13 +25,14 @@
         android:src="@drawable/ic_plus"/>
 
     <ImageButton
-        android:id="@+id/profile_img"
+        android:id="@+id/create_room_profile_img"
         android:layout_marginTop="160dp"
         android:layout_marginLeft="25dp"
         android:layout_width="60dp"
         android:layout_height="60dp" />
 
     <TextView
+        android:id="@+id/create_room_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="22sp"
@@ -43,7 +44,7 @@
         />
     
     <EditText
-        android:id="@+id/room_name"
+        android:id="@+id/create_room_name"
         android:layout_marginTop="230dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,7 +60,7 @@
         android:id="@+id/meeting_create_ll1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/room_name"
+        android:layout_below="@id/create_room_name"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
         android:background="@drawable/categoryitem_border">
@@ -74,6 +75,7 @@
             android:textStyle="bold"
             />
         <TextView
+            android:id="@+id/create_room_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
@@ -103,6 +105,7 @@
             android:textStyle="bold"
             />
         <TextView
+            android:id="@+id/create_room_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
@@ -130,6 +133,7 @@
             android:layout_marginLeft="42dp"
             android:textStyle="bold" />
         <EditText
+            android:id="@+id/create_room_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
@@ -175,6 +179,7 @@
             android:textStyle="bold"
             />
         <EditText
+            android:id="@+id/create_room_fee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
@@ -221,6 +226,7 @@
             android:textStyle="bold"
             />
         <EditText
+            android:id="@+id/create_room_contact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
@@ -243,7 +249,7 @@
 
     <EditText
         android:background="@drawable/categoryitem_border"
-        android:id="@+id/room_content"
+        android:id="@+id/create_room_content"
         android:layout_width="match_parent"
         android:textSize="12sp"
         android:layout_height="60dp"

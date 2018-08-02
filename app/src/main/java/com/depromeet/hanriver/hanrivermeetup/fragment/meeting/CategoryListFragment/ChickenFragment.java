@@ -15,6 +15,7 @@ import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.List.MeetingListAdapter;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingListInnerViewModel;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.MeetingDetail;
+import com.depromeet.hanriver.hanrivermeetup.service.HostService;
 
 import java.util.List;
 
@@ -26,8 +27,8 @@ public class ChickenFragment extends Fragment {
     @NonNull
     private CompositeDisposable mCompositeDisposable;
 
-    @NonNull
-    private MeetingListInnerViewModel mViewModel;
+//    @NonNull
+//    private MeetingListInnerViewModel mViewModel;
 
     @Nullable
     private RecyclerView recyclerView;
@@ -37,7 +38,7 @@ public class ChickenFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mViewModel = getViewModel();
+//        mViewModel = getViewModel();
     }
 
     @Override
@@ -51,11 +52,9 @@ public class ChickenFragment extends Fragment {
     }
 
     private void setupViews(View v) {
-//        gridview = v.findViewById(R.id.gridview);
         recyclerView = v.findViewById(R.id.list_room_rv);
         rvManager = new LinearLayoutManager(getContext());
 
-//        gridview.setAdapter(new GridAdapter(this.getActivity(),));
     }
 
     @Override
@@ -73,10 +72,15 @@ public class ChickenFragment extends Fragment {
     private void bind() {
         mCompositeDisposable = new CompositeDisposable();
 
-        mCompositeDisposable.add(mViewModel.getAvailableRooms()
+        mCompositeDisposable.add(HostService.getInstance().getTodayList()
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::setRooms));
+
+//        mCompositeDisposable.add(mViewModel.getAvailableRooms()
+//                .subscribeOn(Schedulers.computation())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::setRooms));
 
     }
 
@@ -85,7 +89,6 @@ public class ChickenFragment extends Fragment {
     }
 
     private void setRooms(@NonNull final List<MeetingDetail> Rooms) {
-
         recyclerView.setLayoutManager(rvManager);
         recyclerView.setAdapter(new MeetingListAdapter(Rooms,getContext(),this));
 
