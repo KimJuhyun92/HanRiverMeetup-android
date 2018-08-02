@@ -47,6 +47,10 @@ public class FacebookService {
                 });
     }
 
+    public String getProfileURL(String userID) {
+        return "https://graph.facebook.com/" + userID + "/picture?type=large";
+    }
+  
     public Bitmap getProfileURI(String userID) {
 //        Profile profile = Profile.getCurrentProfile();
 //        String link = profile.getProfilePictureUri(240, 240).toString();
@@ -70,6 +74,4 @@ public class FacebookService {
         Log.d("@@@@#","@@: "+bitmap);
             return bitmap;
     }
-
-
 }
