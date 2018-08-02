@@ -14,14 +14,16 @@ public class JoinRequest {
     @SerializedName("user_id")
     private String userID;
 
+    @SerializedName("description")
     private String description;
 
     @SerializedName("participants_cnt")
     private int participantsCnt;
 
     @SerializedName("application_time")
-    private Date applicationTime;
+    private String applicationTime;
 
+    @SerializedName("contact")
     private String contact;
 
     public int getId() {
@@ -64,11 +66,11 @@ public class JoinRequest {
         this.participantsCnt = participantsCnt;
     }
 
-    public Date getApplicationTime() {
+    public String getApplicationTime() {
         return applicationTime;
     }
 
-    public void setApplicationTime(Date applicationTime) {
+    public void setApplicationTime(String applicationTime) {
         this.applicationTime = applicationTime;
     }
 

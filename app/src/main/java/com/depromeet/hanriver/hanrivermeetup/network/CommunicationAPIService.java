@@ -16,10 +16,10 @@ import retrofit2.http.Path;
 
 public interface CommunicationAPIService {
     @GET("comments/{meetingID}")
-    Comment getComments(@Path("meetingID") int meetingID);
+    Observable<List<Comment>> getComments(@Path("meetingID") int meetingID);
 
     @POST("comment/")
-    MeetingDetail addComment(@Body Comment comment);
+    Observable<Comment> addComment(@Body Comment comment);
 
     @DELETE("comment/{commentID}")
     boolean deleteComment(@Path("commentID") int commentID);

@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.depromeet.hanriver.hanrivermeetup"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -61,8 +61,10 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.6.1'
     implementation "com.squareup.retrofit2:adapter-rxjava2:2.4.0"
 
-    //
+    //Permission
     implementation 'gun0912.ted:tedpermission:2.0.0'
 
 
+    // Dali Van Picasso ~~ 밤 고흐의 달이 보이는밤~
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

@@ -1,6 +1,7 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.mypage.Adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;

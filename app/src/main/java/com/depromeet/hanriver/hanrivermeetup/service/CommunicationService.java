@@ -1,6 +1,6 @@
 package com.depromeet.hanriver.hanrivermeetup.service;
 
-import com.depromeet.hanriver.hanrivermeetup.model.mypage.TestVO;
+import com.depromeet.hanriver.hanrivermeetup.model.meeting.Comment;
 import com.depromeet.hanriver.hanrivermeetup.network.APIUtiles;
 import com.depromeet.hanriver.hanrivermeetup.network.CommunicationAPIService;
 
@@ -23,4 +23,15 @@ public class CommunicationService {
         mService = APIUtiles.getCommunicationService(token, id);
     }
 
+    public Observable<List<Comment>> getComments(int meetingId){
+        return mService.getComments(meetingId)
+                .subscribeOn(Schedulers.io())
+                .map(it -> it);
+    }
+
+    public Observable<Comment> addComment(Comment comment){
+        return mService.addComment(comment)
+                .subscribeOn(Schedulers.io())
+                .map(it -> it);
+    }
 }

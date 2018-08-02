@@ -1,156 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <RelativeLayout
-        android:id="@+id/detail_top"
-        android:background="@drawable/back_grad_color"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
-        >
-        <ImageButton
-            android:id="@+id/detail_back_btn"
-            android:layout_width="12dp"
-            android:layout_height="20dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="53dp"
-            android:background="@color/com_facebook_button_login_silver_background_color_pressed" />
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/detail_room_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="#fefefe"
-            android:lineSpacingExtra="14sp"
-            android:text="주말에 난지에서 캠핑할 분 구해요!"
-            android:layout_marginTop="53dp"
+        <RelativeLayout
+            android:id="@+id/detail_top"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:background="@drawable/back_grad_color">
+
+            <ImageButton
+                android:id="@+id/detail_back_btn"
+                android:layout_width="12dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="53dp"
+                android:background="@color/com_facebook_button_login_silver_background_color_pressed" />
+
+            <TextView
+                android:id="@+id/detail_room_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="53dp"
+                android:lineSpacingExtra="14sp"
+                android:text="주말에 난지에서 캠핑할 분 구해요!"
+                android:textColor="#fefefe"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/detail_profile_img"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:layout_centerHorizontal="true"
-            />
+            android:layout_marginTop="106dp"
+            app:srcCompat="@drawable/app_logo" />
+
+        <RelativeLayout
+            android:id="@+id/detail_body_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/detail_top">
+
+            <TextView
+                android:id="@+id/detail_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="64dp"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="-6sp"
+                android:text="김태성"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/detail_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/detail_name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="11dp"
+                android:lineSpacingExtra="-4sp"
+                android:text="시간 11:00 / 인원 16명 / 회비 20,000원"
+                android:textColor="#666666"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/detail_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detail_info"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:lineSpacingExtra="25sp"
+                android:text="여의도  한강공원"
+                android:textColor="@color/clear_blue"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/detail_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detail_location"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="11dp"
+                android:lineSpacingExtra="7sp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:text="난지 캠핑장에서 캠핑하실 분들 구합니다. 저는 모든 장비를갖추고 있어서 바베큐 파티에 쓸 고기만 사서 우리 같이 놀아봐요"
+                android:textColor="#666666"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/detail_join_btn"
+                android:layout_width="312dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/detail_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:text="참여하기"
+                android:textSize="14sp"
+                android:lineSpacingExtra="18sp"
+                android:textColor="@color/clear_blue"
+                android:background="@drawable/categoryitem_border"
+                />
+
+            <TextView
+                android:id="@+id/detail_comment_text"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_below="@id/detail_join_btn"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/textline"
+                android:lineSpacingExtra="-6sp"
+                android:paddingTop="9dp"
+                android:text="댓글"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/detail_comment_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detail_comment_text">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <EditText
+                android:id="@+id/detail_comment_edit"
+                android:layout_width="290dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/detail_comment_rv"
+                android:background="@color/warm_grey" />
+
+            <Button
+                android:id="@+id/detail_comment_btn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/detail_comment_rv"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@id/detail_comment_edit"
+                android:background="#2186f8"
+                android:text="등록"
+                android:textColor="#ffffff"
+                android:textSize="14sp" />
+
+
+        </RelativeLayout>
+
+
     </RelativeLayout>
-
-    <ImageView
-        android:id="@+id/detail_profile_img"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:layout_marginLeft="152dp"
-        android:layout_marginTop="106dp"
-        app:srcCompat="@drawable/app_logo" />
-
-    <RelativeLayout
-        android:id="@+id/detail_body_layout"
-        android:layout_below="@+id/detail_top"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/detail_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:lineSpacingExtra="-6sp"
-            android:gravity="center_horizontal"
-            android:text="김태성"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="64dp"
-            />
-
-        <TextView
-            android:id="@+id/detail_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="#666666"
-            android:lineSpacingExtra="-4sp"
-            android:text="시간 11:00 / 인원 16명 / 회비 20,000원"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/detail_name"
-            android:layout_marginTop="11dp"
-            />
-
-        <TextView
-            android:id="@+id/detail_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textColor="@color/clear_blue"
-            android:lineSpacingExtra="25sp"
-            android:text="여의도  한강공원"
-            android:layout_below="@id/detail_info"
-            android:layout_marginTop="12dp"
-            android:layout_centerHorizontal="true"/>
-
-        <TextView
-            android:id="@+id/detail_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            android:textSize="12sp"
-            android:textColor="#666666"
-            android:lineSpacingExtra="7sp"
-            android:layout_below="@id/detail_location"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="11dp"
-            android:text="난지 캠핑장에서 캠핑하실 분들 구합니다. 저는 모든 장비를갖추 고 있어서 바베큐 파티에 쓸 고기만 사서 우리 같이 놀아봐요!ㅁ! 구합니다. 저는 모든 장비를 갖추고 있어서 바베큐 파티에 쓸 고기만 사서 우리 같이 놀아봐요!ㅁ"
-            />
-
-        <Button
-            android:id="@+id/detail_join_btn"
-            android:layout_width="312dp"
-            android:layout_height="50dp"
-            android:layout_below="@id/detail_content"
-            android:layout_marginTop="25dp"
-            android:layout_centerHorizontal="true"
-            />
-
-        <TextView
-            android:id="@+id/detail_comment_text"
-            android:layout_width="match_parent"
-            android:paddingTop="9dp"
-            android:textAlignment="center"
-            android:layout_height="35dp"
-            android:textSize="14sp"
-            android:textColor="@color/black"
-            android:lineSpacingExtra="-6sp"
-            android:text="댓글"
-            android:layout_below="@id/detail_join_btn"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/textline"
-            />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/detail_comment_rv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/detail_comment_text">
-
-        </android.support.v7.widget.RecyclerView>
-        
-        <EditText
-            android:id="@+id/comment_edit"
-            android:layout_width="290dp"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            />
-        <Button
-            android:background="#2186f8"
-            android:id="@+id/comment_btn"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@id/comment_edit"
-            android:text="등록"
-            android:textColor="#ffffff"
-            android:textSize="14sp"/>
-
-
-    </RelativeLayout>
-
-
-
-</RelativeLayout>
+</ScrollView>

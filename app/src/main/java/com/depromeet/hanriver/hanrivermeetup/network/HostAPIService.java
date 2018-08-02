@@ -1,9 +1,11 @@
 package com.depromeet.hanriver.hanrivermeetup.network;
 
+import com.depromeet.hanriver.hanrivermeetup.model.meeting.CreateRoom;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.MeetingDetail;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.JoinRequest;
 import com.depromeet.hanriver.hanrivermeetup.model.mypage.ApplicantVO;
 import com.depromeet.hanriver.hanrivermeetup.model.mypage.Tab1VO;
+import com.google.gson.JsonObject;
 
 import java.util.List;
 
@@ -17,10 +19,10 @@ import retrofit2.http.Path;
 
 public interface HostAPIService {
     @GET("meeting/{meetingID}")
-    MeetingDetail getMeetingDetail(@Path("meetingID") int meetingID);
+    Observable<MeetingDetail> getMeetingDetail(@Path("meetingID") int meetingID);
 
     @POST("meeting/")
-    MeetingDetail createMeeting(@Body MeetingDetail meetingDetail);
+    Observable<MeetingDetail> createMeeting(@Body MeetingDetail createRoom);
 
     @PUT("meeting/{meetingID}")
     MeetingDetail updateMeeting(@Path("meetingID") int meetingID, @Body MeetingDetail user);
@@ -29,7 +31,7 @@ public interface HostAPIService {
     boolean deleteMeeting(@Path("meetingID") int meetingID);
 
     @GET("meetings/today")
-    MeetingDetail getMeetingsOnToday();
+    Observable<List<MeetingDetail>> getMeetingsOnToday();
 
     @GET("requests/{requestID}")
     JoinRequest getRequestsById(@Path("requestID") int id);

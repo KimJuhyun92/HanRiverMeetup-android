@@ -2,11 +2,19 @@ package com.depromeet.hanriver.hanrivermeetup.fragment.mypage;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +33,7 @@ import com.depromeet.hanriver.hanrivermeetup.fragment.timeline.TestFragment;
 import com.depromeet.hanriver.hanrivermeetup.model.mypage.Tab2VO;
 import com.depromeet.hanriver.hanrivermeetup.model.mypage.Tab3VO;
 import com.depromeet.hanriver.hanrivermeetup.service.MyPageService;
+import com.depromeet.hanriver.hanrivermeetup.service.FacebookService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,11 +70,6 @@ public class Tab2 extends Fragment {
         View view = inflater.inflate(R.layout.tab2_fragment, container, false);
 
         listView = (SwipeMenuListView) view.findViewById(R.id.listView);
-
-//        Tab2Adapter adapter = new Tab2Adapter(test);
-//        listView.setAdapter(adapter);
-
-
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
             @Override

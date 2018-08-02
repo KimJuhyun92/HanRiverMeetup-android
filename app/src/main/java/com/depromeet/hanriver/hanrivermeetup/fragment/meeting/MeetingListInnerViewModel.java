@@ -2,9 +2,7 @@ package com.depromeet.hanriver.hanrivermeetup.fragment.meeting;
 
 import android.support.annotation.NonNull;
 
-import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.IActivityDataModel;
-import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.IMeetingListInnerDataModel;
-import com.depromeet.hanriver.hanrivermeetup.model.meeting.Activity;
+import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ListFragment.IMeetingListInnerDataModel;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.MeetingDetail;
 import com.depromeet.hanriver.hanrivermeetup.schedulers.ISchedulerProvider;
 

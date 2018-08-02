@@ -10,5 +10,5 @@ import io.reactivex.Observable;
 
 public interface IMeetingDetailDataModel {
     @NonNull
-    Observable<MeetingDetail> getMeetingDetail();
+    Observable<MeetingDetail> getMeetingDetail(int meeting_seq);
 }

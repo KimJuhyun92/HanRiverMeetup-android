@@ -1,4 +1,4 @@
-package com.depromeet.hanriver.hanrivermeetup.datamodel.meeting;
+package com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ListFragment;
 
 import android.support.annotation.NonNull;
 

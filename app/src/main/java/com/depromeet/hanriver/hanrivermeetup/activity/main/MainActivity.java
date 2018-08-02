@@ -1,6 +1,7 @@
 package com.depromeet.hanriver.hanrivermeetup.activity.main;
 
 import android.Manifest;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -44,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
                 .setDeniedMessage("왜 거부하셨어요...\n하지만 [설정] > [권한] 에서 권한을 허용할 수 있어요!")
                 .setPermissions(Manifest.permission.CALL_PHONE)
                 .check();
-
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+//            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
 
         // Initializing the TabLayout
         tabLayout = findViewById(R.id.tablayout);

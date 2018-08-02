@@ -2,15 +2,19 @@ package com.depromeet.hanriver.hanrivermeetup.service;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.depromeet.hanriver.hanrivermeetup.network.APIUtiles;
 import com.depromeet.hanriver.hanrivermeetup.network.FacebookAPIService;
+import com.facebook.Profile;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.InvalidParameterException;
 
@@ -38,7 +42,13 @@ public class FacebookService {
 
         return mService.getProfileById(userID)
                 .subscribeOn(Schedulers.io())
-                .map(it -> it);
+                .map(it -> {
+                    return it;
+                });
+    }
+
+    public String getProfileURL(String userID) {
+        return "https://graph.facebook.com/" + userID + "/picture?type=large";
     }
 
     public Bitmap getProfileURI(String userID) {
