@@ -7,6 +7,7 @@
     android:background="#FFFFFF">
 
     <TextView
+        android:id="@+id/join_title"
         android:layout_marginTop="50dp"
         android:layout_marginLeft="25dp"
         android:layout_width="wrap_content"
@@ -14,8 +15,7 @@
         android:textSize="18sp"
         android:textColor="@color/clear_blue"
         android:lineSpacingExtra="12sp"
-        android:text="김태성 님의
-모임에 참여하시겠습니까?"
+        android:text="김태성 님의\n모임에 참여하시겠습니까?"
         />
 
     <ImageButton
@@ -64,7 +64,7 @@
             android:textStyle="bold" />
         <EditText
             android:id="@+id/join_participants_cnt"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:lineSpacingExtra="20sp"
@@ -108,7 +108,7 @@
             android:textStyle="bold" />
         <EditText
             android:id="@+id/join_contact"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:lineSpacingExtra="20sp"
@@ -150,18 +150,20 @@
             android:layout_marginRight="25dp"
             />
     </LinearLayout>
+
     <EditText
+        android:id="@+id/join_reason"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:textColor="@color/warm_grey"
-        android:lineSpacingExtra="8sp"
-        android:text="모임에 참여하게 된 이유를 적어주세요!"
-        android:background="@null"
+        android:layout_height="150dp"
         android:layout_below="@id/meeting_join_ll3"
+        android:background="@null"
+        android:lineSpacingExtra="8sp"
         android:paddingLeft="25dp"
         android:paddingRight="25dp"
-        />
+        android:text="모임에 참여하게 된 이유를 적어주세요!"
+        android:gravity="top"
+        android:textColor="@color/warm_grey"
+        android:textSize="12sp" />
 
 
     <ImageView
@@ -190,7 +192,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:padding="0dp"
-        android:text="게시판 등록하기"
+        android:text="신청하기"
         android:textColor="#ffffff"
         android:background="#2186f8"/>
 

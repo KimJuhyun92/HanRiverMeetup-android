@@ -30,7 +30,7 @@ public class MeetingDetailViewModel {
     }
 
     @NonNull
-    public Observable<MeetingDetail> getMeetingDetail() {
-        return mMeetingdetaildatamodel.getMeetingDetail();
+    public Observable<MeetingDetail> getMeetingDetail(int meeting_seq) {
+        return mMeetingdetaildatamodel.getMeetingDetail(meeting_seq);
     }
 }

@@ -25,6 +25,7 @@ public class LoginFragment extends Fragment{
 
     private static String accessed_token; // 로그인 되어있을 경우 저장된 토큰
     private static String user_id;
+    private static String nick_name;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,6 +76,7 @@ public class LoginFragment extends Fragment{
                                 commitAllowingStateLoss();
                     }
                     else if(!TextUtils.isEmpty(user.nickname)) {
+                        setNick_name(user.nickname);
                         moveToMain();
                     }
                 });
@@ -103,5 +105,17 @@ public class LoginFragment extends Fragment{
 
     public static void setAccessed_token(String accessed_token) {
         LoginFragment.accessed_token = accessed_token;
+    }
+
+    public static String getUser_id() {
+        return user_id;
+    }
+
+    public static String getNick_name() {
+        return nick_name;
+    }
+
+    public static void setNick_name(String nick_name) {
+        LoginFragment.nick_name = nick_name;
     }
 }
