@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
+import android.text.Html;
 import android.view.Window;
 import android.widget.TextView;
 
@@ -16,8 +17,11 @@ public class MatchingDialog extends Dialog {
 
         Initialize();
 
-
-        //((TextView) findViewById(R.id.attendant_number)).setText("New Text");
+        SetData("김태성",
+                "이미영",
+                3,
+                "010-6864-2758",
+                "모임에 참여하게 된 이유를 적어주세요!모임에 참여하게 된 이유를 적어주세요!모임에 참여하게 된 이유를 적어주세요!!!");
     }
 
     private void Initialize() {
@@ -29,5 +33,18 @@ public class MatchingDialog extends Dialog {
 
         //다이얼로그에서 사용할 레이아웃입니다.\
         setContentView(R.layout.matching_dialog);
+    }
+
+    private void SetData(String hostName, String guestName, int attendantNumber, String contact, String reason) {
+        ((TextView) findViewById(R.id.intro_text)).
+                setText(Html.fromHtml(
+                        "<font color='#2186F8'>" + hostName + "</font>"
+                        + " 님,<br />"
+                        + "<font color='#2186F8'>" + guestName + "</font>"
+                        + " 님과 함께 하시겠습니까?"));
+
+        ((TextView) findViewById(R.id.attendant_number)).setText(attendantNumber + "명");
+        ((TextView) findViewById(R.id.contact)).setText(contact);
+        ((TextView) findViewById(R.id.reason)).setText(reason);
     }
 }
