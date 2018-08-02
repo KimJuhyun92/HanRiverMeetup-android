@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,12 @@ import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.Adapter.Tab1Adapter;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.ViewModel.Tab1ViewModel;
 import com.depromeet.hanriver.hanrivermeetup.model.mypage.Tab1VO;
+import com.depromeet.hanriver.hanrivermeetup.service.HostService;
+import com.depromeet.hanriver.hanrivermeetup.service.MyPageService;
 
 import java.util.List;
 
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -55,7 +59,6 @@ public class Tab1 extends Fragment{
         return v;
     }
 
-
     private void setupViews(View v){
         mRecyclerView = v.findViewById(R.id.recyclerview);
         mRecyclerView.setHasFixedSize(true);
@@ -80,10 +83,17 @@ public class Tab1 extends Fragment{
     private void bind() {
         mCompositeDisposable = new CompositeDisposable();
 
-        mCompositeDisposable.add(mTab1ViewModel.getAvailableTab1VOs()
+//        mCompositeDisposable.add(mTab1ViewModel.getAvailableTab1VOs()
+//                .subscribeOn(Schedulers.computation())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::setTab1VOs));
+
+        mCompositeDisposable.add(MyPageService.getInstance().getMyMeeting("1320458764757184")
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::setTab1VOs));
+
+
     }
 
     private void unBind() {
@@ -92,7 +102,7 @@ public class Tab1 extends Fragment{
 
     private void setTab1VOs(@NonNull final List<Tab1VO> tab1VOs) {
 //        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setAdapter(new Tab1Adapter(getActivity(),tab1VOs));
+        mRecyclerView.setAdapter(new Tab1Adapter(getActivity(),tab1VOs, mCompositeDisposable));
     }
 
     @NonNull

@@ -1,6 +1,7 @@
 package com.depromeet.hanriver.hanrivermeetup.network;
 
 import com.depromeet.hanriver.hanrivermeetup.BuildConfig;
+import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.MyPageTabAdapter;
 
 public class APIUtiles {
     private APIUtiles() { }
@@ -10,7 +11,10 @@ public class APIUtiles {
     public static final String GUEST_API_URL = BASE_URL + "guest/";
     public static final String COMM_API_URL = BASE_URL + "comm/";
     public static final String ACCESS_API_URL = BASE_URL + "access/";
+    public static final String MYPAGE_API_URL = BASE_URL + "mypage/";
     public static final String FACEBOOK_API_URL = "https://graph.facebook.com/";
+
+
 
     public static LoginAPIService getLoginService(){
         return RetrofitClient.getClient(ACCESS_API_URL).create(LoginAPIService.class);
@@ -31,5 +35,9 @@ public class APIUtiles {
 
     public static CommunicationAPIService getCommunicationService(String accessToken, String id){
         return RetrofitClient.getClientWithToken(COMM_API_URL, accessToken, id).create(CommunicationAPIService.class);
+    }
+
+    public static MyPageAPIService getMyPageService(String accessToken, String id){
+        return RetrofitClient.getClientWithToken(MYPAGE_API_URL, accessToken, id).create(MyPageAPIService.class);
     }
 }

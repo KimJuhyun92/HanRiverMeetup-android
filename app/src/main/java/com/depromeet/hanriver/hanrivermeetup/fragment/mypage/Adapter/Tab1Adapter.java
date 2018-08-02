@@ -1,8 +1,10 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.mypage.Adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,17 +14,27 @@ import android.widget.TextView;
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.model.mypage.ApplicantVO;
 import com.depromeet.hanriver.hanrivermeetup.model.mypage.Tab1VO;
+import com.depromeet.hanriver.hanrivermeetup.service.HostService;
+import com.depromeet.hanriver.hanrivermeetup.service.MyPageService;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class Tab1Adapter extends RecyclerView.Adapter<Tab1Adapter.ItemViewHolder>{
     private LayoutInflater inflater;
     private Context mContext;
     private List<Tab1VO> mItems;
+    List<ApplicantVO> mApplicantsList = new ArrayList<ApplicantVO>();
     private android.app.Activity mAct;
+    private CompositeDisposable mCompositeDisposable;
+    ApplicantListAdapter applicantListAdapter;
 
-    public Tab1Adapter(android.app.Activity act, List<Tab1VO> items) {
+    public Tab1Adapter(android.app.Activity act, List<Tab1VO> items, CompositeDisposable mCompositeDisposable) {
+        this.mCompositeDisposable = mCompositeDisposable;
         mAct = act;
         mItems = items;
         inflater = (LayoutInflater) act.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -57,25 +69,21 @@ public class Tab1Adapter extends RecyclerView.Adapter<Tab1Adapter.ItemViewHolder
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
         holder.mTitle.setText(mItems.get(position).getTitle());
-        holder.mTime.setText(mItems.get(position).getMeeting_time());
-        holder.mCost.setText(String.valueOf(mItems.get(position).getExpected_cost()));
-        holder.mParticipants.setText(String.valueOf(mItems.get(position).getParticipants_cnt()));
+        holder.mTime.setText(mItems.get(position).getMeetingTime());
+        holder.mCost.setText(String.valueOf(mItems.get(position).getExpectedCost()));
+        holder.mParticipants.setText(String.valueOf(mItems.get(position).getParticipantsCnt()));
 
+        HostService.getInstance().getMeetingApplicants(mItems.get(position).getMeetingSeq()).subscribe(
+                list -> {
+//                    Log.d("@@@@@1"," "+list.get(0).getNickname());
+//                    Log.d("@@@@@2"," "+list.get(0).getUserId());
+//                    Log.d("@@@@@size"," "+ list.size());
 
-        //Horizontal RecyclerView TEST
+                    mApplicantsList.addAll(list);
+                }
+        );
 
-        ArrayList<ApplicantVO> test = new ArrayList<ApplicantVO>();
-        test.add(new ApplicantVO("test1",R.drawable.ic_chicken_icon));
-        test.add(new ApplicantVO("test2",R.drawable.ic_camping_icon));
-        test.add(new ApplicantVO("test3",R.drawable.ic_chicken_icon));
-        test.add(new ApplicantVO("test4",R.drawable.ic_camping_icon));
-        test.add(new ApplicantVO("test5",R.drawable.ic_camping_icon));
-        test.add(new ApplicantVO("test6",R.drawable.ic_camping_icon));
-        test.add(new ApplicantVO("test7",R.drawable.ic_camping_icon));
-        test.add(new ApplicantVO("test8",R.drawable.ic_camping_icon));
-        test.add(new ApplicantVO("test9",R.drawable.ic_camping_icon));
-
-        ApplicantListAdapter applicantListAdapter = new ApplicantListAdapter(mContext,test);
+        applicantListAdapter = new ApplicantListAdapter(mContext, mApplicantsList);
         holder.applicant_list.setHasFixedSize(true);
         holder.applicant_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         holder.applicant_list.setAdapter(applicantListAdapter);
@@ -89,4 +97,5 @@ public class Tab1Adapter extends RecyclerView.Adapter<Tab1Adapter.ItemViewHolder
     public int getItemCount() {
         return mItems.size();
     }
+
 }

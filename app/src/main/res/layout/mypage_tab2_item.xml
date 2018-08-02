@@ -16,20 +16,20 @@
     <ImageView
         android:layout_width="10dp"
         android:layout_height="13dp"
-        android:background="@drawable/ic_positive_icon"
+        android:background="@drawable/ic_time"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="44dp"
         android:backgroundTint="#2186f8"/>
 
     <TextView
-        android:id="@+id/location"
+        android:id="@+id/date"
         android:layout_width="81dp"
         android:layout_height="12dp"
         android:layout_marginLeft="43dp"
         android:layout_marginTop="44dp"
         android:textColor="#2186f8"
         android:textSize="10sp"
-        android:text="여의도 한강공원"/>
+        android:text="07.08"/>
 
     <LinearLayout
         android:layout_width="195dp"
@@ -46,7 +46,8 @@
         <TextView
             android:id="@+id/meeting_time"
             android:layout_width="50dp"
-            android:layout_height="14dp" />
+            android:layout_height="14dp"
+            android:textSize="12sp"/>
 
         <TextView
             android:layout_width="30dp"
@@ -57,7 +58,8 @@
         <TextView
             android:id="@+id/participants_cnt"
             android:layout_width="15dp"
-            android:layout_height="14dp" />
+            android:layout_height="14dp"
+            android:textSize="12sp"/>
 
         <TextView
             android:layout_width="30dp"
@@ -68,7 +70,8 @@
         <TextView
             android:id="@+id/expected_cost"
             android:layout_width="40dp"
-            android:layout_height="14dp" />
+            android:layout_height="14dp"
+            android:textSize="12sp"/>
     </LinearLayout>
 
     <ImageView
