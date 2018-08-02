@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
+import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.MatchingDialog;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.SelectionDialog;
 import com.depromeet.hanriver.hanrivermeetup.model.mypage.ApplicantVO;
 
@@ -22,7 +23,7 @@ public class ApplicantListAdapter extends RecyclerView.Adapter<ApplicantListAdap
 
     private ArrayList<ApplicantVO> itemsList;
     private Context mContext;
-    private SelectionDialog dialog;
+    private MatchingDialog dialog;
 
     public ApplicantListAdapter(Context context, ArrayList<ApplicantVO> itemsList){
         this.itemsList = itemsList;
@@ -77,13 +78,14 @@ public class ApplicantListAdapter extends RecyclerView.Adapter<ApplicantListAdap
                     int width = dm.widthPixels; //디바이스 화면 너비
                     int height = dm.heightPixels; //디바이스 화면 높이
 
-                    dialog = new SelectionDialog(v.getContext());
+                    dialog = new MatchingDialog(v.getContext());
 //                    WindowManager.LayoutParams wm = dialog.getWindow().getAttributes();  //다이얼로그의 높이 너비 설정하기위해
 //                    wm.copyFrom(dialog.getWindow().getAttributes());  //여기서 설정한값을 그대로 다이얼로그에 넣겠다는의미
 //                    wm.width = width / 2;  //화면 너비의 절반
 //                    wm.height = height / 2;  //화면 높이의 절반
-                    dialog.show();
 
+                    dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                    dialog.show();
                 }
             });
 
