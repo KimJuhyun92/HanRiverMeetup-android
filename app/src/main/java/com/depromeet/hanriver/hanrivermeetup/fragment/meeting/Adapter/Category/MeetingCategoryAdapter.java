@@ -2,6 +2,8 @@ package com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.Category;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.TransitionRes;
+import android.support.transition.Transition;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
@@ -54,10 +56,10 @@ public class MeetingCategoryAdapter extends RecyclerView.Adapter<MeetingCategory
 
     @Override
     public void onListItemClick(int position) {
-        Toast.makeText(context,""+list.get(position).getName()+" 눌림!",Toast.LENGTH_SHORT).show();
         FragmentTransaction fragTransaction = fragment.getFragmentManager().beginTransaction();
-//        TestFrag frag = new TestFrag();
+
         MeetingListFragment frag = MeetingListFragment.newInstance(position);
+        fragTransaction.setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_left);
         fragTransaction.replace(R.id.meeting_root, frag);
         fragTransaction.addToBackStack(null);
         fragTransaction.commit();

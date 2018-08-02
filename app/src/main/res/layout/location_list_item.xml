@@ -10,8 +10,9 @@
         android:layout_height="match_parent"
         android:gravity="left|center"
         android:text="여의도 한강공원"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:paddingLeft="20dp"
-        android:textColor="@color/clear_blue"/>
+        android:background="#f6f6f6"
+        android:textColor="@color/warm_grey"/>
 
 </RelativeLayout>

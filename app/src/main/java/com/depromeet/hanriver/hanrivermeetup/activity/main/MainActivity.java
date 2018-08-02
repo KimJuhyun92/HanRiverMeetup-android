@@ -6,6 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
 
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Initializing ViewPager
         viewPager = findViewById(R.id.viewpager);
-
+        viewPager.setOverScrollMode(View.OVER_SCROLL_NEVER);
         // Creating TabPagerAdapter adapter
         com.depromeet.hanriver.hanrivermeetup.activity.main.MainTabPagerAdapter pagerAdapter = new com.depromeet.hanriver.hanrivermeetup.activity.main.MainTabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);

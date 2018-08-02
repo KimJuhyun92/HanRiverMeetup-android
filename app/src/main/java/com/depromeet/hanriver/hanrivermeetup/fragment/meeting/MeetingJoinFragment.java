@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,11 +39,24 @@ public class MeetingJoinFragment extends DialogFragment {
     String room_master_name;
     Button join_btn;
     DialogFragment dial;
+    ImageView back_btn;
 
     @NonNull
     private CompositeDisposable mCompositeDisposable;
 
     MeetingJoinViewModel meetingJoinViewModel;
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(getDialog()==null)
+            return;
+
+        getDialog().getWindow().setWindowAnimations(
+                R.style.dialog_animation_fade);
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,6 +77,8 @@ public class MeetingJoinFragment extends DialogFragment {
 
 
     private void setupViews(View v) {
+        back_btn = v.findViewById(R.id.join_back_btn);
+        back_btn.setOnClickListener(back_click);
         title = v.findViewById(R.id.join_title);
         title.setText("" + room_master_name + "님의\n모임에 참여하시겠습니까?");
         nickname = v.findViewById(R.id.join_nickname);
@@ -149,4 +165,11 @@ public class MeetingJoinFragment extends DialogFragment {
 
         return formatDate;
     }
+
+    View.OnClickListener back_click = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            dial.dismiss();
+        }
+    };
 }

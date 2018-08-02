@@ -15,7 +15,9 @@ import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.List.MeetingListAdapter;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingListInnerViewModel;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.MeetingDetail;
+import com.depromeet.hanriver.hanrivermeetup.service.HostService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -73,7 +75,7 @@ public class EtcFragment extends Fragment {
     private void bind() {
         mCompositeDisposable = new CompositeDisposable();
 
-        mCompositeDisposable.add(mViewModel.getAvailableRooms()
+        mCompositeDisposable.add(HostService.getInstance().getTodayList()
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::setRooms));
@@ -87,7 +89,13 @@ public class EtcFragment extends Fragment {
     private void setRooms(@NonNull final List<MeetingDetail> Rooms) {
 
         recyclerView.setLayoutManager(rvManager);
-        recyclerView.setAdapter(new MeetingListAdapter(Rooms,getContext(),this));
+        recyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        List<MeetingDetail> rooms = new ArrayList<>();
+        for(int i =0;i<Rooms.size();i++){
+            if(Rooms.get(i).getActivity_seq()==6)
+                rooms.add(Rooms.get(i));
+        }
+        recyclerView.setAdapter(new MeetingListAdapter(rooms,getContext(),this));
 
     }
 
