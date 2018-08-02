@@ -57,6 +57,7 @@ public class MeetingDetailFragment extends DialogFragment {
     ImageView profile_img;
     TextView room_title, profile_name, detail_info, detail_location, detail_content;
     int meeting_seq;
+    String room_master_name;
     MeetingDetailFragment self;
 
 
@@ -93,7 +94,7 @@ public class MeetingDetailFragment extends DialogFragment {
         join_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MeetingJoinFragment dialog = MeetingJoinFragment.newInstance();
+                MeetingJoinFragment dialog = MeetingJoinFragment.newInstance(meeting_seq,room_master_name);
                 dialog.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light);
                 dialog.show(getFragmentManager(), "meeting_join");
             }
@@ -167,6 +168,7 @@ public class MeetingDetailFragment extends DialogFragment {
     }
 
     private void setMeetingDetail(@NonNull final MeetingDetail meetingDetail) {
+        room_master_name=meetingDetail.getNickname();
 //        gridview.setAdapter(new GridAdapter(getActivity(),activites));
         room_title.setText("" + meetingDetail.getTitle());
         profile_name.setText(""+meetingDetail.getNickname());

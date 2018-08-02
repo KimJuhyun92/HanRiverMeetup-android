@@ -28,10 +28,14 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
     }
 
     @Override
-    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-
-        textView.setText(""+hour+":"+minute);
+    public void onTimeSet(TimePicker timePicker,int hour,int minute) {
+        String s_hour = String.valueOf(hour);
+        String s_minute = String.valueOf(minute);
+        if(s_minute.length()==1)
+            s_minute = "0"+s_minute;
+        textView.setText(""+s_hour+":"+s_minute);
     }
+
 
     @NonNull
     @Override
