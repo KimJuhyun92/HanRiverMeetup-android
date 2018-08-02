@@ -23,7 +23,7 @@ public class SelectionDialog extends Dialog{
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));  //다이얼로그의 배경을 투명으로 만듭니다.
         setContentView(R.layout.selection_dialog);     //다이얼로그에서 사용할 레이아웃입니다.
 
-        negativeButton = findViewById(R.id.nagative_button);
+        negativeButton = findViewById(R.id.negative_button);
         positiveButton = findViewById(R.id.positive_button);
 
         negativeButton.setOnClickListener(new View.OnClickListener() {

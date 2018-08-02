@@ -3,6 +3,8 @@ package com.depromeet.hanriver.hanrivermeetup.network;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.CreateRoom;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.MeetingDetail;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.JoinRequest;
+import com.depromeet.hanriver.hanrivermeetup.model.mypage.ApplicantVO;
+import com.depromeet.hanriver.hanrivermeetup.model.mypage.Tab1VO;
 import com.google.gson.JsonObject;
 
 import java.util.List;
@@ -33,4 +35,7 @@ public interface HostAPIService {
 
     @GET("requests/{requestID}")
     JoinRequest getRequestsById(@Path("requestID") int id);
+
+    @GET("requests/{meeting_seq}")
+    Observable<List<ApplicantVO>> getMeetingApplicants(@Path("meeting_seq") int meeting_seq);
 }

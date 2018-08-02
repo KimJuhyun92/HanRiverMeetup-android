@@ -50,11 +50,8 @@ public class FacebookService {
     public String getProfileURL(String userID) {
         return "https://graph.facebook.com/" + userID + "/picture?type=large";
     }
-  
+
     public Bitmap getProfileURI(String userID) {
-//        Profile profile = Profile.getCurrentProfile();
-//        String link = profile.getProfilePictureUri(240, 240).toString();
-//        Log.d("@@@@@@","@@@@@"+link);
         String link = "https://graph.facebook.com/v3.1/"+userID+"/picture?height=240&width=240";
         URL url = null;
         try {
@@ -72,6 +69,6 @@ public class FacebookService {
 
         Bitmap bitmap = BitmapFactory.decodeStream(is);
         Log.d("@@@@#","@@: "+bitmap);
-            return bitmap;
+        return bitmap;
     }
 }

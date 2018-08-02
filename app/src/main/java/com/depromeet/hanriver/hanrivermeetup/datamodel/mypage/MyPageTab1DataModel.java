@@ -15,14 +15,15 @@ public class MyPageTab1DataModel implements IMyPageTab1DataModel{
     @NonNull
     @Override
     public Observable<List<Tab1VO>> getAvailableTab1VOs() {
-        return Observable.fromCallable(this::getTab1VOs);
+//        return Observable.fromCallable(this::getTab1VOs);
+        return null;
     }
 
-    @NonNull
-    private List<Tab1VO> getTab1VOs() {
-        return Arrays
-                .asList(new Tab1VO("Test1", "11", 20000, 5),
-                        new Tab1VO("Test2", "8", 15000, 10),
-                        new Tab1VO("Test3", "12", 30000, 8));
-    }
+//    @NonNull
+//    private List<Tab1VO> getTab1VOs() {
+//        return Arrays
+//                .asList(new Tab1VO("Test1", "11", 20000, 5),
+//                        new Tab1VO("Test2", "8", 15000, 10),
+//                        new Tab1VO("Test3", "12", 30000, 8));
+//    }
 }

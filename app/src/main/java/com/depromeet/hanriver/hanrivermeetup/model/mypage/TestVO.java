@@ -1,9 +1,10 @@
 package com.depromeet.hanriver.hanrivermeetup.model.mypage;
 
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Tab1VO {
+public class TestVO {
 
     @SerializedName("meeting_seq")
     @Expose
@@ -13,16 +14,16 @@ public class Tab1VO {
     private Integer activitySeq;
     @SerializedName("user_id")
     @Expose
-    private Object userId;
+    private String userId;
     @SerializedName("description")
     @Expose
-    private Object description;
+    private String description;
     @SerializedName("participants_cnt")
     @Expose
     private Integer participantsCnt;
     @SerializedName("meeting_location")
     @Expose
-    private Object meetingLocation;
+    private String meetingLocation;
     @SerializedName("meeting_time")
     @Expose
     private String meetingTime;
@@ -34,19 +35,13 @@ public class Tab1VO {
     private String creationTime;
     @SerializedName("modification_time")
     @Expose
-    private Object modificationTime;
+    private String modificationTime;
     @SerializedName("title")
     @Expose
     private String title;
     @SerializedName("contact")
     @Expose
-    private Object contact;
-    @SerializedName("contact_seq")
-    @Expose
-    private Integer contactSeq;
-    @SerializedName("nickname")
-    @Expose
-    private Object nickname;
+    private String contact;
 
     public Integer getMeetingSeq() {
         return meetingSeq;
@@ -64,19 +59,19 @@ public class Tab1VO {
         this.activitySeq = activitySeq;
     }
 
-    public Object getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Object userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public Object getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(Object description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -88,11 +83,11 @@ public class Tab1VO {
         this.participantsCnt = participantsCnt;
     }
 
-    public Object getMeetingLocation() {
+    public String getMeetingLocation() {
         return meetingLocation;
     }
 
-    public void setMeetingLocation(Object meetingLocation) {
+    public void setMeetingLocation(String meetingLocation) {
         this.meetingLocation = meetingLocation;
     }
 
@@ -120,11 +115,11 @@ public class Tab1VO {
         this.creationTime = creationTime;
     }
 
-    public Object getModificationTime() {
+    public String getModificationTime() {
         return modificationTime;
     }
 
-    public void setModificationTime(Object modificationTime) {
+    public void setModificationTime(String modificationTime) {
         this.modificationTime = modificationTime;
     }
 
@@ -136,28 +131,12 @@ public class Tab1VO {
         this.title = title;
     }
 
-    public Object getContact() {
+    public String getContact() {
         return contact;
     }
 
-    public void setContact(Object contact) {
+    public void setContact(String contact) {
         this.contact = contact;
-    }
-
-    public Integer getContactSeq() {
-        return contactSeq;
-    }
-
-    public void setContactSeq(Integer contactSeq) {
-        this.contactSeq = contactSeq;
-    }
-
-    public Object getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(Object nickname) {
-        this.nickname = nickname;
     }
 
 }
