@@ -12,10 +12,11 @@
     
     <TextView
         android:id="@+id/applicant_name"
-        android:layout_width="37dp"
+        android:layout_width="44dp"
         android:layout_height="15dp"
         android:layout_marginTop="83dp"
-        android:layout_marginLeft="36dp"/>
+        android:layout_marginLeft="36dp"
+        android:textAlignment="center"/>
 
 
 

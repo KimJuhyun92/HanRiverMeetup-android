@@ -9,14 +9,27 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp">
+        android:layout_height="317dp">
+
+        <TextView
+            android:id="@+id/mypage_main_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="38dp"
+            android:textSize="22sp"
+            android:textColor="@color/black"
+            android:lineSpacingExtra="10sp"
+            android:lineHeight="32sp"
+            android:text="안녕하세요\n김주현님 반가워요"
+            />
 
         <ImageView
             android:id="@+id/profile_img"
             android:layout_width="114dp"
             android:layout_height="114dp"
             android:layout_marginLeft="24dp"
-            android:layout_marginTop="54dp"
+            android:layout_marginTop="145dp"
             android:background="@drawable/mypage_profile" />
 
 
@@ -24,7 +37,7 @@
             android:id="@+id/user_name"
             android:layout_width="70dp"
             android:layout_height="30dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="190dp"
             android:layout_marginLeft="158dp"
             android:textSize="22sp"
             android:lineHeight="8sp"

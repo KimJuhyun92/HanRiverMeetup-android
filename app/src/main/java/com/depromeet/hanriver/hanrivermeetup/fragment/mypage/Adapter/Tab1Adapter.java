@@ -25,10 +25,12 @@ public class Tab1Adapter extends RecyclerView.Adapter<Tab1Adapter.ItemViewHolder
     private LayoutInflater inflater;
     private Context mContext;
     private List<Tab1VO> mItems;
-    List<ApplicantVO> mApplicantsList = new ArrayList<ApplicantVO>();
     private android.app.Activity mAct;
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
-    ApplicantListAdapter applicantListAdapter;
+    List<ApplicantVO> mApplicantsList = new ArrayList<ApplicantVO>();
+    private ApplicantListAdapter applicantListAdapter;
+    private ItemViewHolder holder;
+
 
     public Tab1Adapter(android.app.Activity act, List<Tab1VO> items) {
         mAct = act;
@@ -63,7 +65,8 @@ public class Tab1Adapter extends RecyclerView.Adapter<Tab1Adapter.ItemViewHolder
     }
 
     @Override
-    public void onBindViewHolder(ItemViewHolder holder, int position) {
+    public void onBindViewHolder(ItemViewHolder viewHolder, int position) {
+        holder = viewHolder;
 
         mCompositeDisposable.add(HostService.getInstance().getMeetingApplicants(mItems.get(position).getMeetingSeq())
                 .subscribeOn(Schedulers.computation())
@@ -76,21 +79,23 @@ public class Tab1Adapter extends RecyclerView.Adapter<Tab1Adapter.ItemViewHolder
         holder.mParticipants.setText(String.valueOf(mItems.get(position).getParticipantsCnt()));
 
 
-        applicantListAdapter = new ApplicantListAdapter(mContext, mApplicantsList);
-        holder.applicant_list.setHasFixedSize(true);
-        holder.applicant_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
-        holder.applicant_list.setAdapter(applicantListAdapter);
+//        applicantListAdapter = new ApplicantListAdapter(mContext, mApplicantsList);
+
+//        holder.applicant_list.setHasFixedSize(true);
+//        holder.applicant_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+//        holder.applicant_list.setAdapter(applicantListAdapter);
 
     }
 
     private void setApplicantListVOs (List<ApplicantVO> applicantVOS) {
-        mApplicantsList = applicantVOS;
-        Log.d("@@@size@@@",""+applicantVOS.size());
+        applicantListAdapter = new ApplicantListAdapter(mContext, applicantVOS);
+        holder.applicant_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+        holder.applicant_list.setAdapter(applicantListAdapter);
 
-        for(int i =0; i<mApplicantsList.size(); i++){
-            Log.d("@@@nickname@@@",i + mApplicantsList.get(i).getNickname());
+        Log.d("@@@size@@@",""+applicantVOS.size());
+        for(int i =0; i<applicantVOS.size(); i++){
+            Log.d("@@@nickname@@@",i + applicantVOS.get(i).getNickname());
         }
-//        applicantListAdapter = new ApplicantListAdapter(mContext, applicantVOS);
     }
 
 

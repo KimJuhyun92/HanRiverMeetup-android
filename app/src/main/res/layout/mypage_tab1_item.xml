@@ -71,14 +71,15 @@
     </LinearLayout>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="16dp"
         android:layout_marginTop="78dp"
         android:layout_marginLeft="24dp"
+        android:layout_marginBottom="11dp"
         android:textSize="14sp"
         android:textColor="@color/black"
         android:lineSpacingExtra="9sp"
-        tools:text="신청자"
+        android:text="신청자"
         />
 
     <android.support.v7.widget.RecyclerView
@@ -86,7 +87,7 @@
         android:layout_marginTop="104dp"
         android:layout_marginLeft="24dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="215dp"
         android:divider="#2186f8"
         android:dividerHeight="1dp"/>
 

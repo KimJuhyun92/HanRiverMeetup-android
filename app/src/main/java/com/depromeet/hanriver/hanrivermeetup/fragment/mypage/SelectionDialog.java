@@ -2,8 +2,10 @@ package com.depromeet.hanriver.hanrivermeetup.fragment.mypage;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.Window;
@@ -17,7 +19,7 @@ public class SelectionDialog extends Dialog{
     ImageView positiveButton;
     ImageView negativeButton;
 
-    public SelectionDialog(@NonNull Context context) {
+    public SelectionDialog(@NonNull Context context, @NonNull String phoneNumber) {
         super(context);
         requestWindowFeature(Window.FEATURE_NO_TITLE);   //다이얼로그의 타이틀바를 없애주는 옵션입니다.
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));  //다이얼로그의 배경을 투명으로 만듭니다.
@@ -25,6 +27,15 @@ public class SelectionDialog extends Dialog{
 
         negativeButton = findViewById(R.id.negative_button);
         positiveButton = findViewById(R.id.positive_button);
+
+        positiveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse(phoneNumber));
+                context.startActivity(intent);
+                dismiss();
+            }
+        });
 
         negativeButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -83,16 +83,11 @@ public class Tab2Adapter extends BaseAdapter{
         String meetingDate[] = mItems.get(position).getMeetingDetail().getMeetingTime().split(" ");
         meeting_date = meetingDate[0];
         meeting_time = meetingDate[1];
-      
-//        String creationDate[] = mItems.get(position).getCreationTime().split("-| ");
-//        creation_date = creationDate[2];
+
         String creationDate[] = mItems.get(position).getMeetingDetail().getCreationTime().split(" ");
         creation_date = creationDate[0];
         //매칭 실패, 지난 모임 구분 logic
         now_date = getTime();
-
-        Log.d("@@@day1",""+creation_date);
-        Log.d("@@@day2",""+now_date);
 
         if(creation_date.compareTo(now_date) == 0){
             if(mItems.get(position).getMeetingDetail().getContactSeq() == 0)

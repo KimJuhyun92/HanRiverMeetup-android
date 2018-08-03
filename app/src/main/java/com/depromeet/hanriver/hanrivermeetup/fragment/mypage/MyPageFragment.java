@@ -1,5 +1,6 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.mypage;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -59,6 +60,7 @@ public class MyPageFragment extends Fragment{
     private TextView tab1_count;
     private TextView tab2_count;
     private TextView tab3_count;
+    private TextView main_text;
 
     private View tabView1;
     private View tabView2;
@@ -69,6 +71,9 @@ public class MyPageFragment extends Fragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         LinearLayout view = (LinearLayout) inflater.inflate(R.layout.fragment_mypage, container, false);
+
+        main_text = view.findViewById(R.id.mypage_main_text);
+        main_text.setText("안녕하세요\n"+LoginFragment.getNick_name()+" 님 반가워요");
 
         // Initializing the TabLayout
         tabLayout = view.findViewById(R.id.tablayout2);
@@ -150,7 +155,6 @@ public class MyPageFragment extends Fragment{
     }
 
     private void bind() {
-        Log.d("@@@bind test","bind");
         mCompositeDisposable = new CompositeDisposable();
 
         mCompositeDisposable.add(MyPageService.getInstance().getMyMeeting("1320458764757184")
@@ -174,7 +178,6 @@ public class MyPageFragment extends Fragment{
     }
 
     private void setTab1Count(@NonNull final List<Tab1VO> tab1VOs) {
-        Log.d("@@@tabSize1@@@",""+tab1VOs.size());
         tab1VOList = tab1VOs;
         tab1_count = (TextView) tabView1.findViewById(R.id.tab1_count);
         tab1_count.setText(String.valueOf(tab1VOList.size()));
@@ -182,7 +185,6 @@ public class MyPageFragment extends Fragment{
     }
 
     private void setTab2Count(@NonNull final List<Tab2VO> tab2VOs) {
-        Log.d("@@@tabSize2@@@",""+tab2VOs.size());
         tab2VOList = tab2VOs;
         tab2_count = (TextView) tabView2.findViewById(R.id.tab2_count);
         tab2_count.setText(String.valueOf(tab2VOList.size()));
@@ -191,7 +193,6 @@ public class MyPageFragment extends Fragment{
     }
 
     private void setTab3Count(@NonNull final List<Tab3VO> tab3VOs) {
-        Log.d("@@@tabSize3@@@",""+tab3VOs.size());
         tab3VOList = tab3VOs;
         tab3_count = (TextView) tabView3.findViewById(R.id.tab3_count);
         tab3_count.setText(String.valueOf(tab3VOList.size()));
