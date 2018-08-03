@@ -17,19 +17,22 @@
         />
 
     <ImageButton
+        android:id="@+id/create_room_back_btn"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="25dp"
         android:layout_marginTop="50dp"
-        android:src="@drawable/ic_plus"/>
+        android:src="@drawable/ic_plus"
+        android:background="@android:color/transparent"/>
 
     <ImageButton
         android:id="@+id/create_room_profile_img"
         android:layout_marginTop="160dp"
         android:layout_marginLeft="25dp"
         android:layout_width="60dp"
-        android:layout_height="60dp" />
+        android:layout_height="60dp"
+        />
 
     <TextView
         android:id="@+id/create_room_nickname"
@@ -45,15 +48,15 @@
     
     <EditText
         android:id="@+id/create_room_name"
-        android:layout_marginTop="230dp"
+        android:layout_marginTop="221dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:textSize="12sp"
         android:textColor="#949494"
         android:lineSpacingExtra="20sp"
         android:background="@null"
         android:paddingLeft="27dp"
-        android:text="방 제목을 입력해주세요!"/>
+        android:hint="방 제목을 입력해주세요!"/>
 
 
     <LinearLayout
@@ -62,7 +65,6 @@
         android:layout_height="50dp"
         android:layout_below="@id/create_room_name"
         android:orientation="horizontal"
-        android:layout_marginTop="10dp"
         android:background="@drawable/categoryitem_border">
         <TextView
             android:layout_width="wrap_content"
@@ -76,7 +78,7 @@
             />
         <TextView
             android:id="@+id/create_room_location"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:lineSpacingExtra="20sp"
@@ -106,7 +108,7 @@
             />
         <TextView
             android:id="@+id/create_room_time"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:lineSpacingExtra="20sp"
@@ -134,11 +136,11 @@
             android:textStyle="bold" />
         <EditText
             android:id="@+id/create_room_num"
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:lineSpacingExtra="20sp"
-            android:text="20"
+            android:hint="참가를 희망하는 인원을 적어주세요"
             android:textColor="@color/warm_grey"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="24dp"
@@ -180,11 +182,11 @@
             />
         <EditText
             android:id="@+id/create_room_fee"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:lineSpacingExtra="20sp"
-            android:text="예상 금액을 입력해주세요."
+            android:hint="예상 금액을 입력해주세요."
             android:textColor="@color/warm_grey"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="24dp"
@@ -227,11 +229,11 @@
             />
         <EditText
             android:id="@+id/create_room_contact"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:lineSpacingExtra="20sp"
-            android:text="여백 없이 11자를 입력해주세요"
+            android:hint="여백 없이 11자를 입력해주세요"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="24dp"
             android:textColor="@color/warm_grey"
@@ -252,8 +254,8 @@
         android:id="@+id/create_room_content"
         android:layout_width="match_parent"
         android:textSize="12sp"
-        android:layout_height="60dp"
-        android:text="모임의 이야기를 들려줘!"
+        android:layout_height="66dp"
+        android:hint="모임의 이야기를 들려줘!"
         android:textColor="@color/warm_grey"
         android:paddingLeft="27dp"
         android:layout_below="@+id/meeting_create_ll5"/>
@@ -265,6 +267,7 @@
         android:layout_height="48dp"
         android:padding="0dp"
         android:text="게시판 등록하기"
+        android:textSize="14sp"
         android:textColor="#ffffff"
         android:background="#2186f8"/>
 

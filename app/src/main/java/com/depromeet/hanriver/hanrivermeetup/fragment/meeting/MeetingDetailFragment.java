@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,7 +18,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.depromeet.hanriver.hanrivermeetup.HanRiverMeetupApplication;
@@ -55,11 +58,25 @@ public class MeetingDetailFragment extends DialogFragment {
     Button comment_btn, join_btn;
     EditText comment_text;
     ImageView profile_img;
+    ImageButton back_btn;
+    ScrollView scroll;
     TextView room_title, profile_name, detail_info, detail_location, detail_content;
     int meeting_seq;
     String room_master_name;
     MeetingDetailFragment self;
 
+
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(getDialog()==null)
+            return;
+
+        getDialog().getWindow().setWindowAnimations(
+                R.style.dialog_animation_move);
+    }
 
 
     @Override
@@ -80,6 +97,10 @@ public class MeetingDetailFragment extends DialogFragment {
 
 
     private void setupViews(View v) {
+        scroll = v.findViewById(R.id.detail_scroll);
+        scroll.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        back_btn = v.findViewById(R.id.detail_back_btn);
+        back_btn.setOnClickListener(back_click);
         rv = v.findViewById(R.id.detail_comment_rv);
         rvManager = new LinearLayoutManager(getContext());
         profile_img = v.findViewById(R.id.detail_profile_img);
@@ -186,8 +207,16 @@ public class MeetingDetailFragment extends DialogFragment {
     }
 
     private void setComments(@NonNull final List<Comment> comments) {
-        rv.setLayoutManager(rvManager);
-        rv.setAdapter(new MeetingCommentAdapter(comments, getContext(), this));
+
+
+
+        if(comments.toString()=="[]")
+            rv.setMinimumHeight(358);
+
+        else{
+            rv.setLayoutManager(rvManager);
+            rv.setAdapter(new MeetingCommentAdapter(comments, getContext(), this));
+        }
     }
 
     @NonNull
@@ -212,4 +241,11 @@ public class MeetingDetailFragment extends DialogFragment {
     private void successAddComment(Comment comment){
 
     }
+
+    View.OnClickListener back_click = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            self.dismiss();
+        }
+    };
 }

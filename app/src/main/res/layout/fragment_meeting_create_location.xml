@@ -11,6 +11,7 @@
         android:background="@drawable/categoryitem_border"/>
     
     <android.support.v7.widget.RecyclerView
+        android:background="#f6f6f6"
         android:id="@+id/meeting_create_location_rv"
         android:layout_width="match_parent"
         android:layout_height="535dp"

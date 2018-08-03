@@ -17,6 +17,7 @@ import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingListInnerVi
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.MeetingDetail;
 import com.depromeet.hanriver.hanrivermeetup.service.HostService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -53,6 +54,7 @@ public class ChickenFragment extends Fragment {
 
     private void setupViews(View v) {
         recyclerView = v.findViewById(R.id.list_room_rv);
+        recyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         rvManager = new LinearLayoutManager(getContext());
 
     }
@@ -90,7 +92,12 @@ public class ChickenFragment extends Fragment {
 
     private void setRooms(@NonNull final List<MeetingDetail> Rooms) {
         recyclerView.setLayoutManager(rvManager);
-        recyclerView.setAdapter(new MeetingListAdapter(Rooms,getContext(),this));
+        List<MeetingDetail> rooms = new ArrayList<>();
+        for(int i =0;i<Rooms.size();i++){
+            if(Rooms.get(i).getActivity_seq()==1)
+                rooms.add(Rooms.get(i));
+        }
+        recyclerView.setAdapter(new MeetingListAdapter(rooms,getContext(),this));
 
     }
 
