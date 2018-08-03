@@ -25,7 +25,7 @@ public interface CommunicationAPIService {
     boolean deleteComment(@Path("commentID") int commentID);
 
     @POST("match/")
-    MatchingDetail match(@Body MatchingDetail matchingDetail);
+    Observable<MatchingDetail> match(@Body MatchingDetail matchingDetail);
 
     @GET("match/{contactID}")
     MatchingDetail getMatchingDetail(@Path("contactID") int contactID);

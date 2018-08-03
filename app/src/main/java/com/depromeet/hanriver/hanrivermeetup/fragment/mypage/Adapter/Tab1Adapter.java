@@ -68,13 +68,17 @@ public class Tab1Adapter extends RecyclerView.Adapter<Tab1Adapter.ItemViewHolder
     public void onBindViewHolder(ItemViewHolder viewHolder, int position) {
         holder = viewHolder;
 
+        String meeting_time;
+        String meetingDate[] = mItems.get(position).getMeetingTime().split(" ");
+        meeting_time = meetingDate[1];
+
         mCompositeDisposable.add(HostService.getInstance().getMeetingApplicants(mItems.get(position).getMeetingSeq())
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::setApplicantListVOs));
 
         holder.mTitle.setText(mItems.get(position).getTitle());
-        holder.mTime.setText(mItems.get(position).getMeetingTime());
+        holder.mTime.setText(meeting_time.substring(0,5));
         holder.mCost.setText(String.valueOf(mItems.get(position).getExpectedCost()));
         holder.mParticipants.setText(String.valueOf(mItems.get(position).getParticipantsCnt()));
 
@@ -88,6 +92,9 @@ public class Tab1Adapter extends RecyclerView.Adapter<Tab1Adapter.ItemViewHolder
     }
 
     private void setApplicantListVOs (List<ApplicantVO> applicantVOS) {
+
+        //필요정보 : meetingseq, 상대방 userID
+
         applicantListAdapter = new ApplicantListAdapter(mContext, applicantVOS);
         holder.applicant_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         holder.applicant_list.setAdapter(applicantListAdapter);

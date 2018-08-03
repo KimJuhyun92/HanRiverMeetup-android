@@ -1,12 +1,14 @@
 package com.depromeet.hanriver.hanrivermeetup.service;
 
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.Comment;
+import com.depromeet.hanriver.hanrivermeetup.model.meeting.MatchingDetail;
 import com.depromeet.hanriver.hanrivermeetup.network.APIUtiles;
 import com.depromeet.hanriver.hanrivermeetup.network.CommunicationAPIService;
 
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
 
 public class CommunicationService {
@@ -33,5 +35,11 @@ public class CommunicationService {
         return mService.addComment(comment)
                 .subscribeOn(Schedulers.io())
                 .map(it -> it);
+    }
+
+    public Observable<MatchingDetail> match(MatchingDetail matchingDetail){
+        return mService.match(matchingDetail)
+                .subscribeOn(Schedulers.io())
+                .map(it->it);
     }
 }

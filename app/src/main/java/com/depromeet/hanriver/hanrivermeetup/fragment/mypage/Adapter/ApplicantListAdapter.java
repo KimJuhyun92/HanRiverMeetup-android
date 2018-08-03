@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,13 +54,19 @@ public class ApplicantListAdapter extends RecyclerView.Adapter<ApplicantListAdap
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int i) {
 
         holder.applicant_name.setText(itemsList.get(i).getNickname());
-
         userID = itemsList.get(i).getUserId();
-
-        Log.d("@@@userID@@@","" + userID);
 
         Picasso.get().load(FacebookService.getInstance().getProfileURL(userID))
                 .transform(CircleTransform.getInstance()).into(holder.applicant_img);
+
+        holder.applicant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog = new MatchingDialog(view.getContext(),itemsList.get(i));
+                    dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                    dialog.show();
+            }
+        });
 
     }
 
@@ -71,6 +79,7 @@ public class ApplicantListAdapter extends RecyclerView.Adapter<ApplicantListAdap
 
         protected ImageView applicant_img;
         protected TextView applicant_name;
+        protected FrameLayout applicant;
 
 
         public ItemViewHolder(View view) {
@@ -78,30 +87,21 @@ public class ApplicantListAdapter extends RecyclerView.Adapter<ApplicantListAdap
 
             applicant_img = view.findViewById(R.id.applicant_img);
             applicant_name = view.findViewById(R.id.applicant_name);
+            applicant = view.findViewById(R.id.applicant);
 
-
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Toast.makeText(v.getContext(), applicant_name.getText(), Toast.LENGTH_SHORT).show();
-
-//                    dialog = new MatchingDialog(v.getContext());
+//            view.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                    Toast.makeText(v.getContext(), applicant_name.getText(), Toast.LENGTH_SHORT).show();
+//
+//                    //필요정보 : 아이템 포지션
+//
+//                    dialog = new MatchingDialog(v.getContext(),itemsList.get(position));
+//                    dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 //                    dialog.show();
-//                    DisplayMetrics dm = v.getContext().getResources().getDisplayMetrics(); //디바이스 화면크기를 구하기위해
-//                    int width = dm.widthPixels; //디바이스 화면 너비
-//                    int height = dm.heightPixels; //디바이스 화면 높이
-
-                    dialog = new MatchingDialog(v.getContext());
-//                    WindowManager.LayoutParams wm = dialog.getWindow().getAttributes();  //다이얼로그의 높이 너비 설정하기위해
-//                    wm.copyFrom(dialog.getWindow().getAttributes());  //여기서 설정한값을 그대로 다이얼로그에 넣겠다는의미
-//                    wm.width = width / 2;  //화면 너비의 절반
-//                    wm.height = height / 2;  //화면 높이의 절반
-
-                    dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                    dialog.show();
-                }
-            });
+//                }
+//            });
         }
     }
 }
