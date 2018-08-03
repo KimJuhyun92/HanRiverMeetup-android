@@ -60,6 +60,7 @@ public class MeetingCreateRoom extends DialogFragment{
     int hour,minute;
     int activity_seq;
     DialogFragment dial;
+    MeetingListFragment fragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,12 +78,13 @@ public class MeetingCreateRoom extends DialogFragment{
                 R.style.dialog_animation_fade);
     }
 
-    public static MeetingCreateRoom newInstance(int activity_seq) {
+    public static MeetingCreateRoom newInstance(int activity_seq,MeetingListFragment frag) {
 
         Bundle args = new Bundle();
         MeetingCreateRoom fragment = new MeetingCreateRoom();
         fragment.setArguments(args);
         fragment.activity_seq=activity_seq;
+        fragment.fragment = frag;
         return fragment;
     }
 
@@ -149,6 +151,12 @@ public class MeetingCreateRoom extends DialogFragment{
                 mCompositeDisposable.add(HostService.getInstance().createMeeting(md)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe());
+
+                getFragmentManager().findFragmentById(R.id.root_frame);
+                getFragmentManager().beginTransaction()
+                        .detach(fragment)
+                        .attach(fragment)
+                        .commit();
 
                 dial.dismiss();
 //

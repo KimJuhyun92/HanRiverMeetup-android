@@ -15,6 +15,7 @@
         android:text="3"/>
 
     <TextView
+        android:id="@+id/tab3_tab"
         android:layout_width="match_parent"
         android:layout_height="18dp"
         android:layout_marginLeft="2dp"

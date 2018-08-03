@@ -51,6 +51,7 @@
         android:id="@+id/tablayout2"
         android:layout_width="295dp"
         android:layout_height="58dp"
+        app:tabIndicatorHeight="0dp"
         />
 
     <View

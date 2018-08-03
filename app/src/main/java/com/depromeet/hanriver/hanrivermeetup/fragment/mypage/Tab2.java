@@ -90,6 +90,7 @@ public class Tab2 extends Fragment {
         };
 
         // set creator
+        listView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         listView.setMenuCreator(creator);
         listView.setOnMenuItemClickListener((position, menu, index) -> {
             switch (index) {

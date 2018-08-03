@@ -73,6 +73,7 @@ public class Tab3 extends Fragment {
     private void setupViews(View v){
         mRecyclerView = v.findViewById(R.id.recyclerview);
         mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
         // use a linear layout manager 
         mLayoutManager = new LinearLayoutManager(getActivity());
