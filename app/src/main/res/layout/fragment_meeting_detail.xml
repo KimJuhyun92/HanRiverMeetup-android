@@ -106,6 +106,15 @@
                 android:textColor="#666666"
                 android:textSize="12sp" />
 
+            <TextView
+                android:background="@drawable/join_button_border"
+                android:id="@+id/border_join_Btn"
+                android:layout_below="@id/detail_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="24dp"
+                android:layout_width="314dp"
+                android:layout_height="52dp">
+            </TextView>
             <Button
                 android:id="@+id/detail_join_btn"
                 android:layout_width="312dp"
@@ -114,6 +123,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="25dp"
                 android:text="참여하기"
+                android:textStyle="bold"
                 android:textSize="14sp"
                 android:lineSpacingExtra="18sp"
                 android:textColor="@color/clear_blue"

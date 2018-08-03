@@ -1,6 +1,7 @@
 package com.depromeet.hanriver.hanrivermeetup.activity.main;
 
 import android.Manifest;
+import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -8,11 +9,15 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -22,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
 
     @NonNull
     private ViewPager viewPager;
+    ImageView nolgang_img;
+    TextView nolgang_text;
+    ImageView mypage_img;
+    TextView mypage_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +60,19 @@ public class MainActivity extends AppCompatActivity {
 
         // Initializing the TabLayout
         tabLayout = findViewById(R.id.tablayout);
-        tabLayout.addTab(tabLayout.newTab().setText("같이놀강"));
-        tabLayout.addTab(tabLayout.newTab().setText("마이한강"));
+//        tabLayout.addTab(tabLayout.newTab().setText("같이놀강"));
+        View nolgang_item = getLayoutInflater().inflate(R.layout.tab_icon_nolgang, null);
+        nolgang_img = nolgang_item.findViewById(R.id.nolgang_img);
+        nolgang_text = nolgang_item.findViewById(R.id.nolgang_text);
+        View mypage_item = getLayoutInflater().inflate(R.layout.tab_icon_mypage, null);
+        mypage_img = mypage_item.findViewById(R.id.mypage_img);
+        mypage_text = mypage_item.findViewById(R.id.mypage_text);
+
+        tabLayout.addTab(tabLayout.newTab().setCustomView(nolgang_item));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(mypage_item));
+
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
 
         // Initializing ViewPager
         viewPager = findViewById(R.id.viewpager);
@@ -69,11 +88,27 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+                if(tab.getPosition()==0) {
+                    nolgang_img.setImageResource(R.drawable.ic_nolgang_icon_active);
+                    nolgang_text.setTextColor(Color.parseColor("#2186f8"));
+                }
+                if(tab.getPosition()==1) {
+                    mypage_img.setImageResource(R.drawable.ic_mypage_icon_active);
+                    mypage_text.setTextColor(Color.parseColor("#2186f8"));
+                }
+
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                if(tab.getPosition()==0) {
+                    nolgang_img.setImageResource(R.drawable.ic_nolgang_icon);
+                    nolgang_text.setTextColor(Color.parseColor("#000000"));
+                }
+                if(tab.getPosition()==1) {
+                    mypage_img.setImageResource(R.drawable.ic_mypage_icon);
+                    mypage_text.setTextColor(Color.parseColor("#000000"));
+                }
             }
 
             @Override

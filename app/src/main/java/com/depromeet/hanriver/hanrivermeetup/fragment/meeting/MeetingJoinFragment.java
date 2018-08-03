@@ -20,6 +20,7 @@ import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.fragment.login.LoginFragment;
 import com.depromeet.hanriver.hanrivermeetup.helper.CircleTransform;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.JoinRequest;
+import com.depromeet.hanriver.hanrivermeetup.model.meeting.MeetingDetail;
 import com.depromeet.hanriver.hanrivermeetup.network.GuestAPIService;
 import com.depromeet.hanriver.hanrivermeetup.service.FacebookService;
 import com.depromeet.hanriver.hanrivermeetup.service.GuestService;
@@ -43,6 +44,7 @@ public class MeetingJoinFragment extends DialogFragment {
     Button join_btn;
     DialogFragment dial;
     ImageView back_btn;
+    MeetingDetailFragment detailFragment;
 
     @NonNull
     private CompositeDisposable mCompositeDisposable;
@@ -69,12 +71,13 @@ public class MeetingJoinFragment extends DialogFragment {
 
     }
 
-    public static MeetingJoinFragment newInstance(int meeting_seq, String room_master_name) {
+    public static MeetingJoinFragment newInstance(int meeting_seq, String room_master_name, MeetingDetailFragment detailFragment) {
         Bundle args = new Bundle();
         MeetingJoinFragment fragment = new MeetingJoinFragment();
         fragment.setArguments(args);
         fragment.meeting_seq = meeting_seq;
         fragment.room_master_name = room_master_name;
+        fragment.detailFragment=detailFragment;
         return fragment;
     }
 
@@ -114,6 +117,12 @@ public class MeetingJoinFragment extends DialogFragment {
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe());
 
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                detailFragment.onResume();
                 dial.dismiss();
             }
         });

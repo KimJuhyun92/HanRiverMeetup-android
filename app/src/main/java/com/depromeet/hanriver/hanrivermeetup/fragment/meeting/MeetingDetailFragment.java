@@ -1,19 +1,13 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.meeting;
 
-import android.annotation.SuppressLint;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,26 +21,20 @@ import android.widget.TextView;
 import com.depromeet.hanriver.hanrivermeetup.HanRiverMeetupApplication;
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.fragment.login.LoginFragment;
-import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.Category.MeetingCategoryAdapter;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.Detail.MeetingCommentAdapter;
 import com.depromeet.hanriver.hanrivermeetup.helper.CircleTransform;
-import com.depromeet.hanriver.hanrivermeetup.model.meeting.Activity;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.Comment;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.MeetingDetail;
 import com.depromeet.hanriver.hanrivermeetup.model.mypage.ApplicantVO;
 import com.depromeet.hanriver.hanrivermeetup.service.CommunicationService;
 import com.depromeet.hanriver.hanrivermeetup.service.FacebookService;
 import com.depromeet.hanriver.hanrivermeetup.service.HostService;
-import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
-import java.net.NoRouteToHostException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -65,7 +53,7 @@ public class MeetingDetailFragment extends DialogFragment {
     ImageView profile_img;
     ImageButton back_btn;
     ScrollView scroll;
-    TextView room_title, profile_name, detail_info, detail_location, detail_content;
+    TextView room_title, profile_name, detail_info, detail_location, detail_content, joinbtn_border;
     int meeting_seq;
     String room_master_name;
     MeetingDetailFragment self;
@@ -100,6 +88,7 @@ public class MeetingDetailFragment extends DialogFragment {
 
 
     private void setupViews(View v) {
+        joinbtn_border =v.findViewById(R.id.border_join_Btn);
         scroll = v.findViewById(R.id.detail_scroll);
         scroll.setOverScrollMode(View.OVER_SCROLL_NEVER);
         back_btn = v.findViewById(R.id.detail_back_btn);
@@ -119,7 +108,7 @@ public class MeetingDetailFragment extends DialogFragment {
         join_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MeetingJoinFragment dialog = MeetingJoinFragment.newInstance(meeting_seq, room_master_name);
+                MeetingJoinFragment dialog = MeetingJoinFragment.newInstance(meeting_seq, room_master_name,self);
                 dialog.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light);
                 dialog.show(getFragmentManager(), "meeting_join");
             }
@@ -204,6 +193,7 @@ public class MeetingDetailFragment extends DialogFragment {
                 join_btn.setEnabled(false);
                 join_btn.setText("이미 참여한 모임입니다");
                 join_btn.setTextColor(Color.parseColor("#ffffff"));
+                joinbtn_border.setBackgroundColor(Color.parseColor("#dcdcdc"));
 
             }
         }
@@ -216,7 +206,8 @@ public class MeetingDetailFragment extends DialogFragment {
         profile_name.setText("" + meetingDetail.getNickname());
         String time = meetingDetail.getMeeting_time();
         time = time.substring(11, 16);
-        detail_info.setText("시간 " + time + " / 인원 " + String.valueOf(meetingDetail.getParticipants_cnt()) + "명 / 회비 " + String.valueOf(meetingDetail.getExpected_cost()) + "원");
+        detail_info.setText(Html.fromHtml("시간 " + "<b>"+time+"</b>"+ " / 인원 " + "<b>"+String.valueOf(meetingDetail.getParticipants_cnt())
+                + "명</b> / 회비 " +"<b>"+ String.valueOf(meetingDetail.getExpected_cost()) +"</b>"+ "원"));
         detail_location.setText(meetingDetail.getMeeting_location() + "");
         detail_content.setText(meetingDetail.getDescription() + "");
         Picasso.get().load(FacebookService.getInstance().getProfileURL(meetingDetail.getUser_id()))
@@ -227,6 +218,7 @@ public class MeetingDetailFragment extends DialogFragment {
             join_btn.setEnabled(false);
             join_btn.setText("내가 만든 방입니다");
             join_btn.setTextColor(Color.parseColor("#ffffff"));
+            joinbtn_border.setBackgroundColor(Color.parseColor("#dcdcdc"));
         }
         // TestFrag frag = new TestFrag();
 //        FragmentManager fragmentManager = getFragmentManager();
