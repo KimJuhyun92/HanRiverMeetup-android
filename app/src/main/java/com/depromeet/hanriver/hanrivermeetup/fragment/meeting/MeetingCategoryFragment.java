@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.depromeet.hanriver.hanrivermeetup.activity.main.MainActivity;
 import com.depromeet.hanriver.hanrivermeetup.HanRiverMeetupApplication;
 import com.depromeet.hanriver.hanrivermeetup.R;
+import com.depromeet.hanriver.hanrivermeetup.fragment.login.LoginFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.Category.MeetingCategoryAdapter;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.Activity;
 
@@ -58,9 +59,11 @@ public class MeetingCategoryFragment extends Fragment {
     }
 
     private void setupViews(View v) {
-        mActivitesView = v.findViewById(R.id.test_text);
+        mActivitesView = v.findViewById(R.id.category_main_text);
+        mActivitesView.setText(LoginFragment.getNick_name()+" 님\n한강에서 즐겨볼까요?");
 //        gridview = v.findViewById(R.id.gridview);
         recyclerView = v.findViewById(R.id.category_rv);
+        recyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         rvManager = new LinearLayoutManager(getContext());
         Log.d("TAG","setupViews");
         MainActivity.tabVisible(View.VISIBLE);

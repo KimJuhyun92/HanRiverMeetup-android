@@ -19,12 +19,15 @@
         />
 
     <ImageButton
+        android:id="@+id/join_back_btn"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="25dp"
         android:layout_marginTop="50dp"
-        android:src="@drawable/ic_plus"/>
+        android:src="@drawable/ic_plus"
+        android:background="@android:color/transparent"
+        />
 
     <ImageView
         android:id="@+id/join_profile_img"
@@ -68,7 +71,7 @@
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:lineSpacingExtra="20sp"
-            android:text="20"
+            android:hint="모임에 참여할 인원수를 입력해주세요."
             android:textColor="@color/warm_grey"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="24dp"
@@ -112,7 +115,7 @@
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:lineSpacingExtra="20sp"
-            android:text="카카오톡 아이디 또는 연락처 11자리"
+            android:hint="카카오톡 아이디 또는 연락처 11자리"
             android:textColor="@color/warm_grey"
             android:layout_marginLeft="32dp"
             android:layout_marginTop="24dp"
@@ -160,7 +163,7 @@
         android:lineSpacingExtra="8sp"
         android:paddingLeft="25dp"
         android:paddingRight="25dp"
-        android:text="모임에 참여하게 된 이유를 적어주세요!"
+        android:hint="모임에 참여하게 된 이유를 적어주세요!"
         android:gravity="top"
         android:textColor="@color/warm_grey"
         android:textSize="12sp" />

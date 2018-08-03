@@ -1,12 +1,14 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.meeting;
 
 import android.app.TimePickerDialog;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -25,11 +28,14 @@ import com.depromeet.hanriver.hanrivermeetup.fragment.login.LoginFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.CreateRoom.ExpandableListAdapter;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Utils.CreateRoomLocationFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Utils.TimePickerFragment;
+import com.depromeet.hanriver.hanrivermeetup.helper.CircleTransform;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.CreateRoom;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.MeetingDetail;
+import com.depromeet.hanriver.hanrivermeetup.service.FacebookService;
 import com.depromeet.hanriver.hanrivermeetup.service.HostService;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -49,7 +55,7 @@ public class MeetingCreateRoom extends DialogFragment{
 //    RecyclerView rv;
     EditText roomname,roomcontent,contact,fee,num;
     TextView location,time,nickname;
-    ImageButton profileimg;
+    ImageButton profileimg,back_btn;
     Button createbtn;
     int hour,minute;
     int activity_seq;
@@ -59,6 +65,16 @@ public class MeetingCreateRoom extends DialogFragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(getDialog()==null)
+            return;
+
+        getDialog().getWindow().setWindowAnimations(
+                R.style.dialog_animation_fade);
     }
 
     public static MeetingCreateRoom newInstance(int activity_seq) {
@@ -82,6 +98,8 @@ public class MeetingCreateRoom extends DialogFragment{
     }
 
     private void setupViews(View v) {
+        back_btn = v.findViewById(R.id.create_room_back_btn);
+        back_btn.setOnClickListener(back_click);
         nickname = v.findViewById(R.id.create_room_nickname);
         roomname= v.findViewById(R.id.create_room_name);
         roomcontent= v.findViewById(R.id.create_room_content);
@@ -93,6 +111,9 @@ public class MeetingCreateRoom extends DialogFragment{
         fee = v.findViewById(R.id.create_room_fee);
         num = v.findViewById(R.id.create_room_num);
         nickname.setText(LoginFragment.getNick_name());
+
+        Picasso.get().load(FacebookService.getInstance().getProfileURL(LoginFragment.getUser_id()))
+                .transform(CircleTransform.getInstance()).into(profileimg);
 
         time.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,9 +146,9 @@ public class MeetingCreateRoom extends DialogFragment{
                 md.setUser_id(LoginFragment.getUser_id().toString());
                 md.setContact(contact.getText().toString());
 
-                mCompositeDisposable.add(HostService.getInstance().createMeeting(md)
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe());
+//                mCompositeDisposable.add(HostService.getInstance().createMeeting(md)
+//                .subscribeOn(Schedulers.computation())
+//                .observeOn(AndroidSchedulers.mainThread()).subscribe());
 
                 dial.dismiss();
 //
@@ -152,6 +173,11 @@ public class MeetingCreateRoom extends DialogFragment{
     private void bind() {
         mCompositeDisposable = new CompositeDisposable();
 
+        mCompositeDisposable.add(HostService.getInstance().getTodayList()
+        .subscribeOn(Schedulers.computation())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(this::isCreated));
+
 
 
 //        mCompositeDisposable.add(mViewModel.getAvailableRooms()
@@ -163,6 +189,16 @@ public class MeetingCreateRoom extends DialogFragment{
 
     private void unBind() {
         mCompositeDisposable.clear();
+    }
+
+    private void isCreated(@NonNull final List<MeetingDetail> Rooms) {
+        for(int i=0;i<Rooms.size();i++) {
+            if (Rooms.get(i).getUser_id().equals(LoginFragment.getUser_id())) {
+                createbtn.setText("이미 방을 생성하였습니다.");
+                createbtn.setBackgroundColor(Color.parseColor("#aaaaaa"));
+                createbtn.setEnabled(false);
+            }
+        }
     }
 
     @Override
@@ -179,4 +215,11 @@ public class MeetingCreateRoom extends DialogFragment{
 
         return formatDate+time;
     }
+
+    View.OnClickListener back_click = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            dial.dismiss();
+        }
+    };
 }

@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.meeting.MeetingCategoryFragment">
+    tools:context=".fragment.meeting.MeetingCategoryFragment"
+    android:background="#ffffff">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/test_text"
+        android:id="@+id/category_main_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
@@ -21,14 +22,14 @@
         android:id="@+id/weather_img"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:layout_below="@id/test_text"
+        android:layout_below="@id/category_main_text"
         android:layout_marginTop="22dp"
         android:layout_marginLeft="25dp"
         android:src="@drawable/ic_weather_sunny" />
 
     <TextView
         android:id="@+id/weather_text"
-        android:layout_below="@+id/test_text"
+        android:layout_below="@+id/category_main_text"
         android:layout_marginTop="22dp"
         android:layout_marginLeft="70dp"
         android:layout_width="wrap_content"
@@ -36,7 +37,7 @@
         android:textSize="14sp"
         android:lineSpacingExtra="6sp"
         android:text="TODAY\n맑음, 20℃ / 32℃"
-
+        android:textColor="#000000"
         />
 
     <android.support.v7.widget.RecyclerView

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/detail_scroll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -20,7 +21,10 @@
                 android:layout_height="20dp"
                 android:layout_marginLeft="24dp"
                 android:layout_marginTop="53dp"
-                android:background="@color/com_facebook_button_login_silver_background_color_pressed" />
+                android:src="@drawable/bt_back"
+                android:scaleType="fitCenter"
+                android:background="@android:color/transparent"
+                />
 
             <TextView
                 android:id="@+id/detail_room_title"
@@ -34,19 +38,14 @@
                 android:textSize="18sp" />
         </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/detail_profile_img"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="106dp"
-            app:srcCompat="@drawable/app_logo" />
+
 
         <RelativeLayout
             android:id="@+id/detail_body_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/detail_top">
+            android:layout_below="@+id/detail_top"
+            android:background="#ffffff">
 
             <TextView
                 android:id="@+id/detail_name"
@@ -71,6 +70,15 @@
                 android:text="시간 11:00 / 인원 16명 / 회비 20,000원"
                 android:textColor="#666666"
                 android:textSize="16sp" />
+            
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="13dp"
+                android:src="@drawable/ic_location"
+                android:layout_below="@id/detail_info"
+                android:layout_marginTop="13dp"
+                android:layout_toLeftOf="@id/detail_location"
+                android:layout_marginRight="5dp"/>
 
             <TextView
                 android:id="@+id/detail_location"
@@ -139,7 +147,9 @@
                 android:layout_width="290dp"
                 android:layout_height="50dp"
                 android:layout_below="@id/detail_comment_rv"
-                android:background="@color/warm_grey" />
+                android:hint="모임에 관해 궁금한 점을 물어봐요!"
+                android:background="#ffffff"
+                android:textSize="14sp"/>
 
             <Button
                 android:id="@+id/detail_comment_btn"
@@ -155,6 +165,14 @@
 
 
         </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/detail_profile_img"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="106dp"
+            app:srcCompat="@drawable/app_logo" />
 
 
     </RelativeLayout>
