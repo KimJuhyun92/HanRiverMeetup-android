@@ -19,6 +19,18 @@
         android:src="@drawable/ic_cancle_btn">
     </ImageButton>
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/profile_animation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:lottie_loop="true"
+        app:lottie_imageAssetsFolder="images/"
+        app:lottie_fileName="profile_animation.json"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="45dp"/>
+
     <ImageView
         android:id="@+id/profile_img"
         android:layout_width="100dp"
@@ -26,7 +38,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="120dp"/>
+        android:layout_marginTop="115dp"/>
 
     <TextView
         android:id="@+id/intro_text"

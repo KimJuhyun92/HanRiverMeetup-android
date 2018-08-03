@@ -64,7 +64,9 @@ dependencies {
     //Permission
     implementation 'gun0912.ted:tedpermission:2.0.0'
 
-
     // Dali Van Picasso ~~ 밤 고흐의 달이 보이는밤~
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    // Lottie
+    implementation 'com.airbnb.android:lottie:2.5.5'
 }
