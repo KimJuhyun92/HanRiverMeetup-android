@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +18,10 @@ import android.widget.Toast;
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.MatchingDialog;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.SelectionDialog;
+import com.depromeet.hanriver.hanrivermeetup.helper.CircleTransform;
 import com.depromeet.hanriver.hanrivermeetup.model.mypage.ApplicantVO;
 import com.depromeet.hanriver.hanrivermeetup.service.FacebookService;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,26 +52,30 @@ public class ApplicantListAdapter extends RecyclerView.Adapter<ApplicantListAdap
 
         holder.applicant_name.setText(itemsList.get(i).getNickname());
 
-        String user_id = itemsList.get(i).getUserId();
+        String userID = itemsList.get(i).getUserId();
+        Log.d("@@@userID@@@","" + userID);
+
+        Picasso.get().load(FacebookService.getInstance().getProfileURL(userID))
+                .transform(CircleTransform.getInstance()).into(holder.applicant_img);
 
         //참가자 이미지 비동기 통신
-        new AsyncTask<Void,Void,Bitmap>(){
-
-            @Override
-            protected Bitmap doInBackground(Void... voids) {
-
-                Bitmap bitmap ;
-                bitmap = FacebookService.getInstance().getProfileURI(user_id);
-
-                return bitmap;
-            }
-
-            @Override
-            protected void onPostExecute(Bitmap bitmap) {
-                super.onPostExecute(bitmap);
-                holder.applicant_img.setImageBitmap(bitmap);
-            }
-        }.execute();
+//        new AsyncTask<Void,Void,Bitmap>(){
+//
+//            @Override
+//            protected Bitmap doInBackground(Void... voids) {
+//
+//                Bitmap bitmap ;
+//                bitmap = FacebookService.getInstance().getProfileURI(user_id);
+//
+//                return bitmap;
+//            }
+//
+//            @Override
+//            protected void onPostExecute(Bitmap bitmap) {
+//                super.onPostExecute(bitmap);
+//                holder.applicant_img.setImageBitmap(bitmap);
+//            }
+//        }.execute();
 
     }
 

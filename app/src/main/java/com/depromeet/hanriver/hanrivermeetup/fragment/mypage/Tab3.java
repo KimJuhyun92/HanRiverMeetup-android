@@ -64,31 +64,6 @@ public class Tab3 extends Fragment {
         LinearLayout v = (LinearLayout) inflater.inflate(R.layout.tab3_fragment, container, false);
         setupViews(v);
 
-//        mRecyclerView = v.findViewById(R.id.recyclerview);
-//        mRecyclerView.setHasFixedSize(true);
-//
-//        // use a linear layout manager 
-//        mLayoutManager = new LinearLayoutManager(getActivity());
-//        mRecyclerView.setLayoutManager(mLayoutManager);
-
-
-//        MyPageService.getInstance().getMathcedMeeting("1320458764757184").subscribe(
-//                list -> {
-//                    Log.d("@@@@@1"," "+list.get(0).getMeetingDetail().getTitle());
-//                    Log.d("@@@@@2"," "+list.get(0).getExpectedCost());
-//                    Log.d("@@@@@3"," "+list.get(0).getParticipantsCnt());
-//                    Log.d("@@@@@4"," "+list.get(0).getMeetingTime());
-//                    Log.d("@@@@@size"," "+ list.size());
-//
-//                    mItems.addAll(list);
-//                }
-//        );
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-
         Tab3Adapter tab3Adapter = new Tab3Adapter(getActivity(),mItems);
         mRecyclerView.setAdapter(tab3Adapter);
 
