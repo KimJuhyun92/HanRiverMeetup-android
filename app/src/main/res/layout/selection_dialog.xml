@@ -21,7 +21,7 @@
             android:textSize="14sp"
             android:textColor="#ffffff"
             android:lineSpacingExtra="18sp"
-            android:text="이분과 매칭하고 싶으싶니까?" />
+            android:text="전화연결 하시겠습니까?" />
     </LinearLayout>
 
     <ImageView

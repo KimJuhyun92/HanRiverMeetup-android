@@ -24,6 +24,6 @@
         android:lineSpacingExtra="4sp"
         android:lineHeight="22sp"
         android:textSize="14sp"
-        android:text="완료된 모임"/>
+        android:text="매칭된 모임"/>
 
 </FrameLayout>

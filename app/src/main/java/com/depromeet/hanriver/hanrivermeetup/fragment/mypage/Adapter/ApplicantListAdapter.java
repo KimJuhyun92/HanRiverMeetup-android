@@ -31,6 +31,7 @@ public class ApplicantListAdapter extends RecyclerView.Adapter<ApplicantListAdap
     private List<ApplicantVO> itemsList;
     private Context mContext;
     private MatchingDialog dialog;
+    private String userID;
 
     public ApplicantListAdapter(Context context, List<ApplicantVO> itemsList){
         this.itemsList = itemsList;
@@ -52,30 +53,12 @@ public class ApplicantListAdapter extends RecyclerView.Adapter<ApplicantListAdap
 
         holder.applicant_name.setText(itemsList.get(i).getNickname());
 
-        String userID = itemsList.get(i).getUserId();
+        userID = itemsList.get(i).getUserId();
+
         Log.d("@@@userID@@@","" + userID);
 
         Picasso.get().load(FacebookService.getInstance().getProfileURL(userID))
                 .transform(CircleTransform.getInstance()).into(holder.applicant_img);
-
-        //참가자 이미지 비동기 통신
-//        new AsyncTask<Void,Void,Bitmap>(){
-//
-//            @Override
-//            protected Bitmap doInBackground(Void... voids) {
-//
-//                Bitmap bitmap ;
-//                bitmap = FacebookService.getInstance().getProfileURI(user_id);
-//
-//                return bitmap;
-//            }
-//
-//            @Override
-//            protected void onPostExecute(Bitmap bitmap) {
-//                super.onPostExecute(bitmap);
-//                holder.applicant_img.setImageBitmap(bitmap);
-//            }
-//        }.execute();
 
     }
 
@@ -93,8 +76,8 @@ public class ApplicantListAdapter extends RecyclerView.Adapter<ApplicantListAdap
         public ItemViewHolder(View view) {
             super(view);
 
-            this.applicant_img = view.findViewById(R.id.applicant_img);
-            this.applicant_name = view.findViewById(R.id.applicant_name);
+            applicant_img = view.findViewById(R.id.applicant_img);
+            applicant_name = view.findViewById(R.id.applicant_name);
 
 
             view.setOnClickListener(new View.OnClickListener() {
