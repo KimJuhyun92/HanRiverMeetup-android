@@ -28,11 +28,14 @@ import com.depromeet.hanriver.hanrivermeetup.fragment.login.LoginFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.CreateRoom.ExpandableListAdapter;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Utils.CreateRoomLocationFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Utils.TimePickerFragment;
+import com.depromeet.hanriver.hanrivermeetup.helper.CircleTransform;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.CreateRoom;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.MeetingDetail;
+import com.depromeet.hanriver.hanrivermeetup.service.FacebookService;
 import com.depromeet.hanriver.hanrivermeetup.service.HostService;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -109,6 +112,9 @@ public class MeetingCreateRoom extends DialogFragment{
         num = v.findViewById(R.id.create_room_num);
         nickname.setText(LoginFragment.getNick_name());
 
+        Picasso.get().load(FacebookService.getInstance().getProfileURL(LoginFragment.getUser_id()))
+                .transform(CircleTransform.getInstance()).into(profileimg);
+
         time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,9 +146,9 @@ public class MeetingCreateRoom extends DialogFragment{
                 md.setUser_id(LoginFragment.getUser_id().toString());
                 md.setContact(contact.getText().toString());
 
-                mCompositeDisposable.add(HostService.getInstance().createMeeting(md)
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe());
+//                mCompositeDisposable.add(HostService.getInstance().createMeeting(md)
+//                .subscribeOn(Schedulers.computation())
+//                .observeOn(AndroidSchedulers.mainThread()).subscribe());
 
                 dial.dismiss();
 //

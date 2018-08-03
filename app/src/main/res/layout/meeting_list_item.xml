@@ -21,8 +21,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="14sp"
-        android:lineSpacingExtra="18sp"
+        android:lineSpacingExtra="14sp"
+        android:textStyle="bold"
         android:text="주말에 난지에서 캠핑할 분 구해요!"
+        android:textColor="#000000"
         />
 
     <ImageView
@@ -61,6 +63,7 @@
         android:textSize="12sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:text="11:00"/>
 
     <TextView
@@ -81,6 +84,7 @@
         android:textSize="12sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:text="5명"/>
 
     <TextView
@@ -101,6 +105,7 @@
         android:textSize="12sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:text="20,000원"/>
 
 </RelativeLayout>
