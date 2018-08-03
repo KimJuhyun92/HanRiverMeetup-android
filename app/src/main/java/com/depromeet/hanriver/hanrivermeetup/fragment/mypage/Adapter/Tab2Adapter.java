@@ -80,11 +80,11 @@ public class Tab2Adapter extends BaseAdapter{
         String creation_date;
         String now_date;
 
-        String meetingDate[] = mItems.get(position).getMeetingTime().split(" ");
+        String meetingDate[] = mItems.get(position).getMeetingDetail().getMeetingTime().split(" ");
         meeting_date = meetingDate[0];
         meeting_time = meetingDate[1];
 
-        String creationDate[] = mItems.get(position).getCreationTime().split("-| ");
+        String creationDate[] = mItems.get(position).getMeetingDetail().getCreationTime().split("-| ");
         creation_date = creationDate[2];
         Log.d("@@@day",""+creationDate[2]);
 
@@ -94,10 +94,10 @@ public class Tab2Adapter extends BaseAdapter{
         now_date = nowDate[2];
 
         if(Integer.valueOf(creation_date) == Integer.valueOf(now_date)){
-            if(mItems.get(position).getContactSeq() == 0)
+            if(mItems.get(position).getMeetingDetail().getContactSeq() == 0)
                 //대기중
                 holder.mState.setImageResource(R.drawable.ic_camping_icon_white);
-            else if(mItems.get(position).getContactSeq() != 0)
+            else if(mItems.get(position).getMeetingDetail().getContactSeq() != 0)
                 //매칭 실패
                 holder.mState.setImageResource(R.drawable.ic_chicken_icon);
         }
@@ -109,13 +109,13 @@ public class Tab2Adapter extends BaseAdapter{
 
 
 
-        holder.mTitle.setText(mItems.get(position).getTitle());
+        holder.mTitle.setText(mItems.get(position).getMeetingDetail().getTitle());
 
         holder.mDate.setText(meeting_date);
         holder.mTime.setText(meeting_time);
 
-        holder.mCost.setText(String.valueOf(mItems.get(position).getExpectedCost()));
-        holder.mParticipants.setText(String.valueOf(mItems.get(position).getParticipantsCnt()));
+        holder.mCost.setText(String.valueOf(mItems.get(position).getMeetingDetail().getExpectedCost()));
+        holder.mParticipants.setText(String.valueOf(mItems.get(position).getMeetingDetail().getParticipantsCnt()));
 
 
         return view;

@@ -19,9 +19,12 @@ import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingCategoryFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingCreateRoom;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingDetailFragment;
+import com.depromeet.hanriver.hanrivermeetup.helper.CircleTransform;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.MeetingDetail;
 import com.depromeet.hanriver.hanrivermeetup.service.FacebookService;
 import com.depromeet.hanriver.hanrivermeetup.service.HostService;
+import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.logging.Handler;
@@ -66,7 +69,8 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListViewHold
         meetingListViewHolder.time.setText(time);
         meetingListViewHolder.numofmem.setText("" + room.getParticipants_cnt() + "명");
         meetingListViewHolder.fee.setText("" + room.getExpected_cost() + "원");
-
+        Picasso.get().load(FacebookService.getInstance().getProfileURL(list.get(i).getUser_id()))
+                .transform(CircleTransform.getInstance()).into(meetingListViewHolder.imgview);
 
     }
 

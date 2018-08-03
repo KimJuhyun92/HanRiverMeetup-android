@@ -18,10 +18,13 @@ import android.widget.TextView;
 import com.depromeet.hanriver.hanrivermeetup.HanRiverMeetupApplication;
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.fragment.login.LoginFragment;
+import com.depromeet.hanriver.hanrivermeetup.helper.CircleTransform;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.JoinRequest;
 import com.depromeet.hanriver.hanrivermeetup.network.GuestAPIService;
+import com.depromeet.hanriver.hanrivermeetup.service.FacebookService;
 import com.depromeet.hanriver.hanrivermeetup.service.GuestService;
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -90,6 +93,8 @@ public class MeetingJoinFragment extends DialogFragment {
         join_btn = v.findViewById(R.id.join_btn);
         nickname.setText(LoginFragment.getNick_name());
 
+        Picasso.get().load(FacebookService.getInstance().getProfileURL(LoginFragment.getUser_id()))
+                .transform(CircleTransform.getInstance()).into(profile_img);
 
         join_btn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -90,7 +90,7 @@ public class BoatFragment extends Fragment {
 
         recyclerView.setLayoutManager(rvManager);
         recyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        recyclerView.setAdapter(new MeetingListAdapter(Rooms,getContext(),this));List<MeetingDetail> rooms = new ArrayList<>();
+        List<MeetingDetail> rooms = new ArrayList<>();
         for(int i =0;i<Rooms.size();i++){
             if(Rooms.get(i).getActivity_seq()==3)
                 rooms.add(Rooms.get(i));

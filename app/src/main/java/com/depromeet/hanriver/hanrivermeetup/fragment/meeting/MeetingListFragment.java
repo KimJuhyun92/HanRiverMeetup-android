@@ -52,6 +52,7 @@ public class MeetingListFragment extends Fragment{
 
     public static MeetingListFragment newInstance(int position) {
         current_position = position;
+        Log.d("position:",""+current_position);
         Bundle args = new Bundle();
         MeetingListFragment fragment = new MeetingListFragment();
         fragment.setArguments(args);
@@ -80,7 +81,6 @@ public class MeetingListFragment extends Fragment{
 
         MeetingListTapPagerAdapter adapter = new MeetingListTapPagerAdapter(getChildFragmentManager(),tabLayout.getTabCount());
         viewpager.setAdapter(adapter);
-        viewpager.setCurrentItem(current_position);
         viewpager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
@@ -88,6 +88,7 @@ public class MeetingListFragment extends Fragment{
             public void onTabSelected(TabLayout.Tab tab) {
                 viewpager.setCurrentItem(tab.getPosition());
                 current_position = tab.getPosition();
+                Log.d("position: ",""+current_position);
                 category_img.setImageResource(image_num[current_position]);
             }
 
@@ -100,6 +101,8 @@ public class MeetingListFragment extends Fragment{
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
+
+        viewpager.setCurrentItem(current_position);
 
     }
 

@@ -38,19 +38,14 @@
                 android:textSize="18sp" />
         </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/detail_profile_img"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="106dp"
-            app:srcCompat="@drawable/app_logo" />
+
 
         <RelativeLayout
             android:id="@+id/detail_body_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/detail_top">
+            android:layout_below="@+id/detail_top"
+            android:background="#ffffff">
 
             <TextView
                 android:id="@+id/detail_name"
@@ -82,14 +77,15 @@
                 android:src="@drawable/ic_location"
                 android:layout_below="@id/detail_info"
                 android:layout_marginTop="13dp"
-                android:layout_marginLeft="125dp"/>
+                android:layout_toLeftOf="@id/detail_location"
+                android:layout_marginRight="5dp"/>
 
             <TextView
                 android:id="@+id/detail_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/detail_info"
-                android:layout_marginLeft="140dp"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
                 android:lineSpacingExtra="25sp"
                 android:text="여의도  한강공원"
@@ -169,6 +165,14 @@
 
 
         </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/detail_profile_img"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="106dp"
+            app:srcCompat="@drawable/app_logo" />
 
 
     </RelativeLayout>
