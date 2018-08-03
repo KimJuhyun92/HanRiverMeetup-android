@@ -90,6 +90,7 @@ public class MeetingListFragment extends Fragment{
                 current_position = tab.getPosition();
                 Log.d("position: ",""+current_position);
                 category_img.setImageResource(image_num[current_position]);
+
             }
 
             @Override
@@ -132,7 +133,7 @@ public class MeetingListFragment extends Fragment{
 //            fragTransaction.replace(R.id.meeting_root, frag);
 //            fragTransaction.addToBackStack(null);
 //            fragTransaction.commit();
-            MeetingCreateRoom dialog = MeetingCreateRoom.newInstance(current_position+1);
+            MeetingCreateRoom dialog = MeetingCreateRoom.newInstance(current_position+1,frag);
             dialog.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light);
             dialog.show(getFragmentManager(), "tag");
 

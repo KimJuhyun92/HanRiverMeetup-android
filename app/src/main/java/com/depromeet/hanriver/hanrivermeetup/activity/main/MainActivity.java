@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Initializing the TabLayout
         tabLayout = findViewById(R.id.tablayout);
+        tabLayout.setTabRippleColor(null);
 //        tabLayout.addTab(tabLayout.newTab().setText("같이놀강"));
         View nolgang_item = getLayoutInflater().inflate(R.layout.tab_icon_nolgang, null);
         nolgang_img = nolgang_item.findViewById(R.id.nolgang_img);
