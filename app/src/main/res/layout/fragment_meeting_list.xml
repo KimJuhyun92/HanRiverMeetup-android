@@ -55,17 +55,17 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/meeting_list_fab"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="24dp"
         android:layout_marginRight="22dp"
-        android:src="@drawable/ic_bt_plus"
-        android:scaleType="fitCenter"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
-        app:elevation="0dp" />
+        android:src="@drawable/ic_bt_plus"
+        app:elevation="0dp"
+        android:layout_height="50dp"
+        android:layout_width="50dp"
+        android:scaleType="center"/>
 
 
 </RelativeLayout>

@@ -36,7 +36,7 @@ public class MeetingListFragment extends Fragment{
     ImageButton back_btn;
     ImageView category_img;
     static int image_num[];
-    Fragment frag;
+    MeetingListFragment frag;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

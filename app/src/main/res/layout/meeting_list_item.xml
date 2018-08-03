@@ -107,5 +107,12 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:text="20,000원"/>
+    <View
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dcdcdc">
+
+    </View>
 
 </RelativeLayout>

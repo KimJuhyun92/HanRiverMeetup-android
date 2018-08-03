@@ -146,9 +146,9 @@ public class MeetingCreateRoom extends DialogFragment{
                 md.setUser_id(LoginFragment.getUser_id().toString());
                 md.setContact(contact.getText().toString());
 
-//                mCompositeDisposable.add(HostService.getInstance().createMeeting(md)
-//                .subscribeOn(Schedulers.computation())
-//                .observeOn(AndroidSchedulers.mainThread()).subscribe());
+                mCompositeDisposable.add(HostService.getInstance().createMeeting(md)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe());
 
                 dial.dismiss();
 //
