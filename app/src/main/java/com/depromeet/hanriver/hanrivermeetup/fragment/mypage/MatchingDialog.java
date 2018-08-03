@@ -10,6 +10,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.helper.CircleTransform;
 import com.depromeet.hanriver.hanrivermeetup.service.FacebookService;
@@ -38,6 +39,9 @@ public class MatchingDialog extends Dialog {
 
         //다이얼로그에서 사용할 레이아웃입니다.\
         setContentView(R.layout.matching_dialog);
+
+        LottieAnimationView animationView = findViewById(R.id.profile_animation);
+        animationView.playAnimation();
     }
 
     private void SetData(String hostName,
