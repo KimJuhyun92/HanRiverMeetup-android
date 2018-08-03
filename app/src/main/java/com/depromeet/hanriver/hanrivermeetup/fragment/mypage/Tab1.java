@@ -55,7 +55,6 @@ public class Tab1 extends Fragment{
         LinearLayout v = (LinearLayout) inflater.inflate(R.layout.mypage_tab1_maked_room, container, false);
         setupViews(v);
 
-
         return v;
     }
 
@@ -83,17 +82,10 @@ public class Tab1 extends Fragment{
     private void bind() {
         mCompositeDisposable = new CompositeDisposable();
 
-//        mCompositeDisposable.add(mTab1ViewModel.getAvailableTab1VOs()
-//                .subscribeOn(Schedulers.computation())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(this::setTab1VOs));
-
         mCompositeDisposable.add(MyPageService.getInstance().getMyMeeting("1320458764757184")
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::setTab1VOs));
-
-
     }
 
     private void unBind() {
@@ -101,9 +93,10 @@ public class Tab1 extends Fragment{
     }
 
     private void setTab1VOs(@NonNull final List<Tab1VO> tab1VOs) {
-//        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setAdapter(new Tab1Adapter(getActivity(),tab1VOs, mCompositeDisposable));
+        mRecyclerView.setAdapter(new Tab1Adapter(getActivity(),tab1VOs));
     }
+
+
 
     @NonNull
     private Tab1ViewModel getViewModel() {

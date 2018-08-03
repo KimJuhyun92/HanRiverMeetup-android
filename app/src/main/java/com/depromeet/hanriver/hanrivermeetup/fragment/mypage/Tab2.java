@@ -2,18 +2,11 @@ package com.depromeet.hanriver.hanrivermeetup.fragment.mypage;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +25,7 @@ import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.ViewModel.Tab3ViewM
 import com.depromeet.hanriver.hanrivermeetup.fragment.timeline.TestFragment;
 import com.depromeet.hanriver.hanrivermeetup.model.mypage.Tab2VO;
 import com.depromeet.hanriver.hanrivermeetup.model.mypage.Tab3VO;
+import com.depromeet.hanriver.hanrivermeetup.service.GuestService;
 import com.depromeet.hanriver.hanrivermeetup.service.MyPageService;
 import com.depromeet.hanriver.hanrivermeetup.service.FacebookService;
 
@@ -41,6 +35,10 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -50,6 +48,8 @@ public class Tab2 extends Fragment {
     private CompositeDisposable mCompositeDisposable;
 
     SwipeMenuListView listView;
+    List<Tab2VO> testVO = new ArrayList<Tab2VO>();
+    Tab2Adapter tab2Adapter;
 
     public static TestFragment newInstance() {
 
@@ -91,26 +91,28 @@ public class Tab2 extends Fragment {
 
         // set creator
         listView.setMenuCreator(creator);
-        listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-                switch (index) {
-                    case 0:
-                        //삭제버튼 클릭시 통신
-                        Toast.makeText(getActivity(), "test", Toast.LENGTH_SHORT).show();
-                        
+        listView.setOnMenuItemClickListener((position, menu, index) -> {
+            switch (index) {
+                case 0:
+                    GuestService.getInstance().deleteJoinRequest(testVO.get(position).getApplicationSeq())
+                            .enqueue(new Callback<ResponseBody>() {
+                                @Override
+                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                    Toast.makeText(getActivity(), "삭제 성공!", Toast.LENGTH_SHORT).show();
+                                    bind();
+                                }
+                                @Override
+                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                    Toast.makeText(getActivity(), "삭제 성공!", Toast.LENGTH_SHORT).show();
+                                }
+                            });
 
-
-
-
-                        break;
-                    case 1:
-                        // delete
-                        break;
-                }
-                // false : close the menu; true : not close the menu
-                return false;
+                    break;
+//                    case 1:
+//                        break;
             }
+            // false : close the menu; true : not close the menu
+            return false;
         });
 
         return view;
@@ -136,11 +138,6 @@ public class Tab2 extends Fragment {
     private void bind() {
         mCompositeDisposable = new CompositeDisposable();
 
-//        mCompositeDisposable.add(mTab3ViewModel.getAvailableTab3VOs()
-//                .subscribeOn(Schedulers.computation())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(this::setTab3VOs));
-
         mCompositeDisposable.add(MyPageService.getInstance().getAppliedMeeting("1320458764757184")
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -152,7 +149,9 @@ public class Tab2 extends Fragment {
     }
 
     private void setTab2VOs(@NonNull final List<Tab2VO> tab2VOs) {
-        listView.setAdapter(new Tab2Adapter(tab2VOs));
+        testVO = tab2VOs;
+        listView.setAdapter(tab2Adapter = new Tab2Adapter(tab2VOs));
+//        tab2Adapter.notifyDataSetChanged();
     }
 
     @NonNull

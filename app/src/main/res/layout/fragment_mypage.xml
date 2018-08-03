@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="360dp"
+    android:layout_width="match_parent"
     android:layout_height="674dp"
     android:orientation="vertical"
     tools:context=".fragment.mypage.MyPageFragment">
@@ -21,11 +21,14 @@
 
 
         <TextView
+            android:id="@+id/user_name"
             android:layout_width="70dp"
             android:layout_height="30dp"
             android:layout_marginTop="100dp"
             android:layout_marginLeft="158dp"
-            android:textSize="24sp"
+            android:textSize="22sp"
+            android:lineHeight="8sp"
+            android:textColor="#333333"
             android:text="김태성"/>
 
     </FrameLayout>
@@ -33,7 +36,7 @@
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tablayout2"
-        android:layout_width="262dp"
+        android:layout_width="295dp"
         android:layout_height="58dp"
         />
 
@@ -41,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_centerInParent="true"
-        android:background="#000000"/>
+        android:background="#dcdcdc"/>
 
     <com.depromeet.hanriver.hanrivermeetup.fragment.mypage.CustomViewpager
         android:id="@+id/viewpager2"

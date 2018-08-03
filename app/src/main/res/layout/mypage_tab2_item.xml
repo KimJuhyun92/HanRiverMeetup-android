@@ -7,18 +7,20 @@
     <TextView
         android:id="@+id/title"
         android:layout_width="220dp"
-        android:layout_height="15dp"
+        android:layout_height="18dp"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginBottom="8dp"
         android:textSize="14sp"
+        android:lineHeight="32sp"
+        android:textColor="@color/black"
         android:text="TEST"/>
     
     <ImageView
-
         android:layout_width="10dp"
         android:layout_height="13dp"
         android:background="@drawable/ic_time"
-        android:layout_marginLeft="25dp"
+        android:layout_marginLeft="24dp"
         android:layout_marginTop="44dp"
         android:backgroundTint="#2186f8"/>
 
@@ -34,9 +36,10 @@
 
     <LinearLayout
         android:layout_width="195dp"
-        android:layout_height="17dp"
+        android:layout_height="20dp"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="64dp"
+        android:layout_marginBottom="23dp"
         android:orientation="horizontal">
         <TextView
             android:layout_width="30dp"

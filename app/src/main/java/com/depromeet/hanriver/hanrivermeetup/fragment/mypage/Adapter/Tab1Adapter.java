@@ -1,21 +1,18 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.mypage.Adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.model.mypage.ApplicantVO;
 import com.depromeet.hanriver.hanrivermeetup.model.mypage.Tab1VO;
 import com.depromeet.hanriver.hanrivermeetup.service.HostService;
-import com.depromeet.hanriver.hanrivermeetup.service.MyPageService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +27,10 @@ public class Tab1Adapter extends RecyclerView.Adapter<Tab1Adapter.ItemViewHolder
     private List<Tab1VO> mItems;
     List<ApplicantVO> mApplicantsList = new ArrayList<ApplicantVO>();
     private android.app.Activity mAct;
-    private CompositeDisposable mCompositeDisposable;
+    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
     ApplicantListAdapter applicantListAdapter;
 
-    public Tab1Adapter(android.app.Activity act, List<Tab1VO> items, CompositeDisposable mCompositeDisposable) {
-        this.mCompositeDisposable = mCompositeDisposable;
+    public Tab1Adapter(android.app.Activity act, List<Tab1VO> items) {
         mAct = act;
         mItems = items;
         inflater = (LayoutInflater) act.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -68,29 +64,35 @@ public class Tab1Adapter extends RecyclerView.Adapter<Tab1Adapter.ItemViewHolder
 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
+
+        mCompositeDisposable.add(HostService.getInstance().getMeetingApplicants(mItems.get(position).getMeetingSeq())
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::setApplicantListVOs));
+
         holder.mTitle.setText(mItems.get(position).getTitle());
         holder.mTime.setText(mItems.get(position).getMeetingTime());
         holder.mCost.setText(String.valueOf(mItems.get(position).getExpectedCost()));
         holder.mParticipants.setText(String.valueOf(mItems.get(position).getParticipantsCnt()));
 
-        HostService.getInstance().getMeetingApplicants(mItems.get(position).getMeetingSeq()).subscribe(
-                list -> {
-//                    Log.d("@@@@@1"," "+list.get(0).getNickname());
-//                    Log.d("@@@@@2"," "+list.get(0).getUserId());
-//                    Log.d("@@@@@size"," "+ list.size());
-
-                    mApplicantsList.addAll(list);
-                }
-        );
 
         applicantListAdapter = new ApplicantListAdapter(mContext, mApplicantsList);
         holder.applicant_list.setHasFixedSize(true);
         holder.applicant_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         holder.applicant_list.setAdapter(applicantListAdapter);
 
-
-
     }
+
+    private void setApplicantListVOs (List<ApplicantVO> applicantVOS) {
+        mApplicantsList = applicantVOS;
+        Log.d("@@@size@@@",""+applicantVOS.size());
+
+        for(int i =0; i<mApplicantsList.size(); i++){
+            Log.d("@@@nickname@@@",i + mApplicantsList.get(i).getNickname());
+        }
+//        applicantListAdapter = new ApplicantListAdapter(mContext, applicantVOS);
+    }
+
 
     // 데이터 셋의 크기를 리턴해줍니다. 
     @Override
