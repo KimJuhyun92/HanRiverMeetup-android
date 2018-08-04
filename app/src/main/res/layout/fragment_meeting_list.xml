@@ -60,11 +60,12 @@
         android:layout_marginBottom="24dp"
         android:layout_marginRight="22dp"
         android:adjustViewBounds="true"
-        android:background="@android:color/transparent"
+        android:backgroundTint="@color/clear_blue"
         android:src="@drawable/ic_bt_plus"
         app:elevation="0dp"
-        android:layout_height="50dp"
-        android:layout_width="50dp"
+        app:fabSize="normal"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:scaleType="center"/>
 
 
