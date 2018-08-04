@@ -31,7 +31,7 @@
         android:layout_marginTop="160dp"
         android:layout_marginLeft="25dp"
         android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         />
 
@@ -74,7 +74,7 @@
             android:lineSpacingExtra="20sp"
             android:text="위치"
             android:layout_marginTop="24dp"
-            android:layout_marginLeft="42dp"
+            android:layout_marginLeft="27dp"
             android:textStyle="bold"
             />
         <TextView
@@ -104,7 +104,7 @@
             android:lineSpacingExtra="20sp"
             android:text="시간"
             android:layout_marginTop="24dp"
-            android:layout_marginLeft="42dp"
+            android:layout_marginLeft="27dp"
             android:textStyle="bold"
             />
         <TextView
@@ -133,7 +133,7 @@
             android:lineSpacingExtra="20sp"
             android:text="인원"
             android:layout_marginTop="24dp"
-            android:layout_marginLeft="42dp"
+            android:layout_marginLeft="27dp"
             android:textStyle="bold" />
         <EditText
             android:id="@+id/create_room_num"
@@ -178,7 +178,7 @@
             android:lineSpacingExtra="20sp"
             android:text="회비"
             android:layout_marginTop="24dp"
-            android:layout_marginLeft="42dp"
+            android:layout_marginLeft="27dp"
             android:textStyle="bold"
             />
         <EditText
@@ -225,7 +225,7 @@
             android:lineSpacingExtra="20sp"
             android:text="연락처"
             android:layout_marginTop="24dp"
-            android:layout_marginLeft="42dp"
+            android:layout_marginLeft="27dp"
             android:textStyle="bold"
             />
         <EditText
@@ -259,6 +259,7 @@
         android:hint="모임의 이야기를 들려줘!"
         android:textColor="@color/warm_grey"
         android:paddingLeft="27dp"
+        android:paddingRight="27dp"
         android:layout_below="@+id/meeting_create_ll5"/>
     
     <Button
