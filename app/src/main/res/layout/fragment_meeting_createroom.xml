@@ -251,7 +251,7 @@
     <!--</android.support.v7.widget.RecyclerView>-->
 
     <EditText
-        android:background="@drawable/categoryitem_border"
+        android:background="#ffffff"
         android:id="@+id/create_room_content"
         android:layout_width="match_parent"
         android:textSize="12sp"

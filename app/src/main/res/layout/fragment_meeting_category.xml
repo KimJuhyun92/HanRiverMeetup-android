@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:lineSpacingExtra="6sp"
-        android:text="TODAY\n맑음, 20℃ / 32℃"
+        android:text="TODAY\n맑음, 29℃ / 37℃"
         android:textColor="#000000"
         />
 
