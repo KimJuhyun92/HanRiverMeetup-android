@@ -14,6 +14,7 @@ import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.depromeet.hanriver.hanrivermeetup.R;
@@ -86,6 +87,8 @@ public class MatchingDialog extends Dialog {
                         .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe());
+
+                Toast.makeText(getContext(), "매칭 되셨습니다!", Toast.LENGTH_LONG).show();
 
                 dismiss();
 
