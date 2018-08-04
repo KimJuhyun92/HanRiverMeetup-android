@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -17,12 +18,11 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="38dp"
-            android:textSize="22sp"
-            android:textColor="@color/black"
-            android:lineSpacingExtra="10sp"
             android:lineHeight="32sp"
+            android:lineSpacingExtra="10sp"
             android:text="안녕하세요\n김주현님 반가워요"
-            />
+            android:textColor="@color/black"
+            android:textSize="22sp" />
 
         <ImageView
             android:id="@+id/profile_img"
@@ -37,12 +37,12 @@
             android:id="@+id/user_name"
             android:layout_width="70dp"
             android:layout_height="30dp"
-            android:layout_marginTop="190dp"
             android:layout_marginLeft="158dp"
-            android:textSize="22sp"
+            android:layout_marginTop="190dp"
             android:lineHeight="8sp"
+            android:text="김태성"
             android:textColor="#333333"
-            android:text="김태성"/>
+            android:textSize="22sp" />
 
     </FrameLayout>
 
@@ -51,14 +51,13 @@
         android:id="@+id/tablayout2"
         android:layout_width="295dp"
         android:layout_height="58dp"
-        app:tabIndicatorHeight="0dp"
-        />
+        app:tabIndicatorHeight="0dp" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_centerInParent="true"
-        android:background="#dcdcdc"/>
+        android:background="#dcdcdc" />
 
     <com.depromeet.hanriver.hanrivermeetup.fragment.mypage.CustomViewpager
         android:id="@+id/viewpager2"

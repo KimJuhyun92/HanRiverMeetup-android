@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.depromeet.hanriver.hanrivermeetup.HanRiverMeetupApplication;
@@ -62,6 +63,7 @@ public class MyPageFragment extends Fragment{
     private TextView tab2_count,tab2_tab;
     private TextView tab3_count,tab3_tab;
     private TextView main_text;
+    private ScrollView scrollView;
 
     private View tabView1;
     private View tabView2;
@@ -72,6 +74,10 @@ public class MyPageFragment extends Fragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         LinearLayout view = (LinearLayout) inflater.inflate(R.layout.fragment_mypage, container, false);
+
+//        scrollView = (ScrollView)view.findViewById(R.id.mypage_scroll);
+//        scrollView.setOverScrollMode(View.OVER_SCROLL_NEVER);
+
 
         main_text = view.findViewById(R.id.mypage_main_text);
         main_text.setText("안녕하세요\n"+LoginFragment.getNick_name()+" 님 반가워요");
@@ -120,6 +126,7 @@ public class MyPageFragment extends Fragment{
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+                bind();
                 if(tab.getPosition()==0){
                     tab1_count.setTypeface(null, Typeface.BOLD);
                     tab1_tab.setTypeface(null, Typeface.BOLD);
@@ -179,17 +186,17 @@ public class MyPageFragment extends Fragment{
     private void bind() {
         mCompositeDisposable = new CompositeDisposable();
 
-        mCompositeDisposable.add(MyPageService.getInstance().getMyMeeting("1320458764757184")
+        mCompositeDisposable.add(MyPageService.getInstance().getMyMeeting(LoginFragment.getUser_id())
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::setTab1Count));
 
-        mCompositeDisposable.add(MyPageService.getInstance().getAppliedMeeting("1320458764757184")
+        mCompositeDisposable.add(MyPageService.getInstance().getAppliedMeeting(LoginFragment.getUser_id())
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::setTab2Count));
 
-        mCompositeDisposable.add(MyPageService.getInstance().getMathcedMeeting("1320458764757184")
+        mCompositeDisposable.add(MyPageService.getInstance().getMathcedMeeting(LoginFragment.getUser_id())
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::setTab3Count));
