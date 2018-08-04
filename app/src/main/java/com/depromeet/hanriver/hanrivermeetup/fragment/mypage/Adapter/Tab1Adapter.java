@@ -82,7 +82,6 @@ public class Tab1Adapter extends RecyclerView.Adapter<Tab1Adapter.ItemViewHolder
         holder.mCost.setText(String.valueOf(mItems.get(position).getExpectedCost()));
         holder.mParticipants.setText(String.valueOf(mItems.get(position).getParticipantsCnt()));
 
-
 //        applicantListAdapter = new ApplicantListAdapter(mContext, mApplicantsList);
 
 //        holder.applicant_list.setHasFixedSize(true);

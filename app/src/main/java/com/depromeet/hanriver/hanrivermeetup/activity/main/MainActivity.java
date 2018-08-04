@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     TextView nolgang_text;
     ImageView mypage_img;
     TextView mypage_text;
+    ImageView mapPageImg;
+    TextView mapPageText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,16 +63,23 @@ public class MainActivity extends AppCompatActivity {
         // Initializing the TabLayout
         tabLayout = findViewById(R.id.tablayout);
         tabLayout.setTabRippleColor(null);
-//        tabLayout.addTab(tabLayout.newTab().setText("같이놀강"));
-        View nolgang_item = getLayoutInflater().inflate(R.layout.tab_icon_nolgang, null);
-        nolgang_img = nolgang_item.findViewById(R.id.nolgang_img);
-        nolgang_text = nolgang_item.findViewById(R.id.nolgang_text);
-        View mypage_item = getLayoutInflater().inflate(R.layout.tab_icon_mypage, null);
-        mypage_img = mypage_item.findViewById(R.id.mypage_img);
-        mypage_text = mypage_item.findViewById(R.id.mypage_text);
 
-        tabLayout.addTab(tabLayout.newTab().setCustomView(nolgang_item));
-        tabLayout.addTab(tabLayout.newTab().setCustomView(mypage_item));
+        View nolgangPageItem = getLayoutInflater().inflate(R.layout.tab_icon_nolgang, null);
+        nolgang_img = nolgangPageItem.findViewById(R.id.nolgang_img);
+        nolgang_text = nolgangPageItem.findViewById(R.id.nolgang_text);
+
+        View myPageItem = getLayoutInflater().inflate(R.layout.tab_icon_mypage, null);
+        mypage_img = myPageItem.findViewById(R.id.mypage_img);
+        mypage_text = myPageItem.findViewById(R.id.mypage_text);
+
+        View mapPageItem = getLayoutInflater().inflate(R.layout.tab_icon_map, null);
+        mapPageImg = mapPageItem.findViewById(R.id.map_tap_page_icon);
+        mapPageText = mapPageItem.findViewById(R.id.map_tap_page_title);
+
+
+        tabLayout.addTab(tabLayout.newTab().setCustomView(nolgangPageItem));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(myPageItem));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(mapPageItem));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -97,18 +106,25 @@ public class MainActivity extends AppCompatActivity {
                     mypage_img.setImageResource(R.drawable.ic_mypage_icon_active);
                     mypage_text.setTextColor(Color.parseColor("#2186f8"));
                 }
-
+                if(tab.getPosition()==2) {
+                    mapPageImg.setImageResource(R.drawable.ic_tap_map_active);
+                    mapPageText.setTextColor(Color.parseColor("#2186f8"));
+                }
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 if(tab.getPosition()==0) {
                     nolgang_img.setImageResource(R.drawable.ic_nolgang_icon);
-                    nolgang_text.setTextColor(Color.parseColor("#000000"));
+                    nolgang_text.setTextColor(Color.parseColor("#333333"));
                 }
                 if(tab.getPosition()==1) {
                     mypage_img.setImageResource(R.drawable.ic_mypage_icon);
-                    mypage_text.setTextColor(Color.parseColor("#000000"));
+                    mypage_text.setTextColor(Color.parseColor("#333333"));
+                }
+                if(tab.getPosition()==2) {
+                    mapPageImg.setImageResource(R.drawable.ic_tap_map);
+                    mapPageText.setTextColor(Color.parseColor("#333333"));
                 }
             }
 
