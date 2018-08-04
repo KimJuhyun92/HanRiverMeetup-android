@@ -96,8 +96,6 @@ public class Tab1 extends Fragment{
         mRecyclerView.setAdapter(new Tab1Adapter(getActivity(),tab1VOs));
     }
 
-
-
     @NonNull
     private Tab1ViewModel getViewModel() {
         return ((HanRiverMeetupApplication)getActivity().getApplicationContext()).getTab1ViewModel();

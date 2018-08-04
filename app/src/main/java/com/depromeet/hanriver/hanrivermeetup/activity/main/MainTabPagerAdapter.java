@@ -4,12 +4,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MapFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingDetailFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.meetingRootFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.MyPageFragment;
 
 public class MainTabPagerAdapter extends FragmentStatePagerAdapter {
-    // Count number of tabs
     private int tabCount;
 
     public MainTabPagerAdapter(FragmentManager fm, int tabCount) {
@@ -20,16 +20,13 @@ public class MainTabPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        // Returning the current tabs
         switch (position) {
             case 0:
                 return new meetingRootFragment();
-//                return new MeetingDetailFragment();
-//                return new LoginFragment();
-//                return null;
             case 1:
                 return new MyPageFragment();
-//                return new LoginFragment();
+            case 2:
+                return new MapFragment();
             default:
                 return null;
         }
