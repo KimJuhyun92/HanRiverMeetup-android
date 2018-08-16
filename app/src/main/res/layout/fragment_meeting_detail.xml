@@ -5,6 +5,7 @@
     android:layout_height="wrap_content">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/detail_rl"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -35,7 +36,24 @@
                 android:lineSpacingExtra="14sp"
                 android:text="주말에 난지에서 캠핑할 분 구해요!"
                 android:textColor="#fefefe"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                />
+
+            <ImageButton
+                android:id="@+id/detail_room_modify_btn"
+                android:layout_width="25dp"
+                android:layout_height="26dp"
+                android:scaleType="centerInside"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="7dp"
+                android:layout_marginRight="19dp"
+                android:src="@drawable/ic_icon_modify"
+                android:background="@android:color/transparent"
+                android:visibility="gone"
+                />
         </RelativeLayout>
 
 
@@ -152,13 +170,16 @@
 
             </android.support.v7.widget.RecyclerView>
 
+
             <EditText
                 android:id="@+id/detail_comment_edit"
                 android:layout_width="290dp"
                 android:layout_height="50dp"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
                 android:layout_below="@id/detail_comment_rv"
                 android:hint="모임에 관해 궁금한 점을 물어봐요!"
-                android:background="#ffffff"
+                android:background="@drawable/textline_top"
                 android:textSize="14sp"/>
 
             <Button
