@@ -1,5 +1,6 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.meeting;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,10 +12,12 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -51,12 +54,13 @@ public class MeetingDetailFragment extends DialogFragment {
     Button comment_btn, join_btn;
     EditText comment_text;
     ImageView profile_img;
-    ImageButton back_btn;
+    ImageButton back_btn,modify_btn;
     ScrollView scroll;
     TextView room_title, profile_name, detail_info, detail_location, detail_content, joinbtn_border;
     int meeting_seq;
     String room_master_name;
     MeetingDetailFragment self;
+    RelativeLayout rl;
 
 
     @Override
@@ -88,6 +92,8 @@ public class MeetingDetailFragment extends DialogFragment {
 
 
     private void setupViews(View v) {
+
+        modify_btn = v.findViewById(R.id.detail_room_modify_btn);
         joinbtn_border =v.findViewById(R.id.border_join_Btn);
         scroll = v.findViewById(R.id.detail_scroll);
         scroll.setOverScrollMode(View.OVER_SCROLL_NEVER);
@@ -128,6 +134,15 @@ public class MeetingDetailFragment extends DialogFragment {
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(self::successAddComment));
                 comment_text.setText("");
+            }
+        });
+
+        rl = v.findViewById(R.id.detail_rl);
+        rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
             }
         });
     }
@@ -214,11 +229,17 @@ public class MeetingDetailFragment extends DialogFragment {
                 .transform(CircleTransform.getInstance()).into(profile_img);
 
         if (meetingDetail.getUser_id().equals(LoginFragment.getUser_id())) {
-            join_btn.setBackgroundColor(Color.parseColor("#aaaaaa"));
-            join_btn.setEnabled(false);
-            join_btn.setText("내가 만든 방입니다");
-            join_btn.setTextColor(Color.parseColor("#ffffff"));
-            joinbtn_border.setBackgroundColor(Color.parseColor("#dcdcdc"));
+//            join_btn.setBackgroundColor(Color.parseColor("#aaaaaa"));
+//            join_btn.setEnabled(false);
+//            join_btn.setText("내가 만든 방입니다");
+//            join_btn.setTextColor(Color.parseColor("#ffffff"));
+//            joinbtn_border.setBackgroundColor(Color.parseColor("#dcdcdc"));
+            join_btn.setVisibility(View.GONE);
+            joinbtn_border.setVisibility(View.GONE);
+            RelativeLayout.LayoutParams lp  =  (RelativeLayout.LayoutParams) join_btn.getLayoutParams();
+            lp.setMargins(0,0,0,0);
+            join_btn.setLayoutParams(lp);
+            modify_btn.setVisibility(View.VISIBLE);
         }
         // TestFrag frag = new TestFrag();
 //        FragmentManager fragmentManager = getFragmentManager();

@@ -1,6 +1,7 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.meeting;
 
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,10 +16,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -61,6 +64,7 @@ public class MeetingCreateRoom extends DialogFragment{
     int activity_seq;
     DialogFragment dial;
     MeetingListFragment fragment;
+    RelativeLayout rl;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -100,6 +104,18 @@ public class MeetingCreateRoom extends DialogFragment{
     }
 
     private void setupViews(View v) {
+
+        //화면 터치 시, 키보드 내려가게 하기 위한 클릭 이벤트.
+        rl = v.findViewById(R.id.create_room_rl);
+        rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            }
+        });
+
+
         back_btn = v.findViewById(R.id.create_room_back_btn);
         back_btn.setOnClickListener(back_click);
         nickname = v.findViewById(R.id.create_room_nickname);

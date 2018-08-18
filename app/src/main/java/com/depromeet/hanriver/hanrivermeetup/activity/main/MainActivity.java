@@ -83,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-
         // Initializing ViewPager
         viewPager = findViewById(R.id.viewpager);
         viewPager.setOverScrollMode(View.OVER_SCROLL_NEVER);
@@ -102,11 +101,11 @@ public class MainActivity extends AppCompatActivity {
                     nolgang_img.setImageResource(R.drawable.ic_nolgang_icon_active);
                     nolgang_text.setTextColor(Color.parseColor("#2186f8"));
                 }
-                if(tab.getPosition()==1) {
+                else if(tab.getPosition()==1) {
                     mypage_img.setImageResource(R.drawable.ic_mypage_icon_active);
                     mypage_text.setTextColor(Color.parseColor("#2186f8"));
                 }
-                if(tab.getPosition()==2) {
+                else if(tab.getPosition()==2) {
                     mapPageImg.setImageResource(R.drawable.ic_tap_map_active);
                     mapPageText.setTextColor(Color.parseColor("#2186f8"));
                 }
@@ -118,11 +117,11 @@ public class MainActivity extends AppCompatActivity {
                     nolgang_img.setImageResource(R.drawable.ic_nolgang_icon);
                     nolgang_text.setTextColor(Color.parseColor("#333333"));
                 }
-                if(tab.getPosition()==1) {
+                else if(tab.getPosition()==1) {
                     mypage_img.setImageResource(R.drawable.ic_mypage_icon);
                     mypage_text.setTextColor(Color.parseColor("#333333"));
                 }
-                if(tab.getPosition()==2) {
+                else if(tab.getPosition()==2) {
                     mapPageImg.setImageResource(R.drawable.ic_tap_map);
                     mapPageText.setTextColor(Color.parseColor("#333333"));
                 }

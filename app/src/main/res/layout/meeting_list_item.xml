@@ -16,7 +16,7 @@
 
     <TextView
         android:id="@+id/list_item_title"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="23dp"
         android:layout_marginLeft="108dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,12 +31,12 @@
         android:layout_width="10dp"
         android:layout_height="12dp"
         android:src="@drawable/ic_location"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="48dp"
         android:layout_marginLeft="108dp"/>
 
     <TextView
         android:id="@+id/list_item_location"
-        android:layout_marginTop="38dp"
+        android:layout_marginTop="46dp"
         android:layout_marginLeft="122dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
 
     <TextView
         android:id="@+id/listitem_time"
-        android:layout_marginTop="57dp"
+        android:layout_marginTop="65dp"
         android:layout_marginLeft="108dp"
         android:textSize="12sp"
         android:textColor="#949494"
@@ -58,7 +58,7 @@
     <TextView
         android:id="@+id/list_item_time"
         android:layout_toRightOf="@id/listitem_time"
-        android:layout_marginTop="57dp"
+        android:layout_marginTop="65dp"
         android:layout_marginLeft="5dp"
         android:textSize="12sp"
         android:layout_width="wrap_content"
@@ -69,7 +69,7 @@
     <TextView
         android:id="@+id/listitem_num"
         android:layout_toRightOf="@id/list_item_time"
-        android:layout_marginTop="57dp"
+        android:layout_marginTop="65dp"
         android:layout_marginLeft="10dp"
         android:textSize="12sp"
         android:textColor="#949494"
@@ -79,7 +79,7 @@
     <TextView
         android:id="@+id/list_item_numofmem"
         android:layout_toRightOf="@+id/listitem_num"
-        android:layout_marginTop="57dp"
+        android:layout_marginTop="65dp"
         android:layout_marginLeft="5dp"
         android:textSize="12sp"
         android:layout_width="wrap_content"
@@ -90,7 +90,7 @@
     <TextView
         android:id="@+id/listitem_fee"
         android:layout_toRightOf="@id/list_item_numofmem"
-        android:layout_marginTop="57dp"
+        android:layout_marginTop="65dp"
         android:layout_marginLeft="10dp"
         android:textSize="12sp"
         android:textColor="#949494"
@@ -100,7 +100,7 @@
     <TextView
         android:id="@+id/list_item_fee"
         android:layout_toRightOf="@id/listitem_fee"
-        android:layout_marginTop="57dp"
+        android:layout_marginTop="65dp"
         android:layout_marginLeft="5dp"
         android:textSize="12sp"
         android:layout_width="wrap_content"
