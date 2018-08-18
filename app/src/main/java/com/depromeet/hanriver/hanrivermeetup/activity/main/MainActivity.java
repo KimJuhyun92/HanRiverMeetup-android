@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private static TabLayout tabLayout;
 
     @NonNull
-    private ViewPager viewPager;
+    private NonSwipeableViewPager viewPager;
     ImageView nolgang_img;
     TextView nolgang_text;
     ImageView mypage_img;
