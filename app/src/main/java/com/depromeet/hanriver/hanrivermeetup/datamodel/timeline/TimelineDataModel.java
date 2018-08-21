@@ -22,10 +22,7 @@ public class TimelineDataModel implements ITimelineDataModel {
     private List<TimeLineVO> getTimeLineVOs() {
         return Arrays
                 .asList(new TimeLineVO("test1", R.mipmap.ic_launcher),
-                        new TimeLineVO("test2", R.mipmap.ic_launcher_round),
-                        new TimeLineVO("test3", R.mipmap.ic_launcher_round));
+                        new TimeLineVO("test2", R.mipmap.ic_launcher),
+                        new TimeLineVO("test3", R.mipmap.ic_launcher));
     }
-
-
-
 }
