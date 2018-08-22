@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.depromeet.hanriver.hanrivermeetup.activity.main.MainActivity;
@@ -81,6 +82,7 @@ public class MeetingListFragment extends Fragment {
         for (int i = 0; i < 6; i++) {
             tabs[i] = getLayoutInflater().inflate(R.layout.tab_meeting_list, null);
             tabname[i] = tabs[i].findViewById(R.id.meeting_list_tab_name);
+
             tabLayout.addTab(tabLayout.newTab().setCustomView(tabs[i]));
         }
         tabname[0].setText("치킨");
@@ -91,10 +93,9 @@ public class MeetingListFragment extends Fragment {
         tabname[5].setText("기타");
         tabname[current_position].setTypeface(null,Typeface.BOLD);//선택되어 들어온 아이템을 볼드체로 변경.
 
-
         tabLayout.setOverScrollMode(View.OVER_SCROLL_NEVER);
         tabLayout.setTabRippleColor(null);
-//        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+//        tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
 
         MeetingListTapPagerAdapter adapter = new MeetingListTapPagerAdapter(getChildFragmentManager(), tabLayout.getTabCount());
         viewpager.setAdapter(adapter);
@@ -107,6 +108,7 @@ public class MeetingListFragment extends Fragment {
                 current_position = tab.getPosition();
                 category_img.setImageResource(image_num[current_position]);
                 tabname[tab.getPosition()].setTypeface(null,Typeface.BOLD);
+
             }
 
             @Override
