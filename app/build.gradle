@@ -77,4 +77,7 @@ dependencies {
 
     // Coordinator layout
     implementation 'cn.hugeterry.coordinatortablayout:coordinatortablayout:1.2.2'
+
+    // Floating Action Button
+    implementation 'com.github.clans:fab:1.6.4'
 }

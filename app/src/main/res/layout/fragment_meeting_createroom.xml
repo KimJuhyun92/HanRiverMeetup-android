@@ -16,28 +16,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="25dp"
             android:lineSpacingExtra="-10sp"
-            android:text="방 만들기"
+            android:text="모임 만들기"
             android:textColor="#333333"
             android:textSize="18sp" />
 
         <ImageButton
             android:id="@+id/create_room_back_btn"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:padding="10dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="25dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="15dp"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_plus" />
 
         <ImageButton
             android:id="@+id/create_room_profile_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_marginLeft="25dp"
-            android:layout_marginTop="160dp"
+            android:layout_marginTop="135dp"
             android:background="@android:color/transparent"
             android:src="@drawable/app_logo" />
 
@@ -46,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="110dp"
-            android:layout_marginTop="180dp"
+            android:layout_marginTop="155dp"
             android:lineSpacingExtra="6.2sp"
             android:text="김태성"
             android:textColor="#000000"
@@ -57,18 +58,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/create_room_profile_img"
-            android:layout_marginTop="10dp"
             android:background="@null"
             android:hint="방 제목을 입력해주세요!"
             android:maxLines="1"
             android:imeOptions="actionNext"
             android:singleLine="true"
             android:lineSpacingExtra="20sp"
-            android:paddingBottom="9dp"
+            android:paddingBottom="16dp"
             android:paddingLeft="27dp"
-            android:paddingTop="9dp"
+            android:paddingTop="16dp"
             android:textColor="#949494"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
 
         <LinearLayout
@@ -83,29 +83,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="27dp"
-                android:paddingTop="24dp"
+                android:paddingTop="16dp"
                 android:lineSpacingExtra="20sp"
                 android:text="위치"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/create_room_location"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:paddingTop="24dp"
+                android:layout_marginLeft="28dp"
+                android:paddingTop="16dp"
                 android:lineSpacingExtra="20sp"
-                android:paddingBottom="10dp"
+                android:paddingBottom="16dp"
                 android:text="여의도 한강공원"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/meeting_create_ll2"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_below="@id/meeting_create_ll1"
             android:background="@drawable/categoryitem_border"
             android:orientation="horizontal">
@@ -114,27 +114,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="27dp"
-                android:paddingTop="24dp"
+                android:paddingTop="16dp"
                 android:lineSpacingExtra="20sp"
                 android:text="시간"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/create_room_time"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:paddingTop="24dp"
+                android:layout_marginLeft="28dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
                 android:lineSpacingExtra="20sp"
                 android:text="11:00"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/meeting_create_ll3"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_below="@id/meeting_create_ll2"
             android:background="@drawable/categoryitem_border"
             android:orientation="horizontal">
@@ -143,23 +144,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="27dp"
-                android:paddingTop="24dp"
+                android:paddingTop="16dp"
                 android:lineSpacingExtra="20sp"
                 android:text="인원"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/create_room_num"
-                android:layout_width="240dp"
+                android:layout_width="230dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:paddingTop="24dp"
+                android:layout_marginLeft="28dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
                 android:background="@null"
                 android:hint="참가를 희망하는 인원을 적어주세요"
                 android:lineSpacingExtra="20sp"
                 android:textColor="@color/warm_grey"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:maxLines="1"
                 android:imeOptions="actionNext"
                 android:singleLine="true"/>
@@ -173,11 +175,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="30dp"
-                android:paddingTop="24dp"
+                android:paddingTop="16dp"
                 android:lineSpacingExtra="20sp"
                 android:text="명"
                 android:textColor="@color/warm_grey"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -192,23 +194,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="27dp"
-                android:paddingTop="24dp"
+                android:paddingTop="16dp"
                 android:lineSpacingExtra="20sp"
                 android:text="회비"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/create_room_fee"
-                android:layout_width="240dp"
+                android:layout_width="230dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:paddingTop="24dp"
+                android:layout_marginLeft="28dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
                 android:background="@null"
                 android:hint="예상 금액을 입력해주세요."
                 android:lineSpacingExtra="20sp"
                 android:textColor="@color/warm_grey"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:maxLines="1"
                 android:imeOptions="actionNext"
                 android:singleLine="true"/>
@@ -222,18 +225,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="30dp"
-                android:paddingTop="24dp"
+                android:paddingTop="16dp"
                 android:lineSpacingExtra="20sp"
                 android:text="원"
                 android:textColor="@color/warm_grey"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
 
         <LinearLayout
             android:id="@+id/meeting_create_ll5"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_below="@id/meeting_create_ll4"
             android:background="@drawable/categoryitem_border"
             android:orientation="horizontal">
@@ -242,23 +245,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="27dp"
-                android:paddingTop="24dp"
+                android:paddingTop="16dp"
                 android:lineSpacingExtra="20sp"
                 android:text="연락처"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/create_room_contact"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:paddingTop="24dp"
+                android:layout_marginLeft="16dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
                 android:background="@null"
                 android:hint="여백 없이 11자를 입력해주세요"
                 android:lineSpacingExtra="20sp"
                 android:textColor="@color/warm_grey"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:maxLines="1"
                 android:imeOptions="actionNext"
                 android:singleLine="true"/>
@@ -276,15 +280,15 @@
             android:id="@+id/create_room_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="24dp"
-            android:paddingBottom="23dp"
+            android:paddingTop="19dp"
+            android:paddingBottom="30dp"
             android:layout_below="@+id/meeting_create_ll5"
             android:background="#ffffff"
             android:hint="모임의 이야기를 들려줘!"
             android:paddingLeft="27dp"
             android:paddingRight="27dp"
             android:textColor="@color/warm_grey"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
         <Button
             android:layout_below="@id/create_room_content"

@@ -4,11 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    >
 
     <TextView
         android:id="@+id/join_title"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         android:layout_marginLeft="25dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,11 +21,11 @@
 
     <ImageButton
         android:id="@+id/join_back_btn"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="25dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:src="@drawable/ic_plus"
         android:background="@android:color/transparent"
         />
@@ -34,7 +35,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="135dp"
         app:srcCompat="@drawable/person_icon"
         ></ImageView>
 
@@ -46,39 +47,40 @@
         android:textColor="@color/black"
         android:lineSpacingExtra="6.2sp"
         android:text="닉네임"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="155dp"
         android:layout_marginLeft="110dp"
         />
 
     <LinearLayout
         android:id="@+id/meeting_join_ll1"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_below="@id/join_profile_img">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:textSize="14sp"
+            android:paddingTop="18dp"
             android:lineSpacingExtra="20sp"
-            android:text="참여인원"
-            android:layout_marginTop="24dp"
+            android:text="인원"
             android:layout_marginLeft="25dp"
             android:textStyle="bold" />
         <EditText
             android:id="@+id/join_participants_cnt"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:lineSpacingExtra="20sp"
-            android:hint="모임에 참여할 인원수를 입력해주세요."
+            android:hint="10"
             android:textColor="@color/warm_grey"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="24dp"
             android:background="@null"
             android:maxLines="1"
             android:imeOptions="actionNext"
             android:singleLine="true"
+            android:paddingTop="18dp"
+            android:paddingBottom="18dp"
+            android:paddingLeft="30dp"
             />
         <View
             android:layout_width="0dp"
@@ -88,10 +90,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:textColor="@color/warm_grey"
             android:lineSpacingExtra="20sp"
-            android:layout_marginTop="24dp"
             android:layout_marginRight="30dp"
             android:text="명"
             />
@@ -100,32 +101,33 @@
     <LinearLayout
         android:id="@+id/meeting_join_ll2"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@drawable/border_top_bottom"
         android:layout_below="@id/meeting_join_ll1">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:lineSpacingExtra="20sp"
             android:text="연락처"
-            android:layout_marginTop="24dp"
             android:layout_marginLeft="25dp"
             android:textStyle="bold" />
         <EditText
             android:id="@+id/join_contact"
-            android:layout_width="200dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:lineSpacingExtra="20sp"
             android:hint="카카오톡 아이디 또는 연락처 11자리"
             android:textColor="@color/warm_grey"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="24dp"
             android:background="@null"
             android:maxLines="1"
             android:imeOptions="actionNext"
             android:singleLine="true"
+            android:paddingTop="18dp"
+            android:paddingBottom="18dp"
+            android:paddingLeft="15dp"
             />
     </LinearLayout>
 
@@ -138,10 +140,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:lineSpacingExtra="20sp"
             android:text="참여이유"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="17dp"
             android:layout_marginLeft="25dp"
             android:textStyle="bold" />
         <View
@@ -154,8 +156,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="[10/150]"
-            android:layout_marginTop="25dp"
-            android:textSize="12sp"
+            android:layout_marginTop="17dp"
+            android:textSize="14sp"
             android:layout_marginRight="25dp"
             />
     </LinearLayout>
@@ -172,7 +174,7 @@
         android:hint="모임에 참여하게 된 이유를 적어주세요!"
         android:gravity="top"
         android:textColor="@color/warm_grey"
-        android:textSize="12sp" />
+        android:textSize="14sp" />
 
 
     <ImageView
