@@ -89,6 +89,8 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListViewHold
 //        fragmentTransaction.commit();
         MeetingDetailFragment dialog = MeetingDetailFragment.newInstance(list.get(position).getMeeting_seq());
         dialog.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light);
+        dialog.setTargetFragment(fragment,0);
         dialog.show(fragment.getFragmentManager(), "meeting_detail");
+
     }
 }
