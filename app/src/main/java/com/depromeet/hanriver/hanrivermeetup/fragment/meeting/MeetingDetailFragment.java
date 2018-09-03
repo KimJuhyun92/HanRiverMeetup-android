@@ -1,8 +1,11 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.meeting;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -61,6 +64,7 @@ public class MeetingDetailFragment extends DialogFragment {
     String room_master_name;
     MeetingDetailFragment self;
     RelativeLayout rl;
+    MeetingDetail meetingDetail;
 
 
     @Override
@@ -145,8 +149,23 @@ public class MeetingDetailFragment extends DialogFragment {
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
             }
         });
+
+        modify_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MeetingModifyRoom dialog = MeetingModifyRoom.newInstance(meetingDetail, self);
+                dialog.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light);
+                dialog.setTargetFragment(MeetingDetailFragment.this,0);
+                dialog.show(getFragmentManager(), "modify_meeting");
+            }
+        });
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        bind();
+    }
 
     @Nullable
     @Override
@@ -215,6 +234,7 @@ public class MeetingDetailFragment extends DialogFragment {
     }
 
     private void setMeetingDetail(@NonNull final MeetingDetail meetingDetail) {
+        this.meetingDetail = meetingDetail;
         room_master_name = meetingDetail.getNickname();
 //        gridview.setAdapter(new GridAdapter(getActivity(),activites));
         room_title.setText("" + meetingDetail.getTitle());
@@ -290,4 +310,11 @@ public class MeetingDetailFragment extends DialogFragment {
             self.dismiss();
         }
     };
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+
+        getTargetFragment().onActivityResult(0, 0, null);
+    }
 }

@@ -51,4 +51,8 @@ public class HostService {
     public Observable<MeetingDetail> createMeeting(MeetingDetail createRoom){
         return mService.createMeeting(createRoom).subscribeOn(Schedulers.io()).map(it->it);
     }
+
+    public Observable<MeetingDetail> modifyMeeting(int meeting_seq ,MeetingDetail meetingDetail){
+        return mService.modifyMeeting(meeting_seq, meetingDetail).subscribeOn(Schedulers.io()).map(it->it);
+    }
 }

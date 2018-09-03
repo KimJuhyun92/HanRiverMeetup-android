@@ -1,5 +1,6 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.meeting.CategoryListFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -117,5 +118,13 @@ public class ChickenFragment extends Fragment {
     @NonNull
     private MeetingListInnerViewModel getViewModel() {
         return ((HanRiverMeetupApplication)getActivity().getApplicationContext()).getChickenListViewModel();
+    }
+
+
+    //targetfragment 에서 호출할때 현재 fragment 갱신
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        bind();
     }
 }
