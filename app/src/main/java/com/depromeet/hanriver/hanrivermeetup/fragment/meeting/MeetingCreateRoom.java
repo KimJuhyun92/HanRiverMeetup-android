@@ -27,6 +27,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
+import com.depromeet.hanriver.hanrivermeetup.activity.main.MainActivity;
 import com.depromeet.hanriver.hanrivermeetup.fragment.login.LoginFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.CreateRoom.ExpandableListAdapter;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Utils.CreateRoomLocationFragment;
@@ -153,28 +154,33 @@ public class MeetingCreateRoom extends DialogFragment{
         createbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MeetingDetail md = new MeetingDetail();
-                md.setActivity_seq(activity_seq);
-                md.setDescription(roomcontent.getText().toString());
-                md.setExpected_cost(Integer.parseInt(fee.getText().toString()));
-                md.setMeeting_location(location.getText().toString());
-                md.setMeeting_time(getCurrentDate(time.getText().toString()));
-                md.setTitle(roomname.getText().toString());
-                md.setParticipants_cnt(Integer.parseInt(num.getText().toString()));
-                md.setUser_id(LoginFragment.getUser_id().toString());
-                md.setContact(contact.getText().toString());
+                if(roomname.getText().length()>20)
+                    Toast.makeText(getContext(), "방 이름을 20자 이내로 적어주세요. ", Toast.LENGTH_SHORT).show();
+                else {
+                    //
+                    MeetingDetail md = new MeetingDetail();
+                    md.setActivity_seq(activity_seq);
+                    md.setDescription(roomcontent.getText().toString());
+                    md.setExpected_cost(Integer.parseInt(fee.getText().toString()));
+                    md.setMeeting_location(location.getText().toString());
+                    md.setMeeting_time(getCurrentDate(time.getText().toString()));
+                    md.setTitle(roomname.getText().toString());
+                    md.setParticipants_cnt(Integer.parseInt(num.getText().toString()));
+                    md.setUser_id(LoginFragment.getUser_id().toString());
+                    md.setContact(contact.getText().toString());
 
-                mCompositeDisposable.add(HostService.getInstance().createMeeting(md)
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe());
+                    mCompositeDisposable.add(HostService.getInstance().createMeeting(md)
+                            .subscribeOn(Schedulers.computation())
+                            .observeOn(AndroidSchedulers.mainThread()).subscribe());
 
-                getFragmentManager().findFragmentById(R.id.root_frame);
-                getFragmentManager().beginTransaction()
-                        .detach(fragment)
-                        .attach(fragment)
-                        .commit();
+                    getFragmentManager().findFragmentById(R.id.root_frame);
+                    getFragmentManager().beginTransaction()
+                            .detach(fragment)
+                            .attach(fragment)
+                            .commit();
 
-                dial.dismiss();
+                    dial.dismiss();
+                }
 //
             }
         });
@@ -246,4 +252,6 @@ public class MeetingCreateRoom extends DialogFragment{
             dial.dismiss();
         }
     };
+
+
 }

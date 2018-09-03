@@ -23,7 +23,7 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_below="@id/category_main_text"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="23dp"
         android:layout_marginLeft="25dp"
         android:src="@drawable/ic_weather_sunny" />
 
@@ -36,7 +36,7 @@
         android:includeFontPadding="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="35sp"
+        android:textSize="40sp"
         android:letterSpacing="-0.04"
         android:lineSpacingExtra="-16.5sp"
         android:text="28"
