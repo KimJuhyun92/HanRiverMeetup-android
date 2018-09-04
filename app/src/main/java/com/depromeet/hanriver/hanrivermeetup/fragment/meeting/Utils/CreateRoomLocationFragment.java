@@ -53,6 +53,12 @@ public class CreateRoomLocationFragment extends DialogFragment{
         list.add("반포 한강공원");
         list.add("이촌 한강공원");
         list.add("잠원 한강공원");
+        list.add("광나루 한강공원");
+        list.add("잠실 한강공원");
+        list.add("망원 한강공원");
+        list.add("난지 한강공원");
+        list.add("강서 한강공원");
+        list.add("양화 한강공원");
         rv.setAdapter(new LocationListAdapter(list,getContext(),this,textview));
 
     }

@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/create_room_profile_img"
             android:background="@null"
-            android:hint="방 제목을 입력해주세요!"
+            android:hint="방 제목을 입력해주세요! (20자 이내) "
             android:maxLines="1"
             android:imeOptions="actionNext"
             android:singleLine="true"
