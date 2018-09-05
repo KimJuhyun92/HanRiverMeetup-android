@@ -2,6 +2,7 @@ package com.depromeet.hanriver.hanrivermeetup.activity.main;
 
 import android.Manifest;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -27,13 +28,9 @@ public class MainActivity extends AppCompatActivity {
 
     @NonNull
     private static NonSwipeableViewPager viewPager;
-    ImageView nolgang_img;
-    TextView nolgang_text;
-    ImageView mypage_img;
-    TextView mypage_text;
-    ImageView mapPageImg;
-    TextView mapPageText;
-
+    private int imgIcon[] = {R.drawable.ic_nolgang_icon,R.drawable.ic_mypage_icon,R.drawable.ic_tap_map};
+    private int imgIcon_act[] = {R.drawable.ic_nolgang_icon_active,R.drawable.ic_mypage_icon_active,R.drawable.ic_tap_map_active};
+    private String tabText[] = {"같이놀강","마이한강","어디갈강"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,22 +61,21 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tablayout);
         tabLayout.setTabRippleColor(null);
 
-        View nolgangPageItem = getLayoutInflater().inflate(R.layout.tab_icon_nolgang, null);
-        nolgang_img = nolgangPageItem.findViewById(R.id.nolgang_img);
-        nolgang_text = nolgangPageItem.findViewById(R.id.nolgang_text);
+        View tabItems[] = new View[3];
+        for(int i=0;i<tabItems.length;i++) {
+            tabItems[i] = getLayoutInflater().inflate(R.layout.main_tab_icon, null);
+            ImageView tabItemImg = tabItems[i].findViewById(R.id.main_tab_img);
+            TextView tabItemText = tabItems[i].findViewById(R.id.main_tab_text);
 
-        View myPageItem = getLayoutInflater().inflate(R.layout.tab_icon_mypage, null);
-        mypage_img = myPageItem.findViewById(R.id.mypage_img);
-        mypage_text = myPageItem.findViewById(R.id.mypage_text);
+            if(i!=0) {
+                tabItemImg.setImageResource(imgIcon[i]);
+                tabItemText.setText(tabText[i]);
+                tabItemText.setTextColor(Color.parseColor("#333333"));
+            }
 
-        View mapPageItem = getLayoutInflater().inflate(R.layout.tab_icon_map, null);
-        mapPageImg = mapPageItem.findViewById(R.id.map_tap_page_icon);
-        mapPageText = mapPageItem.findViewById(R.id.map_tap_page_title);
+            tabLayout.addTab(tabLayout.newTab().setCustomView(tabItems[i]));
+        }
 
-
-        tabLayout.addTab(tabLayout.newTab().setCustomView(nolgangPageItem));
-        tabLayout.addTab(tabLayout.newTab().setCustomView(myPageItem));
-        tabLayout.addTab(tabLayout.newTab().setCustomView(mapPageItem));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -97,34 +93,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-                if(tab.getPosition()==0) {
-                    nolgang_img.setImageResource(R.drawable.ic_nolgang_icon_active);
-                    nolgang_text.setTextColor(Color.parseColor("#2186f8"));
-                }
-                else if(tab.getPosition()==1) {
-                    mypage_img.setImageResource(R.drawable.ic_mypage_icon_active);
-                    mypage_text.setTextColor(Color.parseColor("#2186f8"));
-                }
-                else if(tab.getPosition()==2) {
-                    mapPageImg.setImageResource(R.drawable.ic_tap_map_active);
-                    mapPageText.setTextColor(Color.parseColor("#2186f8"));
-                }
+
+                View view = tab.getCustomView();
+                ImageView img = view.findViewById(R.id.main_tab_img);
+                TextView text = view.findViewById(R.id.main_tab_text);
+
+                img.setImageResource(imgIcon_act[tab.getPosition()]);
+                text.setText(tabText[tab.getPosition()]);
+                text.setTextColor(Color.parseColor("#2186f8"));
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                if(tab.getPosition()==0) {
-                    nolgang_img.setImageResource(R.drawable.ic_nolgang_icon);
-                    nolgang_text.setTextColor(Color.parseColor("#333333"));
-                }
-                else if(tab.getPosition()==1) {
-                    mypage_img.setImageResource(R.drawable.ic_mypage_icon);
-                    mypage_text.setTextColor(Color.parseColor("#333333"));
-                }
-                else if(tab.getPosition()==2) {
-                    mapPageImg.setImageResource(R.drawable.ic_tap_map);
-                    mapPageText.setTextColor(Color.parseColor("#333333"));
-                }
+
+                View view = tab.getCustomView();
+                ImageView img = view.findViewById(R.id.main_tab_img);
+                TextView text = view.findViewById(R.id.main_tab_text);
+
+                img.setImageResource(imgIcon[tab.getPosition()]);
+                text.setText(tabText[tab.getPosition()]);
+                text.setTextColor(Color.parseColor("#333333"));
             }
 
             @Override
@@ -133,6 +121,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
     public static void tabVisible(int visible){
         tabLayout.setVisibility(visible);
