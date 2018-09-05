@@ -6,21 +6,21 @@
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/mypage_img"
+        android:id="@+id/main_tab_img"
         android:layout_width="20dp"
         android:layout_height="25dp"
         android:layout_gravity="center_horizontal"
         android:paddingTop="5dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_mypage_icon" />
+        android:src="@drawable/ic_nolgang_icon_active" />
 
     <TextView
-        android:id="@+id/mypage_text"
+        android:id="@+id/main_tab_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="5dp"
-        android:text="마이한강"
-        android:textColor="#000000"
+        android:text="같이놀강"
+        android:textColor="@color/clear_blue"
         android:textSize="10sp" />
 </LinearLayout>
