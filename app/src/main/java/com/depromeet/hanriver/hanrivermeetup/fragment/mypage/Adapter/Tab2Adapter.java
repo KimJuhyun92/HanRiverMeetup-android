@@ -25,9 +25,7 @@ import java.util.List;
 import io.reactivex.annotations.Nullable;
 
 public class Tab2Adapter extends BaseAdapter{
-    private LayoutInflater inflater;
     List<Tab2VO> mItems;
-    private Context mContext;
 
 
     public Tab2Adapter (List<Tab2VO> items) {

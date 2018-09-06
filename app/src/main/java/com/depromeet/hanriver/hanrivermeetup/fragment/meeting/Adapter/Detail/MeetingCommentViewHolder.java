@@ -3,6 +3,7 @@ package com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.Detail;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
