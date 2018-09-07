@@ -34,6 +34,7 @@ public class CreateRoom {
 
 
 
+
     @NonNull
     public int getActivity_seq() {
         return activity_seq;

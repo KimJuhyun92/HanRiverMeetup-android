@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -13,17 +14,25 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.depromeet.hanriver.hanrivermeetup.HanRiverMeetupApplication;
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.fragment.login.LoginFragment;
@@ -34,6 +43,7 @@ import com.depromeet.hanriver.hanrivermeetup.model.meeting.MeetingDetail;
 import com.depromeet.hanriver.hanrivermeetup.model.mypage.ApplicantVO;
 import com.depromeet.hanriver.hanrivermeetup.service.CommunicationService;
 import com.depromeet.hanriver.hanrivermeetup.service.FacebookService;
+import com.depromeet.hanriver.hanrivermeetup.service.GuestService;
 import com.depromeet.hanriver.hanrivermeetup.service.HostService;
 import com.squareup.picasso.Picasso;
 
@@ -43,7 +53,14 @@ import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class MeetingDetailFragment extends DialogFragment {
 
@@ -52,8 +69,7 @@ public class MeetingDetailFragment extends DialogFragment {
 
     MeetingDetailViewModel meetingDetailViewModel;
     MeetingCommentViewModel meetingCommentViewModel;
-    RecyclerView rv;
-    RecyclerView.LayoutManager rvManager;
+    SwipeMenuListView rv;
     Button comment_btn, join_btn;
     EditText comment_text;
     ImageView profile_img;
@@ -103,8 +119,7 @@ public class MeetingDetailFragment extends DialogFragment {
         scroll.setOverScrollMode(View.OVER_SCROLL_NEVER);
         back_btn = v.findViewById(R.id.detail_back_btn);
         back_btn.setOnClickListener(back_click);
-        rv = v.findViewById(R.id.detail_comment_rv);
-        rvManager = new LinearLayoutManager(getContext());
+        rv = v.findViewById(R.id.detail_comment_lv);
         profile_img = v.findViewById(R.id.detail_profile_img);
         room_title = v.findViewById(R.id.detail_room_title);
         profile_name = v.findViewById(R.id.detail_name);
@@ -157,6 +172,27 @@ public class MeetingDetailFragment extends DialogFragment {
                 dialog.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light);
                 dialog.setTargetFragment(MeetingDetailFragment.this,0);
                 dialog.show(getFragmentManager(), "modify_meeting");
+            }
+        });
+
+        SwipeMenuCreator creator = new SwipeMenuCreator() {
+            @Override
+            public void create(SwipeMenu menu) {
+                SwipeMenuItem deleteItem = new SwipeMenuItem(
+                        getApplicationContext());
+                deleteItem.setBackground(new ColorDrawable(Color.parseColor("#2186F8")));
+                deleteItem.setWidth(400);
+                deleteItem.setIcon(R.drawable.ic_negative_icon);
+                menu.addMenuItem(deleteItem);
+            }
+        };
+        rv.setMenuCreator(creator);
+
+        rv.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
             }
         });
     }
@@ -271,14 +307,41 @@ public class MeetingDetailFragment extends DialogFragment {
 
     private void setComments(@NonNull final List<Comment> comments) {
 
+        rv.setOnMenuItemClickListener((position, menu, index) -> {
+            switch (index) {
+                case 0:
+                    mCompositeDisposable.add(CommunicationService.getInstance().deleteComment(comments.get(position).getId())
+                            .subscribeOn(Schedulers.computation())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribeWith(new DisposableObserver<Boolean>() {
+                                @Override
+                                public void onNext(Boolean bool) {
+                                  if(bool==false){
+                                      Toast.makeText(getContext(), "삭제 권한이 없는 댓글입니다. ", Toast.LENGTH_SHORT).show();
+                                  }
+                                }
+                                @Override
+                                public void onError(Throwable e) {
+                                    Toast.makeText(getContext(), "서버 에러", Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onComplete() {
+                                    Toast.makeText(getContext(), "댓글 삭제 완료", Toast.LENGTH_SHORT).show();
+                                }
+                            }));
+                    break;
+            }
+            return false;
+        });
 
         if (comments.toString() == "[]")
             rv.setMinimumHeight(358);
-
         else {
-            rv.setLayoutManager(rvManager);
             rv.setAdapter(new MeetingCommentAdapter(comments, getContext(), this));
+            setListViewHeightBasedOnChildren(rv);
         }
+
     }
 
     @NonNull
@@ -316,5 +379,28 @@ public class MeetingDetailFragment extends DialogFragment {
         super.onDismiss(dialog);
 
         getTargetFragment().onActivityResult(0, 0, null);
+    }
+
+    public static void setListViewHeightBasedOnChildren(SwipeMenuListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
+
+        int totalHeight = 0;
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
+
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1)) + 160;
+        listView.setLayoutParams(params);
+
+        listView.requestLayout();
     }
 }

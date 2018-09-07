@@ -42,4 +42,10 @@ public class CommunicationService {
                 .subscribeOn(Schedulers.io())
                 .map(it->it);
     }
+
+    public Observable<Boolean> deleteComment(int comment_seq){
+        return mService.deleteComment(comment_seq)
+                .subscribeOn(Schedulers.io())
+                .map(it->it);
+    }
 }
