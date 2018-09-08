@@ -73,7 +73,7 @@ public class MeetingDetailFragment extends DialogFragment {
     Button comment_btn, join_btn;
     EditText comment_text;
     ImageView profile_img;
-    ImageButton back_btn,modify_btn;
+    ImageButton back_btn, modify_btn;
     ScrollView scroll;
     TextView room_title, profile_name, detail_info, detail_location, detail_content, joinbtn_border;
     int meeting_seq;
@@ -114,7 +114,7 @@ public class MeetingDetailFragment extends DialogFragment {
     private void setupViews(View v) {
 
         modify_btn = v.findViewById(R.id.detail_room_modify_btn);
-        joinbtn_border =v.findViewById(R.id.border_join_Btn);
+        joinbtn_border = v.findViewById(R.id.border_join_Btn);
         scroll = v.findViewById(R.id.detail_scroll);
         scroll.setOverScrollMode(View.OVER_SCROLL_NEVER);
         back_btn = v.findViewById(R.id.detail_back_btn);
@@ -133,7 +133,7 @@ public class MeetingDetailFragment extends DialogFragment {
         join_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MeetingJoinFragment dialog = MeetingJoinFragment.newInstance(meeting_seq, room_master_name,self);
+                MeetingJoinFragment dialog = MeetingJoinFragment.newInstance(meeting_seq, room_master_name, self);
                 dialog.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light);
                 dialog.show(getFragmentManager(), "meeting_join");
             }
@@ -160,7 +160,7 @@ public class MeetingDetailFragment extends DialogFragment {
         rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
             }
         });
@@ -170,7 +170,7 @@ public class MeetingDetailFragment extends DialogFragment {
             public void onClick(View view) {
                 MeetingModifyRoom dialog = MeetingModifyRoom.newInstance(meetingDetail, self);
                 dialog.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light);
-                dialog.setTargetFragment(MeetingDetailFragment.this,0);
+                dialog.setTargetFragment(MeetingDetailFragment.this, 0);
                 dialog.show(getFragmentManager(), "modify_meeting");
             }
         });
@@ -256,8 +256,8 @@ public class MeetingDetailFragment extends DialogFragment {
         mCompositeDisposable.clear();
     }
 
-    private void getApplicationSeq(@NonNull final List<ApplicantVO> applicantVOs){
-        for(int i=0;i<applicantVOs.size();i++) {
+    private void getApplicationSeq(@NonNull final List<ApplicantVO> applicantVOs) {
+        for (int i = 0; i < applicantVOs.size(); i++) {
             if (applicantVOs.get(i).getUserId().equals(LoginFragment.getUser_id())) {
                 join_btn.setBackgroundColor(Color.parseColor("#aaaaaa"));
                 join_btn.setEnabled(false);
@@ -277,8 +277,8 @@ public class MeetingDetailFragment extends DialogFragment {
         profile_name.setText("" + meetingDetail.getNickname());
         String time = meetingDetail.getMeeting_time();
         time = time.substring(11, 16);
-        detail_info.setText(Html.fromHtml("시간 " + "<b>"+time+"</b>"+ " / 인원 " + "<b>"+String.valueOf(meetingDetail.getParticipants_cnt())
-                + "명</b> / 회비 " +"<b>"+ String.valueOf(meetingDetail.getExpected_cost()) +"</b>"+ "원"));
+        detail_info.setText(Html.fromHtml("시간 " + "<b>" + time + "</b>" + " / 인원 " + "<b>" + String.valueOf(meetingDetail.getParticipants_cnt())
+                + "명</b> / 회비 " + "<b>" + String.valueOf(meetingDetail.getExpected_cost()) + "</b>" + "원"));
         detail_location.setText(meetingDetail.getMeeting_location() + "");
         detail_content.setText(meetingDetail.getDescription() + "");
         Picasso.get().load(FacebookService.getInstance().getProfileURL(meetingDetail.getUser_id()))
@@ -292,8 +292,8 @@ public class MeetingDetailFragment extends DialogFragment {
 //            joinbtn_border.setBackgroundColor(Color.parseColor("#dcdcdc"));
             join_btn.setVisibility(View.GONE);
             joinbtn_border.setVisibility(View.GONE);
-            RelativeLayout.LayoutParams lp  =  (RelativeLayout.LayoutParams) join_btn.getLayoutParams();
-            lp.setMargins(0,0,0,0);
+            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) join_btn.getLayoutParams();
+            lp.setMargins(0, 0, 0, 0);
             join_btn.setLayoutParams(lp);
             modify_btn.setVisibility(View.VISIBLE);
         }
@@ -308,31 +308,39 @@ public class MeetingDetailFragment extends DialogFragment {
     private void setComments(@NonNull final List<Comment> comments) {
 
         rv.setOnMenuItemClickListener((position, menu, index) -> {
-            switch (index) {
-                case 0:
-                    mCompositeDisposable.add(CommunicationService.getInstance().deleteComment(comments.get(position).getId())
-                            .subscribeOn(Schedulers.computation())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribeWith(new DisposableObserver<Boolean>() {
-                                @Override
-                                public void onNext(Boolean bool) {
-                                  if(bool==false){
-                                      Toast.makeText(getContext(), "삭제 권한이 없는 댓글입니다. ", Toast.LENGTH_SHORT).show();
-                                  }
-                                }
-                                @Override
-                                public void onError(Throwable e) {
-                                    Toast.makeText(getContext(), "서버 에러", Toast.LENGTH_SHORT).show();
-                                }
+            if (LoginFragment.getUser_id().equals(comments.get(position).getUserID())) {
+                switch (index) {
+                    case 0:
+                        mCompositeDisposable.add(CommunicationService.getInstance().deleteComment(comments.get(position).getId())
+                                .subscribeOn(Schedulers.computation())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribeWith(new DisposableObserver<Boolean>() {
+                                    @Override
+                                    public void onNext(Boolean bool) {
+                                        if (bool == false) {
+                                            Toast.makeText(getContext(), "삭제 권한이 없는 댓글입니다. ", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
 
-                                @Override
-                                public void onComplete() {
-                                    Toast.makeText(getContext(), "댓글 삭제 완료", Toast.LENGTH_SHORT).show();
-                                }
-                            }));
-                    break;
+                                    @Override
+                                    public void onError(Throwable e) {
+                                        Toast.makeText(getContext(), "서버 에러", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    @Override
+                                    public void onComplete() {
+                                        Toast.makeText(getContext(), "댓글 삭제 완료", Toast.LENGTH_SHORT).show();
+                                        bind();
+                                    }
+                                }));
+                        break;
+                }
+            }
+            else{
+                Toast.makeText(getContext(), "본인의 댓글만 삭제 가능합니다.", Toast.LENGTH_SHORT).show();
             }
             return false;
+
         });
 
         if (comments.toString() == "[]")
@@ -398,7 +406,7 @@ public class MeetingDetailFragment extends DialogFragment {
         }
 
         ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1)) + 160;
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
 
         listView.requestLayout();

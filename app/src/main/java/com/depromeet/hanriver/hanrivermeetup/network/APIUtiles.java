@@ -40,4 +40,5 @@ public class APIUtiles {
     public static MyPageAPIService getMyPageService(String accessToken, String id){
         return RetrofitClient.getClientWithToken(MYPAGE_API_URL, accessToken, id).create(MyPageAPIService.class);
     }
+
 }
