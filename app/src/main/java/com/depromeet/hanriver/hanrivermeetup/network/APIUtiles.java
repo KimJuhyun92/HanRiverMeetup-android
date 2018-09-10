@@ -12,6 +12,7 @@ public class APIUtiles {
     public static final String COMM_API_URL = BASE_URL + "comm/";
     public static final String ACCESS_API_URL = BASE_URL + "access/";
     public static final String MYPAGE_API_URL = BASE_URL + "mypage/";
+    public static final String WEATHER_API_URL = BASE_URL + "weather/";
     public static final String FACEBOOK_API_URL = "https://graph.facebook.com/";
 
 
@@ -39,6 +40,10 @@ public class APIUtiles {
 
     public static MyPageAPIService getMyPageService(String accessToken, String id){
         return RetrofitClient.getClientWithToken(MYPAGE_API_URL, accessToken, id).create(MyPageAPIService.class);
+    }
+
+    public static WeatherAPIService getWeatherService(String accessToken, String id){
+        return RetrofitClient.getClientWithToken(WEATHER_API_URL, accessToken, id).create(WeatherAPIService.class);
     }
 
 }
