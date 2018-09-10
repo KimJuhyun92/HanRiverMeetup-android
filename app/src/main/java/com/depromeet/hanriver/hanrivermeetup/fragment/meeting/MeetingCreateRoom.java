@@ -12,6 +12,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,26 +48,29 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class MeetingCreateRoom extends DialogFragment{
+public class MeetingCreateRoom extends DialogFragment {
 
     @NonNull
     private CompositeDisposable mCompositeDisposable;
-//    RecyclerView rv;
-    EditText roomname,roomcontent,contact,fee,num;
-    TextView location,time,nickname;
-    ImageButton profileimg,back_btn;
+    private boolean isValidate_num,isValidate_fee,isValidate_contact;
+    EditText roomname, roomcontent, contact, fee, num;
+    TextView tv_location, tv_time, tv_num, tv_fee, tv_contact;
+    TextView location, time, nickname;
+    ImageButton profileimg, back_btn;
     Button createbtn;
-    int hour,minute;
+    int hour, minute;
     int activity_seq;
     DialogFragment dial;
     MeetingListFragment fragment;
     RelativeLayout rl;
+    TextWatcher textWatcher;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,19 +81,19 @@ public class MeetingCreateRoom extends DialogFragment{
     @Override
     public void onStart() {
         super.onStart();
-        if(getDialog()==null)
+        if (getDialog() == null)
             return;
 
         getDialog().getWindow().setWindowAnimations(
                 R.style.dialog_animation_fade);
     }
 
-    public static MeetingCreateRoom newInstance(int activity_seq,MeetingListFragment frag) {
+    public static MeetingCreateRoom newInstance(int activity_seq, MeetingListFragment frag) {
 
         Bundle args = new Bundle();
         MeetingCreateRoom fragment = new MeetingCreateRoom();
         fragment.setArguments(args);
-        fragment.activity_seq=activity_seq;
+        fragment.activity_seq = activity_seq;
         fragment.fragment = frag;
         return fragment;
     }
@@ -105,23 +110,29 @@ public class MeetingCreateRoom extends DialogFragment{
     }
 
     private void setupViews(View v) {
+        //edittext입력 이벤트 객체 생성.
+        SetupTextWatcher();
 
         //화면 터치 시, 키보드 내려가게 하기 위한 클릭 이벤트.
         rl = v.findViewById(R.id.create_room_rl);
         rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
             }
         });
 
-
+        tv_contact = v.findViewById(R.id.create_room_tv_contact);
+        tv_fee = v.findViewById(R.id.create_room_tv_fee);
+        tv_location = v.findViewById(R.id.create_room_tv_location);
+        tv_num = v.findViewById(R.id.create_room_tv_num);
+        tv_time = v.findViewById(R.id.create_room_tv_time);
         back_btn = v.findViewById(R.id.create_room_back_btn);
         back_btn.setOnClickListener(back_click);
         nickname = v.findViewById(R.id.create_room_nickname);
-        roomname= v.findViewById(R.id.create_room_name);
-        roomcontent= v.findViewById(R.id.create_room_content);
+        roomname = v.findViewById(R.id.create_room_name);
+        roomcontent = v.findViewById(R.id.create_room_content);
         profileimg = v.findViewById(R.id.create_room_profile_img);
         createbtn = v.findViewById(R.id.create_btn);
         location = v.findViewById(R.id.create_room_location);
@@ -131,6 +142,11 @@ public class MeetingCreateRoom extends DialogFragment{
         num = v.findViewById(R.id.create_room_num);
         nickname.setText(LoginFragment.getNick_name());
 
+        num.addTextChangedListener(textWatcher);
+        fee.addTextChangedListener(textWatcher);
+        contact.addTextChangedListener(textWatcher);
+        roomname.addTextChangedListener(textWatcher);
+
         Picasso.get().load(FacebookService.getInstance().getProfileURL(LoginFragment.getUser_id()))
                 .transform(CircleTransform.getInstance()).into(profileimg);
 
@@ -139,7 +155,7 @@ public class MeetingCreateRoom extends DialogFragment{
             public void onClick(View view) {
 
                 TimePickerFragment fragment = new TimePickerFragment(time);
-                fragment.show(getFragmentManager(),"TimePickerfragment_tag");
+                fragment.show(getFragmentManager(), "TimePickerfragment_tag");
             }
         });
 
@@ -154,7 +170,7 @@ public class MeetingCreateRoom extends DialogFragment{
         createbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(roomname.getText().length()>20)
+                if (roomname.getText().length() > 20)
                     Toast.makeText(getContext(), "방 이름을 20자 이내로 적어주세요. ", Toast.LENGTH_SHORT).show();
                 else {
                     //
@@ -204,10 +220,9 @@ public class MeetingCreateRoom extends DialogFragment{
         mCompositeDisposable = new CompositeDisposable();
 
         mCompositeDisposable.add(HostService.getInstance().getTodayList()
-        .subscribeOn(Schedulers.computation())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(this::isCreated));
-
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::isCreated));
 
 
 //        mCompositeDisposable.add(mViewModel.getAvailableRooms()
@@ -222,7 +237,7 @@ public class MeetingCreateRoom extends DialogFragment{
     }
 
     private void isCreated(@NonNull final List<MeetingDetail> Rooms) {
-        for(int i=0;i<Rooms.size();i++) {
+        for (int i = 0; i < Rooms.size(); i++) {
             if (Rooms.get(i).getUser_id().equals(LoginFragment.getUser_id())) {
                 createbtn.setText("이미 방을 생성하였습니다.");
                 createbtn.setBackgroundColor(Color.parseColor("#aaaaaa"));
@@ -241,9 +256,9 @@ public class MeetingCreateRoom extends DialogFragment{
         Date date = new Date(now);
         SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy-MM-dd ");
         String formatDate = sdfNow.format(date);
-        time = time+":00";
+        time = time + ":00";
 
-        return formatDate+time;
+        return formatDate + time;
     }
 
     View.OnClickListener back_click = new View.OnClickListener() {
@@ -253,5 +268,64 @@ public class MeetingCreateRoom extends DialogFragment{
         }
     };
 
+    private void SetupTextWatcher() {
+        textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(roomname.getText().hashCode() == charSequence.hashCode()){
+                    if(roomname.getText().length()>=4&&roomname.getText().length()<=20){
+                        roomname.setTextColor(Color.parseColor("#2186f8"));
+                    }
+                    else{
+                        roomname.setTextColor(Color.parseColor("#d34040"));
+                    }
+                }
+                else if (num.getText().hashCode() == charSequence.hashCode()) {
+                    if (isInt(num.getText().toString())) {
+                        tv_num.setTextColor(Color.parseColor("#2186f8"));
+                        num.setTextColor(Color.parseColor("#2186f8"));
+                    } else {
+                        tv_num.setTextColor(Color.parseColor("#000000"));
+                        num.setTextColor(getResources().getColor(R.color.warm_grey));
+                    }
+                }
+                else if(fee.getText().hashCode()==charSequence.hashCode()){
+                    if(isInt(fee.getText().toString())){
+                        tv_fee.setTextColor(Color.parseColor("#2186f8"));
+                        fee.setTextColor(Color.parseColor("#2186f8"));
+                    }
+                    else{
+                        tv_fee.setTextColor(Color.parseColor("#000000"));
+                        fee.setTextColor(getResources().getColor(R.color.warm_grey));
+                    }
+                }
+                else if(contact.getText().hashCode()==charSequence.hashCode()){
+                    if(contact.getText().length()>=4&&contact.getText().length()<15){
+                        tv_contact.setTextColor(Color.parseColor("#2186f8"));
+                        contact.setTextColor(Color.parseColor("#2186f8"));
+                    }
+                    else{
+                        tv_contact.setTextColor(Color.parseColor("#000000"));
+                        contact.setTextColor(getResources().getColor(R.color.warm_grey));
+                    }
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        };
+    }
+
+    public boolean isInt(String str) {
+        return (str.lastIndexOf("-") == 0 && !str.equals("-0")) ? str.substring(1).matches(
+                "\\d+") : str.matches("\\d+");
+    }
 }
