@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.depromeet.hanriver.hanrivermeetup.activity.main.MainActivity;
@@ -19,6 +20,8 @@ import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.fragment.login.LoginFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.Category.MeetingCategoryAdapter;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.Activity;
+import com.depromeet.hanriver.hanrivermeetup.model.meeting.Weather;
+import com.depromeet.hanriver.hanrivermeetup.service.WeatherService;
 
 import java.util.List;
 
@@ -39,6 +42,12 @@ public class MeetingCategoryFragment extends Fragment {
     private GridView gridview;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager rvManager;
+    private ImageView weather_img;
+    private TextView weather_temp,weather_temp_sub;
+
+    private final String[] skyState = {"맑음","구름조금","구름많음","흐림"};
+    private final int[] skyState_img = {R.drawable.ic_weather_sunny,R.drawable.ic_weather_alittlecloudy,R.drawable.ic_weather_muchcloudy,R.drawable.ic_weather_fog};
+    private final int[] rainState_img = {0,R.drawable.ic_weather_rain,R.drawable.ic_weather_rain_snow,R.drawable.ic_weather_snow};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,6 +68,9 @@ public class MeetingCategoryFragment extends Fragment {
     }
 
     private void setupViews(View v) {
+        weather_img = v.findViewById(R.id.weather_img);
+        weather_temp = v.findViewById(R.id.weather_temp);
+        weather_temp_sub = v.findViewById(R.id.weather_temp_sub);
         mActivitesView = v.findViewById(R.id.category_main_text);
         mActivitesView.setText(LoginFragment.getNick_name()+" 님\n한강에서 즐겨볼까요?");
 //        gridview = v.findViewById(R.id.gridview);
@@ -91,6 +103,11 @@ public class MeetingCategoryFragment extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::setActivites));
 
+        mCompositeDisposable.add(WeatherService.getInstance().getWeather()
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::setWeather));
+
     }
 
     private void unBind() {
@@ -111,7 +128,17 @@ public class MeetingCategoryFragment extends Fragment {
 //                "원하는 모임을 선택하세요");
     }
 
-
+    private void setWeather(@NonNull final Weather weather){
+        weather_temp.setText(weather.getT1h().toString());
+        weather_temp_sub.setText(skyState[Integer.parseInt(weather.getSky())]+"\n" + weather.getTmn()+"℃ / " + weather.getTmx()+"℃");
+        if (Integer.parseInt(weather.getPty()) != 0) {
+            weather_img.setImageResource(rainState_img[Integer.parseInt(weather.getPty())]);
+        }
+        else{
+            weather_img.setImageResource(skyState_img[Integer.parseInt(weather.getSky())]);
+        }
+    }
+//    맑음\n20℃ / 32℃
 
 
 //    private void setActivites(@NonNull final List<Activity> languages) {
