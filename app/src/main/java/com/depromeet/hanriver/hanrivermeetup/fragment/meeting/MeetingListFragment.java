@@ -73,7 +73,7 @@ public class MeetingListFragment extends Fragment {
         category_img.setImageResource(image_num[current_position]);
         fab = v.findViewById(R.id.meeting_list_fab);
         fab.setOnClickListener(mClick);
-        MainActivity.tabVisible(View.GONE);
+//        MainActivity.tabVisible(View.GONE);
         viewpager = v.findViewById(R.id.meeting_list_vp);
         viewpager.setOverScrollMode(View.OVER_SCROLL_NEVER);
         Log.d("TAG", "setupViews");
@@ -82,7 +82,6 @@ public class MeetingListFragment extends Fragment {
         for (int i = 0; i < 6; i++) {
             tabs[i] = getLayoutInflater().inflate(R.layout.tab_meeting_list, null);
             tabname[i] = tabs[i].findViewById(R.id.meeting_list_tab_name);
-
             tabLayout.addTab(tabLayout.newTab().setCustomView(tabs[i]));
         }
         tabname[0].setText("치킨");
@@ -91,10 +90,13 @@ public class MeetingListFragment extends Fragment {
         tabname[3].setText("캠핑");
         tabname[4].setText("사진");
         tabname[5].setText("기타");
+
         tabname[current_position].setTypeface(null,Typeface.BOLD);//선택되어 들어온 아이템을 볼드체로 변경.
 
         tabLayout.setOverScrollMode(View.OVER_SCROLL_NEVER);
         tabLayout.setTabRippleColor(null);
+
+        initTablayoutWeight(tabLayout);
 //        tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
 
         MeetingListTapPagerAdapter adapter = new MeetingListTapPagerAdapter(getChildFragmentManager(), tabLayout.getTabCount());
@@ -164,4 +166,17 @@ public class MeetingListFragment extends Fragment {
             getActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
     };
+
+    private void initTablayoutWeight(TabLayout tablayout){
+        LinearLayout linearLayout = (LinearLayout)tabLayout.getChildAt(0);
+        for(int i = 0; i<6; i++){
+            View vv = linearLayout.getChildAt(i);
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) vv.getLayoutParams();
+            params.weight = 0;
+            params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+            params.leftMargin = 40;
+            params.rightMargin = 40;
+            vv.setLayoutParams(params);
+        }
+    }
 }
