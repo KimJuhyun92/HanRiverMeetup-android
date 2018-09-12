@@ -80,7 +80,7 @@ public class Tab2 extends Fragment {
                 SwipeMenuItem deleteItem = new SwipeMenuItem(
                         getApplicationContext());
                 // set item background
-                deleteItem.setBackground(new ColorDrawable(Color.parseColor("#2186F8")));
+                deleteItem.setBackground(new ColorDrawable(Color.parseColor("#00c0c9")));
                 // set item width
                 deleteItem.setWidth(400);
                 // set a icon

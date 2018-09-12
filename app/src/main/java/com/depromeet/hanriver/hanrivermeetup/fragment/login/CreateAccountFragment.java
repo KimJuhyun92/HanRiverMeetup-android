@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatEditText;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.activity.main.MainActivity;
 import com.depromeet.hanriver.hanrivermeetup.service.LoginService;
+import com.facebook.login.Login;
 
 public class CreateAccountFragment extends Fragment {
 
@@ -24,6 +26,8 @@ public class CreateAccountFragment extends Fragment {
 
         Button registerButton = view.findViewById(R.id.create_nickname_button);
         AppCompatEditText editText = view.findViewById(R.id.edit_nickname);;
+
+        Log.d("###nickname",""+ LoginFragment.getUser_id());
 
         registerButton.setOnClickListener(v -> {
             String str = editText.getText().toString();

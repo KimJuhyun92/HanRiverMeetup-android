@@ -18,7 +18,7 @@
     <ImageView
         android:layout_width="10dp"
         android:layout_height="13dp"
-        android:src="@drawable/ic_location"
+        android:src="@drawable/ic_location_gray"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="44dp"
         android:backgroundTint="#2186f8"/>
@@ -41,8 +41,8 @@
         android:layout_marginBottom="23dp"
         android:orientation="horizontal">
         <TextView
-            android:layout_width="30dp"
-            android:layout_height="14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textSize="12sp"
             android:textColor="#949494"
             android:lineHeight="23sp"
@@ -50,8 +50,8 @@
 
         <TextView
             android:id="@+id/meeting_time"
-            android:layout_width="50dp"
-            android:layout_height="14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textColor="#666666"
             android:lineHeight="23sp"
             android:textSize="12sp"/>

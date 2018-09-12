@@ -1,8 +1,12 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.mypage.Adapter;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +18,10 @@ import com.depromeet.hanriver.hanrivermeetup.model.mypage.ApplicantVO;
 import com.depromeet.hanriver.hanrivermeetup.model.mypage.Tab1VO;
 import com.depromeet.hanriver.hanrivermeetup.service.HostService;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -42,17 +47,19 @@ public class Tab1Adapter extends RecyclerView.Adapter<Tab1Adapter.ItemViewHolder
 // item layout 에 존재하는 위젯들을 바인딩합니다. 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
         public TextView mTitle;
+        public TextView mDate;
         public TextView mTime;
-        public TextView mCost;
-        public TextView mParticipants;
+        public TextView mEmptyMessage;
+        public TextView mLocation;
         public RecyclerView applicant_list;
 
         public ItemViewHolder(View view) {
             super(view);
             mTitle = view.findViewById(R.id.title);
+            mDate = view.findViewById(R.id.meeting_date);
             mTime = view.findViewById(R.id.meeting_time);
-            mCost = view.findViewById(R.id.expected_cost);
-            mParticipants = view.findViewById(R.id.participants_cnt);
+            mLocation = view.findViewById(R.id.meeting_location);
+            mEmptyMessage = view.findViewById(R.id.empty_message);
             applicant_list = view.findViewById(R.id.applicant_list);
         }
     }
@@ -68,41 +75,56 @@ public class Tab1Adapter extends RecyclerView.Adapter<Tab1Adapter.ItemViewHolder
     public void onBindViewHolder(ItemViewHolder viewHolder, int position) {
         holder = viewHolder;
 
+        String meeting_date_month;
+        String meeting_date_day;
         String meeting_time;
-        String meetingDate[] = mItems.get(position).getMeetingTime().split(" ");
-        meeting_time = meetingDate[1];
+        String meetingDate[] = mItems.get(position).getMeetingTime().split(" |-");
+        meeting_date_month = meetingDate[1];
+        meeting_date_day = meetingDate[2];
+        meeting_time = meetingDate[3];
 
-        mCompositeDisposable.add(HostService.getInstance().getMeetingApplicants(mItems.get(position).getMeetingSeq())
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::setApplicantListVOs));
+
+
+
+
+        new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                mCompositeDisposable.add(HostService.getInstance().getMeetingApplicants(mItems.get(position).getMeetingSeq())
+                        .subscribeOn(Schedulers.computation())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(this::setApplicantListVOs));
+            }
+
+            //Setting ApplicantList
+            private void setApplicantListVOs (List<ApplicantVO> applicantVOS) {
+                ItemViewHolder holder = viewHolder;
+                //필요정보 : meetingseq, 상대방 userID
+
+                if(applicantVOS.size() == 0){
+                    SpannableString content = new SpannableString("곧 신청자 올꺼에요!");
+                    content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+                    holder.mEmptyMessage.setText(content);
+                }
+                else {
+                    applicantListAdapter = new ApplicantListAdapter(mContext, applicantVOS);
+                    holder.applicant_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+                    holder.applicant_list.setAdapter(applicantListAdapter);
+                    Log.d("@@@size@@@", "" + applicantVOS.size());
+                    for (int i = 0; i < applicantVOS.size(); i++) {
+                        Log.d("@@@nickname@@@", i + applicantVOS.get(i).getNickname());
+                    }
+                }
+            }
+        }.handleMessage(new Message());
 
         holder.mTitle.setText(mItems.get(position).getTitle());
-        holder.mTime.setText(meeting_time.substring(0,5));
-        holder.mCost.setText(String.valueOf(mItems.get(position).getExpectedCost()));
-        holder.mParticipants.setText(String.valueOf(mItems.get(position).getParticipantsCnt()));
-
-//        applicantListAdapter = new ApplicantListAdapter(mContext, mApplicantsList);
-
-//        holder.applicant_list.setHasFixedSize(true);
-//        holder.applicant_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
-//        holder.applicant_list.setAdapter(applicantListAdapter);
+        holder.mLocation.setText(mItems.get(position).getMeetingLocation());
+        holder.mDate.setText(meeting_date_month + "월 " + meeting_date_day + "일");
+        holder.mTime.setText("시간 " + meeting_time.substring(0,5));
 
     }
 
-    private void setApplicantListVOs (List<ApplicantVO> applicantVOS) {
-
-        //필요정보 : meetingseq, 상대방 userID
-
-        applicantListAdapter = new ApplicantListAdapter(mContext, applicantVOS);
-        holder.applicant_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
-        holder.applicant_list.setAdapter(applicantListAdapter);
-
-        Log.d("@@@size@@@",""+applicantVOS.size());
-        for(int i =0; i<applicantVOS.size(); i++){
-            Log.d("@@@nickname@@@",i + applicantVOS.get(i).getNickname());
-        }
-    }
 
 
     // 데이터 셋의 크기를 리턴해줍니다. 
