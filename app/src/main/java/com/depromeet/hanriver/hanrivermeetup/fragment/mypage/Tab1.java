@@ -47,7 +47,8 @@ public class Tab1 extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mTab1ViewModel = getViewModel();
+        Log.d("@@test loginID", "" + LoginFragment.getUser_id());
+
     }
 
     @Override
@@ -66,6 +67,8 @@ public class Tab1 extends Fragment{
         // use a linear layout manager 
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.scrollToPosition(0);
+//        mRecyclerView.setFocusable(true);
     }
 
     @Override

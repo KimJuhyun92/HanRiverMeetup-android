@@ -1,58 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:weightSum="1"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="312dp"
-    android:layout_height="102dp">
+    android:layout_height="121dp"
+    android:background="#2186f8"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.45"
-        android:background="#2186f8">
+    <TextView
+        android:id="@+id/contact_kakao"
+        android:layout_width="153dp"
+        android:layout_height="16dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="5sp"
+        android:lineHeight="19sp"
+        android:text="카카오톡 :"
+        android:textColor="#ffffff"
+        android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.3"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="24dp"
-            android:textSize="14sp"
-            android:textColor="#ffffff"
-            android:lineSpacingExtra="18sp"
-            android:text="전화연결 하시겠습니까?" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/contact_call"
+        android:layout_width="153dp"
+        android:layout_height="16dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="37dp"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="5sp"
+        android:lineHeight="19sp"
+        android:text="연락처 :"
+        android:textColor="#ffffff"
+        android:textSize="14sp" />
 
-    <ImageView
+
+    <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#ffffff"/>
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="48dp"
+        android:background="#33ffffff" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.45"
-        android:background="#2186f8">
-        
-        <ImageView
-            android:id="@+id/negative_button"
-            android:layout_width="13dp"
-            android:layout_height="13dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/ic_negative_icon"
-            />
+    <TextView
+        android:id="@+id/copy_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="267dp"
+        android:layout_marginTop="90dp"
+        android:lineSpacingExtra="18sp"
+        android:lineHeight="32sp"
+        android:textColor="@color/white"
+        android:text="복사" />
 
-        <ImageView
-            android:id="@+id/positive_button"
-            android:layout_width="13dp"
-            android:layout_height="13dp"
-            android:layout_marginLeft="279dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/ic_positive_icon"
-            />
-
-    </FrameLayout>
-
-</LinearLayout>
+</RelativeLayout>

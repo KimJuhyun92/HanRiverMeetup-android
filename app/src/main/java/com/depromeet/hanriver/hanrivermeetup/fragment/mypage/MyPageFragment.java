@@ -73,10 +73,10 @@ public class MyPageFragment extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        LinearLayout view = (LinearLayout) inflater.inflate(R.layout.fragment_mypage, container, false);
+        View view = (View) inflater.inflate(R.layout.fragment_mypage, container, false);
 
-//        scrollView = (ScrollView)view.findViewById(R.id.mypage_scroll);
-//        scrollView.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        scrollView = (ScrollView)view.findViewById(R.id.mypage_scroll);
+        scrollView.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
 
         main_text = view.findViewById(R.id.mypage_main_text);

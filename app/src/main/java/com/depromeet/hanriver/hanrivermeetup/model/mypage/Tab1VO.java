@@ -22,7 +22,7 @@ public class Tab1VO {
     private Integer participantsCnt;
     @SerializedName("meeting_location")
     @Expose
-    private Object meetingLocation;
+    private String meetingLocation;
     @SerializedName("meeting_time")
     @Expose
     private String meetingTime;
@@ -88,11 +88,11 @@ public class Tab1VO {
         this.participantsCnt = participantsCnt;
     }
 
-    public Object getMeetingLocation() {
+    public String getMeetingLocation() {
         return meetingLocation;
     }
 
-    public void setMeetingLocation(Object meetingLocation) {
+    public void setMeetingLocation(String meetingLocation) {
         this.meetingLocation = meetingLocation;
     }
 

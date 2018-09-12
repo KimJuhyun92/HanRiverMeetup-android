@@ -61,7 +61,7 @@ public class Tab3Adapter extends RecyclerView.Adapter<Tab3Adapter.ItemViewHolder
         //참가자인지 주최자인지 구별하는 Logic
         if(TextUtils.equals(LoginFragment.getUser_id(), mItems.get(position).getJoinDetail().getUserId()))
         {
-            holder.mInfoButton.setImageResource(R.drawable.ic_guest_button);
+            holder.mInfoButton.setImageResource(R.drawable.ic_contact_blue_icon);
             holder.mInfoButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -84,7 +84,7 @@ public class Tab3Adapter extends RecyclerView.Adapter<Tab3Adapter.ItemViewHolder
 
         }
         else {
-            holder.mInfoButton.setImageResource(R.drawable.ic_host_button);
+            holder.mInfoButton.setImageResource(R.drawable.ic_contact_green_icon);
             holder.mInfoButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

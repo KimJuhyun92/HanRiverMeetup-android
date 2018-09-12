@@ -11,13 +11,15 @@ import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
 
+import org.w3c.dom.Text;
+
 public class SelectionDialog extends Dialog{
-    ImageView positiveButton;
-    ImageView negativeButton;
+    TextView copyButton;
 
     public SelectionDialog(@NonNull Context context, @NonNull String phoneNumber) {
         super(context);
@@ -25,10 +27,9 @@ public class SelectionDialog extends Dialog{
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));  //다이얼로그의 배경을 투명으로 만듭니다.
         setContentView(R.layout.selection_dialog);     //다이얼로그에서 사용할 레이아웃입니다.
 
-        negativeButton = findViewById(R.id.negative_button);
-        positiveButton = findViewById(R.id.positive_button);
+        copyButton = findViewById(R.id.copy_button);
 
-        positiveButton.setOnClickListener(new View.OnClickListener() {
+        copyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse(phoneNumber));
@@ -37,13 +38,13 @@ public class SelectionDialog extends Dialog{
             }
         });
 
-        negativeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), "exit", Toast.LENGTH_LONG).show();
-                dismiss();   //다이얼로그를 닫는 메소드입니다.
-            }
-        });
+//        negativeButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(getContext(), "exit", Toast.LENGTH_LONG).show();
+//                dismiss();   //다이얼로그를 닫는 메소드입니다.
+//            }
+//        });
 
 
     }

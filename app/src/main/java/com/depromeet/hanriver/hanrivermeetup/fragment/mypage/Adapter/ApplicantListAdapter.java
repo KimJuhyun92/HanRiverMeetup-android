@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +29,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ApplicantListAdapter extends RecyclerView.Adapter<ApplicantListAdapter.ItemViewHolder>{
+public class ApplicantListAdapter extends RecyclerView.Adapter<ApplicantListAdapter.ApplicantItemViewHolder>{
 
     private List<ApplicantVO> itemsList;
     private Context mContext;
@@ -44,14 +45,14 @@ public class ApplicantListAdapter extends RecyclerView.Adapter<ApplicantListAdap
 
     @NonNull
     @Override
-    public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ApplicantItemViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.mypage_tab1_applicant_list_item, null);
-        ItemViewHolder view = new ItemViewHolder(v);
+        ApplicantItemViewHolder view = new ApplicantItemViewHolder(v);
         return view;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemViewHolder holder, int i) {
+    public void onBindViewHolder(@NonNull ApplicantItemViewHolder holder, int i) {
 
         holder.applicant_name.setText(itemsList.get(i).getNickname());
         userID = itemsList.get(i).getUserId();
@@ -75,14 +76,14 @@ public class ApplicantListAdapter extends RecyclerView.Adapter<ApplicantListAdap
         return itemsList.size();
     }
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder {
+    public class ApplicantItemViewHolder extends RecyclerView.ViewHolder {
 
         protected ImageView applicant_img;
         protected TextView applicant_name;
-        protected FrameLayout applicant;
+        protected RelativeLayout applicant;
 
 
-        public ItemViewHolder(View view) {
+        public ApplicantItemViewHolder(View view) {
             super(view);
 
             applicant_img = view.findViewById(R.id.applicant_img);
