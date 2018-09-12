@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.depromeet.hanriver.hanrivermeetup.HanRiverMeetupApplication;
 import com.depromeet.hanriver.hanrivermeetup.R;
@@ -28,6 +30,8 @@ import io.reactivex.schedulers.Schedulers;
 public class CampingFragment extends Fragment {
     @NonNull
     private CompositeDisposable mCompositeDisposable;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @NonNull
     private MeetingListInnerViewModel mViewModel;
@@ -57,7 +61,17 @@ public class CampingFragment extends Fragment {
 //        gridview = v.findViewById(R.id.gridview);
         recyclerView = v.findViewById(R.id.list_room_rv);
         rvManager = new LinearLayoutManager(getContext());
+        swipeRefreshLayout = v.findViewById(R.id.list_refresh);
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                progressON();
+                bind();
+
+            }
+        });
 //        gridview.setAdapter(new GridAdapter(this.getActivity(),));
     }
 
@@ -88,6 +102,7 @@ public class CampingFragment extends Fragment {
     }
 
     private void setRooms(@NonNull final List<MeetingDetail> Rooms) {
+        progressOFF();
 
         recyclerView.setLayoutManager(rvManager);
         recyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
@@ -122,5 +137,12 @@ public class CampingFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         bind();
+    }
+    public void progressON(){
+        HanRiverMeetupApplication.getInstance().progressON(getActivity());
+    }
+
+    public void progressOFF(){
+        HanRiverMeetupApplication.getInstance().progressOFF(swipeRefreshLayout);
     }
 }
