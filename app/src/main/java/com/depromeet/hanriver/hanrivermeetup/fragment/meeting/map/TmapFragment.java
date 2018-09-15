@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.depromeet.hanriver.hanrivermeetup.BuildConfig;
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.skt.Tmap.TMapView;
 
@@ -30,7 +31,7 @@ public class TmapFragment extends Fragment {
 
         map = view.findViewById(R.id.mapView);
         mapView = new TMapView(getActivity());
-        mapView.setSKTMapApiKey("api key");
+        mapView.setSKTMapApiKey(BuildConfig.TMapApiKey);
 
         mapView.setLocationPoint(126.970325,37.556152);
         mapView.setCenterPoint(126.970325,37.556152);
