@@ -75,5 +75,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:17.0.0'
     implementation files('libs/com.skt.Tmap_1.53.jar')
 }
-//
-//apply plugin: 'com.google.gms.google-services'
+
+apply plugin: 'com.google.gms.google-services'

@@ -53,6 +53,7 @@
         </activity>
 
         <service
+            android:exported="false"
             android:name=".firebase.CustomFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
@@ -60,6 +61,7 @@
         </service>
 
         <service
+            android:exported="false"
             android:name=".firebase.CustomFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
