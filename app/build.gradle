@@ -54,7 +54,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.google.code.gson:gson:2.6.1'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.4.0"
+
     //Permission
     implementation 'gun0912.ted:tedpermission:2.0.0'
     // Dali Van Picasso ~~ 밤 고흐의 달이 보이는밤~
@@ -68,5 +69,11 @@ dependencies {
     implementation 'cn.hugeterry.coordinatortablayout:coordinatortablayout:1.2.2'
     // Floating Action Button
     implementation 'com.github.clans:fab:1.6.4'
+
+    // Google Firebase
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-messaging:17.0.0'
     implementation files('libs/com.skt.Tmap_1.53.jar')
 }
+//
+//apply plugin: 'com.google.gms.google-services'
