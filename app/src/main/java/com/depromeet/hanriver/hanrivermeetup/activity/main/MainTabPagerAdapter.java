@@ -4,8 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MapFragment;
-import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingDetailFragment;
+//import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.map.MapFragment;
+//import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.map.TmapFragment;
+import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.map.TmapFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.meetingRootFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.MyPageFragment;
 
@@ -26,7 +27,8 @@ public class MainTabPagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return new MyPageFragment();
             case 2:
-                return new MapFragment();
+                return new TmapFragment();
+//                return new MapFragment();
             default:
                 return null;
         }
