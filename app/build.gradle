@@ -18,6 +18,7 @@ android {
     buildTypes {
         debug {
             buildConfigField "String", "APIServerBaseURL", keystoreProperties.getProperty("apiServerURL")
+            buildConfigField "String", "TMapApiKey",keystoreProperties.getProperty("TMapApiKey")
         }
 
         release {

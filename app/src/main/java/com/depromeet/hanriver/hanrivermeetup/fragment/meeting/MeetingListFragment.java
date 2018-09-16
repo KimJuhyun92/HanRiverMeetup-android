@@ -97,7 +97,7 @@ public class MeetingListFragment extends Fragment {
         tabLayout.setTabRippleColor(null);
 
         initTablayoutWeight(tabLayout);
-//        tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         MeetingListTapPagerAdapter adapter = new MeetingListTapPagerAdapter(getChildFragmentManager(), tabLayout.getTabCount());
         viewpager.setAdapter(adapter);
@@ -174,8 +174,8 @@ public class MeetingListFragment extends Fragment {
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) vv.getLayoutParams();
             params.weight = 0;
             params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-            params.leftMargin = 40;
-            params.rightMargin = 40;
+            params.leftMargin = 30;
+            params.rightMargin = 30;
             vv.setLayoutParams(params);
         }
     }

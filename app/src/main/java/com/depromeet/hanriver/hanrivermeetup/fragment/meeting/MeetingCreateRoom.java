@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -59,7 +60,8 @@ public class MeetingCreateRoom extends DialogFragment {
 
     @NonNull
     private CompositeDisposable mCompositeDisposable;
-    private boolean isValidate_num,isValidate_fee,isValidate_contact;
+    private boolean isValidate_roomName,isValidate_num,isValidate_fee,isValidate_contact,isValidate_total;
+    private LinearLayout line_roomName,line_num,line_fee,line_contact;
     EditText roomname, roomcontent, contact, fee, num;
     TextView tv_location, tv_time, tv_num, tv_fee, tv_contact;
     TextView location, time, nickname;
@@ -71,9 +73,13 @@ public class MeetingCreateRoom extends DialogFragment {
     MeetingListFragment fragment;
     RelativeLayout rl;
     TextWatcher textWatcher;
+    private final int COLOR_DEFAULT=R.drawable.border_bottom;
+    private final int COLOR_RED = R.drawable.border_bottom_red;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
     }
@@ -104,8 +110,10 @@ public class MeetingCreateRoom extends DialogFragment {
         // Inflate the layout for this fragment
         dial = this;
         View v = inflater.inflate(R.layout.fragment_meeting_createroom, container, false);
+        initValidate();
         setupViews(v);
         mCompositeDisposable = new CompositeDisposable();
+
         return v;
     }
 
@@ -123,6 +131,10 @@ public class MeetingCreateRoom extends DialogFragment {
             }
         });
 
+        line_roomName = v.findViewById(R.id.meeting_create_ll0);
+        line_num  = v.findViewById(R.id.meeting_create_ll3);
+        line_fee = v.findViewById(R.id.meeting_create_ll4);
+        line_contact = v.findViewById(R.id.meeting_create_ll5);
         tv_contact = v.findViewById(R.id.create_room_tv_contact);
         tv_fee = v.findViewById(R.id.create_room_tv_fee);
         tv_location = v.findViewById(R.id.create_room_tv_location);
@@ -170,8 +182,24 @@ public class MeetingCreateRoom extends DialogFragment {
         createbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (roomname.getText().length() > 20)
-                    Toast.makeText(getContext(), "방 이름을 20자 이내로 적어주세요. ", Toast.LENGTH_SHORT).show();
+                if (isValidate_total==false){
+                    if(isValidate_contact==false){
+                        Toast.makeText(getContext(), "연락처 오류", Toast.LENGTH_SHORT).show();
+                        invalidateColor(line_contact,contact);
+                    }
+                    else if(isValidate_fee==false){
+                        Toast.makeText(getContext(), "회비 오류", Toast.LENGTH_SHORT).show();
+                        invalidateColor(line_fee,fee);
+                    }
+                    else if(isValidate_num==false){
+                        Toast.makeText(getContext(), "참가인원 오류", Toast.LENGTH_SHORT).show();
+                        invalidateColor(line_num,num);
+                    }
+                    else if(isValidate_roomName==false){
+                        Toast.makeText(getContext(), "방제목 오류", Toast.LENGTH_SHORT).show();
+                        invalidateColor(line_roomName,roomname);
+                    }
+                }
                 else {
                     //
                     MeetingDetail md = new MeetingDetail();
@@ -279,39 +307,45 @@ public class MeetingCreateRoom extends DialogFragment {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if(roomname.getText().hashCode() == charSequence.hashCode()){
                     if(roomname.getText().length()>=4&&roomname.getText().length()<=20){
-                        roomname.setTextColor(Color.parseColor("#2186f8"));
+                        isValidate_roomName=true;isValidateTotal();
+                        validateColor(line_roomName);
+
                     }
                     else{
-                        roomname.setTextColor(Color.parseColor("#d34040"));
+                        roomname.setTextColor(getResources().getColor(R.color.warm_grey));
+                        isValidate_roomName=false;
                     }
                 }
                 else if (num.getText().hashCode() == charSequence.hashCode()) {
                     if (isInt(num.getText().toString())) {
-                        tv_num.setTextColor(Color.parseColor("#2186f8"));
-                        num.setTextColor(Color.parseColor("#2186f8"));
+                        isValidate_num=true;isValidateTotal();
+                        validateColor(line_num);
                     } else {
                         tv_num.setTextColor(Color.parseColor("#000000"));
                         num.setTextColor(getResources().getColor(R.color.warm_grey));
+                        isValidate_roomName=false;
                     }
                 }
                 else if(fee.getText().hashCode()==charSequence.hashCode()){
                     if(isInt(fee.getText().toString())){
-                        tv_fee.setTextColor(Color.parseColor("#2186f8"));
-                        fee.setTextColor(Color.parseColor("#2186f8"));
+                        isValidate_fee=true;isValidateTotal();
+                        validateColor(line_fee);
                     }
                     else{
                         tv_fee.setTextColor(Color.parseColor("#000000"));
                         fee.setTextColor(getResources().getColor(R.color.warm_grey));
+                        isValidate_fee=false;
                     }
                 }
                 else if(contact.getText().hashCode()==charSequence.hashCode()){
                     if(contact.getText().length()>=4&&contact.getText().length()<15){
-                        tv_contact.setTextColor(Color.parseColor("#2186f8"));
-                        contact.setTextColor(Color.parseColor("#2186f8"));
+                        isValidate_contact=true;isValidateTotal();
+                        validateColor(line_contact);
                     }
                     else{
                         tv_contact.setTextColor(Color.parseColor("#000000"));
                         contact.setTextColor(getResources().getColor(R.color.warm_grey));
+                        isValidate_contact=false;
                     }
                 }
 
@@ -327,5 +361,30 @@ public class MeetingCreateRoom extends DialogFragment {
     public boolean isInt(String str) {
         return (str.lastIndexOf("-") == 0 && !str.equals("-0")) ? str.substring(1).matches(
                 "\\d+") : str.matches("\\d+");
+    }
+
+    private void initValidate(){
+        isValidate_fee=false;
+        isValidate_contact=false;
+        isValidate_num=false;
+        isValidate_roomName=false;
+        isValidate_total=false;
+    }
+
+    private void isValidateTotal(){
+        if(isValidate_roomName==true && isValidate_num==true && isValidate_contact==true && isValidate_fee==true)
+            isValidate_total = true;
+        else
+            isValidate_total = false;
+    }
+
+    private void invalidateColor(LinearLayout ll,EditText text){
+        ll.setBackgroundResource(COLOR_RED);
+        text.setHintTextColor(Color.parseColor("#d34040"));
+        text.setText(null);
+    }
+
+    private void validateColor(LinearLayout ll){
+        ll.setBackgroundResource(COLOR_DEFAULT);
     }
 }
