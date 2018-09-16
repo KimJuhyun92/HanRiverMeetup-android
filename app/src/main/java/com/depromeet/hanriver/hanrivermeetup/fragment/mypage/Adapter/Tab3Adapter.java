@@ -3,6 +3,8 @@ package com.depromeet.hanriver.hanrivermeetup.fragment.mypage.Adapter;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -49,19 +51,25 @@ public class Tab3Adapter extends RecyclerView.Adapter<Tab3Adapter.ItemViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
+
+        String meeting_date_month;
+        String meeting_date_day;
         String meeting_time;
-        String meetingDate[] = mItems.get(position).getMeetingDetail().getMeetingTime().split(" ");
-        meeting_time = meetingDate[1];
+        String meetingDate[] = mItems.get(position).getMeetingDetail().getMeetingTime().split(" |-");
+        meeting_date_month = meetingDate[1];
+        meeting_date_day = meetingDate[2];
+        meeting_time = meetingDate[3];
 
         holder.mTitle.setText(mItems.get(position).getMeetingDetail().getTitle());
-        holder.mTime.setText(meeting_time.substring(0,5));
-        holder.mCost.setText(String.valueOf(mItems.get(position).getMeetingDetail().getExpectedCost()));
-        holder.mParticipants.setText(String.valueOf(mItems.get(position).getMeetingDetail().getParticipantsCnt()));
+        holder.mLocation.setText(mItems.get(position).getMeetingDetail().getMeetingLocation());
+        holder.mDate.setText(meeting_date_month + "월 " + meeting_date_day + "일");
+        holder.mTime.setText("시간 " + meeting_time.substring(0,5));
 
         //참가자인지 주최자인지 구별하는 Logic
         if(TextUtils.equals(LoginFragment.getUser_id(), mItems.get(position).getJoinDetail().getUserId()))
         {
             holder.mInfoButton.setImageResource(R.drawable.ic_contact_blue_icon);
+            holder.mLeftLine.setBackgroundColor(Color.parseColor("#2186f8"));
             holder.mInfoButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -85,6 +93,7 @@ public class Tab3Adapter extends RecyclerView.Adapter<Tab3Adapter.ItemViewHolder
         }
         else {
             holder.mInfoButton.setImageResource(R.drawable.ic_contact_green_icon);
+            holder.mLeftLine.setBackgroundColor(Color.parseColor("#00c0c9"));
             holder.mInfoButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -117,18 +126,20 @@ public class Tab3Adapter extends RecyclerView.Adapter<Tab3Adapter.ItemViewHolder
 // item layout 에 존재하는 위젯들을 바인딩합니다. 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
         public TextView mTitle;
+        public TextView mDate;
         public TextView mTime;
-        public TextView mCost;
-        public TextView mParticipants;
+        public TextView mLocation;
         public ImageView mInfoButton;
+        public View mLeftLine;
 
         public ItemViewHolder(View view) {
             super(view);
             mTitle = view.findViewById(R.id.title);
+            mDate = view.findViewById(R.id.meeting_date);
             mTime = view.findViewById(R.id.meeting_time);
-            mCost = view.findViewById(R.id.expected_cost);
-            mParticipants = view.findViewById(R.id.participants_cnt);
+            mLocation = view.findViewById(R.id.meeting_location);
             mInfoButton = view.findViewById(R.id.info_button);
+            mLeftLine = view.findViewById(R.id.leftline);
         }
     }
 

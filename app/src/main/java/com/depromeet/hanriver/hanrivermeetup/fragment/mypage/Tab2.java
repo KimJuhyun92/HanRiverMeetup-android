@@ -48,7 +48,7 @@ public class Tab2 extends Fragment {
     @NonNull
     private CompositeDisposable mCompositeDisposable;
 
-    SwipeMenuListView listView;
+    SwipeMenuListView swipeMenuListView;
     List<Tab2VO> testVO = new ArrayList<Tab2VO>();
     Tab2Adapter tab2Adapter;
 
@@ -70,7 +70,7 @@ public class Tab2 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tab2_fragment, container, false);
 
-        listView = (SwipeMenuListView) view.findViewById(R.id.listView);
+        swipeMenuListView = (SwipeMenuListView) view.findViewById(R.id.swipe_menu_listView);
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
             @Override
@@ -91,9 +91,9 @@ public class Tab2 extends Fragment {
         };
 
         // set creator
-        listView.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        listView.setMenuCreator(creator);
-        listView.setOnMenuItemClickListener((position, menu, index) -> {
+        swipeMenuListView.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        swipeMenuListView.setMenuCreator(creator);
+        swipeMenuListView.setOnMenuItemClickListener((position, menu, index) -> {
             switch (index) {
                 case 0:
                     GuestService.getInstance().deleteJoinRequest(testVO.get(position).getApplicationSeq())
@@ -121,7 +121,7 @@ public class Tab2 extends Fragment {
     }
 
     private void setupViews(View v){
-        listView = v.findViewById(R.id.recyclerview);
+        swipeMenuListView = v.findViewById(R.id.recyclerview);
     }
 
 
@@ -152,7 +152,7 @@ public class Tab2 extends Fragment {
 
     private void setTab2VOs(@NonNull final List<Tab2VO> tab2VOs) {
         testVO = tab2VOs;
-        listView.setAdapter(tab2Adapter = new Tab2Adapter(tab2VOs));
+        swipeMenuListView.setAdapter(tab2Adapter = new Tab2Adapter(tab2VOs));
 //        tab2Adapter.notifyDataSetChanged();
     }
 
