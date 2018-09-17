@@ -121,10 +121,22 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/modify_room_time"
-                android:layout_width="240dp"
+                android:id="@+id/modify_room_date"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="28dp"
+                android:lineSpacingExtra="20sp"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp"
+                android:text="2018-12-31"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:id="@+id/modify_room_time"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:paddingTop="16dp"
                 android:paddingBottom="16dp"
                 android:lineSpacingExtra="20sp"

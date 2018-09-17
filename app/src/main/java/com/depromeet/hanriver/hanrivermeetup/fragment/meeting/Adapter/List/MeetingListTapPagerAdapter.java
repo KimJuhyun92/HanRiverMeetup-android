@@ -30,17 +30,17 @@ public class MeetingListTapPagerAdapter extends FragmentStatePagerAdapter {
         // Returning the current tabs
         switch (position) {
             case 0:
-                return new ChickenFragment();
+                return ChickenFragment.newInstance(position+1);
             case 1:
-                return new BikeFragment();
+                return BikeFragment.newInstance(position+1);
             case 2:
-                return new BoatFragment();
+                return BoatFragment.newInstance(position+1);
             case 3:
-                return new CampingFragment();
+                return CampingFragment.newInstance(position+1);
             case 4:
-                return new PhotoFragment();
+                return PhotoFragment.newInstance(position+1);
             case 5:
-                return new EtcFragment();
+                return EtcFragment.newInstance(position+1);
             default:
                 return null;
         }

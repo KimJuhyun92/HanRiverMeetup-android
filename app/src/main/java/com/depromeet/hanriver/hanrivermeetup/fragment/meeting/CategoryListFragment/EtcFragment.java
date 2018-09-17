@@ -33,12 +33,24 @@ public class EtcFragment extends Fragment {
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
+    private int activity_seq;
+
     @NonNull
     private MeetingListInnerViewModel mViewModel;
 
     @Nullable
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager rvManager;
+
+    public static EtcFragment newInstance(int activity_seq) {
+
+        Bundle args = new Bundle();
+
+        EtcFragment fragment = new EtcFragment();
+        fragment.setArguments(args);
+        fragment.activity_seq=activity_seq;
+        return fragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -90,11 +102,10 @@ public class EtcFragment extends Fragment {
     private void bind() {
         mCompositeDisposable = new CompositeDisposable();
 
-        mCompositeDisposable.add(HostService.getInstance().getTodayList()
+        mCompositeDisposable.add(HostService.getInstance().getWeekList(activity_seq)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::setRooms));
-
     }
 
     private void unBind() {
@@ -106,12 +117,7 @@ public class EtcFragment extends Fragment {
 
         recyclerView.setLayoutManager(rvManager);
         recyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        List<MeetingDetail> rooms = new ArrayList<>();
-        for(int i =0;i<Rooms.size();i++){
-            if(Rooms.get(i).getActivity_seq()==6)
-                rooms.add(Rooms.get(i));
-        }
-        recyclerView.setAdapter(new MeetingListAdapter(rooms,getContext(),this));
+        recyclerView.setAdapter(new MeetingListAdapter(Rooms,getContext(),this));
 
     }
 

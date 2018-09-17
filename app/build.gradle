@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.depromeet.hanriver.hanrivermeetup"
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -18,12 +18,14 @@ android {
     buildTypes {
         debug {
             buildConfigField "String", "APIServerBaseURL", keystoreProperties.getProperty("apiServerURL")
+            buildConfigField "String", "TMapApiKey",keystoreProperties.getProperty("TMapApiKey")
         }
 
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "APIServerBaseURL", keystoreProperties.getProperty("apiServerURL")
+            buildConfigField "String", "TMapApiKey",keystoreProperties.getProperty("TMapApiKey")
         }
     }
     compileOptions {
