@@ -7,7 +7,7 @@
     <View
         android:layout_width="4dp"
         android:layout_height="match_parent"
-        android:background="#00c0c9"></View>
+        android:background="#00c0c9"/>
 
     <TextView
         android:id="@+id/title"
@@ -80,5 +80,12 @@
         android:gravity="end"
         android:text="대기중"
         />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:background="#dcdcdc"/>
+
 
 </FrameLayout>

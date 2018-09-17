@@ -1,32 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
-    
-    <TextView
-        android:id="@+id/tab1_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:gravity="right"
-        android:textSize="14sp"
-        android:lineHeight="22sp"
-        android:textStyle="bold"
-        android:text="3"/>
-    
+
     <TextView
         android:id="@+id/tab1_tab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginBottom="23dp"
         android:textSize="18sp"
-        android:textColor="@color/warm_grey"
-        android:lineSpacingExtra="4sp"
-        android:gravity="center_horizontal"
+        android:textColor="@color/clear_blue"
         android:textStyle="bold"
+        android:lineSpacingExtra="4sp"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:singleLine="true"
         android:text="만든모임"/>
 
-</FrameLayout>
+</RelativeLayout>

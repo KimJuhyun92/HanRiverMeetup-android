@@ -121,10 +121,6 @@ public class Tab2 extends Fragment {
         return view;
     }
 
-    private void setupViews(View v){
-        swipeMenuListView = v.findViewById(R.id.recyclerview);
-    }
-
 
     @Override
     public void onResume() {
