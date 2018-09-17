@@ -31,13 +31,14 @@ import io.reactivex.schedulers.Schedulers;
 public class ChickenFragment extends Fragment {
     @NonNull
     private CompositeDisposable mCompositeDisposable;
+
     private SwipeRefreshLayout swipeRefreshLayout;
+
     private int activity_seq;
-//    @NonNull
-//    private MeetingListInnerViewModel mViewModel;
 
     @Nullable
     private RecyclerView recyclerView;
+
     private RecyclerView.LayoutManager rvManager;
 
     public static ChickenFragment newInstance(int activity_seq) {
@@ -54,7 +55,6 @@ public class ChickenFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        mViewModel = getViewModel();
     }
 
     @Override
@@ -104,11 +104,6 @@ public class ChickenFragment extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::setRooms));
 
-//        mCompositeDisposable.add(mViewModel.getAvailableRooms()
-//                .subscribeOn(Schedulers.computation())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(this::setRooms));
-
     }
 
     private void unBind() {
@@ -123,19 +118,6 @@ public class ChickenFragment extends Fragment {
         recyclerView.setAdapter(new MeetingListAdapter(Rooms,getContext(),this));
 
     }
-
-
-
-
-//    private void setActivites(@NonNull final List<Activity> languages) {
-//        assert mLanguagesSpinner != null;
-//
-//        mLanguageSpinnerAdapter = new LanguageSpinnerAdapter(this,
-//                R.layout.language_item,
-//                languages);
-//        mLanguagesSpinner.setAdapter(mLanguageSpinnerAdapter);
-//    }
-
 
     @NonNull
     private MeetingListInnerViewModel getViewModel() {

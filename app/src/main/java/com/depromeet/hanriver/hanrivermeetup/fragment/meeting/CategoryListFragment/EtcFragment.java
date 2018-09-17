@@ -35,11 +35,9 @@ public class EtcFragment extends Fragment {
 
     private int activity_seq;
 
-    @NonNull
-    private MeetingListInnerViewModel mViewModel;
-
     @Nullable
     private RecyclerView recyclerView;
+
     private RecyclerView.LayoutManager rvManager;
 
     public static EtcFragment newInstance(int activity_seq) {
@@ -56,7 +54,6 @@ public class EtcFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mViewModel = getViewModel();
     }
 
     @Override
@@ -70,11 +67,9 @@ public class EtcFragment extends Fragment {
     }
 
     private void setupViews(View v) {
-//        gridview = v.findViewById(R.id.gridview);
         recyclerView = v.findViewById(R.id.list_room_rv);
         rvManager = new LinearLayoutManager(getContext());
         swipeRefreshLayout = v.findViewById(R.id.list_refresh);
-
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -84,7 +79,6 @@ public class EtcFragment extends Fragment {
 
             }
         });
-//        gridview.setAdapter(new GridAdapter(this.getActivity(),));
     }
 
     @Override
@@ -120,19 +114,6 @@ public class EtcFragment extends Fragment {
         recyclerView.setAdapter(new MeetingListAdapter(Rooms,getContext(),this));
 
     }
-
-
-
-
-//    private void setActivites(@NonNull final List<Activity> languages) {
-//        assert mLanguagesSpinner != null;
-//
-//        mLanguageSpinnerAdapter = new LanguageSpinnerAdapter(this,
-//                R.layout.language_item,
-//                languages);
-//        mLanguagesSpinner.setAdapter(mLanguageSpinnerAdapter);
-//    }
-
 
     @NonNull
     private MeetingListInnerViewModel getViewModel() {

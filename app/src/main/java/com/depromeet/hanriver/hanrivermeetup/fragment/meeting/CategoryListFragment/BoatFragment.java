@@ -34,17 +34,18 @@ public class BoatFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private int activity_seq;
+
     @NonNull
     private MeetingListInnerViewModel mViewModel;
 
     @Nullable
     private RecyclerView recyclerView;
+
     private RecyclerView.LayoutManager rvManager;
 
     public static BoatFragment newInstance(int activity_seq) {
 
         Bundle args = new Bundle();
-
         BoatFragment fragment = new BoatFragment();
         fragment.setArguments(args);
         fragment.activity_seq=activity_seq;
@@ -69,7 +70,6 @@ public class BoatFragment extends Fragment {
     }
 
     private void setupViews(View v) {
-//        gridview = v.findViewById(R.id.gridview);
         recyclerView = v.findViewById(R.id.list_room_rv);
         rvManager = new LinearLayoutManager(getContext());
         swipeRefreshLayout = v.findViewById(R.id.list_refresh);
@@ -83,7 +83,6 @@ public class BoatFragment extends Fragment {
 
             }
         });
-//        gridview.setAdapter(new GridAdapter(this.getActivity(),));
     }
 
     @Override
@@ -119,19 +118,6 @@ public class BoatFragment extends Fragment {
         recyclerView.setAdapter(new MeetingListAdapter(Rooms,getContext(),this));
 
     }
-
-
-
-
-//    private void setActivites(@NonNull final List<Activity> languages) {
-//        assert mLanguagesSpinner != null;
-//
-//        mLanguageSpinnerAdapter = new LanguageSpinnerAdapter(this,
-//                R.layout.language_item,
-//                languages);
-//        mLanguagesSpinner.setAdapter(mLanguageSpinnerAdapter);
-//    }
-
 
     @NonNull
     private MeetingListInnerViewModel getViewModel() {

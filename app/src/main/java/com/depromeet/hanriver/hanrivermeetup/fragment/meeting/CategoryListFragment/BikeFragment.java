@@ -34,11 +34,10 @@ public class BikeFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private int activity_seq;
-    @NonNull
-    private MeetingListInnerViewModel mViewModel;
 
     @Nullable
     private RecyclerView recyclerView;
+
     private RecyclerView.LayoutManager rvManager;
 
 
@@ -48,7 +47,7 @@ public class BikeFragment extends Fragment {
 
         BikeFragment fragment = new BikeFragment();
         fragment.setArguments(args);
-        fragment.activity_seq=acitivity_seq;
+        fragment.activity_seq = acitivity_seq;
         return fragment;
     }
 
@@ -56,7 +55,6 @@ public class BikeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mViewModel = getViewModel();
     }
 
     @Override
@@ -70,7 +68,6 @@ public class BikeFragment extends Fragment {
     }
 
     private void setupViews(View v) {
-//        gridview = v.findViewById(R.id.gridview);
         recyclerView = v.findViewById(R.id.list_room_rv);
         rvManager = new LinearLayoutManager(getContext());
         swipeRefreshLayout = v.findViewById(R.id.list_refresh);
@@ -84,7 +81,6 @@ public class BikeFragment extends Fragment {
             }
         });
 
-//        gridview.setAdapter(new GridAdapter(this.getActivity(),));
     }
 
     @Override
@@ -117,26 +113,13 @@ public class BikeFragment extends Fragment {
 
         recyclerView.setLayoutManager(rvManager);
         recyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        recyclerView.setAdapter(new MeetingListAdapter(Rooms,getContext(),this));
+        recyclerView.setAdapter(new MeetingListAdapter(Rooms, getContext(), this));
 
     }
 
-
-
-
-//    private void setActivites(@NonNull final List<Activity> languages) {
-//        assert mLanguagesSpinner != null;
-//
-//        mLanguageSpinnerAdapter = new LanguageSpinnerAdapter(this,
-//                R.layout.language_item,
-//                languages);
-//        mLanguagesSpinner.setAdapter(mLanguageSpinnerAdapter);
-//    }
-
-
     @NonNull
     private MeetingListInnerViewModel getViewModel() {
-        return ((HanRiverMeetupApplication)getActivity().getApplicationContext()).getBikeListViewModel();
+        return ((HanRiverMeetupApplication) getActivity().getApplicationContext()).getBikeListViewModel();
     }
 
     @Override
@@ -144,11 +127,12 @@ public class BikeFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         bind();
     }
-    public void progressON(){
+
+    public void progressON() {
         HanRiverMeetupApplication.getInstance().progressON(getActivity());
     }
 
-    public void progressOFF(){
+    public void progressOFF() {
         HanRiverMeetupApplication.getInstance().progressOFF(swipeRefreshLayout);
     }
 }
