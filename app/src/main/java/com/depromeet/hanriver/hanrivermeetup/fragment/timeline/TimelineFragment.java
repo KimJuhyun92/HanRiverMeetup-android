@@ -52,10 +52,8 @@ public class TimelineFragment extends Fragment {
     }
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceSatate) {
-
 
         LinearLayout v = (LinearLayout) inflater.inflate(R.layout.fragment_timeline, container, false);
         setupViews(v);

@@ -28,9 +28,25 @@ public class MainActivity extends AppCompatActivity {
 
     @NonNull
     private static NonSwipeableViewPager viewPager;
-    private int imgIcon[] = {R.drawable.ic_nolgang_icon,R.drawable.ic_mypage_icon,R.drawable.ic_tap_map};
-    private int imgIcon_act[] = {R.drawable.ic_nolgang_icon_active,R.drawable.ic_mypage_icon_active,R.drawable.ic_tap_map_active};
-    private String tabText[] = {"같이놀강","마이한강","어디갈강"};
+    private int imgIcon[] = {
+            R.drawable.ic_nolgang_icon,
+            R.drawable.ic_tap_map,
+            R.drawable.ic_tap_map,
+            R.drawable.ic_mypage_icon
+    };
+    private int imgIcon_act[] = {
+            R.drawable.ic_nolgang_icon_active,
+            R.drawable.ic_tap_map_active,
+            R.drawable.ic_tap_map_active,
+            R.drawable.ic_mypage_icon_active
+    };
+    private String tabText[] = {
+            "같이놀강",
+            "마이한강",
+            "지금한강",
+            "어디갈강",
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tablayout);
         tabLayout.setTabRippleColor(null);
 
-        View tabItems[] = new View[3];
-        for(int i=0;i<tabItems.length;i++) {
+        View tabItems[] = new View[4];
+        for(int i=0; i<tabItems.length;i++) {
             tabItems[i] = getLayoutInflater().inflate(R.layout.main_tab_icon, null);
             ImageView tabItemImg = tabItems[i].findViewById(R.id.main_tab_img);
             TextView tabItemText = tabItems[i].findViewById(R.id.main_tab_text);
@@ -75,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
 
             tabLayout.addTab(tabLayout.newTab().setCustomView(tabItems[i]));
         }
-
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
