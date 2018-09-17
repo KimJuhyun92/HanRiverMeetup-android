@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
+import com.depromeet.hanriver.hanrivermeetup.common.PreferencesManager;
 import com.depromeet.hanriver.hanrivermeetup.fragment.login.LoginFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Utils.CreateRoomLocationFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Utils.TimePickerFragment;
@@ -106,7 +107,7 @@ public class MeetingModifyRoom extends DialogFragment {
         contact = v.findViewById(R.id.modify_room_contact);
         fee = v.findViewById(R.id.modify_room_fee);
         num = v.findViewById(R.id.modify_room_num);
-        nickname.setText(LoginFragment.getNick_name());
+        nickname.setText(PreferencesManager.getNickname());
 
         //본래 정보 등록.
         roomname.setText(meetingDetail.getTitle());
@@ -119,8 +120,10 @@ public class MeetingModifyRoom extends DialogFragment {
         fee.setText(String.valueOf(meetingDetail.getExpected_cost()));
         num.setText(String.valueOf(meetingDetail.getParticipants_cnt()));
 
-        Picasso.get().load(FacebookService.getInstance().getProfileURL(LoginFragment.getUser_id()))
-                .transform(CircleTransform.getInstance()).into(profileimg);
+        Picasso.get().load(FacebookService.getInstance()
+                .getProfileURL(PreferencesManager.getUserID()))
+                .transform(CircleTransform.getInstance())
+                .into(profileimg);
 
         time.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,7 +153,7 @@ public class MeetingModifyRoom extends DialogFragment {
                 md.setMeeting_time(getCurrentDate(time.getText().toString()));
                 md.setTitle(roomname.getText().toString());
                 md.setParticipants_cnt(Integer.parseInt(num.getText().toString()));
-                md.setUser_id(LoginFragment.getUser_id().toString());
+                md.setUser_id(PreferencesManager.getUserID());
                 md.setContact(contact.getText().toString());
 
                 mCompositeDisposable.add(HostService.getInstance().modifyMeeting(meetingDetail.getMeeting_seq(),md)

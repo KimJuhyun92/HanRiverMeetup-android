@@ -32,19 +32,16 @@ public class MyPageService {
 
     public Observable<List<Tab1VO>> getMyMeeting(String userID){
         return mService.getMyMeeting(userID)
-                .subscribeOn(Schedulers.io())
-                .map(it -> it);
+                .subscribeOn(Schedulers.io());
     }
 
     public Observable<List<Tab3VO>> getMathcedMeeting(String userID){
         return mService.getMatchedMeeting(userID)
-                .subscribeOn(Schedulers.io())
-                .map(it -> it);
+                .subscribeOn(Schedulers.io());
     }
 
     public Observable<List<Tab2VO>> getAppliedMeeting(String userID){
         return mService.getAppliedMeeting(userID)
-                .subscribeOn(Schedulers.io())
-                .map(it -> it);
+                .subscribeOn(Schedulers.io());
     }
 }

@@ -6,13 +6,14 @@ import com.depromeet.hanriver.hanrivermeetup.model.user.User;
 import java.util.HashMap;
 
 import io.reactivex.Observable;
+import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public interface LoginAPIService {
-    @POST("loginValidate/")
-    Observable<User> getAccessToken(@Body LoginInfo loginInfo);
+    @POST("login/")
+    Observable<Response<User>> getAccessToken(@Body LoginInfo loginInfo);
 
-    @POST("registUser/")
-    Observable<User> registerUser(@Body HashMap<String, Object> userJoinInfoObject);
+    @POST("register/")
+    Observable<Response<User>> registerUser(@Body HashMap<String, Object> userJoinInfoObject);
 }

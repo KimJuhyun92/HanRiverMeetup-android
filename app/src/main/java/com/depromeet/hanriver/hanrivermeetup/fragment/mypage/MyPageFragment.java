@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.depromeet.hanriver.hanrivermeetup.HanRiverMeetupApplication;
 import com.depromeet.hanriver.hanrivermeetup.R;
+import com.depromeet.hanriver.hanrivermeetup.common.PreferencesManager;
 import com.depromeet.hanriver.hanrivermeetup.fragment.login.LoginFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.Adapter.Tab3Adapter;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.ViewModel.Tab3ViewModel;
@@ -80,7 +81,7 @@ public class MyPageFragment extends Fragment{
 
 
         main_text = view.findViewById(R.id.mypage_main_text);
-        main_text.setText("안녕하세요\n"+LoginFragment.getNick_name()+" 님 반가워요");
+        main_text.setText("안녕하세요\n" + PreferencesManager.getNickname() + " 님 반가워요");
 
         // Initializing the TabLayout
         tabLayout = view.findViewById(R.id.tablayout2);
@@ -114,11 +115,12 @@ public class MyPageFragment extends Fragment{
 
         //Profile Setting
         profile_img = (ImageView)view.findViewById(R.id.profile_img);
-        Picasso.get().load(FacebookService.getInstance().getProfileURL(LoginFragment.getUser_id()))
+        Picasso.get().load(FacebookService.getInstance()
+                .getProfileURL(PreferencesManager.getUserID()))
                 .transform(CircleTransform.getInstance()).into(profile_img);
 
         user_name = (TextView)view.findViewById(R.id.user_name);
-        user_name.setText(LoginFragment.getNick_name());
+        user_name.setText(PreferencesManager.getNickname());
 
         // Set TabSelectedListener
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -186,17 +188,20 @@ public class MyPageFragment extends Fragment{
     private void bind() {
         mCompositeDisposable = new CompositeDisposable();
 
-        mCompositeDisposable.add(MyPageService.getInstance().getMyMeeting(LoginFragment.getUser_id())
+        mCompositeDisposable.add(MyPageService.getInstance()
+                .getMyMeeting(PreferencesManager.getUserID())
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::setTab1Count));
 
-        mCompositeDisposable.add(MyPageService.getInstance().getAppliedMeeting(LoginFragment.getUser_id())
+        mCompositeDisposable.add(MyPageService.getInstance()
+                .getAppliedMeeting(PreferencesManager.getUserID())
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::setTab2Count));
 
-        mCompositeDisposable.add(MyPageService.getInstance().getMathcedMeeting(LoginFragment.getUser_id())
+        mCompositeDisposable.add(MyPageService.getInstance()
+                .getMathcedMeeting(PreferencesManager.getUserID())
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::setTab3Count));

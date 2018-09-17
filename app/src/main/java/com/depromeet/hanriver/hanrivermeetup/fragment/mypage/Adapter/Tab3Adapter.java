@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
+import com.depromeet.hanriver.hanrivermeetup.common.PreferencesManager;
 import com.depromeet.hanriver.hanrivermeetup.fragment.login.LoginFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.SelectionDialog;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.Tab3;
@@ -66,7 +67,8 @@ public class Tab3Adapter extends RecyclerView.Adapter<Tab3Adapter.ItemViewHolder
         holder.mTime.setText("시간 " + meeting_time.substring(0,5));
 
         //참가자인지 주최자인지 구별하는 Logic
-        if(TextUtils.equals(LoginFragment.getUser_id(), mItems.get(position).getJoinDetail().getUserId()))
+        if(TextUtils.equals(PreferencesManager.getUserID(),
+                mItems.get(position).getJoinDetail().getUserId()))
         {
             holder.mInfoButton.setImageResource(R.drawable.ic_contact_blue_icon);
             holder.mLeftLine.setBackgroundColor(Color.parseColor("#2186f8"));

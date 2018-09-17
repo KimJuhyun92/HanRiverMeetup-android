@@ -41,10 +41,7 @@ public class FacebookService {
         }
 
         return mService.getProfileById(userID)
-                .subscribeOn(Schedulers.io())
-                .map(it -> {
-                    return it;
-                });
+                .subscribeOn(Schedulers.io());
     }
 
     public String getProfileURL(String userID) {

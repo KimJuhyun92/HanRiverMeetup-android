@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 
 import com.depromeet.hanriver.hanrivermeetup.HanRiverMeetupApplication;
 import com.depromeet.hanriver.hanrivermeetup.R;
+import com.depromeet.hanriver.hanrivermeetup.common.PreferencesManager;
 import com.depromeet.hanriver.hanrivermeetup.fragment.login.LoginFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.Adapter.Tab3Adapter;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.ViewModel.Tab3ViewModel;
@@ -102,7 +103,8 @@ public class Tab3 extends Fragment {
 //                .observeOn(AndroidSchedulers.mainThread())
 //                .subscribe(this::setTab3VOs));
 
-        mCompositeDisposable.add(MyPageService.getInstance().getMathcedMeeting(LoginFragment.getUser_id())
+        mCompositeDisposable.add(MyPageService.getInstance()
+                .getMathcedMeeting(PreferencesManager.getUserID())
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::setTab3VOs));

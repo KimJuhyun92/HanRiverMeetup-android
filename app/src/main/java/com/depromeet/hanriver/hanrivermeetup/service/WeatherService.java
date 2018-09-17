@@ -23,8 +23,7 @@ public class WeatherService {
 
     public Observable<Weather> getWeather(){
         return mService.getWeather()
-                .subscribeOn(Schedulers.io())
-                .map(it->it);
+                .subscribeOn(Schedulers.io());
     }
 
 }

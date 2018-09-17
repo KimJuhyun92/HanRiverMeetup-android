@@ -22,4 +22,7 @@ public class User {
 
     @SerializedName("creation_time")
     public Date creationTime;
+
+    @SerializedName("fcm_token")
+    public String fcmToken;
 }
