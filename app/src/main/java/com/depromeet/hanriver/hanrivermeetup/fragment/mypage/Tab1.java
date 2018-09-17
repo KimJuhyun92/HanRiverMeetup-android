@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 
 import com.depromeet.hanriver.hanrivermeetup.HanRiverMeetupApplication;
 import com.depromeet.hanriver.hanrivermeetup.R;
+import com.depromeet.hanriver.hanrivermeetup.common.PreferencesManager;
 import com.depromeet.hanriver.hanrivermeetup.fragment.login.LoginFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.Adapter.Tab1Adapter;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.ViewModel.Tab1ViewModel;
@@ -47,7 +48,7 @@ public class Tab1 extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.d("@@test loginID", "" + LoginFragment.getUser_id());
+        Log.d("@@test loginID", "" + PreferencesManager.getUserID());
 
     }
 
@@ -86,7 +87,8 @@ public class Tab1 extends Fragment{
     private void bind() {
         mCompositeDisposable = new CompositeDisposable();
 
-        mCompositeDisposable.add(MyPageService.getInstance().getMyMeeting(LoginFragment.getUser_id())
+        mCompositeDisposable.add(MyPageService.getInstance()
+                .getMyMeeting(PreferencesManager.getUserID())
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::setTab1VOs));

@@ -35,24 +35,22 @@ public class HostService {
 
     public Observable<List<ApplicantVO>> getMeetingApplicants(int meeting_seq){
         return mService.getMeetingApplicants(meeting_seq)
-                .subscribeOn(Schedulers.io())
-                .map(it -> it);
+                .subscribeOn(Schedulers.io());
     }
     public Observable<List<MeetingDetail>> getTodayList(){
         return mService.getMeetingsOnToday()
-                .subscribeOn(Schedulers.io())
-                .map(it -> it);
+                .subscribeOn(Schedulers.io());
     }
 
     public Observable<MeetingDetail> getMeetingDetail(int meeting_seq){
-        return mService.getMeetingDetail(meeting_seq).subscribeOn(Schedulers.io()).map(it->it);
+        return mService.getMeetingDetail(meeting_seq).subscribeOn(Schedulers.io());
     }
 
     public Observable<MeetingDetail> createMeeting(MeetingDetail createRoom){
-        return mService.createMeeting(createRoom).subscribeOn(Schedulers.io()).map(it->it);
+        return mService.createMeeting(createRoom).subscribeOn(Schedulers.io());
     }
 
     public Observable<MeetingDetail> modifyMeeting(int meeting_seq ,MeetingDetail meetingDetail){
-        return mService.modifyMeeting(meeting_seq, meetingDetail).subscribeOn(Schedulers.io()).map(it->it);
+        return mService.modifyMeeting(meeting_seq, meetingDetail).subscribeOn(Schedulers.io());
     }
 }

@@ -1,6 +1,7 @@
 package com.depromeet.hanriver.hanrivermeetup;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
@@ -9,6 +10,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatDialog;
 import android.widget.ImageView;
 
+import com.depromeet.hanriver.hanrivermeetup.common.PreferencesManager;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ActivityDataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.CommentDataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.IActivityDataModel;
@@ -30,6 +32,7 @@ import com.depromeet.hanriver.hanrivermeetup.datamodel.mypage.MyPageTab3DataMode
 import com.depromeet.hanriver.hanrivermeetup.datamodel.timeline.ITimelineDataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.mypage.MyPageTab1DataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.timeline.TimelineDataModel;
+import com.depromeet.hanriver.hanrivermeetup.firebase.CustomFirebaseInstanceIDService;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingCategoryViewModel;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingCommentViewModel;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingDetailViewModel;
@@ -92,11 +95,6 @@ public class HanRiverMeetupApplication extends Application {
     @NonNull
     private final ICommentDataModel mCommentDataModel;
 
-
-//    @NonNull
-//    private final ICreateRoomDataModel mCreateRoomDataModel;
-
-
     public static HanRiverMeetupApplication getInstance(){
         return hanRiverMeetupApplication;
     }
@@ -105,9 +103,20 @@ public class HanRiverMeetupApplication extends Application {
     public void onCreate() {
         super.onCreate();
         hanRiverMeetupApplication = this;
+        setPreferences();
     }
 
+    public void setPreferences() {
+        PreferencesManager.setManager(this);
+        PreferencesManager.setNickname("");
+        PreferencesManager.setFacebookToken("");
+        PreferencesManager.setUserID("");
+        String fcmToken = PreferencesManager.getFcmToken();
 
+        if(fcmToken.isEmpty()) {
+            PreferencesManager.setFcmToken(CustomFirebaseInstanceIDService.getToken());
+        }
+    }
 
     public HanRiverMeetupApplication() {
         mActivityDataModel = new ActivityDataModel();
@@ -124,7 +133,6 @@ public class HanRiverMeetupApplication extends Application {
         mPhotoDataModel = new PhotoDataModel();
         mEtcDataModel = new EtcDataModel();
         mCommentDataModel = new CommentDataModel();
-
     }
 
     @NonNull
@@ -204,7 +212,6 @@ public class HanRiverMeetupApplication extends Application {
     public ISchedulerProvider getSchedulerProvider() {
         return SchedulerProvider.getInstance();
     }
-
 
     @NonNull
     public MeetingCategoryViewModel getMeetingCategoryViewModel() {

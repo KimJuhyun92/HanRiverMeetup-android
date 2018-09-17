@@ -31,7 +31,7 @@ public class TmapFragment extends Fragment {
 
         map = view.findViewById(R.id.mapView);
         mapView = new TMapView(getActivity());
-        mapView.setSKTMapApiKey(BuildConfig.TMapApiKey);
+        // mapView.setSKTMapApiKey(BuildConfig.TMapApiKey);
 
         mapView.setLocationPoint(126.970325,37.556152);
         mapView.setCenterPoint(126.970325,37.556152);

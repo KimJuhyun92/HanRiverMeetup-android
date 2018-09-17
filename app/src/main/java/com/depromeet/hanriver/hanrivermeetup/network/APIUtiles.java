@@ -15,8 +15,6 @@ public class APIUtiles {
     public static final String WEATHER_API_URL = BASE_URL + "weather/";
     public static final String FACEBOOK_API_URL = "https://graph.facebook.com/";
 
-
-
     public static LoginAPIService getLoginService(){
         return RetrofitClient.getClient(ACCESS_API_URL).create(LoginAPIService.class);
     }

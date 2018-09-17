@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.activity.main.MainActivity;
+import com.depromeet.hanriver.hanrivermeetup.common.PreferencesManager;
 import com.depromeet.hanriver.hanrivermeetup.fragment.login.LoginFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.CreateRoom.ExpandableListAdapter;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Utils.CreateRoomLocationFragment;
@@ -152,14 +153,14 @@ public class MeetingCreateRoom extends DialogFragment {
         contact = v.findViewById(R.id.create_room_contact);
         fee = v.findViewById(R.id.create_room_fee);
         num = v.findViewById(R.id.create_room_num);
-        nickname.setText(LoginFragment.getNick_name());
+        nickname.setText(PreferencesManager.getNickname());
 
         num.addTextChangedListener(textWatcher);
         fee.addTextChangedListener(textWatcher);
         contact.addTextChangedListener(textWatcher);
         roomname.addTextChangedListener(textWatcher);
 
-        Picasso.get().load(FacebookService.getInstance().getProfileURL(LoginFragment.getUser_id()))
+        Picasso.get().load(FacebookService.getInstance().getProfileURL(PreferencesManager.getUserID()))
                 .transform(CircleTransform.getInstance()).into(profileimg);
 
         time.setOnClickListener(new View.OnClickListener() {
@@ -210,7 +211,7 @@ public class MeetingCreateRoom extends DialogFragment {
                     md.setMeeting_time(getCurrentDate(time.getText().toString()));
                     md.setTitle(roomname.getText().toString());
                     md.setParticipants_cnt(Integer.parseInt(num.getText().toString()));
-                    md.setUser_id(LoginFragment.getUser_id().toString());
+                    md.setUser_id(PreferencesManager.getUserID());
                     md.setContact(contact.getText().toString());
 
                     mCompositeDisposable.add(HostService.getInstance().createMeeting(md)
@@ -266,7 +267,7 @@ public class MeetingCreateRoom extends DialogFragment {
 
     private void isCreated(@NonNull final List<MeetingDetail> Rooms) {
         for (int i = 0; i < Rooms.size(); i++) {
-            if (Rooms.get(i).getUser_id().equals(LoginFragment.getUser_id())) {
+            if (Rooms.get(i).getUser_id().equals(PreferencesManager.getUserID())) {
                 createbtn.setText("이미 방을 생성하였습니다.");
                 createbtn.setBackgroundColor(Color.parseColor("#aaaaaa"));
                 createbtn.setEnabled(false);

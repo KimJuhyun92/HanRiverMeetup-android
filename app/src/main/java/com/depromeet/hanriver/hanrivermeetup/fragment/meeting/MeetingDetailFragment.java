@@ -35,6 +35,7 @@ import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.depromeet.hanriver.hanrivermeetup.HanRiverMeetupApplication;
 import com.depromeet.hanriver.hanrivermeetup.R;
+import com.depromeet.hanriver.hanrivermeetup.common.PreferencesManager;
 import com.depromeet.hanriver.hanrivermeetup.fragment.login.LoginFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.Detail.MeetingCommentAdapter;
 import com.depromeet.hanriver.hanrivermeetup.helper.CircleTransform;
@@ -146,7 +147,7 @@ public class MeetingDetailFragment extends DialogFragment {
                 comment.setText(comment_text.getText().toString());
                 comment.setMeeting_seq(meeting_seq);
                 comment.setCreatedTime(getCurrentTime());
-                comment.setUserID(LoginFragment.getUser_id());
+                comment.setUserID(PreferencesManager.getUserID());
 
                 mCompositeDisposable.add(CommunicationService.getInstance().addComment(comment)
                         .subscribeOn(Schedulers.computation())
@@ -258,7 +259,7 @@ public class MeetingDetailFragment extends DialogFragment {
 
     private void getApplicationSeq(@NonNull final List<ApplicantVO> applicantVOs) {
         for (int i = 0; i < applicantVOs.size(); i++) {
-            if (applicantVOs.get(i).getUserId().equals(LoginFragment.getUser_id())) {
+            if (applicantVOs.get(i).getUserId().equals(PreferencesManager.getUserID())) {
                 join_btn.setBackgroundColor(Color.parseColor("#aaaaaa"));
                 join_btn.setEnabled(false);
                 join_btn.setText("이미 참여한 모임입니다");
@@ -284,7 +285,7 @@ public class MeetingDetailFragment extends DialogFragment {
         Picasso.get().load(FacebookService.getInstance().getProfileURL(meetingDetail.getUser_id()))
                 .transform(CircleTransform.getInstance()).into(profile_img);
 
-        if (meetingDetail.getUser_id().equals(LoginFragment.getUser_id())) {
+        if (meetingDetail.getUser_id().equals(PreferencesManager.getUserID())) {
 //            join_btn.setBackgroundColor(Color.parseColor("#aaaaaa"));
 //            join_btn.setEnabled(false);
 //            join_btn.setText("내가 만든 방입니다");
@@ -308,7 +309,7 @@ public class MeetingDetailFragment extends DialogFragment {
     private void setComments(@NonNull final List<Comment> comments) {
 
         rv.setOnMenuItemClickListener((position, menu, index) -> {
-            if (LoginFragment.getUser_id().equals(comments.get(position).getUserID())) {
+            if (PreferencesManager.getUserID().equals(comments.get(position).getUserID())) {
                 switch (index) {
                     case 0:
                         mCompositeDisposable.add(CommunicationService.getInstance().deleteComment(comments.get(position).getId())
@@ -392,7 +393,6 @@ public class MeetingDetailFragment extends DialogFragment {
     public static void setListViewHeightBasedOnChildren(SwipeMenuListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null) {
-            // pre-condition
             return;
         }
 

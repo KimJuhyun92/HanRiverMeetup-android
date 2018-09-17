@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.depromeet.hanriver.hanrivermeetup.R;
+import com.depromeet.hanriver.hanrivermeetup.common.PreferencesManager;
 import com.depromeet.hanriver.hanrivermeetup.fragment.login.LoginFragment;
 import com.depromeet.hanriver.hanrivermeetup.helper.CircleTransform;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.MatchingDetail;
@@ -46,7 +47,7 @@ public class MatchingDialog extends Dialog {
 
         Initialize();
 
-        SetData(LoginFragment.getNick_name(),
+        SetData(PreferencesManager.getNickname(),
                 applicantVO.getNickname(),
                 applicantVO.getUserId(),
                 applicantVO.getParticipantsCnt(),

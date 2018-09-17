@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.depromeet.hanriver.hanrivermeetup.HanRiverMeetupApplication;
 import com.depromeet.hanriver.hanrivermeetup.R;
+import com.depromeet.hanriver.hanrivermeetup.common.PreferencesManager;
 import com.depromeet.hanriver.hanrivermeetup.fragment.login.LoginFragment;
 import com.depromeet.hanriver.hanrivermeetup.helper.CircleTransform;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.JoinRequest;
@@ -94,9 +95,10 @@ public class MeetingJoinFragment extends DialogFragment {
         reason = v.findViewById(R.id.join_reason);
         textCounter = v.findViewById(R.id.join_content_counter);
         join_btn = v.findViewById(R.id.join_btn);
-        nickname.setText(LoginFragment.getNick_name());
+        nickname.setText(PreferencesManager.getNickname());
 
-        Picasso.get().load(FacebookService.getInstance().getProfileURL(LoginFragment.getUser_id()))
+        Picasso.get().load(FacebookService.getInstance()
+                .getProfileURL(PreferencesManager.getUserID()))
                 .transform(CircleTransform.getInstance()).into(profile_img);
 
         join_btn.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +110,7 @@ public class MeetingJoinFragment extends DialogFragment {
                 joinRequest.setDescription(reason.getText().toString());
                 joinRequest.setMeetingID(meeting_seq);
                 joinRequest.setParticipantsCnt(Integer.parseInt(numofMem.getText().toString()));
-                joinRequest.setUserID(LoginFragment.getUser_id());
+                joinRequest.setUserID(PreferencesManager.getUserID());
 
 
 

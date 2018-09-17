@@ -8,4 +8,7 @@ public class LoginInfo {
 
     @SerializedName("user_id")
     public String userID;
+
+    @SerializedName("fcm_token")
+    public String fcmToken;
 }

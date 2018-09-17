@@ -27,25 +27,21 @@ public class CommunicationService {
 
     public Observable<List<Comment>> getComments(int meetingId){
         return mService.getComments(meetingId)
-                .subscribeOn(Schedulers.io())
-                .map(it -> it);
+                .subscribeOn(Schedulers.io());
     }
 
     public Observable<Comment> addComment(Comment comment){
         return mService.addComment(comment)
-                .subscribeOn(Schedulers.io())
-                .map(it -> it);
+                .subscribeOn(Schedulers.io());
     }
 
     public Observable<MatchingDetail> match(MatchingDetail matchingDetail){
         return mService.match(matchingDetail)
-                .subscribeOn(Schedulers.io())
-                .map(it->it);
+                .subscribeOn(Schedulers.io());
     }
 
     public Observable<Boolean> deleteComment(int comment_seq){
         return mService.deleteComment(comment_seq)
-                .subscribeOn(Schedulers.io())
-                .map(it->it);
+                .subscribeOn(Schedulers.io());
     }
 }
