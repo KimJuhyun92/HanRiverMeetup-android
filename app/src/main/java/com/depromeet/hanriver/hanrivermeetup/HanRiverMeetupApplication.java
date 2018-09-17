@@ -29,14 +29,12 @@ import com.depromeet.hanriver.hanrivermeetup.datamodel.mypage.IMyPageTab2DataMod
 import com.depromeet.hanriver.hanrivermeetup.datamodel.mypage.IMyPageTab3DataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.mypage.MyPageTab2DataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.mypage.MyPageTab3DataModel;
-import com.depromeet.hanriver.hanrivermeetup.datamodel.timeline.ITimelineDataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.mypage.MyPageTab1DataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.timeline.TimelineDataModel;
 import com.depromeet.hanriver.hanrivermeetup.firebase.CustomFirebaseInstanceIDService;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingCategoryViewModel;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingCommentViewModel;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingDetailViewModel;
-import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.Tab3;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.ViewModel.Tab1ViewModel;
 
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ListFragment.IMeetingListInnerDataModel;
@@ -58,9 +56,6 @@ public class HanRiverMeetupApplication extends Application {
 
     @NonNull
     private final IActivityDataModel mActivityDataModel;
-
-    @NonNull
-    private final ITimelineDataModel mTimelineDataModel;
 
     @NonNull
     private final IMyPageTab1DataModel mTab1DataModel;
@@ -216,11 +211,6 @@ public class HanRiverMeetupApplication extends Application {
     @NonNull
     public MeetingCategoryViewModel getMeetingCategoryViewModel() {
         return new MeetingCategoryViewModel(getActivityDataModel(), getSchedulerProvider());
-    }
-
-    @NonNull
-    public TimelineViewModel getTimelineViewModel() {
-        return new TimelineViewModel(getTimelineDataModel(), getSchedulerProvider());
     }
 
     @NonNull

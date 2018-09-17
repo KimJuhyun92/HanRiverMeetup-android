@@ -23,7 +23,7 @@ public class CommunicationService {
 
     public void setService(String token, String id) {
         mService = APIUtiles.getCommunicationService(token, id);
-    }
+}
 
     public Observable<List<Comment>> getComments(int meetingId){
         return mService.getComments(meetingId)
