@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.activity.main.MainActivity;
@@ -23,14 +24,9 @@ import javax.net.ssl.HttpsURLConnection;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
-import static android.content.Context.MODE_PRIVATE;
-
 public class LoginFragment extends Fragment {
-    // LoginManager loginManager; // 로그인 상태인지 아닌지 확인 할 것 (버튼을 커스텀으로 생성할 시 필요)
-    LoginButton fb_loginButton; // 커스텀 아닌 기본 제공되는 버튼.
-    CallbackManager callbackManager; //요청 응답 받을 것
-
-    private static String nick_name;
+    LoginButton fb_loginButton;
+    CallbackManager callbackManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,7 +45,7 @@ public class LoginFragment extends Fragment {
         fb_loginButton.setFragment(this);
         fb_loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
-            public void onSuccess(LoginResult loginResult) { //로그인 버튼 눌러서 로그인 성공 시
+            public void onSuccess(LoginResult loginResult) {
                 String id = loginResult.getAccessToken().getUserId();
                 String token = loginResult.getAccessToken().getToken();
                 login(id, token);
@@ -76,12 +72,16 @@ public class LoginFragment extends Fragment {
         LoginService.getInstance().login(id, token)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(res -> {
-                    if(res.code() == HttpsURLConnection.HTTP_NOT_FOUND) {
+                    if(res.code() == HttpsURLConnection.HTTP_OK){
+                        PreferencesManager.setNickname(res.body().nickname);
+                        intentMain();
+                    }
+                    else if(res.code() == HttpsURLConnection.HTTP_NOT_FOUND) {
                         replaceRegisterPage();
                     }
                     else {
-                        PreferencesManager.setNickname(res.body().nickname);
-                        intentMain();
+                        Toast.makeText(getActivity(),
+                                "서버에서 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .subscribe();

@@ -1,9 +1,9 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.timeline;
 
-
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -60,36 +60,30 @@ public class TimelineFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    NestedScrollView mNestedScrollView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceSatate) {
-        LinearLayout v = (LinearLayout) inflater.inflate(R.layout.fragment_timeline, container, false);
-        mRecyclerView = v.findViewById(R.id.recyclerview);
+        mNestedScrollView = (NestedScrollView) inflater.inflate(R.layout.fragment_timeline, container, false);
+        mRecyclerView = mNestedScrollView.findViewById(R.id.recyclerview);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mTimeLineAdapter = new TimeLineAdapter(getActivity());
         mRecyclerView.setAdapter(mTimeLineAdapter);
-        setUpLoadMoreListener();
-        //bind();
-        return v;
+
+        return mNestedScrollView;
     }
 
     private void setUpLoadMoreListener() {
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView,
-                                   int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
+        mNestedScrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            totalItemCount = mLayoutManager.getItemCount();
+            lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
 
-                totalItemCount = mLayoutManager.getItemCount();
-                lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
-
-                if (!loading
-                        && totalItemCount <= (lastVisibleItem + VISIBLE_THRESHOLD)) {
-                    pageNumber++;
-                    paginator.onNext(pageNumber);
-                    loading = true;
-                }
+            if (!loading
+                    && totalItemCount <= (lastVisibleItem + VISIBLE_THRESHOLD)) {
+                pageNumber++;
+                paginator.onNext(pageNumber);
+                loading = true;
             }
         });
     }
@@ -98,6 +92,7 @@ public class TimelineFragment extends Fragment {
     public void onResume() {
         super.onResume();
         bind();
+        setUpLoadMoreListener();
     }
 
     @Override
@@ -132,21 +127,15 @@ public class TimelineFragment extends Fragment {
 
         Disposable disposable = paginator
                 .onBackpressureDrop()
-                .concatMap(new Function<Integer, Publisher<List<TimeLineVO>>>() {
-                    @Override
-                    public Publisher<List<TimeLineVO>> apply(@io.reactivex.annotations.NonNull Integer page) {
-                        loading = true;
-                        return dataFromNetwork(page);
-                    }
+                .concatMap((Function<Integer, Publisher<List<TimeLineVO>>>) page -> {
+                    loading = true;
+                    return dataFromNetwork(page);
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<TimeLineVO>>() {
-                    @Override
-                    public void accept(@io.reactivex.annotations.NonNull List<TimeLineVO> items) {
-                        mTimeLineAdapter.addItems(items);
-                        mTimeLineAdapter.notifyDataSetChanged();
-                        loading = false;
-                    }
+                .subscribe(items -> {
+                    mTimeLineAdapter.addItems(items);
+                    mTimeLineAdapter.notifyDataSetChanged();
+                    loading = false;
                 });
 
         mCompositeDisposable = new CompositeDisposable();

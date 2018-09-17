@@ -97,9 +97,9 @@ public class MainActivity extends AppCompatActivity {
         // Initializing ViewPager
         viewPager = findViewById(R.id.viewpager);
         viewPager.setOverScrollMode(View.OVER_SCROLL_NEVER);
+
         // Creating TabPagerAdapter adapter
-        com.depromeet.hanriver.hanrivermeetup.activity.main.MainTabPagerAdapter pagerAdapter = new com.depromeet.hanriver.hanrivermeetup.activity.main.MainTabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(pagerAdapter);
+        viewPager.setAdapter(new MainTabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount()));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         // Set TabSelectedListener
@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                int x = tab.getPosition();
                 viewPager.setCurrentItem(tab.getPosition());
 
                 View view = tab.getCustomView();

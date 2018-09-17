@@ -30,7 +30,6 @@ import com.depromeet.hanriver.hanrivermeetup.datamodel.mypage.IMyPageTab3DataMod
 import com.depromeet.hanriver.hanrivermeetup.datamodel.mypage.MyPageTab2DataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.mypage.MyPageTab3DataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.mypage.MyPageTab1DataModel;
-import com.depromeet.hanriver.hanrivermeetup.datamodel.timeline.TimelineDataModel;
 import com.depromeet.hanriver.hanrivermeetup.firebase.CustomFirebaseInstanceIDService;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingCategoryViewModel;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingCommentViewModel;
@@ -43,8 +42,6 @@ import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingListInnerVi
 
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.ViewModel.Tab2ViewModel;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.ViewModel.Tab3ViewModel;
-import com.depromeet.hanriver.hanrivermeetup.fragment.timeline.TimelineViewModel;
-import com.depromeet.hanriver.hanrivermeetup.model.meeting.Activity;
 import com.depromeet.hanriver.hanrivermeetup.schedulers.ISchedulerProvider;
 import com.depromeet.hanriver.hanrivermeetup.schedulers.SchedulerProvider;
 
@@ -65,7 +62,6 @@ public class HanRiverMeetupApplication extends Application {
 
     @NonNull
     private final IMyPageTab3DataModel mTab3DataModel;
-
 
     @NonNull
     private final IMeetingListInnerDataModel mMeetingListInnerDataModel;
@@ -115,7 +111,6 @@ public class HanRiverMeetupApplication extends Application {
 
     public HanRiverMeetupApplication() {
         mActivityDataModel = new ActivityDataModel();
-        mTimelineDataModel = new TimelineDataModel();
         mTab1DataModel = new MyPageTab1DataModel();
         mTab2DataModel = new MyPageTab2DataModel();
         mTab3DataModel = new MyPageTab3DataModel();
@@ -133,11 +128,6 @@ public class HanRiverMeetupApplication extends Application {
     @NonNull
     public IActivityDataModel getActivityDataModel() {
         return mActivityDataModel;
-    }
-
-    @NonNull
-    public ITimelineDataModel getTimelineDataModel() {
-        return mTimelineDataModel;
     }
 
     @NonNull

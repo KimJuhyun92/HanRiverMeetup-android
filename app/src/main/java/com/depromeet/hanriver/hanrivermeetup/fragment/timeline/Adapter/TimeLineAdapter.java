@@ -8,7 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.depromeet.hanriver.hanrivermeetup.R;
+import com.depromeet.hanriver.hanrivermeetup.helper.CircleTransform;
 import com.depromeet.hanriver.hanrivermeetup.model.timeline.TimeLineVO;
+import com.depromeet.hanriver.hanrivermeetup.service.FacebookService;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,13 +37,19 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapter.ItemVi
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
-        public ImageView mImageView;
-        public TextView mTextView;
+        public ImageView profileImageView;
+        public ImageView imageView;
+        public TextView nameTextView;
+        public TextView locationTextView;
+        public TextView contentTextView;
 
         public ItemViewHolder(View view) {
             super(view);
-            mImageView = view.findViewById(R.id.image);
-            mTextView = view.findViewById(R.id.textview);
+            imageView = view.findViewById(R.id.timeline_image);
+            profileImageView = view.findViewById(R.id.timeline_profile_img);
+            nameTextView = view.findViewById(R.id.timeline_profile_name);
+            locationTextView = view.findViewById(R.id.timeline_profile_location);
+            contentTextView = view.findViewById(R.id.timeline_text);
         }
     }
 
@@ -53,8 +62,13 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapter.ItemVi
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
         TimeLineVO item = mItems.get(position);
-        holder.mTextView.setText(item.getContent());
-        //holder.mImageView.setImageResource(mItems.get(position).getImg());
+
+        holder.nameTextView.setText(item.nickname);
+        holder.locationTextView.setText(item.location);
+        holder.contentTextView.setText(item.content);
+        Picasso.get().load(item.imageurl).into(holder.imageView);
+        Picasso.get().load(FacebookService.getInstance().getProfileURL(item.user_id))
+                .transform(CircleTransform.getInstance()).into(holder.profileImageView);
     }
 
     @Override
