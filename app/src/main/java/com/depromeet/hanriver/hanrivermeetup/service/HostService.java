@@ -42,6 +42,7 @@ public class HostService {
                 .subscribeOn(Schedulers.io());
     }
 
+
     public Observable<MeetingDetail> getMeetingDetail(int meeting_seq){
         return mService.getMeetingDetail(meeting_seq).subscribeOn(Schedulers.io());
     }
@@ -52,5 +53,9 @@ public class HostService {
 
     public Observable<MeetingDetail> modifyMeeting(int meeting_seq ,MeetingDetail meetingDetail){
         return mService.modifyMeeting(meeting_seq, meetingDetail).subscribeOn(Schedulers.io());
+    }
+
+    public Observable<List<MeetingDetail>> getWeekList(int activity_seq){
+        return mService.getMeetingsOnWeek(activity_seq);
     }
 }

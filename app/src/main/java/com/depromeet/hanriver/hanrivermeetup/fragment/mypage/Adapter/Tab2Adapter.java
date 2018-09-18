@@ -34,8 +34,6 @@ public class Tab2Adapter extends BaseAdapter{
 
     }
 
-
-
     @Override
     public int getCount() {
         return mItems.size();
@@ -61,54 +59,49 @@ public class Tab2Adapter extends BaseAdapter{
             view = inflater.inflate(R.layout.mypage_tab2_item, viewGroup, false);
 
             holder.mTitle = (TextView)view.findViewById(R.id.title);
-            holder.mDate = (TextView)view.findViewById(R.id.date);
+            holder.mDate = (TextView)view.findViewById(R.id.meeting_date);
             holder.mTime = (TextView)view.findViewById(R.id.meeting_time);
-            holder.mCost = (TextView)view.findViewById(R.id.expected_cost);
-            holder.mParticipants=(TextView)view.findViewById(R.id.participants_cnt);
-            holder.mState = (ImageView)view.findViewById(R.id.state);
+            holder.mLocation = (TextView)view.findViewById(R.id.meeting_location);
+            holder.mState = (TextView) view.findViewById(R.id.state);
 
             view.setTag(holder);
         } else {
             holder = (ViewHolder)view.getTag();
         }
 
-        //data 처리
-        String meeting_date;
+        String meeting_date_month;
+        String meeting_date_day;
         String meeting_time;
+        String meetingDate[] = mItems.get(position).getMeetingDetail().getMeetingTime().split(" |-");
+        meeting_date_month = meetingDate[1];
+        meeting_date_day = meetingDate[2];
+        meeting_time = meetingDate[3];
+
+        //data 처리
         String creation_date;
         String now_date;
-
-        String meetingDate[] = mItems.get(position).getMeetingDetail().getMeetingTime().split(" ");
-        meeting_date = meetingDate[0];
-        meeting_time = meetingDate[1];
-
         String creationDate[] = mItems.get(position).getMeetingDetail().getCreationTime().split(" ");
         creation_date = creationDate[0];
+
         //매칭 실패, 지난 모임 구분 logic
         now_date = getTime();
 
         if(creation_date.compareTo(now_date) == 0){
             if(mItems.get(position).getMeetingDetail().getContactSeq() == 0)
                 //대기중
-                holder.mState.setImageResource(R.drawable.ic_matching_wating);  
+                holder.mState.setText("대기중");
             else if(mItems.get(position).getMeetingDetail().getContactSeq() != 0)
                 //매칭 실패
-                holder.mState.setImageResource(R.drawable.ic_matching_fail);
+                holder.mState.setText("매칭 실패");
         }
         //지난 모임
         else
-            holder.mState.setImageResource(R.drawable.ic_matching_last);
-
-
+            holder.mState.setText("매칭 실패");
 
         holder.mTitle.setText(mItems.get(position).getMeetingDetail().getTitle());
-
-        holder.mDate.setText(meeting_date);
-        holder.mTime.setText(meeting_time.substring(0,5));
-
-        holder.mCost.setText(String.valueOf(mItems.get(position).getMeetingDetail().getExpectedCost()));
-        holder.mParticipants.setText(String.valueOf(mItems.get(position).getMeetingDetail().getParticipantsCnt()));
-
+        holder.mDate.setText(meeting_date_month + "월 " + meeting_date_day + "일");
+        holder.mTime.setText("시간 " + meeting_time.substring(0,5));
+        holder.mLocation.setText(mItems.get(position).getMeetingDetail().getMeetingLocation());
 
         return view;
     }
@@ -117,9 +110,8 @@ public class Tab2Adapter extends BaseAdapter{
         private TextView mTitle;
         private TextView mDate;
         private TextView mTime;
-        private TextView mCost;
-        private TextView mParticipants;
-        private ImageView mState;
+        private TextView mLocation;
+        private TextView mState;
     }
 
     private String getTime(){

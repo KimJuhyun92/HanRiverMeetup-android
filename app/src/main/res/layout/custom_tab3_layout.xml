@@ -1,30 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="90dp"
-    android:layout_height="58dp">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tab3_count"
-        android:layout_width="match_parent"
-        android:layout_height="17dp"
-        android:layout_marginLeft="24dp"
-        android:gravity="right"
-        android:textSize="14sp"
-        android:lineHeight="22sp"
-        android:text="3"/>
+<TextView
+    android:id="@+id/tab3_tab"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center"
+    android:lineSpacingExtra="4sp"
+    android:singleLine="true"
+    android:text="완료모임"
+    android:textColor="@color/warm_grey"
+    android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/tab3_tab"
-        android:layout_width="match_parent"
-        android:layout_height="18dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginBottom="23dp"
-        android:layout_gravity="left"
-        android:lineSpacingExtra="4sp"
-        android:lineHeight="22sp"
-        android:textSize="14sp"
-        android:text="매칭된 모임"/>
-
-</FrameLayout>
+</RelativeLayout>

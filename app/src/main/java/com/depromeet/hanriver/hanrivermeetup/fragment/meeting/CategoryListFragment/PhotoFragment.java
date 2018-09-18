@@ -1,5 +1,6 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.meeting.CategoryListFragment;
 
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -33,18 +34,27 @@ public class PhotoFragment extends Fragment {
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
-    @NonNull
-    private MeetingListInnerViewModel mViewModel;
+    private int activity_seq;
 
     @Nullable
     private RecyclerView recyclerView;
+
     private RecyclerView.LayoutManager rvManager;
+
+    public static PhotoFragment newInstance(int activity_seq) {
+
+        Bundle args = new Bundle();
+
+        PhotoFragment fragment = new PhotoFragment();
+        fragment.setArguments(args);
+        fragment.activity_seq = activity_seq;
+        return fragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mViewModel = getViewModel();
     }
 
     @Override
@@ -58,7 +68,6 @@ public class PhotoFragment extends Fragment {
     }
 
     private void setupViews(View v) {
-//        gridview = v.findViewById(R.id.gridview);
         recyclerView = v.findViewById(R.id.list_room_rv);
         rvManager = new LinearLayoutManager(getContext());
         swipeRefreshLayout = v.findViewById(R.id.list_refresh);
@@ -71,7 +80,6 @@ public class PhotoFragment extends Fragment {
 
             }
         });
-//        gridview.setAdapter(new GridAdapter(this.getActivity(),));
     }
 
     @Override
@@ -89,11 +97,10 @@ public class PhotoFragment extends Fragment {
     private void bind() {
         mCompositeDisposable = new CompositeDisposable();
 
-        mCompositeDisposable.add(HostService.getInstance().getTodayList()
+        mCompositeDisposable.add(HostService.getInstance().getWeekList(activity_seq)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::setRooms));
-
     }
 
     private void unBind() {
@@ -105,31 +112,13 @@ public class PhotoFragment extends Fragment {
 
         recyclerView.setLayoutManager(rvManager);
         recyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        List<MeetingDetail> rooms = new ArrayList<>();
-        for(int i =0;i<Rooms.size();i++){
-            if(Rooms.get(i).getActivity_seq()==5)
-                rooms.add(Rooms.get(i));
-        }
-        recyclerView.setAdapter(new MeetingListAdapter(rooms,getContext(),this));
+        recyclerView.setAdapter(new MeetingListAdapter(Rooms, getContext(), this));
 
     }
 
-
-
-
-//    private void setActivites(@NonNull final List<Activity> languages) {
-//        assert mLanguagesSpinner != null;
-//
-//        mLanguageSpinnerAdapter = new LanguageSpinnerAdapter(this,
-//                R.layout.language_item,
-//                languages);
-//        mLanguagesSpinner.setAdapter(mLanguageSpinnerAdapter);
-//    }
-
-
     @NonNull
     private MeetingListInnerViewModel getViewModel() {
-        return ((HanRiverMeetupApplication)getActivity().getApplicationContext()).getPhotoListViewModel();
+        return ((HanRiverMeetupApplication) getActivity().getApplicationContext()).getPhotoListViewModel();
     }
 
     @Override
@@ -137,11 +126,12 @@ public class PhotoFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         bind();
     }
-    public void progressON(){
+
+    public void progressON() {
         HanRiverMeetupApplication.getInstance().progressON(getActivity());
     }
 
-    public void progressOFF(){
+    public void progressOFF() {
         HanRiverMeetupApplication.getInstance().progressOFF(swipeRefreshLayout);
     }
 }

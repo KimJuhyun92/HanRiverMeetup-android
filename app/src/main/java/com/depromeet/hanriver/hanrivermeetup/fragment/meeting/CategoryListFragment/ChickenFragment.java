@@ -1,5 +1,6 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.meeting.CategoryListFragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -32,18 +33,28 @@ public class ChickenFragment extends Fragment {
     private CompositeDisposable mCompositeDisposable;
 
     private SwipeRefreshLayout swipeRefreshLayout;
-//    @NonNull
-//    private MeetingListInnerViewModel mViewModel;
+
+    private int activity_seq;
 
     @Nullable
     private RecyclerView recyclerView;
+
     private RecyclerView.LayoutManager rvManager;
+
+    public static ChickenFragment newInstance(int activity_seq) {
+
+        Bundle args = new Bundle();
+
+        ChickenFragment fragment = new ChickenFragment();
+        fragment.setArguments(args);
+        fragment.activity_seq=activity_seq;
+        return fragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        mViewModel = getViewModel();
     }
 
     @Override
@@ -88,15 +99,10 @@ public class ChickenFragment extends Fragment {
     private void bind() {
         mCompositeDisposable = new CompositeDisposable();
 
-        mCompositeDisposable.add(HostService.getInstance().getTodayList()
+        mCompositeDisposable.add(HostService.getInstance().getWeekList(activity_seq)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::setRooms));
-
-//        mCompositeDisposable.add(mViewModel.getAvailableRooms()
-//                .subscribeOn(Schedulers.computation())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(this::setRooms));
 
     }
 
@@ -109,27 +115,9 @@ public class ChickenFragment extends Fragment {
         progressOFF();
 
         recyclerView.setLayoutManager(rvManager);
-        List<MeetingDetail> rooms = new ArrayList<>();
-        for(int i =0;i<Rooms.size();i++){
-            if(Rooms.get(i).getActivity_seq()==1)
-                rooms.add(Rooms.get(i));
-        }
-        recyclerView.setAdapter(new MeetingListAdapter(rooms,getContext(),this));
+        recyclerView.setAdapter(new MeetingListAdapter(Rooms,getContext(),this));
 
     }
-
-
-
-
-//    private void setActivites(@NonNull final List<Activity> languages) {
-//        assert mLanguagesSpinner != null;
-//
-//        mLanguageSpinnerAdapter = new LanguageSpinnerAdapter(this,
-//                R.layout.language_item,
-//                languages);
-//        mLanguagesSpinner.setAdapter(mLanguageSpinnerAdapter);
-//    }
-
 
     @NonNull
     private MeetingListInnerViewModel getViewModel() {

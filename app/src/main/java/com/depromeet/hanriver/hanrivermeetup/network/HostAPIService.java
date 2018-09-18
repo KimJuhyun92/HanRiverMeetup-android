@@ -41,4 +41,7 @@ public interface HostAPIService {
 
     @PUT("meeting/{meeting_seq}")
     Observable<MeetingDetail> modifyMeeting(@Path("meeting_seq")int meeting_seq, @Body MeetingDetail meetingDetail);
+
+    @GET("meetings/week/{activity_seq}")
+    Observable<List<MeetingDetail>> getMeetingsOnWeek(@Path("activity_seq")int activity_seq);
 }

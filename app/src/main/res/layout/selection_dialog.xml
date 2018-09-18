@@ -7,8 +7,8 @@
 
     <TextView
         android:id="@+id/contact_kakao"
-        android:layout_width="153dp"
-        android:layout_height="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:gravity="center_vertical"
@@ -20,13 +20,13 @@
 
     <TextView
         android:id="@+id/contact_call"
-        android:layout_width="153dp"
-        android:layout_height="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="37dp"
         android:gravity="center_vertical"
-        android:lineSpacingExtra="5sp"
         android:lineHeight="19sp"
+        android:lineSpacingExtra="5sp"
         android:text="연락처 :"
         android:textColor="#ffffff"
         android:textSize="14sp" />

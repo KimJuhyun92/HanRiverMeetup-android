@@ -21,6 +21,7 @@ import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.common.PreferencesManager;
 import com.depromeet.hanriver.hanrivermeetup.fragment.login.LoginFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Utils.CreateRoomLocationFragment;
+import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Utils.DatePickerFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Utils.TimePickerFragment;
 import com.depromeet.hanriver.hanrivermeetup.helper.CircleTransform;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.MeetingDetail;
@@ -45,7 +46,7 @@ public class MeetingModifyRoom extends DialogFragment {
     MeetingDetailFragment fragment;
     DialogFragment dial;
     EditText roomname,roomcontent,contact,fee,num;
-    TextView location,time,nickname;
+    TextView location,time,nickname,date;
     ImageButton profileimg,back_btn;
     Button modifybtn;
     RelativeLayout rl;
@@ -104,6 +105,7 @@ public class MeetingModifyRoom extends DialogFragment {
         modifybtn = v.findViewById(R.id.modify_btn);
         location = v.findViewById(R.id.modify_room_location);
         time = v.findViewById(R.id.modify_room_time);
+        date = v.findViewById(R.id.modify_room_date);
         contact = v.findViewById(R.id.modify_room_contact);
         fee = v.findViewById(R.id.modify_room_fee);
         num = v.findViewById(R.id.modify_room_num);
@@ -124,6 +126,14 @@ public class MeetingModifyRoom extends DialogFragment {
                 .getProfileURL(PreferencesManager.getUserID()))
                 .transform(CircleTransform.getInstance())
                 .into(profileimg);
+
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerFragment datefragment = DatePickerFragment.newInstance(date);
+                datefragment.show(getFragmentManager(),"DatePickerfragment_tag");
+            }
+        });
 
         time.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     @NonNull
     private static NonSwipeableViewPager viewPager;
+
     private int imgIcon[] = {
             R.drawable.ic_nolgang_icon,
             R.drawable.ic_tap_map,
@@ -42,11 +43,10 @@ public class MainActivity extends AppCompatActivity {
     };
     private String tabText[] = {
             "같이놀강",
-            "마이한강",
             "지금한강",
-            "어디갈강",
+            "어디로강",
+            "마이한강",
     };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

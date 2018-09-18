@@ -1,5 +1,6 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.meeting;
 
+import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -35,6 +36,7 @@ import com.depromeet.hanriver.hanrivermeetup.common.PreferencesManager;
 import com.depromeet.hanriver.hanrivermeetup.fragment.login.LoginFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.CreateRoom.ExpandableListAdapter;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Utils.CreateRoomLocationFragment;
+import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Utils.DatePickerFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Utils.TimePickerFragment;
 import com.depromeet.hanriver.hanrivermeetup.helper.CircleTransform;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.CreateRoom;
@@ -48,6 +50,7 @@ import com.squareup.picasso.Picasso;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -65,7 +68,7 @@ public class MeetingCreateRoom extends DialogFragment {
     private LinearLayout line_roomName,line_num,line_fee,line_contact;
     EditText roomname, roomcontent, contact, fee, num;
     TextView tv_location, tv_time, tv_num, tv_fee, tv_contact;
-    TextView location, time, nickname;
+    TextView location, time, nickname, date;
     ImageButton profileimg, back_btn;
     Button createbtn;
     int hour, minute;
@@ -150,6 +153,7 @@ public class MeetingCreateRoom extends DialogFragment {
         createbtn = v.findViewById(R.id.create_btn);
         location = v.findViewById(R.id.create_room_location);
         time = v.findViewById(R.id.create_room_time);
+        date = v.findViewById(R.id.create_room_date);
         contact = v.findViewById(R.id.create_room_contact);
         fee = v.findViewById(R.id.create_room_fee);
         num = v.findViewById(R.id.create_room_num);
@@ -162,6 +166,16 @@ public class MeetingCreateRoom extends DialogFragment {
 
         Picasso.get().load(FacebookService.getInstance().getProfileURL(PreferencesManager.getUserID()))
                 .transform(CircleTransform.getInstance()).into(profileimg);
+
+//        Calendar calendar= Calendar.getInstance();
+//        date.setText(""+calendar.get(calendar.YEAR)+"-"+String.valueOf(calendar.get(calendar.MONTH)+1)+"-"+calendar.get(calendar.DAY_OF_MONTH));
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerFragment datefragment = DatePickerFragment.newInstance(date);
+                datefragment.show(getFragmentManager(),"DatePickerfragment_tag");
+            }
+        });
 
         time.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -208,7 +222,7 @@ public class MeetingCreateRoom extends DialogFragment {
                     md.setDescription(roomcontent.getText().toString());
                     md.setExpected_cost(Integer.parseInt(fee.getText().toString()));
                     md.setMeeting_location(location.getText().toString());
-                    md.setMeeting_time(getCurrentDate(time.getText().toString()));
+                    md.setMeeting_time(getResultDate(date.getText().toString(),time.getText().toString()));
                     md.setTitle(roomname.getText().toString());
                     md.setParticipants_cnt(Integer.parseInt(num.getText().toString()));
                     md.setUser_id(PreferencesManager.getUserID());
@@ -280,14 +294,14 @@ public class MeetingCreateRoom extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    public String getCurrentDate(String time) {
-        long now = System.currentTimeMillis();
-        Date date = new Date(now);
-        SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy-MM-dd ");
-        String formatDate = sdfNow.format(date);
+    public String getResultDate(String date,String time) {
+//        long now = System.currentTimeMillis();
+//        Date date = new Date(now);
+//        SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy-MM-dd ");
+//        String formatDate = sdfNow.format(date);
         time = time + ":00";
-
-        return formatDate + time;
+        String result_meeting_time = date + " " + time;
+        return result_meeting_time;
     }
 
     View.OnClickListener back_click = new View.OnClickListener() {
