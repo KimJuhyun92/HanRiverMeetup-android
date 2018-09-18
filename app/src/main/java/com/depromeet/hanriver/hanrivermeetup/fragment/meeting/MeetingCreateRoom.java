@@ -55,6 +55,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -230,15 +232,24 @@ public class MeetingCreateRoom extends DialogFragment {
 
                     mCompositeDisposable.add(HostService.getInstance().createMeeting(md)
                             .subscribeOn(Schedulers.computation())
-                            .observeOn(AndroidSchedulers.mainThread()).subscribe());
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .doOnNext(res->{
+                                if(res.code() == HttpsURLConnection.HTTP_OK){
+                                    getFragmentManager().findFragmentById(R.id.root_frame);
+                                    getFragmentManager().beginTransaction()
+                                            .detach(fragment)
+                                            .attach(fragment)
+                                            .commit();
 
-                    getFragmentManager().findFragmentById(R.id.root_frame);
-                    getFragmentManager().beginTransaction()
-                            .detach(fragment)
-                            .attach(fragment)
-                            .commit();
+                                    dial.dismiss();
+                                }
+                                else{
+                                    Toast.makeText(getContext(), "해당 날짜에 이미 방을 만들었습니다.", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .subscribe());
 
-                    dial.dismiss();
+
                 }
 //
             }
@@ -262,31 +273,10 @@ public class MeetingCreateRoom extends DialogFragment {
     private void bind() {
         mCompositeDisposable = new CompositeDisposable();
 
-        mCompositeDisposable.add(HostService.getInstance().getTodayList()
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::isCreated));
-
-
-//        mCompositeDisposable.add(mViewModel.getAvailableRooms()
-//                .subscribeOn(Schedulers.computation())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(this::setRooms));
-
     }
 
     private void unBind() {
         mCompositeDisposable.clear();
-    }
-
-    private void isCreated(@NonNull final List<MeetingDetail> Rooms) {
-        for (int i = 0; i < Rooms.size(); i++) {
-            if (Rooms.get(i).getUser_id().equals(PreferencesManager.getUserID())) {
-                createbtn.setText("이미 방을 생성하였습니다.");
-                createbtn.setBackgroundColor(Color.parseColor("#aaaaaa"));
-                createbtn.setEnabled(false);
-            }
-        }
     }
 
     @Override
@@ -295,10 +285,6 @@ public class MeetingCreateRoom extends DialogFragment {
     }
 
     public String getResultDate(String date,String time) {
-//        long now = System.currentTimeMillis();
-//        Date date = new Date(now);
-//        SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy-MM-dd ");
-//        String formatDate = sdfNow.format(date);
         time = time + ":00";
         String result_meeting_time = date + " " + time;
         return result_meeting_time;

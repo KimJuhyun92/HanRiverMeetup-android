@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -22,7 +23,7 @@ public interface HostAPIService {
     Observable<MeetingDetail> getMeetingDetail(@Path("meetingID") int meetingID);
 
     @POST("meeting/")
-    Observable<MeetingDetail> createMeeting(@Body MeetingDetail createRoom);
+    Observable<Response<MeetingDetail>> createMeeting(@Body MeetingDetail createRoom);
 
     @PUT("meeting/{meetingID}")
     MeetingDetail updateMeeting(@Path("meetingID") int meetingID, @Body MeetingDetail user);

@@ -73,6 +73,12 @@ public class Tab1 extends Fragment{
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        bind();
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
         unBind();
