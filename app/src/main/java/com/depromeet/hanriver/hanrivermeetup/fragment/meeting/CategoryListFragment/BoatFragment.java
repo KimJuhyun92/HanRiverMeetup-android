@@ -33,12 +33,24 @@ public class BoatFragment extends Fragment {
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
+    private int activity_seq;
+
     @NonNull
     private MeetingListInnerViewModel mViewModel;
 
     @Nullable
     private RecyclerView recyclerView;
+
     private RecyclerView.LayoutManager rvManager;
+
+    public static BoatFragment newInstance(int activity_seq) {
+
+        Bundle args = new Bundle();
+        BoatFragment fragment = new BoatFragment();
+        fragment.setArguments(args);
+        fragment.activity_seq=activity_seq;
+        return fragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,7 +70,6 @@ public class BoatFragment extends Fragment {
     }
 
     private void setupViews(View v) {
-//        gridview = v.findViewById(R.id.gridview);
         recyclerView = v.findViewById(R.id.list_room_rv);
         rvManager = new LinearLayoutManager(getContext());
         swipeRefreshLayout = v.findViewById(R.id.list_refresh);
@@ -72,7 +83,6 @@ public class BoatFragment extends Fragment {
 
             }
         });
-//        gridview.setAdapter(new GridAdapter(this.getActivity(),));
     }
 
     @Override
@@ -89,8 +99,7 @@ public class BoatFragment extends Fragment {
 
     private void bind() {
         mCompositeDisposable = new CompositeDisposable();
-
-        mCompositeDisposable.add(HostService.getInstance().getTodayList()
+        mCompositeDisposable.add(HostService.getInstance().getWeekList(activity_seq)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::setRooms));
@@ -106,27 +115,9 @@ public class BoatFragment extends Fragment {
 
         recyclerView.setLayoutManager(rvManager);
         recyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        List<MeetingDetail> rooms = new ArrayList<>();
-        for(int i =0;i<Rooms.size();i++){
-            if(Rooms.get(i).getActivity_seq()==3)
-                rooms.add(Rooms.get(i));
-        }
-        recyclerView.setAdapter(new MeetingListAdapter(rooms,getContext(),this));
+        recyclerView.setAdapter(new MeetingListAdapter(Rooms,getContext(),this));
 
     }
-
-
-
-
-//    private void setActivites(@NonNull final List<Activity> languages) {
-//        assert mLanguagesSpinner != null;
-//
-//        mLanguageSpinnerAdapter = new LanguageSpinnerAdapter(this,
-//                R.layout.language_item,
-//                languages);
-//        mLanguagesSpinner.setAdapter(mLanguageSpinnerAdapter);
-//    }
-
 
     @NonNull
     private MeetingListInnerViewModel getViewModel() {
