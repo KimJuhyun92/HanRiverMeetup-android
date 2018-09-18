@@ -2,27 +2,37 @@ package com.depromeet.hanriver.hanrivermeetup.model.timeline;
 
 import android.support.annotation.NonNull;
 
+import java.util.Date;
+
 public class TimeLineVO {
+    public TimeLineVO()
+    {
 
-    @NonNull
-    private final String mText;
+    }
 
-    @NonNull
-    private final int mImg;
-
-    public TimeLineVO(@NonNull final String text, @NonNull final int img) {
-        mText = text;
-        mImg = img;
+    public TimeLineVO(@NonNull final String text) {
+        content = text;
     }
 
     @NonNull
-    public String getText(){
-        return mText;
-    }
+    public int timeline_seq;
 
     @NonNull
-    public int getImg() {
-        return mImg;
-    }
+    public String user_id;
+
+    @NonNull
+    public String location;
+
+    @NonNull
+    public String imageurl;
+
+    @NonNull
+    public String content;
+
+    @NonNull
+    public String creation_time;
+
+    @NonNull
+    public String nickname;
 }
 

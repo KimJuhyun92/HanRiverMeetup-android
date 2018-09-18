@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.map.TmapFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.meetingRootFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.MyPageFragment;
+import com.depromeet.hanriver.hanrivermeetup.fragment.timeline.TimelineFragment;
 
 public class MainTabPagerAdapter extends FragmentStatePagerAdapter {
     private int tabCount;
@@ -25,10 +26,11 @@ public class MainTabPagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new meetingRootFragment();
             case 1:
-                return new MyPageFragment();
+                return new TimelineFragment();
             case 2:
-                return new TmapFragment();
-//                return new MapFragment();
+              return new meetingRootFragment();
+            case 3:
+                return new MyPageFragment();
             default:
                 return null;
         }

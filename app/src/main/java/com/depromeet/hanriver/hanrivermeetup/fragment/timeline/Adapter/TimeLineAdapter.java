@@ -8,8 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.depromeet.hanriver.hanrivermeetup.R;
+import com.depromeet.hanriver.hanrivermeetup.helper.CircleTransform;
 import com.depromeet.hanriver.hanrivermeetup.model.timeline.TimeLineVO;
+import com.depromeet.hanriver.hanrivermeetup.service.FacebookService;
+import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapter.ItemViewHolder> {
@@ -18,42 +22,55 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapter.ItemVi
     private List<TimeLineVO> mItems;
     private android.app.Activity mAct;
 
-    public TimeLineAdapter(android.app.Activity act, List<TimeLineVO> items) {
+    public TimeLineAdapter(android.app.Activity act) {
         mAct = act;
-        mItems = items;
+        mItems = new ArrayList<>();
         inflater = (LayoutInflater) act.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    // 커스텀 뷰홀더 
-// item layout 에 존재하는 위젯들을 바인딩합니다. 
+    public void addItems(List<TimeLineVO> items) {
+        this.mItems.addAll(items);
+    }
+
+    public void clear() {
+        mItems = new ArrayList<>();
+    }
+
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
-        public ImageView mImageView;
-        public TextView mTextView;
+        public ImageView profileImageView;
+        public ImageView imageView;
+        public TextView nameTextView;
+        public TextView locationTextView;
+        public TextView contentTextView;
 
         public ItemViewHolder(View view) {
             super(view);
-            mImageView = (ImageView) view.findViewById(R.id.image);
-            mTextView = (TextView) view.findViewById(R.id.textview);
+            imageView = view.findViewById(R.id.timeline_image);
+            profileImageView = view.findViewById(R.id.timeline_profile_img);
+            nameTextView = view.findViewById(R.id.timeline_profile_name);
+            locationTextView = view.findViewById(R.id.timeline_profile_location);
+            contentTextView = view.findViewById(R.id.timeline_text);
         }
     }
 
-    // 새로운 뷰 홀더 생성 
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.timeline_item, parent, false);
         View view = inflater.inflate(R.layout.timeline_item, parent, false);
         return new ItemViewHolder(view);
     }
 
-    // View 의 내용을 해당 포지션의 데이터로 바꿉니다. 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
-        holder.mTextView.setText(mItems.get(position).getText());
-        holder.mImageView.setImageResource(mItems.get(position).getImg());
+        TimeLineVO item = mItems.get(position);
 
+        holder.nameTextView.setText(item.nickname);
+        holder.locationTextView.setText(item.location);
+        holder.contentTextView.setText(item.content);
+        Picasso.get().load(item.imageurl).into(holder.imageView);
+        Picasso.get().load(FacebookService.getInstance().getProfileURL(item.user_id))
+                .transform(CircleTransform.getInstance()).into(holder.profileImageView);
     }
 
-    // 데이터 셋의 크기를 리턴해줍니다. e
     @Override
     public int getItemCount() {
         return mItems.size();

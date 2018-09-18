@@ -80,6 +80,7 @@ public class LoginService {
         GuestService.getInstance().setService(token, id);
         CommunicationService.getInstance().setService(token, id);
         MyPageService.getInstance().setService(token, id);
+        TimelineService.getInstance().setService(token, id);
         WeatherService.getInstance().setService(token,id);
     }
 }
