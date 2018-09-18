@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -147,12 +148,7 @@ public class MeetingListFragment extends Fragment {
     View.OnClickListener mClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-//            FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
-////        TestFrag frag = new TestFrag();
-//            MeetingDetailFragment frag = MeetingDetailFragment.newInstance();
-//            fragTransaction.replace(R.id.meeting_root, frag);
-//            fragTransaction.addToBackStack(null);
-//            fragTransaction.commit();
+
             MeetingCreateRoom dialog = MeetingCreateRoom.newInstance(current_position + 1, frag);
             dialog.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light);
             dialog.show(getFragmentManager(), "tag");
@@ -168,14 +164,17 @@ public class MeetingListFragment extends Fragment {
     };
 
     private void initTablayoutWeight(TabLayout tablayout){
-        LinearLayout linearLayout = (LinearLayout)tabLayout.getChildAt(0);
+        LinearLayout linearLayout = (LinearLayout)tablayout.getChildAt(0);
         for(int i = 0; i<6; i++){
             View vv = linearLayout.getChildAt(i);
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) vv.getLayoutParams();
             params.weight = 0;
             params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-            params.leftMargin = 30;
-            params.rightMargin = 30;
+            Display display = getActivity().getWindowManager().getDefaultDisplay();
+            int diff =  display.getWidth()-1008; //최대 가로 크기 - 6개 탭의 크기
+            diff = diff/12;
+            params.leftMargin = diff;
+            params.rightMargin = diff;
             vv.setLayoutParams(params);
         }
     }

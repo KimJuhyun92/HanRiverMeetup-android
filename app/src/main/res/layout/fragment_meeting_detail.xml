@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/detail_scroll"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
     <RelativeLayout
         android:id="@+id/detail_rl"
         android:layout_width="match_parent"
         android:background="#ffffff"
-        android:layout_height="616dp">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:id="@+id/detail_top"
@@ -171,12 +173,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/detail_comment_text"
+               android:layout_marginBottom="50dp"
                 >
             </com.baoyz.swipemenulistview.SwipeMenuListView>
 
             <EditText
                 android:id="@+id/detail_comment_edit"
-                android:layout_below="@id/detail_comment_lv"
+                android:layout_alignParentBottom="true"
                 android:layout_width="290dp"
                 android:layout_height="50dp"
                 android:paddingLeft="24dp"
@@ -189,12 +192,12 @@
                 android:id="@+id/detail_comment_btn"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_below="@id/detail_comment_lv"
+                android:layout_alignParentBottom="true"
                 android:layout_toRightOf="@id/detail_comment_edit"
                 android:background="#2186f8"
                 android:text="등록"
                 android:textColor="#ffffff"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
 
 

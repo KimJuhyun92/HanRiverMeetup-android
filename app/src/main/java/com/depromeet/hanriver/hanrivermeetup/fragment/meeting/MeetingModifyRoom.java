@@ -116,7 +116,9 @@ public class MeetingModifyRoom extends DialogFragment {
         roomcontent.setText(meetingDetail.getDescription());
         location.setText(meetingDetail.getMeeting_location());
         String timestr = meetingDetail.getMeeting_time();
+        String datestr = timestr.substring(0,10);
         timestr = timestr.substring(11, 16);
+        date.setText(datestr);
         time.setText(timestr);
         contact.setText(meetingDetail.getContact());
         fee.setText(String.valueOf(meetingDetail.getExpected_cost()));

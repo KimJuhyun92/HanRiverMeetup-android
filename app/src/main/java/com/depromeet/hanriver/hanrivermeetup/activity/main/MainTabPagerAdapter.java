@@ -28,7 +28,7 @@ public class MainTabPagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return new TimelineFragment();
             case 2:
-              return new meetingRootFragment();
+              return new TmapFragment();
             case 3:
                 return new MyPageFragment();
             default:

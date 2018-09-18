@@ -16,8 +16,11 @@ import io.reactivex.schedulers.Schedulers;
 
 import java.util.List;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
 
 public class HostService {
     private static final HostService ourInstance = new HostService();
@@ -47,8 +50,17 @@ public class HostService {
         return mService.getMeetingDetail(meeting_seq).subscribeOn(Schedulers.io());
     }
 
-    public Observable<MeetingDetail> createMeeting(MeetingDetail createRoom){
-        return mService.createMeeting(createRoom).subscribeOn(Schedulers.io());
+//    public Observable<MeetingDetail> createMeeting(MeetingDetail createRoom){
+//        return mService.createMeeting(createRoom).subscribeOn(Schedulers.io());
+//    }
+
+    public Observable<Response<MeetingDetail>> createMeeting(MeetingDetail createRoom){
+        return mService.createMeeting(createRoom).subscribeOn(Schedulers.io())
+                .doOnNext( res -> {
+                    if(res.code() == HttpsURLConnection.HTTP_OK){
+                        res.body();
+                    }
+                });
     }
 
     public Observable<MeetingDetail> modifyMeeting(int meeting_seq ,MeetingDetail meetingDetail){
