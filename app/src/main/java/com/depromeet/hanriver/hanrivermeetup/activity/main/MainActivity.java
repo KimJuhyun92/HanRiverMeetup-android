@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private static NonSwipeableViewPager viewPager;
     private int imgIcon[] = {R.drawable.ic_nolgang_icon,R.drawable.ic_mypage_icon,R.drawable.ic_tap_map};
     private int imgIcon_act[] = {R.drawable.ic_nolgang_icon_active,R.drawable.ic_mypage_icon_active,R.drawable.ic_tap_map_active};
-    private String tabText[] = {"같이놀강","마이한강","어디갈강"};
+    private String tabText[] = {"같이놀강","난누굴강","어디갈강"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

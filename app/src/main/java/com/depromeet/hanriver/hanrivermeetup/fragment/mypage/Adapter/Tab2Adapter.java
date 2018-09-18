@@ -34,8 +34,6 @@ public class Tab2Adapter extends BaseAdapter{
 
     }
 
-
-
     @Override
     public int getCount() {
         return mItems.size();
@@ -80,16 +78,8 @@ public class Tab2Adapter extends BaseAdapter{
         meeting_time = meetingDate[3];
 
         //data 처리
-//        String meeting_date;
-//        String meeting_time;
         String creation_date;
         String now_date;
-
-
-//        String meetingDate[] = mItems.get(position).getMeetingDetail().getMeetingTime().split(" ");
-//        meeting_date = meetingDate[0];
-//        meeting_time = meetingDate[1];
-
         String creationDate[] = mItems.get(position).getMeetingDetail().getCreationTime().split(" ");
         creation_date = creationDate[0];
 
@@ -108,12 +98,7 @@ public class Tab2Adapter extends BaseAdapter{
         else
             holder.mState.setText("매칭 실패");
 
-
-
         holder.mTitle.setText(mItems.get(position).getMeetingDetail().getTitle());
-//        holder.mDate.setText(meeting_date);
-//        holder.mTime.setText(meeting_time.substring(0,5));
-
         holder.mDate.setText(meeting_date_month + "월 " + meeting_date_day + "일");
         holder.mTime.setText("시간 " + meeting_time.substring(0,5));
         holder.mLocation.setText(mItems.get(position).getMeetingDetail().getMeetingLocation());

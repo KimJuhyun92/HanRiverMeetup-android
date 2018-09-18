@@ -70,48 +70,27 @@ public class Tab3Adapter extends RecyclerView.Adapter<Tab3Adapter.ItemViewHolder
         if(TextUtils.equals(PreferencesManager.getUserID(),
                 mItems.get(position).getJoinDetail().getUserId()))
         {
+            //주최자
             holder.mInfoButton.setImageResource(R.drawable.ic_contact_blue_icon);
             holder.mLeftLine.setBackgroundColor(Color.parseColor("#2186f8"));
+
             holder.mInfoButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //전화번호 데이터 처리 Logic
-                    String hostCall;
-                    String mCall="tel:";
-                    hostCall = mItems.get(position).getMeetingDetail().getContact();
-
-                    String phoneNum[] = hostCall.split("-");
-                    hostCall = "";
-                    for(int i=0; i<phoneNum.length; i++){
-                        hostCall += phoneNum[i];
-                    }
-                    mCall += hostCall;
-
-                    dialog = new SelectionDialog(view.getContext(), mCall);
+                    dialog = new SelectionDialog(view.getContext(), mItems.get(position).getMeetingDetail().getContact());
                     dialog.show();
                 }
             });
 
         }
         else {
+            //참가자
             holder.mInfoButton.setImageResource(R.drawable.ic_contact_green_icon);
             holder.mLeftLine.setBackgroundColor(Color.parseColor("#00c0c9"));
             holder.mInfoButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //전화번호 데이터 처리 Logic
-                    String guestCall;
-                    String mCall="tel:";
-                    guestCall = mItems.get(position).getJoinDetail().getContact();
-
-                    String phoneNum[] = guestCall.split("-");
-                    guestCall = "";
-                    for(int i=0; i<phoneNum.length; i++){
-                        guestCall += phoneNum[i];
-                    }
-                    mCall += guestCall;
-
-                    dialog = new SelectionDialog(view.getContext(), mCall);
+                    dialog = new SelectionDialog(view.getContext(), mItems.get(position).getMeetingDetail().getContact());
                     dialog.show();
                 }
             });
