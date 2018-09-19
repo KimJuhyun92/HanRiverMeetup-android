@@ -52,6 +52,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
@@ -234,7 +236,15 @@ public class MeetingDetailFragment extends DialogFragment {
         mCompositeDisposable.add(HostService.getInstance().getMeetingDetail(meeting_seq)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::setMeetingDetail));
+                .doOnNext(res->{
+                    if(res.code() == HttpsURLConnection.HTTP_OK){
+                        setMeetingDetail(res.body());
+                    }
+                    else{
+                        Toast.makeText(getContext(), "모임 세부정보를 불러오지 못했습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .subscribe());
 
 //        mCompositeDisposable.add(meetingCommentViewModel.getComments(meeting_seq)
 //                .subscribeOn(Schedulers.computation())
@@ -249,7 +259,6 @@ public class MeetingDetailFragment extends DialogFragment {
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::getApplicationSeq));
-
     }
 
 

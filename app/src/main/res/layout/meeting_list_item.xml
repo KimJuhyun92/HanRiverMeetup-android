@@ -33,7 +33,7 @@
         android:layout_width="10dp"
         android:layout_height="12dp"
         android:src="@drawable/ic_location"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="45dp"
         android:layout_marginLeft="108dp"/>
 
     <TextView
@@ -42,6 +42,7 @@
         android:layout_marginLeft="122dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:includeFontPadding="false"
         android:textSize="12sp"
         android:textColor="#2186f8"
         android:lineSpacingExtra="20sp"

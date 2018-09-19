@@ -40,19 +40,20 @@ public class HostService {
         return mService.getMeetingApplicants(meeting_seq)
                 .subscribeOn(Schedulers.io());
     }
+
     public Observable<List<MeetingDetail>> getTodayList(){
         return mService.getMeetingsOnToday()
                 .subscribeOn(Schedulers.io());
     }
 
-
-    public Observable<MeetingDetail> getMeetingDetail(int meeting_seq){
-        return mService.getMeetingDetail(meeting_seq).subscribeOn(Schedulers.io());
+    public Observable<Response<MeetingDetail>> getMeetingDetail(int meeting_seq){
+        return mService.getMeetingDetail(meeting_seq).subscribeOn(Schedulers.io())
+                .doOnNext(res -> {
+                    if(res.code() == HttpsURLConnection.HTTP_OK){
+                        res.body();
+                    }
+                });
     }
-
-//    public Observable<MeetingDetail> createMeeting(MeetingDetail createRoom){
-//        return mService.createMeeting(createRoom).subscribeOn(Schedulers.io());
-//    }
 
     public Observable<Response<MeetingDetail>> createMeeting(MeetingDetail createRoom){
         return mService.createMeeting(createRoom).subscribeOn(Schedulers.io())
@@ -63,11 +64,23 @@ public class HostService {
                 });
     }
 
-    public Observable<MeetingDetail> modifyMeeting(int meeting_seq ,MeetingDetail meetingDetail){
-        return mService.modifyMeeting(meeting_seq, meetingDetail).subscribeOn(Schedulers.io());
+    public Observable<Response<MeetingDetail>> modifyMeeting(int meeting_seq ,MeetingDetail meetingDetail){
+        return mService.modifyMeeting(meeting_seq, meetingDetail)
+                .subscribeOn(Schedulers.io())
+                .doOnNext(res -> {
+                    if (res.code() == HttpsURLConnection.HTTP_OK) {
+                        res.body();
+                    }
+                });
     }
 
-    public Observable<List<MeetingDetail>> getWeekList(int activity_seq){
-        return mService.getMeetingsOnWeek(activity_seq);
+    public Observable<Response<List<MeetingDetail>>> getWeekList(int activity_seq){
+        return mService.getMeetingsOnWeek(activity_seq)
+                .subscribeOn(Schedulers.io())
+                .doOnNext(res -> {
+                    if(res.code() == HttpsURLConnection.HTTP_OK){
+                        res.body();
+                    }
+                });
     }
 }

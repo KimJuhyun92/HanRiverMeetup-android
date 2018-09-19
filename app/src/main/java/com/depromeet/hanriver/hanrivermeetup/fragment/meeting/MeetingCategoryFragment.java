@@ -74,14 +74,12 @@ public class MeetingCategoryFragment extends Fragment {
         weather_temp_sub = v.findViewById(R.id.weather_temp_sub);
         mActivitesView = v.findViewById(R.id.category_main_text);
         mActivitesView.setText(PreferencesManager.getNickname()+" 님\n한강에서 즐겨볼까요?");
-//        gridview = v.findViewById(R.id.gridview);
         recyclerView = v.findViewById(R.id.category_rv);
         recyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         rvManager = new LinearLayoutManager(getContext());
         Log.d("TAG","setupViews");
         MainActivity.tabVisible(View.VISIBLE);
 
-//        gridview.setAdapter(new GridAdapter(this.getActivity(),));
     }
 
     @Override
@@ -117,16 +115,9 @@ public class MeetingCategoryFragment extends Fragment {
 
     private void setActivites(@NonNull final List<Activity> activites) {
         assert mActivitesView != null;
-//        gridview.setAdapter(new GridAdapter(getActivity(),activites));
         recyclerView.setLayoutManager(rvManager);
         recyclerView.setAdapter(new MeetingCategoryAdapter(activites,getContext(),this));
 
-//        TestFrag frag = new TestFrag();
-//        FragmentManager fragmentManager = getFragmentManager();
-
-
-//        mActivitesView.setText("한강에서\n" +
-//                "원하는 모임을 선택하세요");
     }
 
     private void setWeather(@NonNull final Weather weather){
@@ -139,18 +130,6 @@ public class MeetingCategoryFragment extends Fragment {
             weather_img.setImageResource(skyState_img[Integer.parseInt(weather.getSky())]);
         }
     }
-//    맑음\n20℃ / 32℃
-
-
-//    private void setActivites(@NonNull final List<Activity> languages) {
-//        assert mLanguagesSpinner != null;
-//
-//        mLanguageSpinnerAdapter = new LanguageSpinnerAdapter(this,
-//                R.layout.language_item,
-//                languages);
-//        mLanguagesSpinner.setAdapter(mLanguageSpinnerAdapter);
-//    }
-
 
     @NonNull
     private MeetingCategoryViewModel getViewModel() {
