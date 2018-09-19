@@ -1,5 +1,7 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.mypage;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -23,6 +25,7 @@ import android.widget.TextView;
 
 import com.depromeet.hanriver.hanrivermeetup.HanRiverMeetupApplication;
 import com.depromeet.hanriver.hanrivermeetup.R;
+import com.depromeet.hanriver.hanrivermeetup.activity.main.MainActivity;
 import com.depromeet.hanriver.hanrivermeetup.common.PreferencesManager;
 import com.depromeet.hanriver.hanrivermeetup.fragment.login.LoginFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.Adapter.Tab3Adapter;
@@ -73,6 +76,8 @@ public class MyPageFragment extends Fragment{
     private View tabView1;
     private View tabView2;
     private View tabView3;
+    private Dialog logoutDialog;
+
 
     @Nullable
     @Override
@@ -90,6 +95,15 @@ public class MyPageFragment extends Fragment{
         // ImageButton
         alarmButton = view.findViewById(R.id.alarm_btn);
         logoutButton = view.findViewById(R.id.logout_btn);
+
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity mainActivity = (MainActivity)getActivity();
+                logoutDialog = new LogoutDialog(view.getContext(), mainActivity);
+                logoutDialog.show();
+            }
+        });
 
         // Initializing the TabLayout
         tabLayout = view.findViewById(R.id.tablayout2);
