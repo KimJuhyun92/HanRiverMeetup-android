@@ -1,13 +1,16 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.meeting;
 
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Display;
@@ -28,6 +31,7 @@ import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.List.Meeti
 import com.depromeet.hanriver.hanrivermeetup.service.HostService;
 import com.github.clans.fab.FloatingActionButton;
 
+import java.lang.reflect.Type;
 import java.sql.Time;
 
 public class MeetingListFragment extends Fragment {
@@ -42,6 +46,8 @@ public class MeetingListFragment extends Fragment {
     MeetingListFragment frag;
     View tabs[];
     TextView tabname[];
+    Typeface normalFont,boldFont;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,10 @@ public class MeetingListFragment extends Fragment {
         image_num[3] = R.drawable.ic_camping_icon_white;
         image_num[4] = R.drawable.ic_photo_icon_white;
         image_num[5] = R.drawable.ic_etc_icon_white;
+
+        normalFont = ResourcesCompat.getFont(getContext(),R.font.nanumsquareregular);
+        boldFont = ResourcesCompat.getFont(getContext(),R.font.nanumsquarebold);
+
     }
 
     public static MeetingListFragment newInstance(int position) {
@@ -92,7 +102,8 @@ public class MeetingListFragment extends Fragment {
         tabname[4].setText("사진");
         tabname[5].setText("기타");
 
-        tabname[current_position].setTypeface(null,Typeface.BOLD);//선택되어 들어온 아이템을 볼드체로 변경.
+        tabname[current_position].setTypeface(boldFont);//선택되어 들어온 아이템을 볼드체로 변경.
+
 
         tabLayout.setOverScrollMode(View.OVER_SCROLL_NEVER);
         tabLayout.setTabRippleColor(null);
@@ -110,13 +121,13 @@ public class MeetingListFragment extends Fragment {
                 viewpager.setCurrentItem(tab.getPosition());
                 current_position = tab.getPosition();
                 category_img.setImageResource(image_num[current_position]);
-                tabname[tab.getPosition()].setTypeface(null,Typeface.BOLD);
+                tabname[tab.getPosition()].setTypeface(boldFont);
 
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                tabname[tab.getPosition()].setTypeface(null,Typeface.NORMAL);
+                tabname[tab.getPosition()].setTypeface(normalFont);
 
             }
 
@@ -126,6 +137,7 @@ public class MeetingListFragment extends Fragment {
         });
 
         viewpager.setCurrentItem(current_position);
+
 
     }
 
@@ -165,14 +177,14 @@ public class MeetingListFragment extends Fragment {
 
     private void initTablayoutWeight(TabLayout tablayout){
         LinearLayout linearLayout = (LinearLayout)tablayout.getChildAt(0);
-        for(int i = 0; i<6; i++){
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        int diff =  display.getWidth()-(int)(tabname[0].getTextSize()*14); //최대 가로 크기 - 6개 탭의 크기
+        diff = diff/12;
+        for(int i = 0; i<linearLayout.getChildCount(); i++){
             View vv = linearLayout.getChildAt(i);
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) vv.getLayoutParams();
             params.weight = 0;
             params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-            Display display = getActivity().getWindowManager().getDefaultDisplay();
-            int diff =  display.getWidth()-1008; //최대 가로 크기 - 6개 탭의 크기
-            diff = diff/12;
             params.leftMargin = diff;
             params.rightMargin = diff;
             vv.setLayoutParams(params);

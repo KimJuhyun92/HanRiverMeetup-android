@@ -23,6 +23,8 @@ import com.depromeet.hanriver.hanrivermeetup.service.HostService;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -104,7 +106,16 @@ public class CampingFragment extends Fragment {
         mCompositeDisposable.add(HostService.getInstance().getWeekList(activity_seq)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::setRooms));
+                .doOnNext(res -> {
+                    if(res.code() == HttpsURLConnection.HTTP_OK) {
+                        setRooms(res.body());
+                    }
+                    else {
+                        Toast.makeText(getActivity(),
+                                "모임 정보를 불러오지 못했습니다. 새로고침을 해주세요.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .subscribe());
 
     }
 

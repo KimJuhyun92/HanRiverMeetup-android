@@ -33,6 +33,8 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
@@ -171,36 +173,23 @@ public class MeetingModifyRoom extends DialogFragment {
                 mCompositeDisposable.add(HostService.getInstance().modifyMeeting(meetingDetail.getMeeting_seq(),md)
                         .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(new DisposableObserver<MeetingDetail>() {
-                            @Override
-                            public void onNext(MeetingDetail meetingDetail) {
-
-                                //targetfragment로 지정한 fragment onActivityResult함수 호출 후 종료.
-
+                        .doOnNext(res->{
+                            if(res.code() == HttpsURLConnection.HTTP_OK){
                                 getTargetFragment().onActivityResult(0,0,null);
-
+                                Toast.makeText(getContext(), "수정 완료", Toast.LENGTH_SHORT).show();
                                 dial.dismiss();
                             }
-
-                            @Override
-                            public void onError(Throwable e) {
-                              Toast.makeText(getContext(), "수정 에러", Toast.LENGTH_SHORT).show();
+                            else{
+                                Toast.makeText(getContext(), "수정 실패", Toast.LENGTH_SHORT).show();
                             }
-
-                            @Override
-                            public void onComplete() {
-                                Toast.makeText(getContext(), "수정 완료", Toast.LENGTH_SHORT).show();
-                            }
-                        }));
+                        })
+                        .subscribe());
 
 //
             }
         });
 
     }
-
-
-
 
     @Override
     public void onResume() {

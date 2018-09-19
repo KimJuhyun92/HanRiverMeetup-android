@@ -19,17 +19,11 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface HostAPIService {
-    @GET("meeting/{meetingID}")
-    Observable<MeetingDetail> getMeetingDetail(@Path("meetingID") int meetingID);
+    @GET("meeting/{meeting_seq}")
+    Observable<Response<MeetingDetail>> getMeetingDetail(@Path("meeting_seq") int meetingID);
 
     @POST("meeting/")
     Observable<Response<MeetingDetail>> createMeeting(@Body MeetingDetail createRoom);
-
-    @PUT("meeting/{meetingID}")
-    MeetingDetail updateMeeting(@Path("meetingID") int meetingID, @Body MeetingDetail user);
-
-    @DELETE("meeting/{meetingID}")
-    boolean deleteMeeting(@Path("meetingID") int meetingID);
 
     @GET("meetings/today")
     Observable<List<MeetingDetail>> getMeetingsOnToday();
@@ -41,8 +35,8 @@ public interface HostAPIService {
     Observable<List<ApplicantVO>> getMeetingApplicants(@Path("meeting_seq") int meeting_seq);
 
     @PUT("meeting/{meeting_seq}")
-    Observable<MeetingDetail> modifyMeeting(@Path("meeting_seq")int meeting_seq, @Body MeetingDetail meetingDetail);
+    Observable<Response<MeetingDetail>> modifyMeeting(@Path("meeting_seq")int meeting_seq, @Body MeetingDetail meetingDetail);
 
     @GET("meetings/week/{activity_seq}")
-    Observable<List<MeetingDetail>> getMeetingsOnWeek(@Path("activity_seq")int activity_seq);
+    Observable<Response<List<MeetingDetail>>> getMeetingsOnWeek(@Path("activity_seq")int activity_seq);
 }

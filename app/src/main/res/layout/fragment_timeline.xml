@@ -45,6 +45,7 @@
                 android:textColor="@color/clear_blue"
                 android:letterSpacing="-0.04"
                 android:lineSpacingExtra="-16.5sp"
+                android:includeFontPadding="false"
                 android:text="-28"
                 android:textStyle="bold"
                 android:layout_marginLeft="9dp"
@@ -58,6 +59,7 @@
                 android:layout_marginLeft="3dp"
                 android:layout_marginTop="23dp"
                 android:text="℃"
+                android:includeFontPadding="false"
                 android:textStyle="bold"
                 android:textColor="#2186f8"
                 android:textSize="14sp" />
@@ -71,6 +73,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="23dp"
                 android:text="맑음\n20℃ / 30℃"
+                android:includeFontPadding="false"
                 android:lineSpacingExtra="6sp"
                 android:textColor="#666666"
                 android:textSize="14sp" />
