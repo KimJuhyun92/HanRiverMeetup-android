@@ -161,7 +161,7 @@ public class MeetingListFragment extends Fragment {
         public void onClick(View view) {
 
             MeetingCreateRoom dialog = MeetingCreateRoom.newInstance(current_position + 1, frag);
-            dialog.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light);
+            dialog.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AppTheme);
             dialog.show(getFragmentManager(), "tag");
 
         }
