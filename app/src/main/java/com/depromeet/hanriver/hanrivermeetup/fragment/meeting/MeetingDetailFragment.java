@@ -13,6 +13,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -71,7 +72,6 @@ public class MeetingDetailFragment extends DialogFragment {
     private CompositeDisposable mCompositeDisposable;
 
     MeetingDetailViewModel meetingDetailViewModel;
-    MeetingCommentViewModel meetingCommentViewModel;
     SwipeMenuListView rv;
     Button comment_btn, join_btn;
     EditText comment_text;
@@ -84,6 +84,7 @@ public class MeetingDetailFragment extends DialogFragment {
     MeetingDetailFragment self;
     RelativeLayout rl;
     MeetingDetail meetingDetail;
+    RelativeLayout emptyCommentview;
 
 
     @Override
@@ -101,7 +102,6 @@ public class MeetingDetailFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         meetingDetailViewModel = getViewModel();
-        meetingCommentViewModel = getCommentViewModel();
         self = this;
     }
 
@@ -132,6 +132,7 @@ public class MeetingDetailFragment extends DialogFragment {
         join_btn = v.findViewById(R.id.detail_join_btn);
         comment_btn = v.findViewById(R.id.detail_comment_btn);
         comment_text = v.findViewById(R.id.detail_comment_edit);
+        emptyCommentview = v.findViewById(R.id.comment_null_rl);
 
         join_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,8 +155,16 @@ public class MeetingDetailFragment extends DialogFragment {
                 mCompositeDisposable.add(CommunicationService.getInstance().addComment(comment)
                         .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(self::successAddComment));
-                comment_text.setText("");
+                        .doOnNext(res->{
+                            if(res.code() == HttpsURLConnection.HTTP_OK){
+                                successAddComment(res.body());
+                            }
+                            else{
+                                Toast.makeText(getContext(), "댓글 작성에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .subscribe());
+                comment_text.setText(null);
             }
         });
 
@@ -236,11 +245,10 @@ public class MeetingDetailFragment extends DialogFragment {
         mCompositeDisposable.add(HostService.getInstance().getMeetingDetail(meeting_seq)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(res->{
-                    if(res.code() == HttpsURLConnection.HTTP_OK){
+                .doOnNext(res -> {
+                    if (res.code() == HttpsURLConnection.HTTP_OK) {
                         setMeetingDetail(res.body());
-                    }
-                    else{
+                    } else {
                         Toast.makeText(getContext(), "모임 세부정보를 불러오지 못했습니다.", Toast.LENGTH_SHORT).show();
                     }
                 })
@@ -253,7 +261,15 @@ public class MeetingDetailFragment extends DialogFragment {
         mCompositeDisposable.add(CommunicationService.getInstance().getComments(meeting_seq)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::setComments));
+                .doOnNext(res -> {
+                    if (res.code() == HttpsURLConnection.HTTP_OK) {
+                        setComments(res.body());
+                    } else {
+                        Toast.makeText(getActivity(),
+                                "댓글을 불러오지 못했습니다. 새로고침을 해주세요.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .subscribe());
 
         mCompositeDisposable.add(HostService.getInstance().getMeetingApplicants(meeting_seq)
                 .subscribeOn(Schedulers.computation())
@@ -324,38 +340,36 @@ public class MeetingDetailFragment extends DialogFragment {
                         mCompositeDisposable.add(CommunicationService.getInstance().deleteComment(comments.get(position).getId())
                                 .subscribeOn(Schedulers.computation())
                                 .observeOn(AndroidSchedulers.mainThread())
-                                .subscribeWith(new DisposableObserver<Boolean>() {
-                                    @Override
-                                    public void onNext(Boolean bool) {
-                                        if (bool == false) {
+                                .doOnNext(res->{
+                                    if(res.code() == HttpsURLConnection.HTTP_OK){
+                                        if(res.body()==true) {
+                                            Toast.makeText(getContext(), "댓글 삭제 완료", Toast.LENGTH_SHORT).show();
+                                            bind();
+                                        }
+                                        else{
                                             Toast.makeText(getContext(), "삭제 권한이 없는 댓글입니다. ", Toast.LENGTH_SHORT).show();
                                         }
                                     }
-
-                                    @Override
-                                    public void onError(Throwable e) {
-                                        Toast.makeText(getContext(), "서버 에러", Toast.LENGTH_SHORT).show();
+                                    else {
+                                        Toast.makeText(getContext(), "삭제 실패", Toast.LENGTH_SHORT).show();
                                     }
-
-                                    @Override
-                                    public void onComplete() {
-                                        Toast.makeText(getContext(), "댓글 삭제 완료", Toast.LENGTH_SHORT).show();
-                                        bind();
-                                    }
-                                }));
+                                })
+                                .subscribe());
                         break;
                 }
-            }
-            else{
+            } else {
                 Toast.makeText(getContext(), "본인의 댓글만 삭제 가능합니다.", Toast.LENGTH_SHORT).show();
             }
             return false;
 
         });
 
-        if (comments.toString() == "[]")
-            rv.setMinimumHeight(358);
-        else {
+        if (comments.toString() == "[]") {
+            rv.setAdapter(new MeetingCommentAdapter(comments, getContext(), this));
+            setListViewHeightBasedOnChildren(rv);
+            rv.setEmptyView(emptyCommentview);
+
+        } else {
             rv.setAdapter(new MeetingCommentAdapter(comments, getContext(), this));
             setListViewHeightBasedOnChildren(rv);
         }
@@ -367,10 +381,6 @@ public class MeetingDetailFragment extends DialogFragment {
         return ((HanRiverMeetupApplication) getActivity().getApplicationContext()).getMeetingDetailViewModel();
     }
 
-    @NonNull
-    private MeetingCommentViewModel getCommentViewModel() {
-        return ((HanRiverMeetupApplication) getActivity().getApplicationContext()).getCommentViewModel();
-    }
 
     public String getCurrentTime() {
         long now = System.currentTimeMillis();

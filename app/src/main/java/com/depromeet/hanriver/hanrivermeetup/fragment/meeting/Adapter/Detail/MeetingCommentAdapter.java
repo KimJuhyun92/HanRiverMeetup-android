@@ -21,10 +21,11 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class MeetingCommentAdapter extends BaseAdapter{
+public class MeetingCommentAdapter extends BaseAdapter {
     List<Comment> list;
     Context context;
     Fragment fragment;
+
 
     public MeetingCommentAdapter(List<Comment> list, Context context, Fragment fragment) {
         this.list = list;
@@ -50,10 +51,11 @@ public class MeetingCommentAdapter extends BaseAdapter{
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
+
         CommentViewHolder holder = new CommentViewHolder();
 
-        if(view == null) {
-            LayoutInflater inflater = (LayoutInflater)viewGroup.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        if (view == null) {
+            LayoutInflater inflater = (LayoutInflater) viewGroup.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.detail_comment_item, viewGroup, false);
 
             holder.profile_img = view.findViewById(R.id.comment_img);
@@ -61,9 +63,8 @@ public class MeetingCommentAdapter extends BaseAdapter{
             holder.comment_time = view.findViewById(R.id.comment_time);
             holder.comment_text = view.findViewById(R.id.comment_content);
             view.setTag(holder);
-        }
-        else{
-            holder = (CommentViewHolder)view.getTag();
+        } else {
+            holder = (CommentViewHolder) view.getTag();
         }
 
         Comment comment = list.get(i);
@@ -74,6 +75,7 @@ public class MeetingCommentAdapter extends BaseAdapter{
         holder.comment_time.setText(time);
         Picasso.get().load(FacebookService.getInstance().getProfileURL(list.get(i).getUserID()))
                 .transform(CircleTransform.getInstance()).into(holder.profile_img);
+
 
         return view;
     }
