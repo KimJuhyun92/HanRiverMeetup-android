@@ -64,7 +64,7 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListViewHold
         FacebookService.getInstance().getProfileById(room.getUser_id().toString());
         meetingListViewHolder.location.setText(room.getMeeting_location());
         String time = room.getMeeting_time();
-        time = time.substring(11, 16);
+        time = time.substring(5,7)+"."+time.substring(8,10)+"."+time.substring(11, 16);
         Log.d("@@@@@", "!@#!@#" + time);
         meetingListViewHolder.time.setText(time);
         meetingListViewHolder.numofmem.setText("" + room.getParticipants_cnt() + "명");

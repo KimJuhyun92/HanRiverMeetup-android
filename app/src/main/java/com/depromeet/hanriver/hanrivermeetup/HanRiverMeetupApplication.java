@@ -1,7 +1,6 @@
 package com.depromeet.hanriver.hanrivermeetup;
 
 import android.app.Application;
-import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
@@ -12,7 +11,6 @@ import android.widget.ImageView;
 
 import com.depromeet.hanriver.hanrivermeetup.common.PreferencesManager;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ActivityDataModel;
-import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.CommentDataModel;
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.IActivityDataModel;
 
 import com.depromeet.hanriver.hanrivermeetup.datamodel.meeting.ICommentDataModel;
@@ -83,8 +81,6 @@ public class HanRiverMeetupApplication extends Application {
     @NonNull
     private final IMeetingListInnerDataModel mEtcDataModel;
 
-    @NonNull
-    private final ICommentDataModel mCommentDataModel;
 
     public static HanRiverMeetupApplication getInstance(){
         return hanRiverMeetupApplication;
@@ -122,7 +118,6 @@ public class HanRiverMeetupApplication extends Application {
         mCampingDataModel = new CampingDataModel();
         mPhotoDataModel = new PhotoDataModel();
         mEtcDataModel = new EtcDataModel();
-        mCommentDataModel = new CommentDataModel();
     }
 
     @NonNull
@@ -184,10 +179,7 @@ public class HanRiverMeetupApplication extends Application {
         return mEtcDataModel;
     }
 
-    @NonNull
-    public ICommentDataModel getCommentDataModel() {
-        return mCommentDataModel;
-    }
+
 //    @NonNull
 //    public ICreateRoomDataModel getCreateRoomDataModel(){
 //        return mCreateRoomDataModel;
@@ -251,9 +243,6 @@ public class HanRiverMeetupApplication extends Application {
         return new MeetingListInnerViewModel(getEtcDataModel(), getSchedulerProvider());
     }
 
-    public MeetingCommentViewModel getCommentViewModel() {
-        return new MeetingCommentViewModel(getCommentDataModel(), getSchedulerProvider());
-    }
 
 //    @NonNull
 //    public CreateRoomDataModel getCreateRoomDataModel(){

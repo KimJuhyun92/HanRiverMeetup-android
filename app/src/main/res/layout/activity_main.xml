@@ -27,6 +27,7 @@
         android:background="#ffffff"
         android:id="@+id/tablayout"
         android:layout_width="0dp"
+        android:backgroundTint="#f6f6f6"
         app:tabIndicatorColor="@color/clear_blue"
         app:tabIndicatorGravity="top"
         android:layout_height="50dp"

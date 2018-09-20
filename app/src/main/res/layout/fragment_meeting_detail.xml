@@ -173,9 +173,46 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/detail_comment_text"
-               android:layout_marginBottom="50dp"
+                android:layout_marginBottom="50dp"
                 >
             </com.baoyz.swipemenulistview.SwipeMenuListView>
+
+            <RelativeLayout
+                android:id="@+id/comment_null_rl"
+                android:layout_below="@+id/detail_comment_lv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:background="#ffffff"
+                android:layout_marginBottom="50dp">
+
+                <ImageView
+                    android:id="@+id/comment_null_img"
+                    android:layout_width="88dp"
+                    android:layout_height="62dp"
+                    android:layout_marginTop="27dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ic_meeting_comment_null"/>
+
+
+                <TextView
+                    android:id="@+id/comment_null_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/comment_null_img"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="14dp"
+                    android:gravity="center_horizontal"
+                    android:textStyle="bold"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="6sp"
+                    android:textSize="12sp"
+                    android:textColor="@color/warm_grey"
+                    android:text="댓글이 아직 없습니다.\n조금만 더 기다려 주세요 :)"
+                    android:layout_marginBottom="50dp"/>
+
+
+            </RelativeLayout>
 
             <EditText
                 android:id="@+id/detail_comment_edit"

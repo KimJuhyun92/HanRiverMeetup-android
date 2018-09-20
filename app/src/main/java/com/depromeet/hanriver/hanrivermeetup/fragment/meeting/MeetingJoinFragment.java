@@ -167,12 +167,6 @@ public class MeetingJoinFragment extends DialogFragment {
     }
 
 
-    @NonNull
-    private MeetingCommentViewModel getCommentViewModel() {
-        return ((HanRiverMeetupApplication) getActivity().getApplicationContext()).getCommentViewModel();
-    }
-
-
     public String getCurrentTime() {
         long now = System.currentTimeMillis();
         Date date = new Date(now);

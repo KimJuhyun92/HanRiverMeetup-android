@@ -7,9 +7,12 @@ import com.depromeet.hanriver.hanrivermeetup.network.CommunicationAPIService;
 
 import java.util.List;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
 
 public class CommunicationService {
     private static final CommunicationService ourInstance = new CommunicationService();
@@ -25,14 +28,24 @@ public class CommunicationService {
         mService = APIUtiles.getCommunicationService(token, id);
 }
 
-    public Observable<List<Comment>> getComments(int meetingId){
+    public Observable<Response<List<Comment>>> getComments(int meetingId){
         return mService.getComments(meetingId)
-                .subscribeOn(Schedulers.io());
+                .subscribeOn(Schedulers.io())
+                .doOnNext(res -> {
+                    if(res.code() == HttpsURLConnection.HTTP_OK){
+                        res.body();
+                    }
+                });
     }
 
-    public Observable<Comment> addComment(Comment comment){
+    public Observable<Response<Comment>> addComment(Comment comment){
         return mService.addComment(comment)
-                .subscribeOn(Schedulers.io());
+                .subscribeOn(Schedulers.io())
+                .doOnNext(res->{
+                    if(res.code() == HttpsURLConnection.HTTP_OK){
+                        res.body();
+                    }
+                });
     }
 
     public Observable<MatchingDetail> match(MatchingDetail matchingDetail){
@@ -40,8 +53,13 @@ public class CommunicationService {
                 .subscribeOn(Schedulers.io());
     }
 
-    public Observable<Boolean> deleteComment(int comment_seq){
+    public Observable<Response<Boolean>> deleteComment(int comment_seq){
         return mService.deleteComment(comment_seq)
-                .subscribeOn(Schedulers.io());
+                .subscribeOn(Schedulers.io())
+                .doOnNext(res->{
+                    if(res.code() == HttpsURLConnection.HTTP_OK){
+                        res.body();
+                    }
+                });
     }
 }

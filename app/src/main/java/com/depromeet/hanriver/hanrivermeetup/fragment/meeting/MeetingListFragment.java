@@ -104,7 +104,6 @@ public class MeetingListFragment extends Fragment {
 
         tabname[current_position].setTypeface(boldFont);//선택되어 들어온 아이템을 볼드체로 변경.
 
-
         tabLayout.setOverScrollMode(View.OVER_SCROLL_NEVER);
         tabLayout.setTabRippleColor(null);
 

@@ -12,9 +12,38 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/list_room_rv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
+            android:layout_height="wrap_content"
+            >
         </android.support.v7.widget.RecyclerView>
 
+
     </android.support.v4.widget.SwipeRefreshLayout>
+
+    <RelativeLayout
+        android:id="@+id/list_room_null"
+        android:layout_width="match_parent"
+        android:layout_height="433dp"
+        android:visibility="gone">
+        <ImageView
+            android:id="@+id/list_room_null_img"
+            android:layout_marginTop="100dp"
+            android:layout_width="188dp"
+            android:layout_height="76dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_meeting_list_null" />
+
+        <TextView
+            android:layout_below="@id/list_room_null_img"
+            android:layout_marginTop="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="14sp"
+            android:text="모임이 없어요:(\n한강모임을 만들어 주세요!"
+            android:textColor="@color/greyish"
+            android:textSize="18sp"
+            android:includeFontPadding="false"/>
+
+    </RelativeLayout>
 </FrameLayout>
