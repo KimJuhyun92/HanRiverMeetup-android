@@ -1,11 +1,14 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.meeting;
 
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +16,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.depromeet.hanriver.hanrivermeetup.HanRiverMeetupApplication;
 import com.depromeet.hanriver.hanrivermeetup.R;
@@ -31,6 +36,8 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -46,11 +53,15 @@ public class MeetingJoinFragment extends DialogFragment {
     DialogFragment dial;
     ImageView back_btn;
     MeetingDetailFragment detailFragment;
+    private TextView tv_num,tv_contact;
+    private LinearLayout line_num,line_contact;
+    private TextWatcher textWatcher;
+    private boolean isValidate_contact,isValidate_num,isValidate_total,isValidate_reason;
+    private final int COLOR_DEFAULT=R.drawable.border_bottom;
+    private final int COLOR_RED = R.drawable.border_bottom_red;
 
     @NonNull
     private CompositeDisposable mCompositeDisposable;
-
-    MeetingJoinViewModel meetingJoinViewModel;
 
 
     @Override
@@ -84,6 +95,12 @@ public class MeetingJoinFragment extends DialogFragment {
 
 
     private void setupViews(View v) {
+        SetupTextWatcher();
+
+        tv_contact = v.findViewById(R.id.meeting_join_tv_contact);
+        tv_num = v.findViewById(R.id.meeting_join_tv_num);
+        line_num = v.findViewById(R.id.meeting_join_ll1);
+        line_contact = v.findViewById(R.id.meeting_join_ll2);
         back_btn = v.findViewById(R.id.join_back_btn);
         back_btn.setOnClickListener(back_click);
         title = v.findViewById(R.id.join_title);
@@ -97,6 +114,10 @@ public class MeetingJoinFragment extends DialogFragment {
         join_btn = v.findViewById(R.id.join_btn);
         nickname.setText(PreferencesManager.getNickname());
 
+        numofMem.addTextChangedListener(textWatcher);
+        contact.addTextChangedListener(textWatcher);
+        reason.addTextChangedListener(textWatcher);
+
         Picasso.get().load(FacebookService.getInstance()
                 .getProfileURL(PreferencesManager.getUserID()))
                 .transform(CircleTransform.getInstance()).into(profile_img);
@@ -104,28 +125,42 @@ public class MeetingJoinFragment extends DialogFragment {
         join_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                JoinRequest joinRequest = new JoinRequest();
-                joinRequest.setApplicationTime(getCurrentTime());
-                joinRequest.setContact(contact.getText().toString());
-                joinRequest.setDescription(reason.getText().toString());
-                joinRequest.setMeetingID(meeting_seq);
-                joinRequest.setParticipantsCnt(Integer.parseInt(numofMem.getText().toString()));
-                joinRequest.setUserID(PreferencesManager.getUserID());
 
-
-
-                mCompositeDisposable.add(GuestService.getInstance().joinMeeting(joinRequest)
-                        .subscribeOn(Schedulers.computation())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe());
-
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                if(isValidate_total == false){
+                    if(isValidate_contact==false){
+                        Toast.makeText(getContext(), "연락처 오류", Toast.LENGTH_SHORT).show();
+                        invalidateColor(line_contact,contact);
+                    }
+                    else if(isValidate_num==false){
+                        Toast.makeText(getContext(), "참가인원 오류", Toast.LENGTH_SHORT).show();
+                        invalidateColor(line_num,numofMem);
+                    } else if (isValidate_reason == false) {
+                        Toast.makeText(getContext(), "참여이유를 1~150자 이내로 적어주세요", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                detailFragment.onResume();
-                dial.dismiss();
+                else {
+                    JoinRequest joinRequest = new JoinRequest();
+                    joinRequest.setApplicationTime(getCurrentTime());
+                    joinRequest.setContact(contact.getText().toString());
+                    joinRequest.setDescription(reason.getText().toString());
+                    joinRequest.setMeetingID(meeting_seq);
+                    joinRequest.setParticipantsCnt(Integer.parseInt(numofMem.getText().toString()));
+                    joinRequest.setUserID(PreferencesManager.getUserID());
+
+
+                    mCompositeDisposable.add(GuestService.getInstance().joinMeeting(joinRequest)
+                            .subscribeOn(Schedulers.computation())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .doOnNext(res -> {
+                                if (res.code() == HttpsURLConnection.HTTP_OK) {
+                                    detailFragment.onResume();
+                                    dial.dismiss();
+                                } else {
+                                    Toast.makeText(getContext(), "참가 등록에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .subscribe());
+                }
             }
         });
 
@@ -182,4 +217,83 @@ public class MeetingJoinFragment extends DialogFragment {
             dial.dismiss();
         }
     };
+
+    private void initValidate(){
+        isValidate_contact = false;
+        isValidate_num = false;
+        isValidate_total = false;
+        isValidate_reason = false;
+    }
+
+    private void isValidateTotal(){
+        if(isValidate_num==true && isValidate_contact==true && isValidate_reason==true)
+            isValidate_total = true;
+        else
+            isValidate_total = false;
+    }
+
+    private void invalidateColor(LinearLayout ll, EditText text){
+        ll.setBackgroundResource(COLOR_RED);
+        text.setHintTextColor(Color.parseColor("#d34040"));
+        text.setText(null);
+    }
+
+    public boolean isInt(String str) {
+        return (str.lastIndexOf("-") == 0 && !str.equals("-0")) ? str.substring(1).matches(
+                "\\d+") : str.matches("\\d+");
+    }
+
+    private void validateColor(LinearLayout ll){
+        ll.setBackgroundResource(COLOR_DEFAULT);
+    }
+
+    private void SetupTextWatcher() {
+        textWatcher = new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(numofMem.getText().hashCode()== charSequence.hashCode()){
+                    if (isInt(numofMem.getText().toString())) {
+                        isValidate_num=true; isValidateTotal();
+                        validateColor(line_num);
+                    }
+                    else{
+                        tv_num.setTextColor(Color.parseColor("#000000"));
+                        isValidate_num=false; isValidateTotal();
+                    }
+                }
+                else if(contact.getText().hashCode()==charSequence.hashCode()){
+                    if(contact.getText().length()>=4&&contact.getText().length()<15){
+                        isValidate_contact=true; isValidateTotal();
+                        validateColor(line_contact);
+                    }
+                    else{
+                        tv_contact.setTextColor(Color.parseColor("#000000"));
+                        isValidate_contact=false; isValidateTotal();
+                    }
+                }
+                else if(reason.getText().hashCode()==charSequence.hashCode()){
+                    textCounter.setText("["+reason.getText().length()+"/150]");
+                    if(reason.getText().length()<=150){
+                        isValidate_reason=true; isValidateTotal();
+                        textCounter.setTextColor(Color.parseColor("#000000"));
+                    }
+                    else{
+                        isValidate_reason=false; isValidateTotal();
+                        textCounter.setTextColor(Color.parseColor("#d34040"));
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        };
+    }
 }
