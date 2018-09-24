@@ -73,12 +73,20 @@
         android:text="맑음\n20℃ / 32℃"
         />
 
+    <View
+        android:id="@+id/cateogry_rv_border"
+        android:layout_below="@id/weather_img"
+        android:layout_marginTop="66dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#dcdcdc"
+        ></View>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/category_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/weather_img"
-        android:layout_marginTop="66dp">
+        android:layout_below="@id/cateogry_rv_border"
+        >
     </android.support.v7.widget.RecyclerView>
 
     <FrameLayout

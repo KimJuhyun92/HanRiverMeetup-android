@@ -12,7 +12,7 @@
         android:orientation="vertical">
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="228dp">
+            android:layout_height="202dp">
             <TextView
                 android:id="@+id/timeline_main_text"
                 android:layout_width="wrap_content"
@@ -20,7 +20,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginLeft="24dp"
-                android:layout_marginTop="51dp"
+                android:layout_marginTop="25dp"
                 android:lineSpacingExtra="10sp"
                 android:text="김태성 님,\n한강소식을 알아볼까요?"
                 android:textColor="#333333"

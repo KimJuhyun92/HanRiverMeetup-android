@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -78,7 +80,7 @@ public class MeetingDetailFragment extends DialogFragment {
     ImageView profile_img;
     ImageButton back_btn, modify_btn;
     ScrollView scroll;
-    TextView room_title, profile_name, detail_info, detail_location, detail_content, joinbtn_border;
+    TextView room_title, profile_name, detail_info, detail_location, detail_content;
     int meeting_seq;
     String room_master_name;
     MeetingDetailFragment self;
@@ -117,7 +119,6 @@ public class MeetingDetailFragment extends DialogFragment {
     private void setupViews(View v) {
 
         modify_btn = v.findViewById(R.id.detail_room_modify_btn);
-        joinbtn_border = v.findViewById(R.id.border_join_Btn);
         scroll = v.findViewById(R.id.detail_scroll);
         scroll.setOverScrollMode(View.OVER_SCROLL_NEVER);
         back_btn = v.findViewById(R.id.detail_back_btn);
@@ -138,7 +139,7 @@ public class MeetingDetailFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 MeetingJoinFragment dialog = MeetingJoinFragment.newInstance(meeting_seq, room_master_name, self);
-                dialog.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light);
+                dialog.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AppTheme);
                 dialog.show(getFragmentManager(), "meeting_join");
             }
         });
@@ -181,7 +182,7 @@ public class MeetingDetailFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 MeetingModifyRoom dialog = MeetingModifyRoom.newInstance(meetingDetail, self);
-                dialog.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light);
+                dialog.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AppTheme);
                 dialog.setTargetFragment(MeetingDetailFragment.this, 0);
                 dialog.show(getFragmentManager(), "modify_meeting");
             }
@@ -199,7 +200,7 @@ public class MeetingDetailFragment extends DialogFragment {
             }
         };
         rv.setMenuCreator(creator);
-
+        rv.setDividerHeight(0);
         rv.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -288,8 +289,6 @@ public class MeetingDetailFragment extends DialogFragment {
                 join_btn.setBackgroundColor(Color.parseColor("#aaaaaa"));
                 join_btn.setEnabled(false);
                 join_btn.setText("이미 참여한 모임입니다");
-                join_btn.setTextColor(Color.parseColor("#ffffff"));
-                joinbtn_border.setBackgroundColor(Color.parseColor("#dcdcdc"));
 
             }
         }
@@ -317,7 +316,6 @@ public class MeetingDetailFragment extends DialogFragment {
 //            join_btn.setTextColor(Color.parseColor("#ffffff"));
 //            joinbtn_border.setBackgroundColor(Color.parseColor("#dcdcdc"));
             join_btn.setVisibility(View.GONE);
-            joinbtn_border.setVisibility(View.GONE);
             RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) join_btn.getLayoutParams();
             lp.setMargins(0, 0, 0, 0);
             join_btn.setLayoutParams(lp);

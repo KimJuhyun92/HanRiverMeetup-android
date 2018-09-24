@@ -314,7 +314,7 @@ public class MeetingCreateRoom extends DialogFragment {
                     }
                     else{
                         roomname.setTextColor(getResources().getColor(R.color.warm_grey));
-                        isValidate_roomName=false;
+                        isValidate_roomName=false;isValidateTotal();
                     }
                 }
                 else if (num.getText().hashCode() == charSequence.hashCode()) {
@@ -324,7 +324,7 @@ public class MeetingCreateRoom extends DialogFragment {
                     } else {
                         tv_num.setTextColor(Color.parseColor("#000000"));
                         num.setTextColor(getResources().getColor(R.color.warm_grey));
-                        isValidate_roomName=false;
+                        isValidate_num=false;isValidateTotal();
                     }
                 }
                 else if(fee.getText().hashCode()==charSequence.hashCode()){
@@ -335,7 +335,7 @@ public class MeetingCreateRoom extends DialogFragment {
                     else{
                         tv_fee.setTextColor(Color.parseColor("#000000"));
                         fee.setTextColor(getResources().getColor(R.color.warm_grey));
-                        isValidate_fee=false;
+                        isValidate_fee=false;isValidateTotal();
                     }
                 }
                 else if(contact.getText().hashCode()==charSequence.hashCode()){
@@ -346,7 +346,7 @@ public class MeetingCreateRoom extends DialogFragment {
                     else{
                         tv_contact.setTextColor(Color.parseColor("#000000"));
                         contact.setTextColor(getResources().getColor(R.color.warm_grey));
-                        isValidate_contact=false;
+                        isValidate_contact=false;isValidateTotal();
                     }
                 }
 

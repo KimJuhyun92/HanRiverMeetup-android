@@ -43,6 +43,7 @@
                 android:text="주말에 난지에서 캠핑할 분 구해요!"
                 android:textColor="#fefefe"
                 android:textSize="18sp"
+                android:textStyle="normal"
                 />
 
             <ImageButton
@@ -130,15 +131,7 @@
                 android:textColor="#666666"
                 android:textSize="12sp" />
 
-            <TextView
-                android:background="@drawable/join_button_border"
-                android:id="@+id/border_join_Btn"
-                android:layout_below="@id/detail_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="24dp"
-                android:layout_width="314dp"
-                android:layout_height="52dp">
-            </TextView>
+
             <Button
                 android:id="@+id/detail_join_btn"
                 android:layout_width="312dp"
@@ -150,8 +143,8 @@
                 android:textStyle="bold"
                 android:textSize="14sp"
                 android:lineSpacingExtra="18sp"
-                android:textColor="@color/clear_blue"
-                android:background="@drawable/categoryitem_border"
+                android:textColor="#ffffff"
+                android:background="@color/clear_blue"
                 />
 
             <TextView
@@ -160,7 +153,7 @@
                 android:layout_height="35dp"
                 android:layout_below="@id/detail_join_btn"
                 android:layout_marginTop="30dp"
-                android:background="@drawable/textline"
+                android:background="@drawable/border_bottom"
                 android:lineSpacingExtra="-6sp"
                 android:paddingTop="9dp"
                 android:text="댓글"
@@ -218,17 +211,21 @@
                 android:id="@+id/detail_comment_edit"
                 android:layout_alignParentBottom="true"
                 android:layout_width="290dp"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:paddingLeft="24dp"
                 android:paddingRight="24dp"
                 android:hint="모임에 관해 궁금한 점을 물어봐요!"
                 android:background="@drawable/textline_top"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+                android:includeFontPadding="false"
+                android:paddingTop="17sp"
+                android:paddingBottom="17sp"
+                />
 
             <Button
                 android:id="@+id/detail_comment_btn"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="50sp"
                 android:layout_alignParentBottom="true"
                 android:layout_toRightOf="@id/detail_comment_edit"
                 android:background="#2186f8"
