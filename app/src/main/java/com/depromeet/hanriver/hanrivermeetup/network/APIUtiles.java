@@ -2,6 +2,7 @@ package com.depromeet.hanriver.hanrivermeetup.network;
 
 import com.depromeet.hanriver.hanrivermeetup.BuildConfig;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.MyPageTabAdapter;
+import com.depromeet.hanriver.hanrivermeetup.model.map.MapMarker;
 
 public class APIUtiles {
     private APIUtiles() { }
@@ -14,6 +15,7 @@ public class APIUtiles {
     public static final String MYPAGE_API_URL = BASE_URL + "mypage/";
     public static final String TIMELINE_API_URL = BASE_URL + "timeLine/";
     public static final String WEATHER_API_URL = BASE_URL + "weather/";
+    public static final String MAP_API_URL = BASE_URL + "mapMarker/";
     public static final String FACEBOOK_API_URL = "https://graph.facebook.com/";
 
     public static LoginAPIService getLoginService(){
@@ -47,6 +49,10 @@ public class APIUtiles {
 
     public static WeatherAPIService getWeatherService(String accessToken, String id){
         return RetrofitClient.getClientWithToken(WEATHER_API_URL, accessToken, id).create(WeatherAPIService.class);
+    }
+
+    public static MapAPISerivce getMapService(String accessToken, String id){
+        return RetrofitClient.getClientWithToken(MAP_API_URL,accessToken,id).create(MapAPISerivce.class);
     }
 
 }

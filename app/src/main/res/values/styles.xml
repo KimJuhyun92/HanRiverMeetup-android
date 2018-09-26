@@ -30,6 +30,11 @@
         <item name="android:windowExitAnimation">@anim/slide_out_right</item>
     </style>
 
+    <style name="dialog_animation_move_to_up">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
+
     <style name="TextViewStyle" parent="@android:style/Widget.DeviceDefault.TextView">
         <item name="android:fontFamily">@font/my_font_family</item>
     </style>

@@ -51,30 +51,30 @@ public class MeetingModifyRoom extends DialogFragment {
     private MeetingDetail meetingDetail;
     MeetingDetailFragment fragment;
     DialogFragment dial;
-    EditText roomname,roomcontent,contact,fee,num;
-    TextView location,time,nickname,date;
+    EditText roomname, roomcontent, contact, fee, num;
+    TextView location, time, nickname, date;
     TextView tv_location, tv_time, tv_num, tv_fee, tv_contact;
-    ImageButton profileimg,back_btn;
+    ImageButton profileimg, back_btn;
     Button modifybtn;
     RelativeLayout rl;
     TextWatcher textWatcher;
-    private boolean isValidate_roomName,isValidate_num,isValidate_fee,isValidate_contact,isValidate_total;
-    private LinearLayout line_roomName,line_num,line_fee,line_contact;
-    private final int COLOR_DEFAULT=R.drawable.border_bottom;
+    private boolean isValidate_roomName, isValidate_num, isValidate_fee, isValidate_contact, isValidate_total;
+    private LinearLayout line_roomName, line_num, line_fee, line_contact;
+    private final int COLOR_DEFAULT = R.drawable.border_bottom;
     private final int COLOR_RED = R.drawable.border_bottom_red;
 
 
     @Override
     public void onStart() {
         super.onStart();
-        if(getDialog()==null)
+        if (getDialog() == null)
             return;
 
         getDialog().getWindow().setWindowAnimations(
-                R.style.dialog_animation_fade);
+                R.style.dialog_animation_move_to_up);
     }
 
-    public static MeetingModifyRoom newInstance(MeetingDetail meetingDetail,MeetingDetailFragment frag) {
+    public static MeetingModifyRoom newInstance(MeetingDetail meetingDetail, MeetingDetailFragment frag) {
 
         Bundle args = new Bundle();
         MeetingModifyRoom fragment = new MeetingModifyRoom();
@@ -104,7 +104,7 @@ public class MeetingModifyRoom extends DialogFragment {
         rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
             }
         });
@@ -115,14 +115,14 @@ public class MeetingModifyRoom extends DialogFragment {
         tv_num = v.findViewById(R.id.modify_room_tv_num);
         tv_time = v.findViewById(R.id.modify_room_tv_time);
         line_roomName = v.findViewById(R.id.meeting_modify_ll0);
-        line_num  = v.findViewById(R.id.meeting_modify_ll3);
+        line_num = v.findViewById(R.id.meeting_modify_ll3);
         line_fee = v.findViewById(R.id.meeting_modify_ll4);
         line_contact = v.findViewById(R.id.meeting_modify_ll5);
         back_btn = v.findViewById(R.id.modify_room_back_btn);
         back_btn.setOnClickListener(back_click);
         nickname = v.findViewById(R.id.modify_room_nickname);
-        roomname= v.findViewById(R.id.modify_room_name);
-        roomcontent= v.findViewById(R.id.modify_room_content);
+        roomname = v.findViewById(R.id.modify_room_name);
+        roomcontent = v.findViewById(R.id.modify_room_content);
         profileimg = v.findViewById(R.id.modify_room_profile_img);
         modifybtn = v.findViewById(R.id.modify_btn);
         location = v.findViewById(R.id.modify_room_location);
@@ -143,7 +143,7 @@ public class MeetingModifyRoom extends DialogFragment {
         roomcontent.setText(meetingDetail.getDescription());
         location.setText(meetingDetail.getMeeting_location());
         String timestr = meetingDetail.getMeeting_time();
-        String datestr = timestr.substring(0,10);
+        String datestr = timestr.substring(0, 10);
         timestr = timestr.substring(11, 16);
         date.setText(datestr);
         time.setText(timestr);
@@ -159,17 +159,18 @@ public class MeetingModifyRoom extends DialogFragment {
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatePickerFragment datefragment = DatePickerFragment.newInstance(date);
-                datefragment.show(getFragmentManager(),"DatePickerfragment_tag");
+//                DatePickerFragment datefragment = DatePickerFragment.newInstance(date);
+//                datefragment.show(getFragmentManager(),"DatePickerfragment_tag");
+                Toast.makeText(getContext(), "수정 불가능한 항목입니다.", Toast.LENGTH_SHORT).show();
             }
         });
 
         time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                TimePickerFragment fragment = new TimePickerFragment(time);
-                fragment.show(getFragmentManager(),"TimePickerfragment_tag");
+                Toast.makeText(getContext(), "수정 불가능한 항목입니다.", Toast.LENGTH_SHORT).show();
+//                TimePickerFragment fragment = new TimePickerFragment(time);
+//                fragment.show(getFragmentManager(),"TimePickerfragment_tag");
             }
         });
 
@@ -184,25 +185,21 @@ public class MeetingModifyRoom extends DialogFragment {
         modifybtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isValidate_total==false){
-                    if(isValidate_contact==false){
+                if (isValidate_total == false) {
+                    if (isValidate_contact == false) {
                         Toast.makeText(getContext(), "연락처 오류", Toast.LENGTH_SHORT).show();
-                        invalidateColor(line_contact,contact);
-                    }
-                    else if(isValidate_fee==false){
+                        invalidateColor(line_contact, contact);
+                    } else if (isValidate_fee == false) {
                         Toast.makeText(getContext(), "회비 오류", Toast.LENGTH_SHORT).show();
-                        invalidateColor(line_fee,fee);
-                    }
-                    else if(isValidate_num==false){
+                        invalidateColor(line_fee, fee);
+                    } else if (isValidate_num == false) {
                         Toast.makeText(getContext(), "참가인원 오류", Toast.LENGTH_SHORT).show();
-                        invalidateColor(line_num,num);
-                    }
-                    else if(isValidate_roomName==false){
+                        invalidateColor(line_num, num);
+                    } else if (isValidate_roomName == false) {
                         Toast.makeText(getContext(), "방제목 오류", Toast.LENGTH_SHORT).show();
-                        invalidateColor(line_roomName,roomname);
+                        invalidateColor(line_roomName, roomname);
                     }
-                }
-                else if(isValidate_total==true){
+                } else if (isValidate_total == true) {
                     MeetingDetail md = new MeetingDetail();
                     md.setActivity_seq(meetingDetail.getActivity_seq());
                     md.setDescription(roomcontent.getText().toString());
@@ -265,43 +262,45 @@ public class MeetingModifyRoom extends DialogFragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(roomname.getText().hashCode() == charSequence.hashCode()){
-                    if(roomname.getText().length()>=4&&roomname.getText().length()<=20){
-                        isValidate_roomName=true;isValidateTotal();
+                if (roomname.getText().hashCode() == charSequence.hashCode()) {
+                    if (roomname.getText().length() >= 4 && roomname.getText().length() <= 20) {
+                        isValidate_roomName = true;
+                        isValidateTotal();
                         validateColor(line_roomName);
-                    }
-                    else{
+                    } else {
 
-                        isValidate_roomName=false;isValidateTotal();
+                        isValidate_roomName = false;
+                        isValidateTotal();
                     }
-                }
-                else if (num.getText().hashCode() == charSequence.hashCode()) {
+                } else if (num.getText().hashCode() == charSequence.hashCode()) {
                     if (isInt(num.getText().toString())) {
-                        isValidate_num=true;isValidateTotal();
+                        isValidate_num = true;
+                        isValidateTotal();
                         validateColor(line_num);
                     } else {
                         tv_num.setTextColor(Color.parseColor("#000000"));
-                        isValidate_num=false;isValidateTotal();
+                        isValidate_num = false;
+                        isValidateTotal();
                     }
-                }
-                else if(fee.getText().hashCode()==charSequence.hashCode()){
-                    if(isInt(fee.getText().toString())){
-                        isValidate_fee=true;isValidateTotal();
+                } else if (fee.getText().hashCode() == charSequence.hashCode()) {
+                    if (isInt(fee.getText().toString())) {
+                        isValidate_fee = true;
+                        isValidateTotal();
                         validateColor(line_fee);
-                    }
-                    else{
+                    } else {
                         tv_fee.setTextColor(Color.parseColor("#000000"));
-                        isValidate_fee=false;isValidateTotal();
+                        isValidate_fee = false;
+                        isValidateTotal();
                     }
-                }
-                else if(contact.getText().hashCode()==charSequence.hashCode()){
-                    if(contact.getText().length()>=4&&contact.getText().length()<15){
-                        isValidate_contact=true;isValidateTotal();
+                } else if (contact.getText().hashCode() == charSequence.hashCode()) {
+                    if (contact.getText().length() >= 4 && contact.getText().length() < 15) {
+                        isValidate_contact = true;
+                        isValidateTotal();
                         validateColor(line_contact);
-                    }
-                    else{
+                    } else {
                         tv_contact.setTextColor(Color.parseColor("#000000"));
-                        isValidate_contact=false;isValidateTotal();
+                        isValidate_contact = false;
+                        isValidateTotal();
                     }
                 }
 
@@ -319,28 +318,28 @@ public class MeetingModifyRoom extends DialogFragment {
                 "\\d+") : str.matches("\\d+");
     }
 
-    private void initValidate(){
-        isValidate_fee=false;
-        isValidate_contact=false;
-        isValidate_num=false;
-        isValidate_roomName=false;
-        isValidate_total=false;
+    private void initValidate() {
+        isValidate_fee = false;
+        isValidate_contact = false;
+        isValidate_num = false;
+        isValidate_roomName = false;
+        isValidate_total = false;
     }
 
-    private void isValidateTotal(){
-        if(isValidate_roomName==true && isValidate_num==true && isValidate_contact==true && isValidate_fee==true)
+    private void isValidateTotal() {
+        if (isValidate_roomName == true && isValidate_num == true && isValidate_contact == true && isValidate_fee == true)
             isValidate_total = true;
         else
             isValidate_total = false;
     }
 
-    private void invalidateColor(LinearLayout ll, EditText text){
+    private void invalidateColor(LinearLayout ll, EditText text) {
         ll.setBackgroundResource(COLOR_RED);
         text.setHintTextColor(Color.parseColor("#d34040"));
         text.setText(null);
     }
 
-    private void validateColor(LinearLayout ll){
+    private void validateColor(LinearLayout ll) {
         ll.setBackgroundResource(COLOR_DEFAULT);
     }
 
@@ -355,9 +354,9 @@ public class MeetingModifyRoom extends DialogFragment {
         Date date = new Date(now);
         SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy-MM-dd ");
         String formatDate = sdfNow.format(date);
-        time = time+":00";
+        time = time + ":00";
 
-        return formatDate+time;
+        return formatDate + time;
     }
 
     View.OnClickListener back_click = new View.OnClickListener() {

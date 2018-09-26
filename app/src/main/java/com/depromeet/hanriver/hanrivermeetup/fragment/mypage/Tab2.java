@@ -106,7 +106,7 @@ public class Tab2 extends Fragment {
                                 }
                                 @Override
                                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                    Toast.makeText(getActivity(), "삭제 성공!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), "삭제 실패!", Toast.LENGTH_SHORT).show();
                                 }
                             });
 

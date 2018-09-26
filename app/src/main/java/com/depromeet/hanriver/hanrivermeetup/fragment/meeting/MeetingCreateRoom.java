@@ -97,7 +97,7 @@ public class MeetingCreateRoom extends DialogFragment {
             return;
 
         getDialog().getWindow().setWindowAnimations(
-                R.style.dialog_animation_fade);
+                R.style.dialog_animation_move_to_up);
     }
 
     public static MeetingCreateRoom newInstance(int activity_seq, MeetingListFragment frag) {
