@@ -209,10 +209,10 @@ public class MeetingListFragment extends Fragment {
             public Shader resize(int width, int height) {
                 LinearGradient lg = new LinearGradient(0, 0, 0, height,
                         // 그라데이션 색상이 들어가는 배열.
-                        new int[]{Color.parseColor("#1A75F0"),Color.parseColor("#1B70F3"),Color.parseColor("#1A7AEB"),Color.parseColor("#1985E1"),Color.parseColor("#178FDA"),Color.parseColor("#18B1DA")},
-//                        new int[]{Color.parseColor("#18B1DA"),Color.parseColor("#000000")},
+//                        new int[]{Color.parseColor("#1A75F0"),Color.parseColor("#1B70F3"),Color.parseColor("#1A7AEB"),Color.parseColor("#1985E1"),Color.parseColor("#178FDA"),Color.parseColor("#18B1DA")},
+                        new int[]{Color.parseColor("#2186f8"),Color.parseColor("#1e8bf4"),Color.parseColor("#1a92ef"),Color.parseColor("#169be8"),Color.parseColor("#11a3e1")},
                         // 각 색상별 포지션 지정하는 배열. 최소값은 0이고 최대값을 1이다.
-                        new float[]{0,0.2f,0.4f,0.6f,0.8f,1},
+                        new float[]{0,0.25f,0.5f,0.75f,1},
 //                        new float[]{0,1},
                         // 뷰의 크기에 따라서 적용될 것이기 때문에 뭘 지정해도 큰 차이가 없다.
                         Shader.TileMode.REPEAT);
