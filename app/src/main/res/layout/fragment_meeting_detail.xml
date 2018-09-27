@@ -9,6 +9,8 @@
     <RelativeLayout
         android:id="@+id/detail_rl"
         android:layout_width="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:background="#ffffff"
         android:layout_height="match_parent">
 

@@ -4,8 +4,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.PaintDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -84,7 +89,7 @@ public class MeetingDetailFragment extends DialogFragment {
     int meeting_seq;
     String room_master_name;
     MeetingDetailFragment self;
-    RelativeLayout rl;
+    RelativeLayout rl,detail_top;
     MeetingDetail meetingDetail;
     RelativeLayout emptyCommentview;
 
@@ -117,7 +122,7 @@ public class MeetingDetailFragment extends DialogFragment {
 
 
     private void setupViews(View v) {
-
+        detail_top = v.findViewById(R.id.detail_top);
         modify_btn = v.findViewById(R.id.detail_room_modify_btn);
         scroll = v.findViewById(R.id.detail_scroll);
         scroll.setOverScrollMode(View.OVER_SCROLL_NEVER);
@@ -134,6 +139,8 @@ public class MeetingDetailFragment extends DialogFragment {
         comment_btn = v.findViewById(R.id.detail_comment_btn);
         comment_text = v.findViewById(R.id.detail_comment_edit);
         emptyCommentview = v.findViewById(R.id.comment_null_rl);
+
+        gradationOnListTop(detail_top);
 
         join_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -427,5 +434,29 @@ public class MeetingDetailFragment extends DialogFragment {
         listView.setLayoutParams(params);
 
         listView.requestLayout();
+    }
+
+    private void gradationOnListTop(View view){
+        ShapeDrawable.ShaderFactory sf = new ShapeDrawable.ShaderFactory() {
+            @Override
+            public Shader resize(int width, int height) {
+                LinearGradient lg = new LinearGradient(0, 0, 0, height,
+                        // 그라데이션 색상이 들어가는 배열.
+//                        new int[]{Color.parseColor("#1A75F0"),Color.parseColor("#1B70F3"),Color.parseColor("#1A7AEB"),Color.parseColor("#1985E1"),Color.parseColor("#178FDA"),Color.parseColor("#18B1DA")},
+                        new int[]{Color.parseColor("#2186f8"),Color.parseColor("#1e8bf4"),Color.parseColor("#1a92ef"),Color.parseColor("#169be8"),Color.parseColor("#11a3e1")},
+                        // 각 색상별 포지션 지정하는 배열. 최소값은 0이고 최대값을 1이다.
+                        new float[]{0,0.25f,0.5f,0.75f,1},
+//                        new float[]{0,1},
+                        // 뷰의 크기에 따라서 적용될 것이기 때문에 뭘 지정해도 큰 차이가 없다.
+                        Shader.TileMode.REPEAT);
+                return lg;
+            }
+        };
+        PaintDrawable pd = new PaintDrawable();
+        pd.setShape(new RectShape());
+        pd.setShaderFactory(sf);
+
+// PaintDrawable 객체를 뷰에 적용
+        view.setBackground(pd);
     }
 }

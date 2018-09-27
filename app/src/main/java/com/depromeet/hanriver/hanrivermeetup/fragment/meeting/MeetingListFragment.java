@@ -1,6 +1,12 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.meeting;
 
+import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
 import android.graphics.Typeface;
+import android.graphics.drawable.PaintDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,6 +24,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -37,6 +44,7 @@ import java.sql.Time;
 public class MeetingListFragment extends Fragment {
 
     private FloatingActionButton fab;
+    private FrameLayout listTop;
     private ViewPager viewpager;
     private TabLayout tabLayout;
     public static int current_position;
@@ -78,6 +86,7 @@ public class MeetingListFragment extends Fragment {
     }
 
     private void setupViews(View v) {
+        listTop = v.findViewById(R.id.list_top);
         back_btn = v.findViewById(R.id.meeting_list_back);
         back_btn.setOnClickListener(back_click);
         category_img = v.findViewById(R.id.list_category_img);
@@ -89,6 +98,10 @@ public class MeetingListFragment extends Fragment {
         viewpager.setOverScrollMode(View.OVER_SCROLL_NEVER);
         Log.d("TAG", "setupViews");
         tabLayout = v.findViewById(R.id.list_tablayout);
+
+        /////////////////////////////////////////////////////
+
+        gradationOnListTop(listTop);
 
         for (int i = 0; i < 6; i++) {
             tabs[i] = getLayoutInflater().inflate(R.layout.tab_meeting_list, null);
@@ -188,5 +201,29 @@ public class MeetingListFragment extends Fragment {
             params.rightMargin = diff;
             vv.setLayoutParams(params);
         }
+    }
+
+    private void gradationOnListTop(View view){
+        ShapeDrawable.ShaderFactory sf = new ShapeDrawable.ShaderFactory() {
+            @Override
+            public Shader resize(int width, int height) {
+                LinearGradient lg = new LinearGradient(0, 0, 0, height,
+                        // 그라데이션 색상이 들어가는 배열.
+//                        new int[]{Color.parseColor("#1A75F0"),Color.parseColor("#1B70F3"),Color.parseColor("#1A7AEB"),Color.parseColor("#1985E1"),Color.parseColor("#178FDA"),Color.parseColor("#18B1DA")},
+                        new int[]{Color.parseColor("#2186f8"),Color.parseColor("#1e8bf4"),Color.parseColor("#1a92ef"),Color.parseColor("#169be8"),Color.parseColor("#11a3e1")},
+                        // 각 색상별 포지션 지정하는 배열. 최소값은 0이고 최대값을 1이다.
+                        new float[]{0,0.25f,0.5f,0.75f,1},
+//                        new float[]{0,1},
+                        // 뷰의 크기에 따라서 적용될 것이기 때문에 뭘 지정해도 큰 차이가 없다.
+                        Shader.TileMode.REPEAT);
+                return lg;
+            }
+        };
+        PaintDrawable pd = new PaintDrawable();
+        pd.setShape(new RectShape());
+        pd.setShaderFactory(sf);
+
+// PaintDrawable 객체를 뷰에 적용
+        view.setBackground(pd);
     }
 }
