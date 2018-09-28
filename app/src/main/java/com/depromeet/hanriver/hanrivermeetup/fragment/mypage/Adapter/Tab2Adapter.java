@@ -2,6 +2,8 @@ package com.depromeet.hanriver.hanrivermeetup.fragment.mypage.Adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -11,8 +13,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
+import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingDetailFragment;
 import com.depromeet.hanriver.hanrivermeetup.model.mypage.Tab2VO;
 
 import org.w3c.dom.Text;
@@ -25,13 +29,15 @@ import java.util.List;
 import io.reactivex.annotations.Nullable;
 
 public class Tab2Adapter extends BaseAdapter{
-    List<Tab2VO> mItems;
+    private List<Tab2VO> mItems;
+    private Fragment fragment;
+    private ViewHolder holder = new ViewHolder();
 
 
-    public Tab2Adapter (List<Tab2VO> items) {
+    public Tab2Adapter (List<Tab2VO> items, Fragment fragment) {
         super();
         mItems = items;
-
+        this.fragment = fragment;
     }
 
     @Override
@@ -52,7 +58,7 @@ public class Tab2Adapter extends BaseAdapter{
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
 
-        ViewHolder holder = new ViewHolder();
+//        ViewHolder holder = new ViewHolder();
 
         if(view == null) {
             LayoutInflater inflater = (LayoutInflater)viewGroup.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -92,11 +98,11 @@ public class Tab2Adapter extends BaseAdapter{
                 holder.mState.setText("대기중");
             else if(mItems.get(position).getMeetingDetail().getContactSeq() != 0)
                 //매칭 실패
-                holder.mState.setText("매칭 실패");
+                holder.mState.setText("매칭실패");
         }
         //지난 모임
         else
-            holder.mState.setText("매칭 실패");
+            holder.mState.setText("매칭실패");
 
         holder.mTitle.setText(mItems.get(position).getMeetingDetail().getTitle());
         holder.mDate.setText(meeting_date_month + "월 " + meeting_date_day + "일");
@@ -114,7 +120,7 @@ public class Tab2Adapter extends BaseAdapter{
         private TextView mState;
     }
 
-    private String getTime(){
+    public String getTime(){
         long mNow;
         Date mDate;
         SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd");

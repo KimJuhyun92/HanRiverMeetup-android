@@ -3,6 +3,8 @@ package com.depromeet.hanriver.hanrivermeetup.fragment.mypage.Adapter;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
@@ -12,40 +14,40 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
+import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.MeetingDetailFragment;
 import com.depromeet.hanriver.hanrivermeetup.model.mypage.ApplicantVO;
 import com.depromeet.hanriver.hanrivermeetup.model.mypage.Tab1VO;
 import com.depromeet.hanriver.hanrivermeetup.service.HostService;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class Tab1Adapter extends RecyclerView.Adapter<Tab1Adapter.ItemViewHolder>{
+public class Tab1Adapter extends RecyclerView.Adapter<Tab1Adapter.ItemViewHolder> implements MeetingListItemClickListener {
+
     private LayoutInflater inflater;
-    private Context mContext;
     private List<Tab1VO> mItems;
     private android.app.Activity mAct;
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
     List<ApplicantVO> mApplicantsList = new ArrayList<ApplicantVO>();
     private ApplicantListAdapter applicantListAdapter;
-    private ItemViewHolder holder;
+    private Fragment fragment;
+//    private ItemViewHolder holder;
 
 
-    public Tab1Adapter(android.app.Activity act, List<Tab1VO> items) {
+    public Tab1Adapter(android.app.Activity act, List<Tab1VO> items, Fragment fragment) {
+        this.fragment = fragment;
         mAct = act;
         mItems = items;
         inflater = (LayoutInflater) act.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    // 커스텀 뷰홀더 
-// item layout 에 존재하는 위젯들을 바인딩합니다. 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
+        MeetingListItemClickListener mListener;
         public TextView mTitle;
         public TextView mDate;
         public TextView mTime;
@@ -61,19 +63,38 @@ public class Tab1Adapter extends RecyclerView.Adapter<Tab1Adapter.ItemViewHolder
             mLocation = view.findViewById(R.id.meeting_location);
             mEmptyMessage = view.findViewById(R.id.empty_message);
             applicant_list = view.findViewById(R.id.applicant_list);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mListener.onListItemClick(getAdapterPosition());
+                }
+            });
         }
+
+        public void setOnListItemClickListener(MeetingListItemClickListener meetingListItemClickListener){
+            mListener=meetingListItemClickListener;
+        }
+    }
+
+    // 데이터 셋의 크기를 리턴해줍니다. 
+    @Override
+    public int getItemCount() {
+        return mItems.size();
     }
 
     // 새로운 뷰 홀더 생성 
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.mypage_tab1_item, parent, false);
-        return new ItemViewHolder(view);
+        ItemViewHolder holder = new ItemViewHolder(view);
+        holder.setOnListItemClickListener(this);
+//        return new ItemViewHolder(view);
+        return holder;
     }
 
     @Override
-    public void onBindViewHolder(ItemViewHolder viewHolder, int position) {
-        holder = viewHolder;
+    public void onBindViewHolder(ItemViewHolder holder, int position) {
+//        holder = viewHolder;
 
         String meeting_date_month;
         String meeting_date_day;
@@ -98,39 +119,55 @@ public class Tab1Adapter extends RecyclerView.Adapter<Tab1Adapter.ItemViewHolder
 
             //Setting ApplicantList
             private void setApplicantListVOs (List<ApplicantVO> applicantVOS) {
-                ItemViewHolder holder = viewHolder;
+//                ItemViewHolder holder = viewHolder;
                 //필요정보 : meetingseq, 상대방 userID
 
                 if(applicantVOS.size() == 0){
                     SpannableString content = new SpannableString("곧 신청자 올꺼에요!");
                     content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
                     holder.mEmptyMessage.setText(content);
+
+                    holder.mTitle.setText(mItems.get(position).getTitle());
+                    holder.mLocation.setText(mItems.get(position).getMeetingLocation());
+                    holder.mDate.setText(meeting_date_month + "월 " + meeting_date_day + "일");
+                    holder.mTime.setText("시간 " + meeting_time.substring(0,5));
+                    holder.applicant_list.setVisibility(View.INVISIBLE);
                 }
                 else {
-                    applicantListAdapter = new ApplicantListAdapter(mContext, applicantVOS);
-                    holder.applicant_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+                    applicantListAdapter = new ApplicantListAdapter(mAct, applicantVOS);
+                    holder.applicant_list.setLayoutManager(new LinearLayoutManager(mAct, LinearLayoutManager.HORIZONTAL, false));
                     holder.applicant_list.setAdapter(applicantListAdapter);
+                    holder.mEmptyMessage.setText("");
+
+                    holder.mTitle.setText(mItems.get(position).getTitle());
+                    holder.mLocation.setText(mItems.get(position).getMeetingLocation());
+                    holder.mDate.setText(meeting_date_month + "월 " + meeting_date_day + "일");
+                    holder.mTime.setText("시간 " + meeting_time.substring(0,5));
                     Log.d("@@@size@@@", "" + applicantVOS.size());
                     for (int i = 0; i < applicantVOS.size(); i++) {
                         Log.d("@@@nickname@@@", i + applicantVOS.get(i).getNickname());
                     }
                 }
+//                holder.mTitle.setText(mItems.get(position).getTitle());
+//                holder.mLocation.setText(mItems.get(position).getMeetingLocation());
+//                holder.mDate.setText(meeting_date_month + "월 " + meeting_date_day + "일");
+//                holder.mTime.setText("시간 " + meeting_time.substring(0,5));
+
             }
         }.handleMessage(new Message());
 
-        holder.mTitle.setText(mItems.get(position).getTitle());
-        holder.mLocation.setText(mItems.get(position).getMeetingLocation());
-        holder.mDate.setText(meeting_date_month + "월 " + meeting_date_day + "일");
-        holder.mTime.setText("시간 " + meeting_time.substring(0,5));
+//        viewHolder.mTitle.setText(mItems.get(position).getTitle());
+//        viewHolder.mLocation.setText(mItems.get(position).getMeetingLocation());
+//        viewHolder.mDate.setText(meeting_date_month + "월 " + meeting_date_day + "일");
+//        viewHolder.mTime.setText("시간 " + meeting_time.substring(0,5));
 
     }
 
-
-
-    // 데이터 셋의 크기를 리턴해줍니다. 
     @Override
-    public int getItemCount() {
-        return mItems.size();
+    public void onListItemClick(int position) {
+        MeetingDetailFragment dialog = MeetingDetailFragment.newInstance(mItems.get(position).getMeetingSeq());
+        dialog.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light);
+        dialog.setTargetFragment(fragment,0);
+        dialog.show(fragment.getFragmentManager(), "meeting_detail");
     }
-
 }

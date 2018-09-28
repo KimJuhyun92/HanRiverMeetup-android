@@ -15,16 +15,15 @@ import android.widget.LinearLayout;
 import com.depromeet.hanriver.hanrivermeetup.HanRiverMeetupApplication;
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.common.PreferencesManager;
-import com.depromeet.hanriver.hanrivermeetup.fragment.login.LoginFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.Adapter.Tab1Adapter;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.ViewModel.Tab1ViewModel;
+import com.depromeet.hanriver.hanrivermeetup.model.mypage.ApplicantVO;
 import com.depromeet.hanriver.hanrivermeetup.model.mypage.Tab1VO;
 import com.depromeet.hanriver.hanrivermeetup.service.HostService;
 import com.depromeet.hanriver.hanrivermeetup.service.MyPageService;
 
 import java.util.List;
 
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -64,12 +63,9 @@ public class Tab1 extends Fragment{
     private void setupViews(View v){
         mRecyclerView = v.findViewById(R.id.recyclerview);
         mRecyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager 
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.scrollToPosition(0);
-//        mRecyclerView.setFocusable(true);
     }
 
     @Override
@@ -99,7 +95,7 @@ public class Tab1 extends Fragment{
     }
 
     private void setTab1VOs(@NonNull final List<Tab1VO> tab1VOs) {
-        mRecyclerView.setAdapter(new Tab1Adapter(getActivity(),tab1VOs));
+        mRecyclerView.setAdapter(new Tab1Adapter(getActivity(),tab1VOs, this));
     }
 
     @NonNull
