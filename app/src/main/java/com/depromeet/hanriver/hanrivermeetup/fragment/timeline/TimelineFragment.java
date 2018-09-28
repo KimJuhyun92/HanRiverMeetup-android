@@ -71,20 +71,24 @@ public class TimelineFragment extends Fragment {
     }
 
     NestedScrollView mNestedScrollView;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceSatate) {
-        mNestedScrollView = (NestedScrollView) inflater.inflate(R.layout.fragment_timeline, container, false);
+        View view = inflater.inflate(R.layout.fragment_timeline, container, false);
+        mNestedScrollView = view.findViewById(R.id.timeline_scrollview);
+
         mRecyclerView = mNestedScrollView.findViewById(R.id.recyclerview);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mTimeLineAdapter = new TimeLineAdapter(getActivity());
         mRecyclerView.setAdapter(mTimeLineAdapter);
-        weather_img = mNestedScrollView.findViewById(R.id.timeline_weather_img);
-        weather_temp = mNestedScrollView.findViewById(R.id.timeline_temperature_text);
-        weather_temp_sub = mNestedScrollView.findViewById(R.id.timeline_weather_status_text);
+        weather_img = view.findViewById(R.id.timeline_weather_img);
+        weather_temp = view.findViewById(R.id.timeline_temperature_text);
+        weather_temp_sub = view.findViewById(R.id.timeline_weather_status_text);
 
-        return mNestedScrollView;
+        return view;
     }
 
     private void setUpLoadMoreListener() {

@@ -17,15 +17,15 @@ android {
     }
     buildTypes {
         debug {
-            buildConfigField "String", "APIServerBaseURL", keystoreProperties.getProperty("apiServerURL")
-            buildConfigField "String", "TMapApiKey",keystoreProperties.getProperty("TMapApiKey")
+            buildConfigField "String", "APIServerBaseURL", keystoreProperties.getProperty("apiServerDevURL")
+            buildConfigField "String", "TMapApiKey", keystoreProperties.getProperty("TMapApiKey")
         }
 
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "APIServerBaseURL", keystoreProperties.getProperty("apiServerURL")
-            buildConfigField "String", "TMapApiKey",keystoreProperties.getProperty("TMapApiKey")
+            buildConfigField "String", "APIServerBaseURL", keystoreProperties.getProperty("apiServerReleaseURL")
+            buildConfigField "String", "TMapApiKey", keystoreProperties.getProperty("TMapApiKey")
         }
     }
     compileOptions {
@@ -63,7 +63,7 @@ dependencies {
     // Dali Van Picasso ~~ 밤 고흐의 달이 보이는밤~
     implementation 'com.squareup.picasso:picasso:2.71828'
     // Lottie
-    implementation 'com.airbnb.android:lottie:2.5.5'
+    implementation 'com.airbnb.android:lottie:2.6.1'
     // Google map
     implementation 'com.google.android.gms:play-services-maps:15.0.1'
     implementation 'com.google.android.gms:play-services-location:15.0.1'
@@ -76,6 +76,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-messaging:17.0.0'
     implementation files('libs/com.skt.Tmap_1.53.jar')
+
+    // Butter knife
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

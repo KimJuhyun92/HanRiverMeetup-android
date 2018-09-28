@@ -82,7 +82,6 @@ public class Tab1 extends Fragment{
 
     private void bind() {
         mCompositeDisposable = new CompositeDisposable();
-
         mCompositeDisposable.add(MyPageService.getInstance()
                 .getMyMeeting(PreferencesManager.getUserID())
                 .subscribeOn(Schedulers.computation())
