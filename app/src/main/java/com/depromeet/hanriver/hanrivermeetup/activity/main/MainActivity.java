@@ -66,10 +66,11 @@ public class MainActivity extends AppCompatActivity {
         };
         TedPermission.with(this)
                 .setPermissionListener(permissionlistener)
-                .setRationaleMessage("모임 연결을 위해선 전화 권한이 필요합니다.")
+                .setRationaleMessage("모임 연결을 위해선 권한이 필요합니다.")
                 .setDeniedMessage("왜 거부하셨어요...\n하지만 [설정] > [권한] 에서 권한을 허용할 수 있어요!")
-                .setPermissions(Manifest.permission.CALL_PHONE)
+                .setPermissions(Manifest.permission.CALL_PHONE,Manifest.permission.CAMERA)
                 .check();
+
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
 //            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
 

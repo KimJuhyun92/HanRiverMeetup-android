@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.depromeet.hanriver.hanrivermeetup.HanRiverMeetupApplication;
@@ -37,6 +38,8 @@ public class PhotoFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private int activity_seq;
+
+    private RelativeLayout null_rl;
 
     @Nullable
     private RecyclerView recyclerView;
@@ -70,6 +73,7 @@ public class PhotoFragment extends Fragment {
     }
 
     private void setupViews(View v) {
+        null_rl = v.findViewById(R.id.list_room_null);
         recyclerView = v.findViewById(R.id.list_room_rv);
         rvManager = new LinearLayoutManager(getContext());
         swipeRefreshLayout = v.findViewById(R.id.list_refresh);
@@ -121,10 +125,16 @@ public class PhotoFragment extends Fragment {
     private void setRooms(@NonNull final List<MeetingDetail> Rooms) {
         progressOFF();
 
-        recyclerView.setLayoutManager(rvManager);
-        recyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        recyclerView.setAdapter(new MeetingListAdapter(Rooms, getContext(), this));
-
+        if(Rooms.toString()=="[]"){
+            recyclerView.setVisibility(View.GONE);
+            null_rl.setVisibility(View.VISIBLE);
+        }
+        else{
+            recyclerView.setVisibility(View.VISIBLE);
+            null_rl.setVisibility(View.GONE);
+            recyclerView.setLayoutManager(rvManager);
+            recyclerView.setAdapter(new MeetingListAdapter(Rooms,getContext(),this));
+        }
     }
 
     @NonNull
