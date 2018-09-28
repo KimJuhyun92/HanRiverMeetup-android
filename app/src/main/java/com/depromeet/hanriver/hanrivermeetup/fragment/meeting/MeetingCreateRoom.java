@@ -167,10 +167,11 @@ public class MeetingCreateRoom extends DialogFragment {
         roomname.addTextChangedListener(textWatcher);
 
         Picasso.get().load(FacebookService.getInstance().getProfileURL(PreferencesManager.getUserID()))
-                .transform(CircleTransform.getInstance()).into(profileimg);
+                .transform(CircleTransform.getInstance()).fit().centerCrop().into(profileimg);
 
 //        Calendar calendar= Calendar.getInstance();
 //        date.setText(""+calendar.get(calendar.YEAR)+"-"+String.valueOf(calendar.get(calendar.MONTH)+1)+"-"+calendar.get(calendar.DAY_OF_MONTH));
+        date.setText(getCurrentDate());
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -322,7 +323,6 @@ public class MeetingCreateRoom extends DialogFragment {
                         isValidate_num=true;isValidateTotal();
                         validateColor(line_num);
                     } else {
-                        tv_num.setTextColor(Color.parseColor("#000000"));
                         num.setTextColor(getResources().getColor(R.color.warm_grey));
                         isValidate_num=false;isValidateTotal();
                     }
@@ -333,7 +333,6 @@ public class MeetingCreateRoom extends DialogFragment {
                         validateColor(line_fee);
                     }
                     else{
-                        tv_fee.setTextColor(Color.parseColor("#000000"));
                         fee.setTextColor(getResources().getColor(R.color.warm_grey));
                         isValidate_fee=false;isValidateTotal();
                     }
@@ -344,7 +343,6 @@ public class MeetingCreateRoom extends DialogFragment {
                         validateColor(line_contact);
                     }
                     else{
-                        tv_contact.setTextColor(Color.parseColor("#000000"));
                         contact.setTextColor(getResources().getColor(R.color.warm_grey));
                         isValidate_contact=false;isValidateTotal();
                     }
@@ -387,5 +385,14 @@ public class MeetingCreateRoom extends DialogFragment {
 
     private void validateColor(LinearLayout ll){
         ll.setBackgroundResource(COLOR_DEFAULT);
+    }
+
+    public String getCurrentDate() {
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formatDate = sdfNow.format(date);
+        formatDate = formatDate.substring(0,10);
+        return formatDate;
     }
 }

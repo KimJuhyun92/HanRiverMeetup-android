@@ -39,8 +39,7 @@
             android:layout_height="60dp"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="135dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/app_logo" />
+            android:background="@android:color/transparent" />
 
         <TextView
             android:id="@+id/create_room_nickname"
@@ -66,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:hint="방 제목을 입력해주세요! (20자 이내) "
+                android:hint="방 제목을 입력해주세요! (4 ~ 20자) "
                 android:imeOptions="actionNext"
                 android:lineSpacingExtra="20sp"
                 android:maxLines="1"
@@ -107,6 +106,7 @@
                 android:paddingBottom="16dp"
                 android:paddingTop="16dp"
                 android:text="여의도 한강공원"
+                android:textColor="#949494"
                 android:textSize="14sp" />
 
         </LinearLayout>
@@ -139,6 +139,7 @@
                 android:paddingBottom="16dp"
                 android:paddingTop="16dp"
                 android:text="2018-12-31"
+                android:textColor="#949494"
                 android:textSize="14sp"
                 />
             <TextView
@@ -150,6 +151,7 @@
                 android:paddingBottom="16dp"
                 android:paddingTop="16dp"
                 android:text="11:00"
+                android:textColor="#949494"
                 android:textSize="14sp" />
         </LinearLayout>
 

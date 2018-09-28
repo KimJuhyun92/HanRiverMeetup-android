@@ -66,7 +66,7 @@ public class TmapFragment extends Fragment {
         mapView.setCenterPoint(126.930632, 37.529930);
         mapView.setCompassMode(false);
         mapView.setIconVisibility(true);
-        mapView.setZoomLevel(12);
+        mapView.setZoomLevel(15);
         mapView.setMapType(TMapView.MAPTYPE_STANDARD);  //일반지도
         mapView.setLanguage(TMapView.LANGUAGE_KOREAN);
         mapView.setTrackingMode(false);

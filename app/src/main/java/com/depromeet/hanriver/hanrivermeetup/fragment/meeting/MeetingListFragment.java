@@ -35,6 +35,7 @@ import com.depromeet.hanriver.hanrivermeetup.activity.main.MainActivity;
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.fragment.login.LoginFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.List.MeetingListTapPagerAdapter;
+import com.depromeet.hanriver.hanrivermeetup.fragment.timeline.ImageSheetDialogFragment;
 import com.depromeet.hanriver.hanrivermeetup.service.HostService;
 import com.github.clans.fab.FloatingActionButton;
 
@@ -176,6 +177,8 @@ public class MeetingListFragment extends Fragment {
             MeetingCreateRoom dialog = MeetingCreateRoom.newInstance(current_position + 1, frag);
             dialog.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AppTheme);
             dialog.show(getFragmentManager(), "tag");
+//            ImageSheetDialogFragment dialog = new ImageSheetDialogFragment();
+//            dialog.show(getFragmentManager(),"ImageSheet");
 
         }
     };
@@ -210,9 +213,9 @@ public class MeetingListFragment extends Fragment {
                 LinearGradient lg = new LinearGradient(0, 0, 0, height,
                         // 그라데이션 색상이 들어가는 배열.
 //                        new int[]{Color.parseColor("#1A75F0"),Color.parseColor("#1B70F3"),Color.parseColor("#1A7AEB"),Color.parseColor("#1985E1"),Color.parseColor("#178FDA"),Color.parseColor("#18B1DA")},
-                        new int[]{Color.parseColor("#2186f8"),Color.parseColor("#1e8bf4"),Color.parseColor("#1a92ef"),Color.parseColor("#169be8"),Color.parseColor("#11a3e1")},
+                        new int[]{Color.parseColor("#2186f8"),Color.parseColor("#1e8bf4"),Color.parseColor("#1a92ef"),Color.parseColor("#169be8"),Color.parseColor("#11a3e1"),Color.parseColor("#00c0c9")},
                         // 각 색상별 포지션 지정하는 배열. 최소값은 0이고 최대값을 1이다.
-                        new float[]{0,0.25f,0.5f,0.75f,1},
+                        new float[]{0,0.2f,0.4f,0.6f,0.8f,1},
 //                        new float[]{0,1},
                         // 뷰의 크기에 따라서 적용될 것이기 때문에 뭘 지정해도 큰 차이가 없다.
                         Shader.TileMode.REPEAT);
