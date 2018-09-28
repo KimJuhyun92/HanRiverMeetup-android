@@ -14,16 +14,28 @@ package com.depromeet.hanriver.hanrivermeetup.firebase;
         import com.google.firebase.messaging.FirebaseMessagingService;
         import com.google.firebase.messaging.RemoteMessage;
 
+        import java.io.UnsupportedEncodingException;
         import java.util.Map;
 
 public class CustomFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        Map<String, String> pushDataMap = remoteMessage.getData();
-        sendNotification(pushDataMap);
+        RemoteMessage.Notification notification = remoteMessage.getNotification();
+
+        String title;
+        String body;
+
+        try {
+            title = new String(notification.getTitle().getBytes(), "utf-8");
+            body = new String(notification.getBody().getBytes(), "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            return;
+        }
+
+        sendNotification(title, body);
     }
 
-    private void sendNotification(Map<String, String> dataMap) {
+    private void sendNotification(String title, String message) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -32,8 +44,8 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService {
 
         NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle(dataMap.get("title"))
-                .setContentText(dataMap.get("msg"))
+                .setContentTitle(title)
+                .setContentText(message)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setVibrate(new long[]{1000, 1000})

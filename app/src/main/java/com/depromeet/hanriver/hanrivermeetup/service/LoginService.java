@@ -49,7 +49,7 @@ public class LoginService {
         LoginInfo loginInfo = new LoginInfo();
         loginInfo.userID = id;
         loginInfo.accessToken = facebookAccessToken;
-        loginInfo.fcmToken = CustomFirebaseInstanceIDService.getToken();
+        loginInfo.fcmToken = PreferencesManager.getFcmToken();
 
         return loginInfo;
     }

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageButton
+        android:id="@+id/create_post_back_btn"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="36dp"
+        android:layout_marginRight="23dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_plus" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="36dp"
+        android:layout_marginLeft="23dp"
+        android:text="한강의 소식을 전해주세요"
+        android:textSize="18sp"
+        android:lineSpacingExtra="-10sp"
+        android:textColor="#333333" />
+
+    <ImageButton
+        android:id="@+id/add_image_btn"
+        android:layout_width="124dp"
+        android:layout_height="124dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="152dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/add_pic" />
+
+    <TextView
+        android:id="@+id/image_add_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_image_btn"
+        android:layout_marginTop="15dp"
+        android:text="한강사진을 등록해 주세요 :)"
+        android:textSize="14sp"
+        android:lineSpacingExtra="-10sp"
+        android:textColor="#949494" />
+
+    <LinearLayout
+        android:id="@+id/set_location_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/image_add_text"
+        android:layout_marginTop="27dp"
+        android:background="@drawable/border_top_bottom"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="27dp"
+            android:lineSpacingExtra="20sp"
+            android:paddingTop="16dp"
+            android:text="위치"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/create_post_location"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:lineSpacingExtra="20sp"
+            android:paddingBottom="16dp"
+            android:paddingTop="16dp"
+            android:text="여의도 한강공원"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/create_post_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/create_post_btn"
+        app:layout_constraintTop_toBottomOf="@+id/set_location_ll"
+        android:layout_below="@+id/meeting_create_ll5"
+        android:background="#ffffff"
+        android:hint="지금 한강에서 일어나는 이야기를 들려주세요!"
+        android:paddingBottom="30dp"
+        android:paddingLeft="27dp"
+        android:paddingRight="27dp"
+        android:paddingTop="19dp"
+        android:textColor="@color/warm_grey"
+        android:textSize="14sp"
+        android:gravity="top"/>
+
+    <Button
+        android:id="@+id/create_post_btn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/clear_blue"
+        android:textSize="14sp"
+        android:text="지금한강 등록하기"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+</android.support.constraint.ConstraintLayout>
