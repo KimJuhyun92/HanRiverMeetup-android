@@ -9,10 +9,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="228dp">
+            android:layout_height="202dp">
             <TextView
                 android:id="@+id/timeline_main_text"
                 android:layout_width="wrap_content"
@@ -20,7 +22,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginLeft="24dp"
-                android:layout_marginTop="51dp"
+                android:layout_marginTop="25dp"
                 android:lineSpacingExtra="10sp"
                 android:text="김태성 님,\n한강소식을 알아볼까요?"
                 android:textColor="#333333"
@@ -45,6 +47,7 @@
                 android:textColor="@color/clear_blue"
                 android:letterSpacing="-0.04"
                 android:lineSpacingExtra="-16.5sp"
+                android:includeFontPadding="false"
                 android:text="-28"
                 android:textStyle="bold"
                 android:layout_marginLeft="9dp"
@@ -58,6 +61,7 @@
                 android:layout_marginLeft="3dp"
                 android:layout_marginTop="23dp"
                 android:text="℃"
+                android:includeFontPadding="false"
                 android:textStyle="bold"
                 android:textColor="#2186f8"
                 android:textSize="14sp" />
@@ -71,6 +75,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="23dp"
                 android:text="맑음\n20℃ / 30℃"
+                android:includeFontPadding="false"
                 android:lineSpacingExtra="6sp"
                 android:textColor="#666666"
                 android:textSize="14sp" />

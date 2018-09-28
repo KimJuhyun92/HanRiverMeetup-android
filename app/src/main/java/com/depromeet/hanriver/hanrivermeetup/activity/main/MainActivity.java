@@ -31,13 +31,13 @@ public class MainActivity extends AppCompatActivity {
 
     private int imgIcon[] = {
             R.drawable.ic_nolgang_icon,
-            R.drawable.ic_tap_map,
+            R.drawable.ic_timeline_icon,
             R.drawable.ic_tap_map,
             R.drawable.ic_mypage_icon
     };
     private int imgIcon_act[] = {
             R.drawable.ic_nolgang_icon_active,
-            R.drawable.ic_tap_map_active,
+            R.drawable.ic_timeline_icon_active,
             R.drawable.ic_tap_map_active,
             R.drawable.ic_mypage_icon_active
     };

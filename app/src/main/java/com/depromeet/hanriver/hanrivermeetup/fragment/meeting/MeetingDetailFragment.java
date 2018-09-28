@@ -4,15 +4,23 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.PaintDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -52,6 +60,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
@@ -69,19 +79,19 @@ public class MeetingDetailFragment extends DialogFragment {
     private CompositeDisposable mCompositeDisposable;
 
     MeetingDetailViewModel meetingDetailViewModel;
-    MeetingCommentViewModel meetingCommentViewModel;
     SwipeMenuListView rv;
     Button comment_btn, join_btn;
     EditText comment_text;
     ImageView profile_img;
     ImageButton back_btn, modify_btn;
     ScrollView scroll;
-    TextView room_title, profile_name, detail_info, detail_location, detail_content, joinbtn_border;
+    TextView room_title, profile_name, detail_info, detail_location, detail_content;
     int meeting_seq;
     String room_master_name;
     MeetingDetailFragment self;
-    RelativeLayout rl;
+    RelativeLayout rl,detail_top;
     MeetingDetail meetingDetail;
+    RelativeLayout emptyCommentview;
 
 
     @Override
@@ -99,7 +109,6 @@ public class MeetingDetailFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         meetingDetailViewModel = getViewModel();
-        meetingCommentViewModel = getCommentViewModel();
         self = this;
     }
 
@@ -113,9 +122,8 @@ public class MeetingDetailFragment extends DialogFragment {
 
 
     private void setupViews(View v) {
-
+        detail_top = v.findViewById(R.id.detail_top);
         modify_btn = v.findViewById(R.id.detail_room_modify_btn);
-        joinbtn_border = v.findViewById(R.id.border_join_Btn);
         scroll = v.findViewById(R.id.detail_scroll);
         scroll.setOverScrollMode(View.OVER_SCROLL_NEVER);
         back_btn = v.findViewById(R.id.detail_back_btn);
@@ -130,12 +138,15 @@ public class MeetingDetailFragment extends DialogFragment {
         join_btn = v.findViewById(R.id.detail_join_btn);
         comment_btn = v.findViewById(R.id.detail_comment_btn);
         comment_text = v.findViewById(R.id.detail_comment_edit);
+        emptyCommentview = v.findViewById(R.id.comment_null_rl);
+
+        gradationOnListTop(detail_top);
 
         join_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MeetingJoinFragment dialog = MeetingJoinFragment.newInstance(meeting_seq, room_master_name, self);
-                dialog.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light);
+                dialog.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AppTheme);
                 dialog.show(getFragmentManager(), "meeting_join");
             }
         });
@@ -152,8 +163,16 @@ public class MeetingDetailFragment extends DialogFragment {
                 mCompositeDisposable.add(CommunicationService.getInstance().addComment(comment)
                         .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(self::successAddComment));
-                comment_text.setText("");
+                        .doOnNext(res->{
+                            if(res.code() == HttpsURLConnection.HTTP_OK){
+                                successAddComment(res.body());
+                            }
+                            else{
+                                Toast.makeText(getContext(), "댓글 작성에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .subscribe());
+                comment_text.setText(null);
             }
         });
 
@@ -170,7 +189,7 @@ public class MeetingDetailFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 MeetingModifyRoom dialog = MeetingModifyRoom.newInstance(meetingDetail, self);
-                dialog.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light);
+                dialog.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AppTheme);
                 dialog.setTargetFragment(MeetingDetailFragment.this, 0);
                 dialog.show(getFragmentManager(), "modify_meeting");
             }
@@ -188,7 +207,7 @@ public class MeetingDetailFragment extends DialogFragment {
             }
         };
         rv.setMenuCreator(creator);
-
+        rv.setDividerHeight(0);
         rv.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -234,7 +253,14 @@ public class MeetingDetailFragment extends DialogFragment {
         mCompositeDisposable.add(HostService.getInstance().getMeetingDetail(meeting_seq)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::setMeetingDetail));
+                .doOnNext(res -> {
+                    if (res.code() == HttpsURLConnection.HTTP_OK) {
+                        setMeetingDetail(res.body());
+                    } else {
+                        Toast.makeText(getContext(), "모임 세부정보를 불러오지 못했습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .subscribe());
 
 //        mCompositeDisposable.add(meetingCommentViewModel.getComments(meeting_seq)
 //                .subscribeOn(Schedulers.computation())
@@ -243,13 +269,20 @@ public class MeetingDetailFragment extends DialogFragment {
         mCompositeDisposable.add(CommunicationService.getInstance().getComments(meeting_seq)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::setComments));
+                .doOnNext(res -> {
+                    if (res.code() == HttpsURLConnection.HTTP_OK) {
+                        setComments(res.body());
+                    } else {
+                        Toast.makeText(getActivity(),
+                                "댓글을 불러오지 못했습니다. 새로고침을 해주세요.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .subscribe());
 
         mCompositeDisposable.add(HostService.getInstance().getMeetingApplicants(meeting_seq)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::getApplicationSeq));
-
     }
 
 
@@ -263,8 +296,6 @@ public class MeetingDetailFragment extends DialogFragment {
                 join_btn.setBackgroundColor(Color.parseColor("#aaaaaa"));
                 join_btn.setEnabled(false);
                 join_btn.setText("이미 참여한 모임입니다");
-                join_btn.setTextColor(Color.parseColor("#ffffff"));
-                joinbtn_border.setBackgroundColor(Color.parseColor("#dcdcdc"));
 
             }
         }
@@ -292,7 +323,6 @@ public class MeetingDetailFragment extends DialogFragment {
 //            join_btn.setTextColor(Color.parseColor("#ffffff"));
 //            joinbtn_border.setBackgroundColor(Color.parseColor("#dcdcdc"));
             join_btn.setVisibility(View.GONE);
-            joinbtn_border.setVisibility(View.GONE);
             RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) join_btn.getLayoutParams();
             lp.setMargins(0, 0, 0, 0);
             join_btn.setLayoutParams(lp);
@@ -315,38 +345,36 @@ public class MeetingDetailFragment extends DialogFragment {
                         mCompositeDisposable.add(CommunicationService.getInstance().deleteComment(comments.get(position).getId())
                                 .subscribeOn(Schedulers.computation())
                                 .observeOn(AndroidSchedulers.mainThread())
-                                .subscribeWith(new DisposableObserver<Boolean>() {
-                                    @Override
-                                    public void onNext(Boolean bool) {
-                                        if (bool == false) {
+                                .doOnNext(res->{
+                                    if(res.code() == HttpsURLConnection.HTTP_OK){
+                                        if(res.body()==true) {
+                                            Toast.makeText(getContext(), "댓글 삭제 완료", Toast.LENGTH_SHORT).show();
+                                            bind();
+                                        }
+                                        else{
                                             Toast.makeText(getContext(), "삭제 권한이 없는 댓글입니다. ", Toast.LENGTH_SHORT).show();
                                         }
                                     }
-
-                                    @Override
-                                    public void onError(Throwable e) {
-                                        Toast.makeText(getContext(), "서버 에러", Toast.LENGTH_SHORT).show();
+                                    else {
+                                        Toast.makeText(getContext(), "삭제 실패", Toast.LENGTH_SHORT).show();
                                     }
-
-                                    @Override
-                                    public void onComplete() {
-                                        Toast.makeText(getContext(), "댓글 삭제 완료", Toast.LENGTH_SHORT).show();
-                                        bind();
-                                    }
-                                }));
+                                })
+                                .subscribe());
                         break;
                 }
-            }
-            else{
+            } else {
                 Toast.makeText(getContext(), "본인의 댓글만 삭제 가능합니다.", Toast.LENGTH_SHORT).show();
             }
             return false;
 
         });
 
-        if (comments.toString() == "[]")
-            rv.setMinimumHeight(358);
-        else {
+        if (comments.toString() == "[]") {
+            rv.setAdapter(new MeetingCommentAdapter(comments, getContext(), this));
+            setListViewHeightBasedOnChildren(rv);
+            rv.setEmptyView(emptyCommentview);
+
+        } else {
             rv.setAdapter(new MeetingCommentAdapter(comments, getContext(), this));
             setListViewHeightBasedOnChildren(rv);
         }
@@ -358,10 +386,6 @@ public class MeetingDetailFragment extends DialogFragment {
         return ((HanRiverMeetupApplication) getActivity().getApplicationContext()).getMeetingDetailViewModel();
     }
 
-    @NonNull
-    private MeetingCommentViewModel getCommentViewModel() {
-        return ((HanRiverMeetupApplication) getActivity().getApplicationContext()).getCommentViewModel();
-    }
 
     public String getCurrentTime() {
         long now = System.currentTimeMillis();
@@ -410,5 +434,29 @@ public class MeetingDetailFragment extends DialogFragment {
         listView.setLayoutParams(params);
 
         listView.requestLayout();
+    }
+
+    private void gradationOnListTop(View view){
+        ShapeDrawable.ShaderFactory sf = new ShapeDrawable.ShaderFactory() {
+            @Override
+            public Shader resize(int width, int height) {
+                LinearGradient lg = new LinearGradient(0, 0, 0, height,
+                        // 그라데이션 색상이 들어가는 배열.
+//                        new int[]{Color.parseColor("#1A75F0"),Color.parseColor("#1B70F3"),Color.parseColor("#1A7AEB"),Color.parseColor("#1985E1"),Color.parseColor("#178FDA"),Color.parseColor("#18B1DA")},
+                        new int[]{Color.parseColor("#2186f8"),Color.parseColor("#1e8bf4"),Color.parseColor("#1a92ef"),Color.parseColor("#169be8"),Color.parseColor("#11a3e1")},
+                        // 각 색상별 포지션 지정하는 배열. 최소값은 0이고 최대값을 1이다.
+                        new float[]{0,0.25f,0.5f,0.75f,1},
+//                        new float[]{0,1},
+                        // 뷰의 크기에 따라서 적용될 것이기 때문에 뭘 지정해도 큰 차이가 없다.
+                        Shader.TileMode.REPEAT);
+                return lg;
+            }
+        };
+        PaintDrawable pd = new PaintDrawable();
+        pd.setShape(new RectShape());
+        pd.setShaderFactory(sf);
+
+// PaintDrawable 객체를 뷰에 적용
+        view.setBackground(pd);
     }
 }

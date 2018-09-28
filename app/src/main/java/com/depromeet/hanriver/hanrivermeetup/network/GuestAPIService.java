@@ -14,7 +14,7 @@ import retrofit2.http.Path;
 
 public interface GuestAPIService {
     @POST("join/")
-    Observable<JoinRequest> joinMeeting(@Body JoinRequest joinRequest);
+    Observable<Response<JoinRequest>> joinMeeting(@Body JoinRequest joinRequest);
 
     @DELETE("request/{application_seq}")
     Call<ResponseBody> deleteJoinRequest(@Path("application_seq") int application_seq);

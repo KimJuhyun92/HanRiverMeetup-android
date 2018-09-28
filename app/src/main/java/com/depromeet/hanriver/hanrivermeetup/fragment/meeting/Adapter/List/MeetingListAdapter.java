@@ -2,12 +2,14 @@ package com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.List;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.media.FaceDetector;
 import android.os.HandlerThread;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,11 +38,13 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListViewHold
     List<MeetingDetail> list;
     Context context;
     Fragment fragment;
+//    private Typeface normalFont,boldFont;
 
     public MeetingListAdapter(List<MeetingDetail> list, Context context, Fragment frag) {
         this.list = list;
         this.context = context;
         fragment = frag;
+
     }
 
     @NonNull
@@ -64,7 +68,7 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListViewHold
         FacebookService.getInstance().getProfileById(room.getUser_id().toString());
         meetingListViewHolder.location.setText(room.getMeeting_location());
         String time = room.getMeeting_time();
-        time = time.substring(11, 16);
+        time = time.substring(5,7)+"."+time.substring(8,10)+"."+time.substring(11, 16);
         Log.d("@@@@@", "!@#!@#" + time);
         meetingListViewHolder.time.setText(time);
         meetingListViewHolder.numofmem.setText("" + room.getParticipants_cnt() + "명");
@@ -88,7 +92,8 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListViewHold
 //        fragmentTransaction.addToBackStack(null);
 //        fragmentTransaction.commit();
         MeetingDetailFragment dialog = MeetingDetailFragment.newInstance(list.get(position).getMeeting_seq());
-        dialog.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light);
+//        dialog.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light);
+        dialog.setStyle(DialogFragment.STYLE_NO_TITLE,R.style.AppTheme);
         dialog.setTargetFragment(fragment,0);
         dialog.show(fragment.getFragmentManager(), "meeting_detail");
 

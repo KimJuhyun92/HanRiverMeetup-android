@@ -55,11 +55,10 @@ public class MeetingListInnerFragment extends Fragment{
     }
 
     private void setupViews(View v) {
-//        gridview = v.findViewById(R.id.gridview);
+
         recyclerView = v.findViewById(R.id.list_room_rv);
         rvManager = new LinearLayoutManager(getContext());
 
-//        gridview.setAdapter(new GridAdapter(this.getActivity(),));
     }
 
     @Override
@@ -90,23 +89,10 @@ public class MeetingListInnerFragment extends Fragment{
 
     private void setRooms(@NonNull final List<MeetingDetail> Rooms) {
 
-//        gridview.setAdapter(new GridAdapter(getActivity(),activites));
         recyclerView.setLayoutManager(rvManager);
         recyclerView.setAdapter(new MeetingListAdapter(Rooms,getContext(),this));
 
     }
-
-
-
-
-//    private void setActivites(@NonNull final List<Activity> languages) {
-//        assert mLanguagesSpinner != null;
-//
-//        mLanguageSpinnerAdapter = new LanguageSpinnerAdapter(this,
-//                R.layout.language_item,
-//                languages);
-//        mLanguagesSpinner.setAdapter(mLanguageSpinnerAdapter);
-//    }
 
 
     @NonNull

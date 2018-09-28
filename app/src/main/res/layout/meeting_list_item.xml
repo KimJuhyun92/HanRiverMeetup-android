@@ -30,84 +30,90 @@
         />
 
     <ImageView
-        android:layout_width="10dp"
-        android:layout_height="12dp"
-        android:src="@drawable/ic_location"
-        android:layout_marginTop="48dp"
+        android:id="@+id/listitem_location"
+        android:layout_width="11dp"
+        android:layout_height="14dp"
+        android:src="@drawable/ic_meeting_list_location"
+        android:layout_marginTop="45dp"
         android:layout_marginLeft="108dp"/>
 
     <TextView
         android:id="@+id/list_item_location"
+        android:layout_toRightOf="@+id/listitem_location"
         android:layout_marginTop="46dp"
-        android:layout_marginLeft="122dp"
+        android:layout_marginLeft="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:includeFontPadding="false"
         android:textSize="12sp"
-        android:textColor="#2186f8"
+        android:textStyle="bold"
+        android:textColor="#666666"
         android:lineSpacingExtra="20sp"
         android:text="여의도 한강공원"
         />
 
-    <TextView
+    <ImageView
         android:id="@+id/listitem_time"
         android:layout_marginTop="65dp"
         android:layout_marginLeft="108dp"
-        android:textSize="12sp"
-        android:textColor="#949494"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="시간"/>
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:src="@drawable/ic_meeting_list_time"/>
+
     <TextView
         android:id="@+id/list_item_time"
         android:layout_toRightOf="@id/listitem_time"
         android:layout_marginTop="65dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="4dp"
         android:textSize="12sp"
+        android:textColor="#666666"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:text="11:00"/>
+        android:includeFontPadding="false"
+        android:text="09.18.11:00"/>
 
-    <TextView
+    <ImageView
         android:id="@+id/listitem_num"
         android:layout_toRightOf="@id/list_item_time"
         android:layout_marginTop="65dp"
-        android:layout_marginLeft="10dp"
-        android:textSize="12sp"
-        android:textColor="#949494"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="인원" />
+        android:layout_marginLeft="16dp"
+        android:src="@drawable/ic_meeting_list_people"
+        android:layout_width="13dp"
+        android:layout_height="13dp" />
     <TextView
         android:id="@+id/list_item_numofmem"
         android:layout_toRightOf="@+id/listitem_num"
         android:layout_marginTop="65dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="4dp"
         android:textSize="12sp"
+        android:textColor="#666666"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
+        android:includeFontPadding="false"
         android:text="5명"/>
 
-    <TextView
+    <ImageView
         android:id="@+id/listitem_fee"
         android:layout_toRightOf="@id/list_item_numofmem"
         android:layout_marginTop="65dp"
-        android:layout_marginLeft="10dp"
-        android:textSize="12sp"
-        android:textColor="#949494"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="회비" />
+        android:layout_marginLeft="16dp"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:src="@drawable/ic_meeting_list_money"/>
+
     <TextView
         android:id="@+id/list_item_fee"
         android:layout_toRightOf="@id/listitem_fee"
         android:layout_marginTop="65dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="4dp"
         android:textSize="12sp"
+        android:textColor="#666666"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
+        android:includeFontPadding="false"
         android:text="20000원"/>
     <View
         android:layout_alignParentBottom="true"

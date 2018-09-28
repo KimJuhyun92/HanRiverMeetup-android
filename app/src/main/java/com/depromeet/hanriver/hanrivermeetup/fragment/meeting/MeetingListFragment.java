@@ -1,13 +1,22 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.meeting;
 
+import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
 import android.graphics.Typeface;
+import android.graphics.drawable.PaintDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Display;
@@ -15,6 +24,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,11 +38,13 @@ import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Adapter.List.Meeti
 import com.depromeet.hanriver.hanrivermeetup.service.HostService;
 import com.github.clans.fab.FloatingActionButton;
 
+import java.lang.reflect.Type;
 import java.sql.Time;
 
 public class MeetingListFragment extends Fragment {
 
     private FloatingActionButton fab;
+    private FrameLayout listTop;
     private ViewPager viewpager;
     private TabLayout tabLayout;
     public static int current_position;
@@ -42,6 +54,8 @@ public class MeetingListFragment extends Fragment {
     MeetingListFragment frag;
     View tabs[];
     TextView tabname[];
+    Typeface normalFont,boldFont;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +70,10 @@ public class MeetingListFragment extends Fragment {
         image_num[3] = R.drawable.ic_camping_icon_white;
         image_num[4] = R.drawable.ic_photo_icon_white;
         image_num[5] = R.drawable.ic_etc_icon_white;
+
+        normalFont = ResourcesCompat.getFont(getContext(),R.font.nanumsquareregular);
+        boldFont = ResourcesCompat.getFont(getContext(),R.font.nanumsquarebold);
+
     }
 
     public static MeetingListFragment newInstance(int position) {
@@ -68,6 +86,7 @@ public class MeetingListFragment extends Fragment {
     }
 
     private void setupViews(View v) {
+        listTop = v.findViewById(R.id.list_top);
         back_btn = v.findViewById(R.id.meeting_list_back);
         back_btn.setOnClickListener(back_click);
         category_img = v.findViewById(R.id.list_category_img);
@@ -79,6 +98,10 @@ public class MeetingListFragment extends Fragment {
         viewpager.setOverScrollMode(View.OVER_SCROLL_NEVER);
         Log.d("TAG", "setupViews");
         tabLayout = v.findViewById(R.id.list_tablayout);
+
+        /////////////////////////////////////////////////////
+
+        gradationOnListTop(listTop);
 
         for (int i = 0; i < 6; i++) {
             tabs[i] = getLayoutInflater().inflate(R.layout.tab_meeting_list, null);
@@ -92,7 +115,7 @@ public class MeetingListFragment extends Fragment {
         tabname[4].setText("사진");
         tabname[5].setText("기타");
 
-        tabname[current_position].setTypeface(null,Typeface.BOLD);//선택되어 들어온 아이템을 볼드체로 변경.
+        tabname[current_position].setTypeface(boldFont);//선택되어 들어온 아이템을 볼드체로 변경.
 
         tabLayout.setOverScrollMode(View.OVER_SCROLL_NEVER);
         tabLayout.setTabRippleColor(null);
@@ -110,13 +133,13 @@ public class MeetingListFragment extends Fragment {
                 viewpager.setCurrentItem(tab.getPosition());
                 current_position = tab.getPosition();
                 category_img.setImageResource(image_num[current_position]);
-                tabname[tab.getPosition()].setTypeface(null,Typeface.BOLD);
+                tabname[tab.getPosition()].setTypeface(boldFont);
 
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                tabname[tab.getPosition()].setTypeface(null,Typeface.NORMAL);
+                tabname[tab.getPosition()].setTypeface(normalFont);
 
             }
 
@@ -126,6 +149,7 @@ public class MeetingListFragment extends Fragment {
         });
 
         viewpager.setCurrentItem(current_position);
+
 
     }
 
@@ -150,7 +174,7 @@ public class MeetingListFragment extends Fragment {
         public void onClick(View view) {
 
             MeetingCreateRoom dialog = MeetingCreateRoom.newInstance(current_position + 1, frag);
-            dialog.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light);
+            dialog.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AppTheme);
             dialog.show(getFragmentManager(), "tag");
 
         }
@@ -165,17 +189,41 @@ public class MeetingListFragment extends Fragment {
 
     private void initTablayoutWeight(TabLayout tablayout){
         LinearLayout linearLayout = (LinearLayout)tablayout.getChildAt(0);
-        for(int i = 0; i<6; i++){
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        int diff =  display.getWidth()-(int)(tabname[0].getTextSize()*14); //최대 가로 크기 - 6개 탭의 크기
+        diff = diff/12;
+        for(int i = 0; i<linearLayout.getChildCount(); i++){
             View vv = linearLayout.getChildAt(i);
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) vv.getLayoutParams();
             params.weight = 0;
             params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-            Display display = getActivity().getWindowManager().getDefaultDisplay();
-            int diff =  display.getWidth()-1008; //최대 가로 크기 - 6개 탭의 크기
-            diff = diff/12;
             params.leftMargin = diff;
             params.rightMargin = diff;
             vv.setLayoutParams(params);
         }
+    }
+
+    private void gradationOnListTop(View view){
+        ShapeDrawable.ShaderFactory sf = new ShapeDrawable.ShaderFactory() {
+            @Override
+            public Shader resize(int width, int height) {
+                LinearGradient lg = new LinearGradient(0, 0, 0, height,
+                        // 그라데이션 색상이 들어가는 배열.
+//                        new int[]{Color.parseColor("#1A75F0"),Color.parseColor("#1B70F3"),Color.parseColor("#1A7AEB"),Color.parseColor("#1985E1"),Color.parseColor("#178FDA"),Color.parseColor("#18B1DA")},
+                        new int[]{Color.parseColor("#2186f8"),Color.parseColor("#1e8bf4"),Color.parseColor("#1a92ef"),Color.parseColor("#169be8"),Color.parseColor("#11a3e1")},
+                        // 각 색상별 포지션 지정하는 배열. 최소값은 0이고 최대값을 1이다.
+                        new float[]{0,0.25f,0.5f,0.75f,1},
+//                        new float[]{0,1},
+                        // 뷰의 크기에 따라서 적용될 것이기 때문에 뭘 지정해도 큰 차이가 없다.
+                        Shader.TileMode.REPEAT);
+                return lg;
+            }
+        };
+        PaintDrawable pd = new PaintDrawable();
+        pd.setShape(new RectShape());
+        pd.setShaderFactory(sf);
+
+// PaintDrawable 객체를 뷰에 적용
+        view.setBackground(pd);
     }
 }
