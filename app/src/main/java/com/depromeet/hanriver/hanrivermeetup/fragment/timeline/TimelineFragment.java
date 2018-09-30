@@ -29,7 +29,6 @@ import org.reactivestreams.Publisher;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -207,7 +206,6 @@ public class TimelineFragment extends Fragment {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
 
             public void onPageSelected(int position) {
-                // Check if this is the page you want.
                 pageTextView.setText((position + 1) + "/" + events.body().size() + " +");
             }
         });

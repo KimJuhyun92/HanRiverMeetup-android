@@ -120,6 +120,5 @@
         android:src="@drawable/ic_bt_plus"
         android:layout_height="50dp"
         android:layout_width="50dp"
-        app:fab_showShadow="false"
-        />
+        app:fab_showShadow="false" />
 </RelativeLayout>

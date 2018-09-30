@@ -8,4 +8,7 @@ public class EventVO {
 
     @NonNull
     public String imageurl;
+
+    @NonNull
+    public String url;
 }
