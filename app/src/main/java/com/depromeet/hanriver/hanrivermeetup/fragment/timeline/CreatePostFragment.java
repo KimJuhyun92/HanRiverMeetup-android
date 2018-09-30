@@ -10,8 +10,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.amazonaws.mobile.client.AWSMobileClient;
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Utils.CreateRoomLocationFragment;
+import com.depromeet.hanriver.hanrivermeetup.network.AWSFileManager;
+
+import java.io.File;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,9 +45,12 @@ public class CreatePostFragment extends DialogFragment {
 
     @OnClick(R.id.create_post_btn)
     public void createPost() {
-        Log.d("@@@@@TEST String " ,""+imgPath);
+        File file = new File(imgPath);
+        String fileName = UUID.randomUUID().toString();
 
-//        this.dismiss();
+        AWSMobileClient.getInstance().initialize(getContext()).execute();
+        AWSFileManager.uploadImage(getContext(), fileName, file);
+        this.dismiss();
     }
 
     @OnClick(R.id.add_image_btn)

@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amazonaws.mobile.client.AWSMobileClient;
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
@@ -144,7 +145,4 @@ public class MainActivity extends AppCompatActivity {
     public static void tabVisible(int visible){
         tabLayout.setVisibility(visible);
     }
-
-
-
 }
