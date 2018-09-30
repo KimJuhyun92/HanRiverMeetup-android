@@ -15,4 +15,5 @@ public class CreatPosterFragment extends Fragment {
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_creat_poster, container, false);
     }
+    
 }
