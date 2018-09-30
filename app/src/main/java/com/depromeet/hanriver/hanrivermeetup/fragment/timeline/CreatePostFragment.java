@@ -21,6 +21,7 @@ import com.depromeet.hanriver.hanrivermeetup.network.AWSFileManager;
 import com.depromeet.hanriver.hanrivermeetup.service.TimelineService;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.UUID;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -28,6 +29,7 @@ import javax.net.ssl.HttpsURLConnection;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import id.zelory.compressor.Compressor;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -66,9 +68,19 @@ public class CreatePostFragment extends DialogFragment {
         File file = new File(imgPath);
         String fileName = UUID.randomUUID().toString();
 
-        AWSMobileClient.getInstance().initialize(getContext()).execute();
-        AWSFileManager.uploadImage(parentFragment, getContext(), fileName, file);
-        pushPost(fileName);
+        try {
+            File compressedImageFile = new Compressor(getContext())
+                    .setMaxWidth(640)
+                    .setMaxHeight(480)
+                    .compressToFile(file);
+
+            AWSMobileClient.getInstance().initialize(getContext()).execute();
+            AWSFileManager.uploadImage(parentFragment, getContext(), fileName, compressedImageFile);
+            pushPost(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         dismiss();
     }
 
