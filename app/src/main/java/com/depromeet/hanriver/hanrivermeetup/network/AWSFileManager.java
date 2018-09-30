@@ -1,7 +1,6 @@
 package com.depromeet.hanriver.hanrivermeetup.network;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.Toast;
 
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -11,12 +10,14 @@ import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.depromeet.hanriver.hanrivermeetup.BuildConfig;
+import com.depromeet.hanriver.hanrivermeetup.fragment.timeline.TimelineFragment;
 
 import java.io.File;
 
 public class AWSFileManager {
-    public static void uploadImage(Context context, String fileName, File file) {
-        BasicAWSCredentials credentials = new BasicAWSCredentials("AKIAJJQFHMOBYBRY7XYA", "T1XGe+zrJ23eoY+z8cP5OfMfcYc9WBE0gcD9mhiS");
+    public static void uploadImage(TimelineFragment parentFragment, Context context, String fileName, File file) {
+        BasicAWSCredentials credentials = new BasicAWSCredentials(BuildConfig.AwsAccessKey, BuildConfig.AwsSecretKey);
         AmazonS3Client s3Client = new AmazonS3Client(credentials);
 
         TransferUtility transferUtility =
@@ -34,6 +35,7 @@ public class AWSFileManager {
             @Override
             public void onStateChanged(int id, TransferState state) {
                 if (TransferState.COMPLETED == state) {
+                    parentFragment.onResume();
                     Toast.makeText(context,
                             "포스팅 완료", Toast.LENGTH_SHORT).show();
                 }

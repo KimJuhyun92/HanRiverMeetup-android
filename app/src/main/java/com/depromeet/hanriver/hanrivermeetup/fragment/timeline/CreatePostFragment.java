@@ -1,5 +1,6 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.timeline;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
@@ -9,24 +10,35 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.depromeet.hanriver.hanrivermeetup.R;
+import com.depromeet.hanriver.hanrivermeetup.common.PreferencesManager;
 import com.depromeet.hanriver.hanrivermeetup.fragment.meeting.Utils.CreateRoomLocationFragment;
+import com.depromeet.hanriver.hanrivermeetup.model.timeline.TimeLineVO;
 import com.depromeet.hanriver.hanrivermeetup.network.AWSFileManager;
+import com.depromeet.hanriver.hanrivermeetup.service.TimelineService;
 
 import java.io.File;
 import java.util.UUID;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class CreatePostFragment extends DialogFragment {
+    public String imgPath;
+    private static TimelineFragment parentFragment;
+    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+    private CreatePostFragment fragment;
 
     @BindView(R.id.createa_post_imageview) ImageView imgview;
-    public String imgPath;
-    private CreatePostFragment fragment;
     @BindView(R.id.create_post_location) TextView locationTextView;
     @BindView(R.id.create_post_content) TextView contentTextView;
     @BindView(R.id.add_image_btn) ImageButton imgbtn;
@@ -43,20 +55,51 @@ public class CreatePostFragment extends DialogFragment {
         dialog.show(getFragmentManager(), "tag");
     }
 
+    @OnClick(R.id.add_image_btn)
+    public void addImage(){
+        ImageSheetDialogFragment imageSheetDialogFragment = ImageSheetDialogFragment.newInstance(imgview,this);
+        imageSheetDialogFragment.show(getFragmentManager(),"ImageSheet");
+    }
+
     @OnClick(R.id.create_post_btn)
     public void createPost() {
         File file = new File(imgPath);
         String fileName = UUID.randomUUID().toString();
 
         AWSMobileClient.getInstance().initialize(getContext()).execute();
-        AWSFileManager.uploadImage(getContext(), fileName, file);
-        this.dismiss();
+        AWSFileManager.uploadImage(parentFragment, getContext(), fileName, file);
+        pushPost(fileName);
+        dismiss();
     }
 
-    @OnClick(R.id.add_image_btn)
-    public void addImage(){
-        ImageSheetDialogFragment imageSheetDialogFragment = ImageSheetDialogFragment.newInstance(imgview,this);
-        imageSheetDialogFragment.show(getFragmentManager(),"ImageSheet");
+    private void pushPost(String fileName) {
+        mCompositeDisposable.add(TimelineService.getInstance().createPost(createPostData(fileName))
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(res -> {
+                    if (res.code() == HttpsURLConnection.HTTP_OK) {
+                        this.dismiss();
+                    } else {
+                        Toast.makeText(getContext(), "포스팅 과정에서 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
+                        this.dismiss();
+                    }
+                })
+                .subscribe());
+    }
+
+    private TimeLineVO createPostData(String fileName) {
+        TimeLineVO post = new TimeLineVO();
+        post.content = contentTextView.getText().toString();
+        post.location = locationTextView.getText().toString();
+        post.user_id = PreferencesManager.getUserID();
+        post.nickname = PreferencesManager.getNickname();
+        post.imageurl = "https://s3.amazonaws.com/hanriver-userfiles-mobilehub-2110615695/posts/" + fileName;
+
+        return post;
+    }
+
+    private boolean isValidate() {
+        return true;
     }
 
     @Override
@@ -78,8 +121,10 @@ public class CreatePostFragment extends DialogFragment {
         return view;
     }
 
-    public static CreatePostFragment newInstance() {
+    public static CreatePostFragment newInstance(TimelineFragment parentFragment) {
         CreatePostFragment fragment = new CreatePostFragment();
+        fragment.parentFragment = parentFragment;
+
         return fragment;
     }
 }

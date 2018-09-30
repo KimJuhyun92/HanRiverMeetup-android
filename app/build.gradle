@@ -19,6 +19,8 @@ android {
         debug {
             buildConfigField "String", "APIServerBaseURL", keystoreProperties.getProperty("apiServerDevURL")
             buildConfigField "String", "TMapApiKey", keystoreProperties.getProperty("TMapApiKey")
+            buildConfigField "String", "AwsAccessKey", keystoreProperties.getProperty("AwsAccessKey")
+            buildConfigField "String", "AwsSecretKey", keystoreProperties.getProperty("AwsSecretKey")
         }
 
         release {
@@ -26,6 +28,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "APIServerBaseURL", keystoreProperties.getProperty("apiServerReleaseURL")
             buildConfigField "String", "TMapApiKey", keystoreProperties.getProperty("TMapApiKey")
+            buildConfigField "String", "AwsAccessKey", keystoreProperties.getProperty("AwsAccessKey")
+            buildConfigField "String", "AwsSecretKey", keystoreProperties.getProperty("AwsSecretKey")
         }
     }
     compileOptions {
