@@ -13,10 +13,12 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.content.FileProvider;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
 
@@ -25,15 +27,30 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static android.app.Activity.RESULT_OK;
+
 public class ImageSheetDialogFragment extends BottomSheetDialogFragment implements View.OnClickListener {
 
     private ImageButton albumBtn, photoBtn;
     private final int CAMERA_CODE = 1111;
     private final int GALLERY_CODE = 1112;
     private Uri photoUri;
+    ImageView imageView;
+    CreatePostFragment postFragment;
     private String currentPhotoPath;//실제 사진 파일 경로
     String mImageCaptureName;//이미지 이름
 
+
+    public static ImageSheetDialogFragment newInstance(ImageView imageView, CreatePostFragment postFragment) {
+
+        Bundle args = new Bundle();
+
+        ImageSheetDialogFragment fragment = new ImageSheetDialogFragment();
+        fragment.setArguments(args);
+        fragment.imageView= imageView;
+        fragment.postFragment = postFragment;
+        return fragment;
+    }
 
     @Nullable
     @Override
@@ -76,6 +93,7 @@ public class ImageSheetDialogFragment extends BottomSheetDialogFragment implemen
                 if (photoFile != null) {
                     photoUri = FileProvider.getUriForFile(getContext(),"com.depromeet.hanriver.hanrivermeetup", photoFile);
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                    Log.d("@@@@PHOTOURI",""+photoUri);
                     startActivityForResult(intent, CAMERA_CODE);
                 }
             }
@@ -116,7 +134,8 @@ public class ImageSheetDialogFragment extends BottomSheetDialogFragment implemen
         } else {
             exifDegree = 0;
         }
-//        ivImage.setImageBitmap(rotate(bitmap, exifDegree));//이미지 뷰에 비트맵 넣기
+        postFragment.imgPath = currentPhotoPath;
+        imageView.setImageBitmap(rotate(bitmap, exifDegree));//이미지 뷰에 비트맵 넣기
     }
 
     private void selectGallery() {
@@ -140,7 +159,8 @@ public class ImageSheetDialogFragment extends BottomSheetDialogFragment implemen
         int exifDegree = exifOrientationToDegrees(exifOrientation);
 
         Bitmap bitmap = BitmapFactory.decodeFile(imagePath);//경로를 통해 비트맵으로 전환
-//        ivImage.setImageBitmap(rotate(bitmap, exifDegree));//이미지 뷰에 비트맵 넣기
+        postFragment.imgPath = imagePath;
+        imageView.setImageBitmap(rotate(bitmap, exifDegree));//이미지 뷰에 비트맵 넣기
 
     }
 
@@ -177,6 +197,27 @@ public class ImageSheetDialogFragment extends BottomSheetDialogFragment implemen
         return cursor.getString(column_index);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("@@@@@RESULT IN1111","@@@@");
+        if (resultCode == RESULT_OK) {
 
+            switch (requestCode) {
+
+                case GALLERY_CODE:
+                    sendPicture(data.getData()); //갤러리에서 가져오기
+                    break;
+                case CAMERA_CODE:
+                    Log.d("@@@@@RESULT IN","@@@@");
+                    getPictureForPhoto(); //카메라에서 가져오기
+                    break;
+
+                default:
+                    break;
+            }
+            dismiss();
+        }
+    }
 }
 

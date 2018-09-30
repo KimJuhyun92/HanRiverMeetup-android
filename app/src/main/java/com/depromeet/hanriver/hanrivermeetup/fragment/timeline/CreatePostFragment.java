@@ -2,9 +2,12 @@ package com.depromeet.hanriver.hanrivermeetup.fragment.timeline;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
@@ -15,8 +18,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class CreatePostFragment extends DialogFragment {
+
+    @BindView(R.id.createa_post_imageview) ImageView imgview;
+    public String imgPath;
+    private CreatePostFragment fragment;
     @BindView(R.id.create_post_location) TextView locationTextView;
     @BindView(R.id.create_post_content) TextView contentTextView;
+    @BindView(R.id.add_image_btn) ImageButton imgbtn;
 
     @OnClick(R.id.create_post_back_btn)
     public void backFragment() {
@@ -32,7 +40,15 @@ public class CreatePostFragment extends DialogFragment {
 
     @OnClick(R.id.create_post_btn)
     public void createPost() {
-        this.dismiss();
+        Log.d("@@@@@TEST String " ,""+imgPath);
+
+//        this.dismiss();
+    }
+
+    @OnClick(R.id.add_image_btn)
+    public void addImage(){
+        ImageSheetDialogFragment imageSheetDialogFragment = ImageSheetDialogFragment.newInstance(imgview,this);
+        imageSheetDialogFragment.show(getFragmentManager(),"ImageSheet");
     }
 
     @Override
@@ -48,6 +64,7 @@ public class CreatePostFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        fragment = this;
         View view = inflater.inflate(R.layout.fragment_create_post, container, false);
         ButterKnife.bind(this, view);
         return view;

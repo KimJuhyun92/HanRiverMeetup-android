@@ -135,4 +135,5 @@ public class MeetingCategoryFragment extends Fragment {
     private MeetingCategoryViewModel getViewModel() {
         return ((HanRiverMeetupApplication)getActivity().getApplicationContext()).getMeetingCategoryViewModel();
     }
+
 }

@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 .setPermissionListener(permissionlistener)
                 .setRationaleMessage("모임 연결을 위해선 권한이 필요합니다.")
                 .setDeniedMessage("왜 거부하셨어요...\n하지만 [설정] > [권한] 에서 권한을 허용할 수 있어요!")
-                .setPermissions(Manifest.permission.CALL_PHONE,Manifest.permission.CAMERA)
+                .setPermissions(Manifest.permission.CALL_PHONE,Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE)
                 .check();
 
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
