@@ -49,7 +49,7 @@ public class LoginService {
         LoginInfo loginInfo = new LoginInfo();
         loginInfo.userID = id;
         loginInfo.accessToken = facebookAccessToken;
-        loginInfo.fcmToken = CustomFirebaseInstanceIDService.getToken();
+        loginInfo.fcmToken = PreferencesManager.getFcmToken();
 
         return loginInfo;
     }
@@ -84,5 +84,6 @@ public class LoginService {
         WeatherService.getInstance().setService(token,id);
         MapService.getInstance().setService(token,id);
         NotificationService.getInstance().setService(token,id);
+        EventService.getInstance().setService(token, id);
     }
 }

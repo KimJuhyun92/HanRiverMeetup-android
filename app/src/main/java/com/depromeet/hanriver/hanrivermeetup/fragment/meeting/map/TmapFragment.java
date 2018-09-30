@@ -22,6 +22,7 @@ import com.depromeet.hanriver.hanrivermeetup.BuildConfig;
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.model.map.MapMarker;
 import com.depromeet.hanriver.hanrivermeetup.service.MapService;
+import com.skt.Tmap.TMapGpsManager;
 import com.skt.Tmap.TMapMarkerItem;
 import com.skt.Tmap.TMapMarkerItem2;
 import com.skt.Tmap.TMapPoint;
@@ -39,17 +40,17 @@ public class TmapFragment extends Fragment {
 
     private RelativeLayout map;
     private TMapView mapView;
+    private TMapGpsManager gpsManager;
     private TabLayout tabLayout;
     private int current_position = 0;
     private View tabs[] = new View[3];
     private TextView tabname[] = new TextView[3];
     private CompositeDisposable mCompositeDisposable;
-    Bitmap bitmap ;
+    Bitmap bitmap;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Nullable
@@ -61,12 +62,13 @@ public class TmapFragment extends Fragment {
         setupViews(view);
 
         map = view.findViewById(R.id.mapView);
+        gpsManager = new TMapGpsManager(getActivity());
         mapView = new TMapView(getActivity());
         mapView.setSKTMapApiKey(BuildConfig.TMapApiKey);
         mapView.setCenterPoint(126.930632, 37.529930);
         mapView.setCompassMode(false);
         mapView.setIconVisibility(true);
-        mapView.setZoomLevel(12);
+        mapView.setZoomLevel(15);
         mapView.setMapType(TMapView.MAPTYPE_STANDARD);  //일반지도
         mapView.setLanguage(TMapView.LANGUAGE_KOREAN);
         mapView.setTrackingMode(false);
@@ -150,18 +152,18 @@ public class TmapFragment extends Fragment {
         mCompositeDisposable.clear();
     }
 
-    private void setMarker(@NonNull final List<MapMarker> markers){
+    private void setMarker(@NonNull final List<MapMarker> markers) {
         mapView.removeAllMarkerItem();
 //        bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.app_logo);
         TMapMarkerItem[] markerItem = new TMapMarkerItem[markers.size()];
         TMapPoint mapPoint;
-        for(int i=0;i<markers.size();i++){
+        for (int i = 0; i < markers.size(); i++) {
             markerItem[i] = new TMapMarkerItem();
-            mapPoint = new TMapPoint(Double.parseDouble(markers.get(i).getLat()),Double.parseDouble(markers.get(i).getLng()));
+            mapPoint = new TMapPoint(Double.parseDouble(markers.get(i).getLat()), Double.parseDouble(markers.get(i).getLng()));
             markerItem[i].setTMapPoint(mapPoint);
             markerItem[i].setVisible(TMapMarkerItem.VISIBLE);
             markerItem[i].setID(markers.get(i).getMap_seq());
-            mapView.addMarkerItem(markerItem[i].getID(),markerItem[i]);
+            mapView.addMarkerItem(markerItem[i].getID(), markerItem[i]);
 
         }
     }

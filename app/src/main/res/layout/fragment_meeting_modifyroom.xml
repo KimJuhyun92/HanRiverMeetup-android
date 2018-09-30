@@ -230,7 +230,7 @@
                 android:paddingTop="16dp"
                 android:paddingBottom="16dp"
                 android:background="@null"
-                android:hint="예상 금액을 입력해주세요."
+                android:hint="예상 금액을 입력해주세요. (0~999999)"
                 android:lineSpacingExtra="20sp"
                 android:textColor="@color/warm_grey"
                 android:textSize="14sp"

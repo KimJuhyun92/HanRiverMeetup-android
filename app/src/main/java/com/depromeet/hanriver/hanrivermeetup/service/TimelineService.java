@@ -2,6 +2,8 @@ package com.depromeet.hanriver.hanrivermeetup.service;
 
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.Comment;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.MatchingDetail;
+import com.depromeet.hanriver.hanrivermeetup.model.meeting.MeetingDetail;
+import com.depromeet.hanriver.hanrivermeetup.model.timeline.EventVO;
 import com.depromeet.hanriver.hanrivermeetup.model.timeline.TimeLineVO;
 import com.depromeet.hanriver.hanrivermeetup.network.APIUtiles;
 import com.depromeet.hanriver.hanrivermeetup.network.TimelineAPIService;
@@ -39,7 +41,6 @@ public class TimelineService {
         jsonBody.put("limit", limit);
 
         return mService.getPosts(jsonBody)
-                .subscribeOn(Schedulers.io())
-                .map(it -> it);
+                .subscribeOn(Schedulers.io());
     }
 }
