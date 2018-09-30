@@ -83,5 +83,6 @@ public class LoginService {
         TimelineService.getInstance().setService(token, id);
         WeatherService.getInstance().setService(token,id);
         MapService.getInstance().setService(token,id);
+        NotificationService.getInstance().setService(token,id);
     }
 }

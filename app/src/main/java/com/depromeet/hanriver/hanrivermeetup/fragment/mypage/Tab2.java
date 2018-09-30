@@ -140,7 +140,7 @@ public class Tab2 extends Fragment {
                     if(testVO.get(i).getMeetingDetail().getContactSeq() == 0) {
                         //대기중
                         MeetingDetailFragment dialog = MeetingDetailFragment.newInstance(testVO.get(i).getMeetingDetail().getMeetingSeq());
-                        dialog.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light);
+                        dialog.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AppTheme);
                         dialog.setTargetFragment(fragment,0);
                         dialog.show(fragment.getFragmentManager(), "meeting_detail");
 

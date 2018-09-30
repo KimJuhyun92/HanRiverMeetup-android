@@ -4,47 +4,36 @@ import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.Window;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
 
-import org.w3c.dom.Text;
-
-public class SelectionDialog extends Dialog{
+public class ContactDialog extends Dialog{
     private Context mContext;
     private TextView copyButton;
-    private TextView contactKakao;
-    private TextView contactCall;
+    private TextView contact_text;
 
-    public SelectionDialog(@NonNull Context context, @NonNull String contact) {
+    public ContactDialog(@NonNull Context context, @NonNull String contact) {
         super(context);
         requestWindowFeature(Window.FEATURE_NO_TITLE);   //다이얼로그의 타이틀바를 없애주는 옵션입니다.
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));  //다이얼로그의 배경을 투명으로 만듭니다.
-        setContentView(R.layout.selection_dialog);     //다이얼로그에서 사용할 레이아웃입니다.
+        setContentView(R.layout.contact_dialog);     //다이얼로그에서 사용할 레이아웃입니다.
 
         mContext = context;
         copyButton = findViewById(R.id.copy_button);
-        contactKakao = findViewById(R.id.contact_kakao);
-        contactCall = findViewById(R.id.contact_call);
+        contact_text = findViewById(R.id.contact);
 
         if(isNumeric(contact) == true){
-            contactCall.setText("연락처 : " + formCallNumber(contact));
-            contactKakao.setText("카카오톡 : x");
+            contact_text.setText("연락처 : " + formCallNumber(contact));
         }
         else{
-            contactCall.setText("연락처 : x");
-            contactKakao.setText("카카오톡 : " + contact);
+            contact_text.setText("카카오톡 : " + contact);
         }
 
         copyButton.setOnClickListener(new View.OnClickListener() {

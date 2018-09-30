@@ -16,6 +16,7 @@ public class APIUtiles {
     public static final String TIMELINE_API_URL = BASE_URL + "timeLine/";
     public static final String WEATHER_API_URL = BASE_URL + "weather/";
     public static final String MAP_API_URL = BASE_URL + "mapMarker/";
+    public static final String NOTIFICATION_API_URL = BASE_URL + "notificationLog/";
     public static final String FACEBOOK_API_URL = "https://graph.facebook.com/";
 
     public static LoginAPIService getLoginService(){
@@ -54,5 +55,10 @@ public class APIUtiles {
     public static MapAPISerivce getMapService(String accessToken, String id){
         return RetrofitClient.getClientWithToken(MAP_API_URL,accessToken,id).create(MapAPISerivce.class);
     }
+
+    public static NotificationAPIService getNotificationService(String accessToken, String id){
+        return RetrofitClient.getClientWithToken(NOTIFICATION_API_URL, accessToken, id).create(NotificationAPIService.class);
+    }
+
 
 }

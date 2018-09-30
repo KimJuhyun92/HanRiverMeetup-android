@@ -51,7 +51,6 @@ public class MatchingDialog extends Dialog {
                 applicantVO.getNickname(),
                 applicantVO.getUserId(),
                 applicantVO.getParticipantsCnt(),
-                applicantVO.getContact(),
                 String.valueOf(applicantVO.getDescription()));
 
         closeButton = (ImageButton) findViewById(R.id.close_button);
@@ -115,7 +114,6 @@ public class MatchingDialog extends Dialog {
                          String guestName,
                          String userID,
                          int attendantNumber,
-                         String contact,
                          String description) {
 
         ImageView imageView = findViewById(R.id.profile_img);
@@ -130,7 +128,6 @@ public class MatchingDialog extends Dialog {
                                 + " 님과 함께 하시겠습니까?"));
 
         ((TextView) findViewById(R.id.attendant_number)).setText(attendantNumber + "명");
-        ((TextView) findViewById(R.id.contact)).setText(contact);
         ((TextView) findViewById(R.id.reason)).setText(description);
     }
 

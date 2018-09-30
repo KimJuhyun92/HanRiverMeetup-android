@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
@@ -31,12 +32,14 @@ import com.depromeet.hanriver.hanrivermeetup.fragment.login.LoginFragment;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.Adapter.Tab3Adapter;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.ViewModel.Tab3ViewModel;
 import com.depromeet.hanriver.hanrivermeetup.helper.CircleTransform;
+import com.depromeet.hanriver.hanrivermeetup.model.mypage.AlarmDetail;
 import com.depromeet.hanriver.hanrivermeetup.model.mypage.Tab1VO;
 import com.depromeet.hanriver.hanrivermeetup.model.mypage.Tab2VO;
 import com.depromeet.hanriver.hanrivermeetup.model.mypage.Tab3VO;
 import com.depromeet.hanriver.hanrivermeetup.service.FacebookService;
 import com.depromeet.hanriver.hanrivermeetup.service.HostService;
 import com.depromeet.hanriver.hanrivermeetup.service.MyPageService;
+import com.depromeet.hanriver.hanrivermeetup.service.NotificationService;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
@@ -63,6 +66,7 @@ public class MyPageFragment extends Fragment{
     List<Tab1VO> tab1VOList = new ArrayList<Tab1VO>();
     List<Tab2VO> tab2VOList = new ArrayList<Tab2VO>();
     List<Tab3VO> tab3VOList = new ArrayList<Tab3VO>();
+    List<AlarmDetail> alarmDetails = new ArrayList<>();
 
     private ImageView profile_img;
     private TextView user_name;
@@ -77,6 +81,8 @@ public class MyPageFragment extends Fragment{
     private View tabView2;
     private View tabView3;
     private Dialog logoutDialog;
+    private Dialog alarmDialog;
+    private Typeface normalFont,boldFont;
 
 
     @Nullable
@@ -84,6 +90,9 @@ public class MyPageFragment extends Fragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = (View) inflater.inflate(R.layout.fragment_mypage, container, false);
+
+        normalFont = ResourcesCompat.getFont(getContext(),R.font.nanumsquareregular);
+        boldFont = ResourcesCompat.getFont(getContext(),R.font.nanumsquarebold);
 
         scrollView = (ScrollView)view.findViewById(R.id.mypage_scroll);
         scrollView.setOverScrollMode(View.OVER_SCROLL_NEVER);
@@ -95,6 +104,25 @@ public class MyPageFragment extends Fragment{
         // ImageButton
         alarmButton = view.findViewById(R.id.alarm_btn);
         logoutButton = view.findViewById(R.id.logout_btn);
+
+        alarmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCompositeDisposable = new CompositeDisposable();
+
+                mCompositeDisposable.add(NotificationService.getInstance()
+                        .getNotificationLog(PreferencesManager.getUserID())
+                        .subscribeOn(Schedulers.computation())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(this::setNotificationLog));
+            }
+
+            private void setNotificationLog(List<AlarmDetail> alarmDetails) {
+                alarmDialog = new AlarmDialog(view.getContext(), alarmDetails);
+                alarmDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                alarmDialog.show();
+            }
+        });
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,18 +180,18 @@ public class MyPageFragment extends Fragment{
                 viewPager.setCurrentItem(tab.getPosition());
                 bind();
                 if(tab.getPosition()==0){
-                    tab1_tab.setTypeface(null, Typeface.BOLD);
+                    tab1_tab.setTypeface(boldFont);
                     tab1_tab.setTextColor(Color.parseColor("#2186f8"));
                     tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#2186f8"));
                 }
                 else if(tab.getPosition()==1){
-                    tab2_tab.setTypeface(null, Typeface.BOLD);
+                    tab2_tab.setTypeface(boldFont);
                     tab2_tab.setTextColor(Color.parseColor("#00c0c9"));
                     tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#00c0c9"));
 
                 }
                 else if(tab.getPosition()==2){
-                    tab3_tab.setTypeface(null, Typeface.BOLD);
+                    tab3_tab.setTypeface(boldFont);
                     tab3_tab.setTextColor(Color.parseColor("#333333"));
                     tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#333333"));
 
@@ -172,16 +200,16 @@ public class MyPageFragment extends Fragment{
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 if(tab.getPosition()==0){
-                    tab1_tab.setTypeface(null, Typeface.NORMAL);
+                    tab1_tab.setTypeface(normalFont);
                     tab1_tab.setTextColor(Color.parseColor("#949494"));
                 }
                 else if(tab.getPosition()==1){
-                    tab2_tab.setTypeface(null, Typeface.NORMAL);
+                    tab2_tab.setTypeface(normalFont);
                     tab2_tab.setTextColor(Color.parseColor("#949494"));
 
                 }
                 else if(tab.getPosition()==2){
-                    tab3_tab.setTypeface(null, Typeface.NORMAL);
+                    tab3_tab.setTypeface(normalFont);
                     tab3_tab.setTextColor(Color.parseColor("#949494"));
 
                 }

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/my_news"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="33dp"
+            android:lineHeight="32sp"
+            android:lineSpacingExtra="10sp"
+            android:text="내 소식"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/alarm_close_btn"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="225dp"
+            android:layout_marginTop="34dp"
+            android:background="@color/white"
+            android:src="@drawable/ic_cancle_btn"
+            app:layout_constraintStart_toEndOf="@+id/my_news"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/today_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="83dp"
+            android:lineHeight="32sp"
+            android:lineSpacingExtra="18sp"
+            android:text="TODAY"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_news" />
+
+
+        <ImageView
+            android:id="@+id/today_border"
+            android:layout_width="350dp"
+            android:layout_height="1dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="92dp"
+            android:background="#dcdcdc"
+            app:layout_constraintStart_toEndOf="@id/today_text"
+            app:layout_constraintTop_toBottomOf="@id/my_news"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/today_recyclerview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="19dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/today_text">
+        </android.support.v7.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/last_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="23dp"
+            android:lineHeight="32sp"
+            android:lineSpacingExtra="18sp"
+            android:text="LAST"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/today_recyclerview"/>
+
+        <ImageView
+            android:id="@+id/last_border"
+            android:layout_width="350dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:background="#dcdcdc"
+            app:layout_constraintStart_toEndOf="@+id/last_text"
+            app:layout_constraintTop_toBottomOf="@+id/today_recyclerview" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/last_recyclerview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="19dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/last_text">
+        </android.support.v7.widget.RecyclerView>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>
