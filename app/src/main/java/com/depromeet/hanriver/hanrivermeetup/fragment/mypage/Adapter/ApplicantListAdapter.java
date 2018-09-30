@@ -1,32 +1,22 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.mypage.Adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.MatchingDialog;
-import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.SelectionDialog;
 import com.depromeet.hanriver.hanrivermeetup.helper.CircleTransform;
 import com.depromeet.hanriver.hanrivermeetup.model.mypage.ApplicantVO;
 import com.depromeet.hanriver.hanrivermeetup.service.FacebookService;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ApplicantListAdapter extends RecyclerView.Adapter<ApplicantListAdapter.ApplicantItemViewHolder>{

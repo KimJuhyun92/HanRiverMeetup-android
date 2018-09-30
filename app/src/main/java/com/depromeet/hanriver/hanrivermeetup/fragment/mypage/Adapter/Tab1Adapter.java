@@ -166,7 +166,7 @@ public class Tab1Adapter extends RecyclerView.Adapter<Tab1Adapter.ItemViewHolder
     @Override
     public void onListItemClick(int position) {
         MeetingDetailFragment dialog = MeetingDetailFragment.newInstance(mItems.get(position).getMeetingSeq());
-        dialog.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light);
+        dialog.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AppTheme);
         dialog.setTargetFragment(fragment,0);
         dialog.show(fragment.getFragmentManager(), "meeting_detail");
     }

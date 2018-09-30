@@ -2,30 +2,20 @@ package com.depromeet.hanriver.hanrivermeetup.fragment.mypage.Adapter;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.common.PreferencesManager;
-import com.depromeet.hanriver.hanrivermeetup.fragment.login.LoginFragment;
-import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.SelectionDialog;
-import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.Tab3;
-import com.depromeet.hanriver.hanrivermeetup.model.mypage.Tab1VO;
+import com.depromeet.hanriver.hanrivermeetup.fragment.mypage.ContactDialog;
 import com.depromeet.hanriver.hanrivermeetup.model.mypage.Tab3VO;
-import com.depromeet.hanriver.hanrivermeetup.model.mypage.TestVO;
 
 import java.util.List;
 
@@ -77,7 +67,7 @@ public class Tab3Adapter extends RecyclerView.Adapter<Tab3Adapter.ItemViewHolder
             holder.mInfoButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    dialog = new SelectionDialog(view.getContext(), mItems.get(position).getMeetingDetail().getContact());
+                    dialog = new ContactDialog(view.getContext(), mItems.get(position).getMeetingDetail().getContact());
                     dialog.show();
                 }
             });
@@ -90,7 +80,7 @@ public class Tab3Adapter extends RecyclerView.Adapter<Tab3Adapter.ItemViewHolder
             holder.mInfoButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    dialog = new SelectionDialog(view.getContext(), mItems.get(position).getMeetingDetail().getContact());
+                    dialog = new ContactDialog(view.getContext(), mItems.get(position).getMeetingDetail().getContact());
                     dialog.show();
                 }
             });
