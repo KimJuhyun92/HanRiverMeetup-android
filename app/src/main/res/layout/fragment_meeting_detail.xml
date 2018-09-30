@@ -80,30 +80,87 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="64dp"
+                android:layout_marginBottom="2dp"
                 android:gravity="center_horizontal"
                 android:lineSpacingExtra="-6sp"
                 android:text="김태성"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
+
+            <ImageView
+                android:id="@+id/detail_date_img"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_below="@id/detail_name"
+                android:src="@drawable/ic_meeting_list_time"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="45dp" />
             <TextView
-                android:id="@+id/detail_info"
+                android:id="@+id/detail_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/detail_name"
-                android:layout_centerHorizontal="true"
+                android:layout_toRightOf="@id/detail_date_img"
+                android:includeFontPadding="false"
                 android:layout_marginTop="11dp"
+                android:layout_marginLeft="5dp"
                 android:lineSpacingExtra="-4sp"
-                android:text="시간 11:00 / 인원 16명 / 회비 20,000원"
+                android:text="04.04.11:00"
                 android:textColor="#666666"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
+            <ImageView
+                android:id="@+id/detail_num_img"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_below="@id/detail_name"
+                android:src="@drawable/ic_meeting_list_people"
+                android:layout_toRightOf="@id/detail_date"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="15dp" />
+            <TextView
+                android:id="@+id/detail_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/detail_name"
+                android:layout_toRightOf="@id/detail_num_img"
+                android:layout_marginTop="11dp"
+                android:layout_marginLeft="5dp"
+                android:lineSpacingExtra="-4sp"
+                android:includeFontPadding="false"
+                android:text="5명"
+                android:textColor="#666666"
+                android:textSize="16sp"/>
+            <ImageView
+                android:id="@+id/detail_fee_img"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_below="@id/detail_name"
+                android:src="@drawable/ic_meeting_list_money"
+                android:layout_toRightOf="@id/detail_num"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="15dp" />
+            <TextView
+                android:id="@+id/detail_fee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/detail_name"
+                android:layout_toRightOf="@id/detail_fee_img"
+                android:layout_marginTop="11dp"
+                android:layout_marginLeft="5dp"
+                android:includeFontPadding="false"
+                android:lineSpacingExtra="-4sp"
+                android:text="50000원"
+                android:textColor="#666666"
+                android:textSize="16sp"/>
+
             
             <ImageView
                 android:layout_width="10dp"
                 android:layout_height="13dp"
                 android:src="@drawable/ic_location"
-                android:layout_below="@id/detail_info"
-                android:layout_marginTop="13dp"
+                android:layout_below="@id/detail_date_img"
+                android:layout_marginTop="15dp"
                 android:layout_toLeftOf="@id/detail_location"
                 android:layout_marginRight="5dp"/>
 
@@ -111,9 +168,9 @@
                 android:id="@+id/detail_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/detail_info"
+                android:layout_below="@id/detail_date_img"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="14dp"
                 android:lineSpacingExtra="25sp"
                 android:text="여의도  한강공원"
                 android:textColor="@color/clear_blue"

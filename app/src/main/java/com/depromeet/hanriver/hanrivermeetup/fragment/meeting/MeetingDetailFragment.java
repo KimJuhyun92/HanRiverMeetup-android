@@ -85,7 +85,7 @@ public class MeetingDetailFragment extends DialogFragment {
     ImageView profile_img;
     ImageButton back_btn, modify_btn;
     ScrollView scroll;
-    TextView room_title, profile_name, detail_info, detail_location, detail_content;
+    TextView room_title, profile_name, detail_location, detail_content, detail_date, detail_fee, detail_num;
     int meeting_seq;
     String room_master_name;
     MeetingDetailFragment self;
@@ -132,7 +132,9 @@ public class MeetingDetailFragment extends DialogFragment {
         profile_img = v.findViewById(R.id.detail_profile_img);
         room_title = v.findViewById(R.id.detail_room_title);
         profile_name = v.findViewById(R.id.detail_name);
-        detail_info = v.findViewById(R.id.detail_info);
+        detail_date = v.findViewById(R.id.detail_date);
+        detail_fee = v.findViewById(R.id.detail_fee);
+        detail_num = v.findViewById(R.id.detail_num);
         detail_location = v.findViewById(R.id.detail_location);
         detail_content = v.findViewById(R.id.detail_content);
         join_btn = v.findViewById(R.id.detail_join_btn);
@@ -308,32 +310,22 @@ public class MeetingDetailFragment extends DialogFragment {
         room_title.setText("" + meetingDetail.getTitle());
         profile_name.setText("" + meetingDetail.getNickname());
         String time = meetingDetail.getMeeting_time();
-        time = time.substring(11, 16);
-        detail_info.setText(Html.fromHtml("시간 " + "<b>" + time + "</b>" + " / 인원 " + "<b>" + String.valueOf(meetingDetail.getParticipants_cnt())
-                + "명</b> / 회비 " + "<b>" + String.valueOf(meetingDetail.getExpected_cost()) + "</b>" + "원"));
+        time = time.substring(5,7)+"."+time.substring(8,10)+"."+time.substring(11, 16);
+        detail_date.setText(time);
+        detail_num.setText(String.valueOf(meetingDetail.getParticipants_cnt())+"명");
+        detail_fee.setText(String.valueOf(meetingDetail.getExpected_cost())+"원");
         detail_location.setText(meetingDetail.getMeeting_location() + "");
         detail_content.setText(meetingDetail.getDescription() + "");
         Picasso.get().load(FacebookService.getInstance().getProfileURL(meetingDetail.getUser_id()))
                 .transform(CircleTransform.getInstance()).into(profile_img);
 
         if (meetingDetail.getUser_id().equals(PreferencesManager.getUserID())) {
-//            join_btn.setBackgroundColor(Color.parseColor("#aaaaaa"));
-//            join_btn.setEnabled(false);
-//            join_btn.setText("내가 만든 방입니다");
-//            join_btn.setTextColor(Color.parseColor("#ffffff"));
-//            joinbtn_border.setBackgroundColor(Color.parseColor("#dcdcdc"));
             join_btn.setVisibility(View.GONE);
             RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) join_btn.getLayoutParams();
             lp.setMargins(0, 0, 0, 0);
             join_btn.setLayoutParams(lp);
             modify_btn.setVisibility(View.VISIBLE);
         }
-        // TestFrag frag = new TestFrag();
-//        FragmentManager fragmentManager = getFragmentManager();
-
-
-//        mActivitesView.setText("한강에서\n" +
-//                "원하는 모임을 선택하세요");
     }
 
     private void setComments(@NonNull final List<Comment> comments) {
@@ -443,9 +435,9 @@ public class MeetingDetailFragment extends DialogFragment {
                 LinearGradient lg = new LinearGradient(0, 0, 0, height,
                         // 그라데이션 색상이 들어가는 배열.
 //                        new int[]{Color.parseColor("#1A75F0"),Color.parseColor("#1B70F3"),Color.parseColor("#1A7AEB"),Color.parseColor("#1985E1"),Color.parseColor("#178FDA"),Color.parseColor("#18B1DA")},
-                        new int[]{Color.parseColor("#2186f8"),Color.parseColor("#1e8bf4"),Color.parseColor("#1a92ef"),Color.parseColor("#169be8"),Color.parseColor("#11a3e1")},
+                        new int[]{Color.parseColor("#2186f8"),Color.parseColor("#1e8bf4"),Color.parseColor("#1a92ef"),Color.parseColor("#169be8"),Color.parseColor("#11a3e1"),Color.parseColor("#00c0c9")},
                         // 각 색상별 포지션 지정하는 배열. 최소값은 0이고 최대값을 1이다.
-                        new float[]{0,0.25f,0.5f,0.75f,1},
+                        new float[]{0,0.2f,0.4f,0.6f,0.8f,1},
 //                        new float[]{0,1},
                         // 뷰의 크기에 따라서 적용될 것이기 때문에 뭘 지정해도 큰 차이가 없다.
                         Shader.TileMode.REPEAT);

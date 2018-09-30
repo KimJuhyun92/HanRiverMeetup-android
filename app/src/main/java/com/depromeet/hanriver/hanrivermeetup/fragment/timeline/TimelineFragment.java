@@ -71,7 +71,7 @@ public class TimelineFragment extends Fragment {
 
     private final String[] skyState = {"","맑음","구름조금","구름많음","흐림"};
     private final int[] skyState_img = {0,R.drawable.ic_weather_sunny,R.drawable.ic_weather_alittlecloudy,R.drawable.ic_weather_muchcloudy,R.drawable.ic_weather_fog};
-    private final int[] rainState_img = {0,R.drawable.ic_weather_rain,R.drawable.ic_weather_rain_snow,R.drawable.ic_weather_snow};
+    private final int[] rainState_img = {0,R.drawable.ic_weather_rain,R.drawable.ic_weather_snowrain,R.drawable.ic_weather_snow};
 
     public TimelineFragment() {
     }
