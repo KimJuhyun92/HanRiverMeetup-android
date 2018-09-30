@@ -169,8 +169,6 @@ public class MeetingCreateRoom extends DialogFragment {
         Picasso.get().load(FacebookService.getInstance().getProfileURL(PreferencesManager.getUserID()))
                 .transform(CircleTransform.getInstance()).fit().centerCrop().into(profileimg);
 
-//        Calendar calendar= Calendar.getInstance();
-//        date.setText(""+calendar.get(calendar.YEAR)+"-"+String.valueOf(calendar.get(calendar.MONTH)+1)+"-"+calendar.get(calendar.DAY_OF_MONTH));
         date.setText(getCurrentDate());
         date.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -319,7 +317,7 @@ public class MeetingCreateRoom extends DialogFragment {
                     }
                 }
                 else if (num.getText().hashCode() == charSequence.hashCode()) {
-                    if (isInt(num.getText().toString())) {
+                    if (isInt(num.getText().toString())&&num.getText().toString().length()<=2) {
                         isValidate_num=true;isValidateTotal();
                         validateColor(line_num);
                     } else {
@@ -328,7 +326,7 @@ public class MeetingCreateRoom extends DialogFragment {
                     }
                 }
                 else if(fee.getText().hashCode()==charSequence.hashCode()){
-                    if(isInt(fee.getText().toString())){
+                    if(isInt(fee.getText().toString())&&fee.getText().toString().length()<=6){
                         isValidate_fee=true;isValidateTotal();
                         validateColor(line_fee);
                     }
