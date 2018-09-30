@@ -14,8 +14,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
 
 public class TimelineService {
     private static final TimelineService ourInstance = new TimelineService();
@@ -42,5 +45,14 @@ public class TimelineService {
 
         return mService.getPosts(jsonBody)
                 .subscribeOn(Schedulers.io());
+    }
+
+    public Observable<Response<TimeLineVO>> createPost(TimeLineVO post) {
+        return mService.createPost(post).subscribeOn(Schedulers.io())
+                .doOnNext( res -> {
+                    if(res.code() == HttpsURLConnection.HTTP_OK){
+                        res.body();
+                    }
+                });
     }
 }

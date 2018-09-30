@@ -47,6 +47,7 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
 public class TimelineFragment extends Fragment {
+    TimelineFragment fragment;
     @BindView(R.id.add_post_fab) FloatingActionButton title;
     @BindView(R.id.timeline_scrollview) NestedScrollView mNestedScrollView;
     @BindView(R.id.recyclerview) RecyclerView mRecyclerView;
@@ -60,7 +61,7 @@ public class TimelineFragment extends Fragment {
 
     @OnClick(R.id.add_post_fab)
     public void createPost() {
-        CreatePostFragment dialog = CreatePostFragment.newInstance();
+        CreatePostFragment dialog = CreatePostFragment.newInstance(fragment);
         dialog.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AppTheme);
         dialog.setTargetFragment(this, 0);
         dialog.show(getFragmentManager(), "modify_meeting");
@@ -82,6 +83,7 @@ public class TimelineFragment extends Fragment {
     private final int[] rainState_img = {0,R.drawable.ic_weather_rain,R.drawable.ic_weather_snowrain,R.drawable.ic_weather_snow};
 
     public TimelineFragment() {
+        this.fragment = this;
     }
 
     @Override

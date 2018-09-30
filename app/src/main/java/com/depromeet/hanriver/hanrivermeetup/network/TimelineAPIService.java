@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -22,4 +23,7 @@ public interface TimelineAPIService {
 
     @GET("posts")
     Observable<List<TimeLineVO>> getPosts();
+
+    @POST("post")
+    Observable<Response<TimeLineVO>> createPost(@Body TimeLineVO post);
 }

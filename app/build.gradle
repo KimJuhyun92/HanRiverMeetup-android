@@ -19,6 +19,8 @@ android {
         debug {
             buildConfigField "String", "APIServerBaseURL", keystoreProperties.getProperty("apiServerDevURL")
             buildConfigField "String", "TMapApiKey", keystoreProperties.getProperty("TMapApiKey")
+            buildConfigField "String", "AwsAccessKey", keystoreProperties.getProperty("AwsAccessKey")
+            buildConfigField "String", "AwsSecretKey", keystoreProperties.getProperty("AwsSecretKey")
         }
 
         release {
@@ -26,6 +28,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "APIServerBaseURL", keystoreProperties.getProperty("apiServerReleaseURL")
             buildConfigField "String", "TMapApiKey", keystoreProperties.getProperty("TMapApiKey")
+            buildConfigField "String", "AwsAccessKey", keystoreProperties.getProperty("AwsAccessKey")
+            buildConfigField "String", "AwsSecretKey", keystoreProperties.getProperty("AwsSecretKey")
         }
     }
     compileOptions {
@@ -80,6 +84,13 @@ dependencies {
     // Butter knife
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    // AWS
+    implementation ('com.amazonaws:aws-android-sdk-mobile-client:2.6.15@aar') { transitive = true }
+    implementation 'com.amazonaws:aws-android-sdk-s3:2.6.+'
+    implementation 'com.amazonaws:aws-android-sdk-cognito:2.6.+'
+
+    implementation 'id.zelory:compressor:2.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
