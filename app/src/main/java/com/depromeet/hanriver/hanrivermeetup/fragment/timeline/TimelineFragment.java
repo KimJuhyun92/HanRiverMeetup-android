@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +17,9 @@ import android.widget.TextView;
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.fragment.timeline.Adapter.TimeLineAdapter;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.Weather;
+import com.depromeet.hanriver.hanrivermeetup.model.timeline.EventVO;
 import com.depromeet.hanriver.hanrivermeetup.model.timeline.TimeLineVO;
+import com.depromeet.hanriver.hanrivermeetup.service.EventService;
 import com.depromeet.hanriver.hanrivermeetup.service.TimelineService;
 import com.depromeet.hanriver.hanrivermeetup.service.WeatherService;
 import com.github.clans.fab.FloatingActionButton;
@@ -26,6 +29,7 @@ import org.reactivestreams.Publisher;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -41,6 +45,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
 import io.reactivex.processors.PublishProcessor;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
 
 public class TimelineFragment extends Fragment {
     @BindView(R.id.add_post_fab) FloatingActionButton title;
@@ -49,6 +54,10 @@ public class TimelineFragment extends Fragment {
     @BindView(R.id.timeline_weather_img) ImageView weather_img;
     @BindView(R.id.timeline_temperature_text) TextView weather_temp;
     @BindView(R.id.timeline_weather_status_text) TextView weather_temp_sub;
+    @BindView(R.id.event_pager) ViewPager mEventViewPager;
+    @BindView(R.id.page_text) TextView pageTextView;
+
+    private EventBannerAdapter eventBannerAdapter;
 
     @OnClick(R.id.add_post_fab)
     public void createPost() {
@@ -124,7 +133,7 @@ public class TimelineFragment extends Fragment {
 
     private Flowable<List<TimeLineVO>> dataFromNetwork(final int page) {
         return Flowable.just(true)
-                .delay(2, TimeUnit.SECONDS)
+                .delay(1, TimeUnit.SECONDS)
                 .map(value -> {
                     DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
                     Date date = new Date();
@@ -167,6 +176,11 @@ public class TimelineFragment extends Fragment {
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::setWeather));
+
+        mCompositeDisposable.add(EventService.getInstance().getEvents()
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::setEvents));
     }
 
     private void unBind() {
@@ -182,5 +196,22 @@ public class TimelineFragment extends Fragment {
         else{
             weather_img.setImageResource(skyState_img[Integer.parseInt(weather.getSky())]);
         }
+    }
+
+    private void setEvents(@NonNull final Response<List<EventVO>> events){
+        eventBannerAdapter = new EventBannerAdapter(this.getActivity(), events.body());
+
+        mEventViewPager.setAdapter(eventBannerAdapter);
+        mEventViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            public void onPageScrollStateChanged(int state) {}
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+            public void onPageSelected(int position) {
+                // Check if this is the page you want.
+                pageTextView.setText((position + 1) + "/" + events.body().size() + " +");
+            }
+        });
+
+        pageTextView.setText(1 + "/" + events.body().size() + " +");
     }
 }
