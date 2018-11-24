@@ -1,14 +1,11 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.meeting.map;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,10 +18,10 @@ import android.widget.Toast;
 import com.depromeet.hanriver.hanrivermeetup.BuildConfig;
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.model.map.MapMarker;
+import com.depromeet.hanriver.hanrivermeetup.service.EventService;
 import com.depromeet.hanriver.hanrivermeetup.service.MapService;
 import com.skt.Tmap.TMapGpsManager;
 import com.skt.Tmap.TMapMarkerItem;
-import com.skt.Tmap.TMapMarkerItem2;
 import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapView;
 
@@ -46,7 +43,6 @@ public class TmapFragment extends Fragment {
     private View tabs[] = new View[3];
     private TextView tabname[] = new TextView[3];
     private CompositeDisposable mCompositeDisposable;
-    Bitmap bitmap;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,7 +84,7 @@ public class TmapFragment extends Fragment {
             tabname[i].setTextColor(getResources().getColor(R.color.greyish));
             tabLayout.addTab(tabLayout.newTab().setCustomView(tabs[i]));
         }
-        tabname[0].setText("휴지통");
+        tabname[0].setText("행사정보");
         tabname[1].setText("편의점");
         tabname[2].setText("화장실");
         tabname[0].setTextColor(getResources().getColor(R.color.clear_blue));
@@ -134,18 +130,32 @@ public class TmapFragment extends Fragment {
 
     private void bind() {
         mCompositeDisposable = new CompositeDisposable();
+        if(current_position == 0) {
+            mCompositeDisposable.add(EventService.getInstance().getRecentlyTourEvents()
+                    .subscribeOn(Schedulers.computation())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnNext(res -> {
+                        if (res.code() == HttpsURLConnection.HTTP_OK) {
 
-        mCompositeDisposable.add(MapService.getInstance().getMarkerList(current_position + 1)
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(res -> {
-                    if (res.code() == HttpsURLConnection.HTTP_OK) {
-                        setMarker(res.body());
-                    } else {
-                        Toast.makeText(getContext(), "마커 정보 로딩 오류", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .subscribe());
+                        } else {
+                            Toast.makeText(getContext(), "이벤트 정보 로딩 오류", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .subscribe());
+        }
+        else {
+            mCompositeDisposable.add(MapService.getInstance().getMarkerList(current_position + 1)
+                    .subscribeOn(Schedulers.computation())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnNext(res -> {
+                        if (res.code() == HttpsURLConnection.HTTP_OK) {
+                            setMarker(res.body());
+                        } else {
+                            Toast.makeText(getContext(), "마커 정보 로딩 오류", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .subscribe());
+        }
     }
 
     private void unBind() {

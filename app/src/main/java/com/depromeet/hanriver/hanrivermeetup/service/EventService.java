@@ -1,5 +1,6 @@
 package com.depromeet.hanriver.hanrivermeetup.service;
 
+import com.depromeet.hanriver.hanrivermeetup.model.map.TourEventInfo;
 import com.depromeet.hanriver.hanrivermeetup.model.timeline.EventVO;
 import com.depromeet.hanriver.hanrivermeetup.network.APIUtiles;
 import com.depromeet.hanriver.hanrivermeetup.network.EventAPIService;
@@ -31,6 +32,15 @@ public class EventService {
 
     public Observable<Response<List<EventVO>>> getEvents(){
         return mService.getEvents().subscribeOn(Schedulers.io())
+                .doOnNext( res -> {
+                    if(res.code() == HttpsURLConnection.HTTP_OK){
+                        res.body();
+                    }
+                });
+    }
+
+    public Observable<Response<List<TourEventInfo>>> getRecentlyTourEvents(){
+        return mService.getTourEvents().subscribeOn(Schedulers.io())
                 .doOnNext( res -> {
                     if(res.code() == HttpsURLConnection.HTTP_OK){
                         res.body();
