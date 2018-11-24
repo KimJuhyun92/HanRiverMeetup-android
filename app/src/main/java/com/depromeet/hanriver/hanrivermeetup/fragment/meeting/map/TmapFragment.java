@@ -1,6 +1,9 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.meeting.map;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,9 +25,12 @@ import com.depromeet.hanriver.hanrivermeetup.service.EventService;
 import com.depromeet.hanriver.hanrivermeetup.service.MapService;
 import com.skt.Tmap.TMapGpsManager;
 import com.skt.Tmap.TMapMarkerItem;
+import com.skt.Tmap.TMapMarkerItem2;
+import com.skt.Tmap.TMapPOIItem;
 import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -167,13 +173,64 @@ public class TmapFragment extends Fragment {
 //        bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.app_logo);
         TMapMarkerItem[] markerItem = new TMapMarkerItem[markers.size()];
         TMapPoint mapPoint;
+
+        Log.d("@@@@@@size",""+markers.size());
+
         for (int i = 0; i < markers.size(); i++) {
             markerItem[i] = new TMapMarkerItem();
             mapPoint = new TMapPoint(Double.parseDouble(markers.get(i).getLat()), Double.parseDouble(markers.get(i).getLng()));
             markerItem[i].setTMapPoint(mapPoint);
             markerItem[i].setVisible(TMapMarkerItem.VISIBLE);
-            markerItem[i].setID(markers.get(i).getMap_seq());
+            // markerItem[i].setID(markers.get(i).getMap_seq());
+            markerItem[i].setID(String.valueOf(i));
+//            mapView.addMarkerItem(markerItem[i].getID(), markerItem[i]);
+
+
+            ///////////////////Marker Click logic///////////////////////
+
+            bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.mipmap.ic_launcher);
+
+            // 풍선뷰 안의 항목에 글을 지정합니다.
+            markerItem[i].setCalloutTitle(markers.get(i).getLat());
+            //   item1.setCalloutSubTitle("");
+            markerItem[i].setCanShowCallout(true);
+            markerItem[i].setAutoCalloutVisible(true);
+
+
+            markerItem[i].setCalloutRightButtonImage(bitmap);
+
             mapView.addMarkerItem(markerItem[i].getID(), markerItem[i]);
+
+
+//            mapView.setOnMarkerClickEvent(new TMapView.OnCalloutMarker2ClickCallback() {
+//                @Override
+//                public void onCalloutMarker2ClickEvent(String s, TMapMarkerItem2 tMapMarkerItem2) {
+//                    Toast.makeText(getContext(), "test", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+
+//            mapView.setOnClickListenerCallBack(new TMapView.OnClickListenerCallback() {
+//                @Override
+//                public boolean onPressUpEvent(ArrayList markerlist, ArrayList poilist, TMapPoint point, PointF pointf) {
+//                    return false;
+//                }
+//
+//                @Override
+//                public boolean onPressEvent(ArrayList markerlist, ArrayList poilist, TMapPoint point, PointF pointf) {
+////                    Toast.makeText(getContext(), "test", Toast.LENGTH_SHORT).show();
+//                    return false;
+//                }
+//            });
+//
+            mapView.setOnCalloutRightButtonClickListener(new TMapView.OnCalloutRightButtonClickCallback() {
+                @Override
+                public void onCalloutRightButton(TMapMarkerItem tMapMarkerItem) {
+
+                    int a = Integer.valueOf(tMapMarkerItem.getID());
+
+                    Toast.makeText(getContext(), markers.get(a).getLat(), Toast.LENGTH_SHORT).show();
+                }
+            });
 
         }
     }
@@ -193,4 +250,5 @@ public class TmapFragment extends Fragment {
             vv.setLayoutParams(params);
         }
     }
+
 }
