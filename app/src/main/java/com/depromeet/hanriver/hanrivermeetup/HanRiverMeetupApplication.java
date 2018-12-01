@@ -81,6 +81,9 @@ public class HanRiverMeetupApplication extends Application {
     @NonNull
     private final IMeetingListInnerDataModel mEtcDataModel;
 
+//    private static GoogleAnalytics sAnalytics;
+//    private static Tracker sTracker;
+
 
     public static HanRiverMeetupApplication getInstance(){
         return hanRiverMeetupApplication;
@@ -90,6 +93,7 @@ public class HanRiverMeetupApplication extends Application {
     public void onCreate() {
         super.onCreate();
         hanRiverMeetupApplication = this;
+//        sAnalytics = GoogleAnalytics.getInstance(this);
         setPreferences();
     }
 
@@ -178,7 +182,6 @@ public class HanRiverMeetupApplication extends Application {
     public IMeetingListInnerDataModel getEtcDataModel() {
         return mEtcDataModel;
     }
-
 
 //    @NonNull
 //    public ICreateRoomDataModel getCreateRoomDataModel(){
@@ -288,9 +291,16 @@ public class HanRiverMeetupApplication extends Application {
                     }
                 }, 1500);
             }
-
         }
     }
+
+//    synchronized public Tracker getDefaultTracker() {
+//        if (sTracker == null) {
+//            sTracker = sAnalytics.newTracker(R.xml.global_tracker);
+//        }
+//
+//        return sTracker;
+//    }
 
 
 }

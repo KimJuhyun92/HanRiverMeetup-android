@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.fragment.timeline.Adapter.TimeLineAdapter;
@@ -34,6 +35,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -53,7 +56,7 @@ public class TimelineFragment extends Fragment {
     @BindView(R.id.recyclerview) RecyclerView mRecyclerView;
     @BindView(R.id.timeline_weather_img) ImageView weather_img;
     @BindView(R.id.timeline_temperature_text) TextView weather_temp;
-    @BindView(R.id.timeline_weather_status_text) TextView weather_temp_sub;
+//    @BindView(R.id.timeline_weather_status_text) TextView weather_temp_sub;
     @BindView(R.id.event_pager) ViewPager mEventViewPager;
     @BindView(R.id.page_text) TextView pageTextView;
 
@@ -176,7 +179,14 @@ public class TimelineFragment extends Fragment {
         mCompositeDisposable.add(WeatherService.getInstance().getWeather()
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::setWeather));
+                .doOnNext(res->{
+                    if (res.code() == HttpsURLConnection.HTTP_OK) {
+                        setWeather(res.body());
+                    } else {
+                        Toast.makeText(getContext(), "날씨정보 호출 과정에서 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .subscribe());
 
         mCompositeDisposable.add(EventService.getInstance().getEvents()
                 .subscribeOn(Schedulers.computation())
@@ -190,7 +200,7 @@ public class TimelineFragment extends Fragment {
 
     private void setWeather(@NonNull final Weather weather){
         weather_temp.setText(weather.getT1h().toString());
-        weather_temp_sub.setText(skyState[Integer.parseInt(weather.getSky())]+"\n" + weather.getTmn()+"℃ / " + weather.getTmx()+"℃");
+//        weather_temp_sub.setText(skyState[Integer.parseInt(weather.getSky())]+"\n" + weather.getTmn()+"℃ / " + weather.getTmx()+"℃");
         if (Integer.parseInt(weather.getPty()) != 0) {
             weather_img.setImageResource(rainState_img[Integer.parseInt(weather.getPty())]);
         }

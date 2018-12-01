@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.depromeet.hanriver.hanrivermeetup.activity.main.MainActivity;
 import com.depromeet.hanriver.hanrivermeetup.HanRiverMeetupApplication;
@@ -25,6 +26,8 @@ import com.depromeet.hanriver.hanrivermeetup.model.meeting.Weather;
 import com.depromeet.hanriver.hanrivermeetup.service.WeatherService;
 
 import java.util.List;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -71,7 +74,7 @@ public class MeetingCategoryFragment extends Fragment {
     private void setupViews(View v) {
         weather_img = v.findViewById(R.id.weather_img);
         weather_temp = v.findViewById(R.id.weather_temp);
-        weather_temp_sub = v.findViewById(R.id.weather_temp_sub);
+//        weather_temp_sub = v.findViewById(R.id.weather_temp_sub);
         mActivitesView = v.findViewById(R.id.category_main_text);
         mActivitesView.setText(PreferencesManager.getNickname()+" 님\n한강에서 즐겨볼까요?");
         recyclerView = v.findViewById(R.id.category_rv);
@@ -105,9 +108,18 @@ public class MeetingCategoryFragment extends Fragment {
         mCompositeDisposable.add(WeatherService.getInstance().getWeather()
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::setWeather));
+                .doOnNext(res->{
+                    if (res.code() == HttpsURLConnection.HTTP_OK) {
+                        setWeather(res.body());
+                    } else {
+                        Toast.makeText(getContext(), "날씨정보 호출 과정에서 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .subscribe());
 
     }
+
+
 
     private void unBind() {
         mCompositeDisposable.clear();
@@ -122,7 +134,7 @@ public class MeetingCategoryFragment extends Fragment {
 
     private void setWeather(@NonNull final Weather weather){
         weather_temp.setText(weather.getT1h().toString());
-        weather_temp_sub.setText(skyState[Integer.parseInt(weather.getSky())]+"\n" + weather.getTmn()+"℃ / " + weather.getTmx()+"℃");
+//        weather_temp_sub.setText(skyState[Integer.parseInt(weather.getSky())]+"\n" + weather.getTmn()+"℃ / " + weather.getTmx()+"℃");
         if (Integer.parseInt(weather.getPty()) != 0) {
             weather_img.setImageResource(rainState_img[Integer.parseInt(weather.getPty())]);
         }
