@@ -83,7 +83,8 @@ public class TmapFragment extends Fragment {
         gpsManager = new TMapGpsManager(getActivity());
         mapView = new TMapView(getActivity());
         mapView.setSKTMapApiKey(BuildConfig.TMapApiKey);
-        mapView.setCenterPoint(126.930632, 37.529930);
+//        mapView.setCenterPoint(126.930632, 37.529930);
+        mapView.setCenterPoint(127.0029794866, 37.5811724288);
         mapView.setCompassMode(false);
         mapView.setIconVisibility(true);
         mapView.setZoomLevel(15);
@@ -139,6 +140,21 @@ public class TmapFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
                 current_position = tab.getPosition();
                 tabname[tab.getPosition()].setTextColor(getResources().getColor(R.color.clear_blue));
+
+                if(current_position == 1) {
+                    mapView.setCenterPoint(126.930632, 37.526930);
+                    mapView.setZoomLevel(15);
+                }
+                else if(current_position == 2) {
+                    mapView.setCenterPoint(126.930632, 37.526930);
+                    mapView.setZoomLevel(15);
+                }
+                else {
+//                    mapView.setCenterPoint(127.0029794866, 37.5811724288);
+                    mapView.setCenterPoint(127.002979, 37.579172);
+                    mapView.setZoomLevel(15);
+                }
+
                 bind();
 
             }
@@ -218,11 +234,11 @@ public class TmapFragment extends Fragment {
             ///////////////////Marker Click logic///////////////////////
 
             //풍선뷰 이미지 bitmap으로 저장
-            bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.mipmap.ic_launcher);
+            bitmap = BitmapFactory.decodeResource(getContext().getResources(), android.R.color.transparent);
 
             // 풍선뷰 안의 항목 세팅
             markerItem[i].setCalloutTitle(markers.get(i).getTitle());
-            markerItem[i].setCalloutSubTitle(markers.get(i).getTel());
+//            markerItem[i].setCalloutSubTitle(markers.get(i).getTel());
             markerItem[i].setCanShowCallout(true);
             markerItem[i].setAutoCalloutVisible(false);
             markerItem[i].setCalloutRightButtonImage(bitmap);
@@ -235,6 +251,10 @@ public class TmapFragment extends Fragment {
                 public void onCalloutRightButton(TMapMarkerItem tMapMarkerItem) {
                     int position = Integer.valueOf(tMapMarkerItem.getID());
                     Toast.makeText(getContext(), markers.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+
+                    Log.d("@@@mapx",""+markers.get(position).getMapx());
+                    Log.d("@@@mapy",""+markers.get(position).getMapy());
+
                 }
             });
         }
@@ -260,11 +280,11 @@ public class TmapFragment extends Fragment {
 
 
             // 풍선뷰 안의 항목 세팅
-            markerItem[i].setCalloutTitle(markers.get(i).getLat());
-            markerItem[i].setCalloutSubTitle("test");
-            markerItem[i].setCanShowCallout(true);
-            markerItem[i].setAutoCalloutVisible(false);
-            markerItem[i].setCalloutRightButtonImage(bitmap);
+//            markerItem[i].setCalloutTitle(markers.get(i).getLat());
+//            markerItem[i].setCalloutSubTitle("test");
+//            markerItem[i].setCanShowCallout(true);
+//            markerItem[i].setAutoCalloutVisible(false);
+//            markerItem[i].setCalloutRightButtonImage(bitmap);
 
 
             mapView.addMarkerItem(markerItem[i].getID(), markerItem[i]);
