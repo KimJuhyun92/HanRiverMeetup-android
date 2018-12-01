@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.depromeet.hanriver.hanrivermeetup.BuildConfig;
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.model.map.MapMarker;
+import com.depromeet.hanriver.hanrivermeetup.model.map.TourEventInfo;
 import com.depromeet.hanriver.hanrivermeetup.service.EventService;
 import com.depromeet.hanriver.hanrivermeetup.service.MapService;
 import com.skt.Tmap.TMapGpsManager;
@@ -49,6 +51,7 @@ public class TmapFragment extends Fragment {
     private View tabs[] = new View[3];
     private TextView tabname[] = new TextView[3];
     private CompositeDisposable mCompositeDisposable;
+    private Bitmap bitmap;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -142,7 +145,7 @@ public class TmapFragment extends Fragment {
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnNext(res -> {
                         if (res.code() == HttpsURLConnection.HTTP_OK) {
-
+                            setTourEventMarker(res.body());
                         } else {
                             Toast.makeText(getContext(), "이벤트 정보 로딩 오류", Toast.LENGTH_SHORT).show();
                         }
@@ -168,13 +171,48 @@ public class TmapFragment extends Fragment {
         mCompositeDisposable.clear();
     }
 
-    private void setMarker(@NonNull final List<MapMarker> markers) {
+    private void setTourEventMarker(@NonNull final List<TourEventInfo> markers) {
         mapView.removeAllMarkerItem();
-//        bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.app_logo);
         TMapMarkerItem[] markerItem = new TMapMarkerItem[markers.size()];
         TMapPoint mapPoint;
 
-        Log.d("@@@@@@size",""+markers.size());
+        for (int i = 0; i < markers.size(); i++) {
+            markerItem[i] = new TMapMarkerItem();
+            mapPoint = new TMapPoint(markers.get(i).getMapy(), markers.get(i).getMapx());
+            markerItem[i].setTMapPoint(mapPoint);
+            markerItem[i].setVisible(TMapMarkerItem.VISIBLE);
+            // markerItem[i].setID(markers.get(i).getMap_seq());
+            markerItem[i].setID(String.valueOf(i));
+
+            ///////////////////Marker Click logic///////////////////////
+
+            //풍선뷰 이미지 bitmap으로 저장
+            bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.mipmap.ic_launcher);
+
+            // 풍선뷰 안의 항목 세팅
+            markerItem[i].setCalloutTitle(markers.get(i).getTitle());
+            markerItem[i].setCalloutSubTitle(markers.get(i).getTel());
+            markerItem[i].setCanShowCallout(true);
+            markerItem[i].setAutoCalloutVisible(false);
+            markerItem[i].setCalloutRightButtonImage(bitmap);
+
+            mapView.addMarkerItem(markerItem[i].getID(), markerItem[i]);
+
+            //풍선뷰 클릭 이벤트
+            mapView.setOnCalloutRightButtonClickListener(new TMapView.OnCalloutRightButtonClickCallback() {
+                @Override
+                public void onCalloutRightButton(TMapMarkerItem tMapMarkerItem) {
+                    int position = Integer.valueOf(tMapMarkerItem.getID());
+                    Toast.makeText(getContext(), markers.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    private void setMarker(@NonNull final List<MapMarker> markers) {
+        mapView.removeAllMarkerItem();
+        TMapMarkerItem[] markerItem = new TMapMarkerItem[markers.size()];
+        TMapPoint mapPoint;
 
         for (int i = 0; i < markers.size(); i++) {
             markerItem[i] = new TMapMarkerItem();
@@ -183,62 +221,43 @@ public class TmapFragment extends Fragment {
             markerItem[i].setVisible(TMapMarkerItem.VISIBLE);
             // markerItem[i].setID(markers.get(i).getMap_seq());
             markerItem[i].setID(String.valueOf(i));
-//            mapView.addMarkerItem(markerItem[i].getID(), markerItem[i]);
-
 
             ///////////////////Marker Click logic///////////////////////
 
+            //풍선뷰 이미지 bitmap으로 저장
             bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.mipmap.ic_launcher);
 
-            // 풍선뷰 안의 항목에 글을 지정합니다.
+            // 풍선뷰 안의 항목 세팅
             markerItem[i].setCalloutTitle(markers.get(i).getLat());
-            //   item1.setCalloutSubTitle("");
+            markerItem[i].setCalloutSubTitle("test");
             markerItem[i].setCanShowCallout(true);
-            markerItem[i].setAutoCalloutVisible(true);
-
-
+            markerItem[i].setAutoCalloutVisible(false);
             markerItem[i].setCalloutRightButtonImage(bitmap);
 
             mapView.addMarkerItem(markerItem[i].getID(), markerItem[i]);
 
-
-//            mapView.setOnMarkerClickEvent(new TMapView.OnCalloutMarker2ClickCallback() {
-//                @Override
-//                public void onCalloutMarker2ClickEvent(String s, TMapMarkerItem2 tMapMarkerItem2) {
-//                    Toast.makeText(getContext(), "test", Toast.LENGTH_SHORT).show();
-//                }
-//            });
-
-//            mapView.setOnClickListenerCallBack(new TMapView.OnClickListenerCallback() {
-//                @Override
-//                public boolean onPressUpEvent(ArrayList markerlist, ArrayList poilist, TMapPoint point, PointF pointf) {
-//                    return false;
-//                }
-//
-//                @Override
-//                public boolean onPressEvent(ArrayList markerlist, ArrayList poilist, TMapPoint point, PointF pointf) {
-////                    Toast.makeText(getContext(), "test", Toast.LENGTH_SHORT).show();
-//                    return false;
-//                }
-//            });
-//
-            mapView.setOnCalloutRightButtonClickListener(new TMapView.OnCalloutRightButtonClickCallback() {
+            mapView.setOnMarkerClickEvent(new TMapView.OnCalloutMarker2ClickCallback() {
                 @Override
-                public void onCalloutRightButton(TMapMarkerItem tMapMarkerItem) {
-
-                    int a = Integer.valueOf(tMapMarkerItem.getID());
-
-                    Toast.makeText(getContext(), markers.get(a).getLat(), Toast.LENGTH_SHORT).show();
+                public void onCalloutMarker2ClickEvent(String id, TMapMarkerItem2 tMapMarkerItem2) {
+                    Toast.makeText(getContext(), "test " + id, Toast.LENGTH_SHORT).show();
                 }
             });
 
+            //풍선뷰 클릭 이벤트
+            mapView.setOnCalloutRightButtonClickListener(new TMapView.OnCalloutRightButtonClickCallback() {
+                @Override
+                public void onCalloutRightButton(TMapMarkerItem tMapMarkerItem) {
+                    int position = Integer.valueOf(tMapMarkerItem.getID());
+                    Toast.makeText(getContext(), markers.get(position).getLat(), Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 
     private void initTablayoutWeight(TabLayout tablayout) {
         LinearLayout linearLayout = (LinearLayout) tablayout.getChildAt(0);
         Display display = getActivity().getWindowManager().getDefaultDisplay();
-        int diff = display.getWidth() - (int) (tabname[0].getTextSize() * 9); //최대 가로 크기 - 3개 탭의 크기
+        int diff = display.getWidth() - (int) (tabname[0].getTextSize() * 10); //최대 가로 크기 - 3개 탭의 크기
         diff = diff / 6;
         for (int i = 0; i < linearLayout.getChildCount(); i++) {
             View vv = linearLayout.getChildAt(i);
