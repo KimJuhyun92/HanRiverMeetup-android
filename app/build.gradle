@@ -35,6 +35,10 @@ android {
     compileOptions {
         targetCompatibility 1.8
         sourceCompatibility 1.8
+
+    }
+    dataBinding {
+        enabled = true
     }
 }
 
@@ -62,6 +66,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.6.1'
     implementation "com.squareup.retrofit2:adapter-rxjava2:2.4.0"
 
+
+
     //Permission
     implementation 'gun0912.ted:tedpermission:2.0.0'
     // Dali Van Picasso ~~ 밤 고흐의 달이 보이는밤~
@@ -79,6 +85,9 @@ dependencies {
     // Google Firebase
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-messaging:17.0.0'
+    // GA
+
+
     implementation files('libs/com.skt.Tmap_1.53.jar')
 
     // Butter knife
@@ -86,11 +95,14 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
     // AWS
-    implementation ('com.amazonaws:aws-android-sdk-mobile-client:2.6.15@aar') { transitive = true }
+    implementation('com.amazonaws:aws-android-sdk-mobile-client:2.6.15@aar') { transitive = true }
     implementation 'com.amazonaws:aws-android-sdk-s3:2.6.+'
     implementation 'com.amazonaws:aws-android-sdk-cognito:2.6.+'
 
     implementation 'id.zelory:compressor:2.1.0'
+
+
+
 }
 
 apply plugin: 'com.google.gms.google-services'

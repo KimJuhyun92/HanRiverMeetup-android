@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
 import com.depromeet.hanriver.hanrivermeetup.fragment.timeline.Adapter.TimeLineAdapter;
@@ -33,6 +34,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -176,7 +179,14 @@ public class TimelineFragment extends Fragment {
         mCompositeDisposable.add(WeatherService.getInstance().getWeather()
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::setWeather));
+                .doOnNext(res->{
+                    if (res.code() == HttpsURLConnection.HTTP_OK) {
+                        setWeather(res.body());
+                    } else {
+                        Toast.makeText(getContext(), "날씨정보 호출 과정에서 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .subscribe());
 
         mCompositeDisposable.add(EventService.getInstance().getEvents()
                 .subscribeOn(Schedulers.computation())
