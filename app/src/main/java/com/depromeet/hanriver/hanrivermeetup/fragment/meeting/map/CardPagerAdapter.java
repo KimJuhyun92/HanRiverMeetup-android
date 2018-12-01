@@ -1,11 +1,14 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.meeting.map;
 
+import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
 
@@ -19,9 +22,11 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
     private float mBaseElevation;
 
     public CardPagerAdapter() {
+
         mData = new ArrayList<>();
         mViews = new ArrayList<>();
     }
+
 
     public void addCardItem(CardItem item) {
         mViews.add(null);
@@ -73,8 +78,13 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
     private void bind(CardItem item, View view) {
         TextView titleTextView = view.findViewById(R.id.title);
         TextView addressTextView = view.findViewById(R.id.address);
+        TextView homePageView = view.findViewById(R.id.homepage_text);
+        TextView telView = view.findViewById(R.id.phone_text);
+
         titleTextView.setText(item.getTitle());
         addressTextView.setText(item.getText());
+        homePageView.setText(item.getmHomepageUrl());
+        telView.setText(item.getmTel());
     }
 
 }

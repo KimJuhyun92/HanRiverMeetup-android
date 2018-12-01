@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 import android.support.v4.view.ViewPager;
 import android.view.Display;
@@ -54,12 +55,10 @@ public class TmapFragment extends Fragment {
     private TextView tabname[] = new TextView[3];
     private CompositeDisposable mCompositeDisposable;
     private Bitmap bitmap;
-
     private ViewPager mViewPager;
+    TMapMarkerItem[] cf_markerItem;
     private CardPagerAdapter mCardAdapter;
     private ShadowTransformer mCardShadowTransformer;
-    private CardFragmentPagerAdapter mFragmentCardAdapter;
-    private ShadowTransformer mFragmentCardShadowTransformer;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -94,22 +93,19 @@ public class TmapFragment extends Fragment {
 
         map.addView(mapView);
 
-        mViewPager = view.findViewById(R.id.viewPager);
+        mViewPager = view.findViewById(R.id.map_viewPager);
 
-        mCardAdapter = new CardPagerAdapter();
-        mCardAdapter.addCardItem(new CardItem("test", "hello"));
-        mCardAdapter.addCardItem(new CardItem("test2", "hello2"));
-        mCardAdapter.addCardItem(new CardItem("test3", "hello3"));
-        mCardAdapter.addCardItem(new CardItem("test4", "hello4"));
-        mFragmentCardAdapter = new CardFragmentPagerAdapter(getActivity().getSupportFragmentManager(),
-                dpToPixels(2, getActivity()));
+//        mCardAdapter = new CardPagerAdapter(getContext());
+//        mCardAdapter.addCardItem(new CardItem("test", "hello"));
+//        mCardAdapter.addCardItem(new CardItem("test2", "hello2"));
+//        mCardAdapter.addCardItem(new CardItem("test3", "hello3"));
+//        mCardAdapter.addCardItem(new CardItem("test4", "hello4"));
 
-        mCardShadowTransformer = new ShadowTransformer(mViewPager, mCardAdapter);
-        mFragmentCardShadowTransformer = new ShadowTransformer(mViewPager, mFragmentCardAdapter);
-
-        mViewPager.setAdapter(mCardAdapter);
-        mViewPager.setPageTransformer(false, mCardShadowTransformer);
-        mViewPager.setOffscreenPageLimit(3);
+//        mCardShadowTransformer = new ShadowTransformer(mViewPager, mCardAdapter);
+//
+//        mViewPager.setAdapter(mCardAdapter);
+//        mViewPager.setPageTransformer(false, mCardShadowTransformer);
+//        mViewPager.setOffscreenPageLimit(3);
 
         return view;
     }
@@ -140,6 +136,13 @@ public class TmapFragment extends Fragment {
                 current_position = tab.getPosition();
                 tabname[tab.getPosition()].setTextColor(getResources().getColor(R.color.clear_blue));
                 bind();
+
+                if(current_position==1||current_position==2){
+                    mViewPager.setVisibility(View.GONE);
+                }
+                else{
+                    mViewPager.setVisibility(View.VISIBLE);
+                }
 
             }
 
@@ -204,16 +207,16 @@ public class TmapFragment extends Fragment {
 
     private void setTourEventMarker(@NonNull final List<TourEventInfo> markers) {
         mapView.removeAllMarkerItem();
-        TMapMarkerItem[] markerItem = new TMapMarkerItem[markers.size()];
+        cf_markerItem = new TMapMarkerItem[markers.size()];
         TMapPoint mapPoint;
 
         for (int i = 0; i < markers.size(); i++) {
-            markerItem[i] = new TMapMarkerItem();
+            cf_markerItem[i] = new TMapMarkerItem();
             mapPoint = new TMapPoint(markers.get(i).getMapy(), markers.get(i).getMapx());
-            markerItem[i].setTMapPoint(mapPoint);
-            markerItem[i].setVisible(TMapMarkerItem.VISIBLE);
+            cf_markerItem[i].setTMapPoint(mapPoint);
+            cf_markerItem[i].setVisible(TMapMarkerItem.VISIBLE);
             // markerItem[i].setID(markers.get(i).getMap_seq());
-            markerItem[i].setID(String.valueOf(i));
+            cf_markerItem[i].setID(String.valueOf(i));
 
             ///////////////////Marker Click logic///////////////////////
 
@@ -221,13 +224,13 @@ public class TmapFragment extends Fragment {
             bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.mipmap.ic_launcher);
 
             // 풍선뷰 안의 항목 세팅
-            markerItem[i].setCalloutTitle(markers.get(i).getTitle());
-            markerItem[i].setCalloutSubTitle(markers.get(i).getTel());
-            markerItem[i].setCanShowCallout(true);
-            markerItem[i].setAutoCalloutVisible(false);
-            markerItem[i].setCalloutRightButtonImage(bitmap);
+            cf_markerItem[i].setCalloutTitle(markers.get(i).getTitle());
+            cf_markerItem[i].setCalloutSubTitle(markers.get(i).getTel());
+            cf_markerItem[i].setCanShowCallout(true);
+            cf_markerItem[i].setAutoCalloutVisible(false);
+            cf_markerItem[i].setCalloutRightButtonImage(bitmap);
 
-            mapView.addMarkerItem(markerItem[i].getID(), markerItem[i]);
+            mapView.addMarkerItem(cf_markerItem[i].getID(), cf_markerItem[i]);
 
             //풍선뷰 클릭 이벤트
             mapView.setOnCalloutRightButtonClickListener(new TMapView.OnCalloutRightButtonClickCallback() {
@@ -238,6 +241,8 @@ public class TmapFragment extends Fragment {
                 }
             });
         }
+
+        setCardList(markers);
     }
 
     private void setMarker(@NonNull final List<MapMarker> markers) {
@@ -267,6 +272,7 @@ public class TmapFragment extends Fragment {
             markerItem[i].setCalloutRightButtonImage(bitmap);
 
 
+
             mapView.addMarkerItem(markerItem[i].getID(), markerItem[i]);
 
             mapView.setOnMarkerClickEvent(new TMapView.OnCalloutMarker2ClickCallback() {
@@ -285,6 +291,40 @@ public class TmapFragment extends Fragment {
                 }
             });
         }
+    }
+
+    private void setCardList(List<TourEventInfo> markers){
+        mCardAdapter = new CardPagerAdapter();
+        for(int i=0;i<markers.size();i++) {
+            mCardAdapter.addCardItem(new CardItem(markers.get(i).getTitle(), markers.get(i).getAddr(),markers.get(i).getHompage(),markers.get(i).getTel()));
+        }
+
+        mCardShadowTransformer = new ShadowTransformer(mViewPager, mCardAdapter);
+
+        mViewPager.setAdapter(mCardAdapter);
+        mViewPager.setPageTransformer(false, mCardShadowTransformer);
+        mViewPager.setOffscreenPageLimit(3);
+
+        mapView.setCenterPoint(markers.get(0).getMapx(),markers.get(0).getMapy()-0.003);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                mapView.setCenterPoint(markers.get(i).getMapx(),markers.get(i).getMapy()-0.003);
+                mapView.setZoom(15);
+                cf_markerItem[i].setAutoCalloutVisible(true);
+                Log.d("@@@",""+markers.get(i).getMapx()+"/"+markers.get(i).getMapy());
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
     }
 
     private void initTablayoutWeight(TabLayout tablayout) {

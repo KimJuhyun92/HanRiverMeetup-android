@@ -91,6 +91,7 @@ dependencies {
     implementation 'com.amazonaws:aws-android-sdk-cognito:2.6.+'
 
     implementation 'id.zelory:compressor:2.1.0'
+    
 }
 
 apply plugin: 'com.google.gms.google-services'
