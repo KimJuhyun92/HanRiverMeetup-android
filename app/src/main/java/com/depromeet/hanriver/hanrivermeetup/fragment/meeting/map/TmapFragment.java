@@ -241,10 +241,10 @@ public class TmapFragment extends Fragment {
 
             // 풍선뷰 안의 항목 세팅
 
-            markerItem[i].setCalloutTitle(markers.get(i).getTitle());
-            markerItem[i].setCanShowCallout(true);
-            markerItem[i].setAutoCalloutVisible(false);
-            markerItem[i].setCalloutRightButtonImage(bitmap);
+            cf_markerItem[i].setCalloutTitle(markers.get(i).getTitle());
+            cf_markerItem[i].setCanShowCallout(true);
+            cf_markerItem[i].setAutoCalloutVisible(false);
+            cf_markerItem[i].setCalloutRightButtonImage(bitmap);
 
             mapView.addMarkerItem(cf_markerItem[i].getID(), cf_markerItem[i]);
 

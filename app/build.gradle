@@ -66,8 +66,6 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.6.1'
     implementation "com.squareup.retrofit2:adapter-rxjava2:2.4.0"
 
-
-
     //Permission
     implementation 'gun0912.ted:tedpermission:2.0.0'
     // Dali Van Picasso ~~ 밤 고흐의 달이 보이는밤~
@@ -101,4 +99,5 @@ dependencies {
 
     implementation 'id.zelory:compressor:2.1.0'
 
-apply plugin: 'com.google.gms.google-services'
+    apply plugin: 'com.google.gms.google-services'
+}
