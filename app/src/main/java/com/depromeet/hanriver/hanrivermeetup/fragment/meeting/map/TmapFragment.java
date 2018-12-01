@@ -1,5 +1,6 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.meeting.map;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -9,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,10 +52,21 @@ public class TmapFragment extends Fragment {
     private TextView tabname[] = new TextView[3];
     private CompositeDisposable mCompositeDisposable;
 
+    private ViewPager mViewPager;
+    private CardPagerAdapter mCardAdapter;
+    private ShadowTransformer mCardShadowTransformer;
+    private CardFragmentPagerAdapter mFragmentCardAdapter;
+    private ShadowTransformer mFragmentCardShadowTransformer;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
+    public static float dpToPixels(int dp, Context context) {
+        return dp * (context.getResources().getDisplayMetrics().density);
+    }
+
 
     @Nullable
     @Override
@@ -78,6 +91,23 @@ public class TmapFragment extends Fragment {
 
         map.addView(mapView);
 
+        mViewPager = view.findViewById(R.id.viewPager);
+
+        mCardAdapter = new CardPagerAdapter();
+        mCardAdapter.addCardItem(new CardItem("test", "hello"));
+        mCardAdapter.addCardItem(new CardItem("test2", "hello2"));
+        mCardAdapter.addCardItem(new CardItem("test3", "hello3"));
+        mCardAdapter.addCardItem(new CardItem("test4", "hello4"));
+        mFragmentCardAdapter = new CardFragmentPagerAdapter(getActivity().getSupportFragmentManager(),
+                dpToPixels(2, getActivity()));
+
+        mCardShadowTransformer = new ShadowTransformer(mViewPager, mCardAdapter);
+        mFragmentCardShadowTransformer = new ShadowTransformer(mViewPager, mFragmentCardAdapter);
+
+        mViewPager.setAdapter(mCardAdapter);
+        mViewPager.setPageTransformer(false, mCardShadowTransformer);
+        mViewPager.setOffscreenPageLimit(3);
+
         return view;
     }
 
@@ -90,6 +120,7 @@ public class TmapFragment extends Fragment {
             tabname[i].setTextColor(getResources().getColor(R.color.greyish));
             tabLayout.addTab(tabLayout.newTab().setCustomView(tabs[i]));
         }
+
         tabname[0].setText("행사정보");
         tabname[1].setText("편의점");
         tabname[2].setText("화장실");
@@ -174,7 +205,6 @@ public class TmapFragment extends Fragment {
         TMapMarkerItem[] markerItem = new TMapMarkerItem[markers.size()];
         TMapPoint mapPoint;
 
-        Log.d("@@@@@@size",""+markers.size());
 
         for (int i = 0; i < markers.size(); i++) {
             markerItem[i] = new TMapMarkerItem();
@@ -188,7 +218,7 @@ public class TmapFragment extends Fragment {
 
             ///////////////////Marker Click logic///////////////////////
 
-            bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.mipmap.ic_launcher);
+          //  bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.mipmap.ic_launcher);
 
             // 풍선뷰 안의 항목에 글을 지정합니다.
             markerItem[i].setCalloutTitle(markers.get(i).getLat());
@@ -197,7 +227,7 @@ public class TmapFragment extends Fragment {
             markerItem[i].setAutoCalloutVisible(true);
 
 
-            markerItem[i].setCalloutRightButtonImage(bitmap);
+           // markerItem[i].setCalloutRightButtonImage(bitmap);
 
             mapView.addMarkerItem(markerItem[i].getID(), markerItem[i]);
 

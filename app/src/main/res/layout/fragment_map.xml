@@ -2,7 +2,6 @@
 
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/white">
@@ -33,51 +32,6 @@
         app:tabMaxWidth="0dp"
         >
     </android.support.design.widget.TabLayout>
-    <!--<TextView-->
-        <!--android:id="@+id/sub_title1"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginStart="33dp"-->
-        <!--android:layout_marginTop="55dp"-->
-        <!--android:lineSpacingExtra="18sp"-->
-        <!--android:text="휴지통"-->
-        <!--android:textColor="@color/clear_blue"-->
-        <!--android:textSize="14sp"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/title" />-->
-
-    <!--<TextView-->
-        <!--android:id="@+id/sub_title2"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginStart="23dp"-->
-        <!--android:layout_marginTop="55dp"-->
-        <!--android:lineSpacingExtra="18sp"-->
-        <!--android:text="편의점"-->
-        <!--android:textColor="@color/greyish"-->
-        <!--android:textSize="14sp"-->
-        <!--app:layout_constraintStart_toEndOf="@+id/sub_title1"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/title" />-->
-
-    <!--<TextView-->
-        <!--android:id="@+id/sub_title3"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginStart="23dp"-->
-        <!--android:layout_marginTop="55dp"-->
-        <!--android:lineSpacingExtra="18sp"-->
-        <!--android:text="화장실"-->
-        <!--android:textColor="@color/greyish"-->
-        <!--android:textSize="14sp"-->
-        <!--app:layout_constraintStart_toEndOf="@+id/sub_title2"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/title" />-->
-
-    <!--<com.google.android.gms.maps.MapView-->
-        <!--android:id="@+id/mapView"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="40dp"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/sub_title1" />-->
 
     <RelativeLayout
     android:id="@+id/mapView"
@@ -86,4 +40,13 @@
     app:layout_constraintTop_toBottomOf="@id/map_tablayout"
     android:layout_marginTop="17dp">
     </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_gravity="bottom"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent" />
 </android.support.constraint.ConstraintLayout>
