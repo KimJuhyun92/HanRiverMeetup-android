@@ -15,7 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
+import com.depromeet.hanriver.hanrivermeetup.HanRiverMeetupApplication;
 import com.depromeet.hanriver.hanrivermeetup.R;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
@@ -48,10 +50,14 @@ public class MainActivity extends AppCompatActivity {
             "어디로강",
             "마이한강",
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        FirebaseAnalytics analytics = FirebaseAnalytics.getInstance(this);
+
 
         //Permission Check
         PermissionListener permissionlistener = new PermissionListener() {
@@ -98,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Initializing ViewPager
         viewPager = findViewById(R.id.viewpager);
+        viewPager.setOffscreenPageLimit(3);
         viewPager.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
         // Creating TabPagerAdapter adapter
