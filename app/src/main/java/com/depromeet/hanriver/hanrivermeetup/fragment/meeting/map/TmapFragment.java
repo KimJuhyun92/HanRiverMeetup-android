@@ -1,5 +1,6 @@
 package com.depromeet.hanriver.hanrivermeetup.fragment.meeting.map;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -10,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.support.v4.view.ViewPager;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,10 +55,21 @@ public class TmapFragment extends Fragment {
     private CompositeDisposable mCompositeDisposable;
     private Bitmap bitmap;
 
+    private ViewPager mViewPager;
+    private CardPagerAdapter mCardAdapter;
+    private ShadowTransformer mCardShadowTransformer;
+    private CardFragmentPagerAdapter mFragmentCardAdapter;
+    private ShadowTransformer mFragmentCardShadowTransformer;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
+    public static float dpToPixels(int dp, Context context) {
+        return dp * (context.getResources().getDisplayMetrics().density);
+    }
+
 
     @Nullable
     @Override
@@ -70,7 +83,8 @@ public class TmapFragment extends Fragment {
         gpsManager = new TMapGpsManager(getActivity());
         mapView = new TMapView(getActivity());
         mapView.setSKTMapApiKey(BuildConfig.TMapApiKey);
-        mapView.setCenterPoint(126.930632, 37.529930);
+//        mapView.setCenterPoint(126.930632, 37.529930);
+        mapView.setCenterPoint(127.0029794866, 37.5811724288);
         mapView.setCompassMode(false);
         mapView.setIconVisibility(true);
         mapView.setZoomLevel(15);
@@ -80,6 +94,23 @@ public class TmapFragment extends Fragment {
         mapView.setSightVisible(false);
 
         map.addView(mapView);
+
+        mViewPager = view.findViewById(R.id.viewPager);
+
+        mCardAdapter = new CardPagerAdapter();
+        mCardAdapter.addCardItem(new CardItem("test", "hello"));
+        mCardAdapter.addCardItem(new CardItem("test2", "hello2"));
+        mCardAdapter.addCardItem(new CardItem("test3", "hello3"));
+        mCardAdapter.addCardItem(new CardItem("test4", "hello4"));
+        mFragmentCardAdapter = new CardFragmentPagerAdapter(getActivity().getSupportFragmentManager(),
+                dpToPixels(2, getActivity()));
+
+        mCardShadowTransformer = new ShadowTransformer(mViewPager, mCardAdapter);
+        mFragmentCardShadowTransformer = new ShadowTransformer(mViewPager, mFragmentCardAdapter);
+
+        mViewPager.setAdapter(mCardAdapter);
+        mViewPager.setPageTransformer(false, mCardShadowTransformer);
+        mViewPager.setOffscreenPageLimit(3);
 
         return view;
     }
@@ -93,6 +124,7 @@ public class TmapFragment extends Fragment {
             tabname[i].setTextColor(getResources().getColor(R.color.greyish));
             tabLayout.addTab(tabLayout.newTab().setCustomView(tabs[i]));
         }
+
         tabname[0].setText("행사정보");
         tabname[1].setText("편의점");
         tabname[2].setText("화장실");
@@ -108,6 +140,21 @@ public class TmapFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
                 current_position = tab.getPosition();
                 tabname[tab.getPosition()].setTextColor(getResources().getColor(R.color.clear_blue));
+
+                if(current_position == 1) {
+                    mapView.setCenterPoint(126.930632, 37.526930);
+                    mapView.setZoomLevel(15);
+                }
+                else if(current_position == 2) {
+                    mapView.setCenterPoint(126.930632, 37.526930);
+                    mapView.setZoomLevel(15);
+                }
+                else {
+//                    mapView.setCenterPoint(127.0029794866, 37.5811724288);
+                    mapView.setCenterPoint(127.002979, 37.579172);
+                    mapView.setZoomLevel(15);
+                }
+
                 bind();
 
             }
@@ -187,11 +234,11 @@ public class TmapFragment extends Fragment {
             ///////////////////Marker Click logic///////////////////////
 
             //풍선뷰 이미지 bitmap으로 저장
-            bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.mipmap.ic_launcher);
+            bitmap = BitmapFactory.decodeResource(getContext().getResources(), android.R.color.transparent);
 
             // 풍선뷰 안의 항목 세팅
             markerItem[i].setCalloutTitle(markers.get(i).getTitle());
-            markerItem[i].setCalloutSubTitle(markers.get(i).getTel());
+//            markerItem[i].setCalloutSubTitle(markers.get(i).getTel());
             markerItem[i].setCanShowCallout(true);
             markerItem[i].setAutoCalloutVisible(false);
             markerItem[i].setCalloutRightButtonImage(bitmap);
@@ -204,6 +251,10 @@ public class TmapFragment extends Fragment {
                 public void onCalloutRightButton(TMapMarkerItem tMapMarkerItem) {
                     int position = Integer.valueOf(tMapMarkerItem.getID());
                     Toast.makeText(getContext(), markers.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+
+                    Log.d("@@@mapx",""+markers.get(position).getMapx());
+                    Log.d("@@@mapy",""+markers.get(position).getMapy());
+
                 }
             });
         }
@@ -224,15 +275,17 @@ public class TmapFragment extends Fragment {
 
             ///////////////////Marker Click logic///////////////////////
 
-            //풍선뷰 이미지 bitmap으로 저장
-            bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.mipmap.ic_launcher);
+
+          //  bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.mipmap.ic_launcher);
+
 
             // 풍선뷰 안의 항목 세팅
-            markerItem[i].setCalloutTitle(markers.get(i).getLat());
-            markerItem[i].setCalloutSubTitle("test");
-            markerItem[i].setCanShowCallout(true);
-            markerItem[i].setAutoCalloutVisible(false);
-            markerItem[i].setCalloutRightButtonImage(bitmap);
+//            markerItem[i].setCalloutTitle(markers.get(i).getLat());
+//            markerItem[i].setCalloutSubTitle("test");
+//            markerItem[i].setCanShowCallout(true);
+//            markerItem[i].setAutoCalloutVisible(false);
+//            markerItem[i].setCalloutRightButtonImage(bitmap);
+
 
             mapView.addMarkerItem(markerItem[i].getID(), markerItem[i]);
 
