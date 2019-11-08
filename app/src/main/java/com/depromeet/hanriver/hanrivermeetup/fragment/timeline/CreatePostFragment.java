@@ -105,7 +105,8 @@ public class CreatePostFragment extends DialogFragment {
         post.location = locationTextView.getText().toString();
         post.user_id = PreferencesManager.getUserID();
         post.nickname = PreferencesManager.getNickname();
-        post.imageurl = "https://s3.amazonaws.com/hanriver-userfiles-mobilehub-2110615695/posts/" + fileName;
+//        post.imageurl = "https://s3.amazonaws.com/hanriver-userfiles-mobilehub-2110615695/posts/" + fileName;
+        post.imageurl = "https://hanriverimage-deployments-mobilehub-125258651.s3.us-east-2.amazonaws.com/posts/" + fileName;
 
         return post;
     }

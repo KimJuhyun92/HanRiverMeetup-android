@@ -114,16 +114,15 @@ public class TmapFragment extends Fragment {
     private void setupViews(View v) {
         tabLayout = v.findViewById(R.id.map_tablayout);
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             tabs[i] = getLayoutInflater().inflate(R.layout.tab_meeting_list, null);
             tabname[i] = tabs[i].findViewById(R.id.meeting_list_tab_name);
             tabname[i].setTextColor(getResources().getColor(R.color.greyish));
             tabLayout.addTab(tabLayout.newTab().setCustomView(tabs[i]));
         }
 
-        tabname[0].setText("행사정보");
-        tabname[1].setText("편의점");
-        tabname[2].setText("화장실");
+        tabname[0].setText("서울 행사정보");
+        tabname[1].setText("한강 행사정보");
         tabname[0].setTextColor(getResources().getColor(R.color.clear_blue));
 
         tabLayout.setOverScrollMode(View.OVER_SCROLL_NEVER);
@@ -141,15 +140,15 @@ public class TmapFragment extends Fragment {
                     mapView.setCenterPoint(126.930632, 37.526930);
                     mapView.setZoomLevel(15);
                 }
-                else if(current_position == 2) {
-                    mapView.setCenterPoint(126.930632, 37.526930);
-                    mapView.setZoomLevel(15);
-                }
-                else {
-//                    mapView.setCenterPoint(127.0029794866, 37.5811724288);
-                    mapView.setCenterPoint(127.002979, 37.579172);
-                    mapView.setZoomLevel(15);
-                }
+//                else if(current_position == 2) {
+//                    mapView.setCenterPoint(126.930632, 37.526930);
+//                    mapView.setZoomLevel(15);
+//                }
+//                else {
+////                    mapView.setCenterPoint(127.0029794866, 37.5811724288);
+//                    mapView.setCenterPoint(127.002979, 37.579172);
+//                    mapView.setZoomLevel(15);
+//                }
 
                 bind();
 
@@ -210,7 +209,7 @@ public class TmapFragment extends Fragment {
                         if (res.code() == HttpsURLConnection.HTTP_OK) {
                             setMarker(res.body());
                         } else {
-                            Toast.makeText(getContext(), "마커 정보 로딩 오류", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getContext(), "마커 정보 로딩 오류", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .subscribe());

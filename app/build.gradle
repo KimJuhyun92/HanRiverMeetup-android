@@ -13,11 +13,12 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         debug {
-            buildConfigField "String", "APIServerBaseURL", keystoreProperties.getProperty("apiServerDevURL")
+            buildConfigField "String", "APIServerBaseURL", keystoreProperties.getProperty("apiServerLocal")
             buildConfigField "String", "TMapApiKey", keystoreProperties.getProperty("TMapApiKey")
             buildConfigField "String", "AwsAccessKey", keystoreProperties.getProperty("AwsAccessKey")
             buildConfigField "String", "AwsSecretKey", keystoreProperties.getProperty("AwsSecretKey")

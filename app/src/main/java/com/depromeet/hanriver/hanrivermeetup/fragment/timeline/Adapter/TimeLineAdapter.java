@@ -33,7 +33,8 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapter.ItemVi
     }
 
     public void clear() {
-        mItems = new ArrayList<>();
+        mItems.clear();
+//        mItems = new ArrayList<>();
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {

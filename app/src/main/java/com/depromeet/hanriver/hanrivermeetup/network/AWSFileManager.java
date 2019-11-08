@@ -1,6 +1,10 @@
 package com.depromeet.hanriver.hanrivermeetup.network;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.widget.Toast;
 
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -35,7 +39,13 @@ public class AWSFileManager {
             @Override
             public void onStateChanged(int id, TransferState state) {
                 if (TransferState.COMPLETED == state) {
-                    parentFragment.onResume();
+
+                    //Refresh
+                    FragmentTransaction ft = parentFragment.getFragmentManager().beginTransaction();
+                    ft.detach(parentFragment);
+                    ft.attach(parentFragment);
+                    ft.commit();
+
                     Toast.makeText(context,
                             "포스팅 완료", Toast.LENGTH_SHORT).show();
                 }

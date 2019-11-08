@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/mypage_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+<android.support.v4.widget.NestedScrollView
     android:id="@+id/mypage_scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -63,7 +68,7 @@
                 android:layout_marginStart="128dp"
                 android:layout_marginTop="173dp"
                 android:lineHeight="8sp"
-                android:text="김태성"
+                android:text="김주현"
                 android:textColor="#333333"
                 android:textSize="22sp"
                 android:textStyle="bold" />
@@ -87,8 +92,9 @@
         </RelativeLayout>
 
         <com.depromeet.hanriver.hanrivermeetup.fragment.mypage.CustomViewpager
-            android:id="@+id/viewpager2"
-            android:layout_width="match_parent"
-            android:layout_height="502dp" />
+                android:id="@+id/viewpager2"
+                android:layout_width="match_parent"
+                android:layout_height="502dp"/>
     </LinearLayout>
-</ScrollView>
+</android.support.v4.widget.NestedScrollView>
+        </android.support.v4.widget.SwipeRefreshLayout>

@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.depromeet.hanriver.hanrivermeetup.R;
+import com.depromeet.hanriver.hanrivermeetup.common.PreferencesManager;
 import com.depromeet.hanriver.hanrivermeetup.fragment.timeline.Adapter.TimeLineAdapter;
 import com.depromeet.hanriver.hanrivermeetup.model.meeting.Weather;
 import com.depromeet.hanriver.hanrivermeetup.model.timeline.EventVO;
@@ -74,12 +76,14 @@ public class TimelineFragment extends Fragment {
     private CompositeDisposable mCompositeDisposable;
     private PublishProcessor<Integer> paginator = PublishProcessor.create();
     private LinearLayoutManager mLayoutManager;
-    private TimeLineAdapter mTimeLineAdapter;
+    private  TimeLineAdapter mTimeLineAdapter;
 
     private boolean loading = false;
     private int pageNumber = 0;
     private final int VISIBLE_THRESHOLD = 1;
     private int lastVisibleItem, totalItemCount;
+
+    private TextView timeline_main_text;
 
     private final String[] skyState = {"","맑음","구름조금","구름많음","흐림"};
     private final int[] skyState_img = {0,R.drawable.ic_weather_sunny,R.drawable.ic_weather_alittlecloudy,R.drawable.ic_weather_muchcloudy,R.drawable.ic_weather_fog};
@@ -98,6 +102,9 @@ public class TimelineFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceSatate) {
         View view = inflater.inflate(R.layout.fragment_timeline, container, false);
         ButterKnife.bind(this, view);
+
+        timeline_main_text = view.findViewById(R.id.timeline_main_text);
+        timeline_main_text.setText(PreferencesManager.getNickname() +" 님,\n한강소식을 알아볼까요?");
 
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -142,7 +149,7 @@ public class TimelineFragment extends Fragment {
                     DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
                     Date date = new Date();
                     try {
-                        date = format.parse("2018-09-07");
+                        date = format.parse("2019-11-04");
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -154,12 +161,29 @@ public class TimelineFragment extends Fragment {
                 });
     }
 
-    private void bind() {
+    public void bind() {
+        Log.d("@@@@page test","call bind");
         pageNumber = 0;
         mTimeLineAdapter.clear();
         mTimeLineAdapter.notifyDataSetChanged();
 
-        Disposable disposable = paginator
+//        Disposable disposable = paginator
+//                .onBackpressureDrop()
+//                .concatMap((Function<Integer, Publisher<List<TimeLineVO>>>) page -> {
+//                    loading = true;
+//                    return dataFromNetwork(page);
+//                })
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(items -> {
+//                    mTimeLineAdapter.addItems(items);
+////                    Log.d("@@@@page test",""+items.size());
+//                    mTimeLineAdapter.notifyDataSetChanged();
+//                    loading = false;
+//                });
+
+        mCompositeDisposable = new CompositeDisposable();
+
+        mCompositeDisposable.add(paginator
                 .onBackpressureDrop()
                 .concatMap((Function<Integer, Publisher<List<TimeLineVO>>>) page -> {
                     loading = true;
@@ -168,12 +192,13 @@ public class TimelineFragment extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(items -> {
                     mTimeLineAdapter.addItems(items);
+//                    Log.d("@@@@page test",""+items.size());
                     mTimeLineAdapter.notifyDataSetChanged();
                     loading = false;
-                });
+                }));
 
-        mCompositeDisposable = new CompositeDisposable();
-        mCompositeDisposable.add(disposable);
+//        mCompositeDisposable = new CompositeDisposable();
+//        mCompositeDisposable.add(disposable);
         paginator.onNext(pageNumber);
 
         mCompositeDisposable.add(WeatherService.getInstance().getWeather()

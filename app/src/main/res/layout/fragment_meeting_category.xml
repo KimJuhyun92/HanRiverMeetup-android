@@ -14,7 +14,7 @@
         android:layout_marginLeft="25dp"
         android:layout_marginTop="25dp"
         android:lineSpacingExtra="10sp"
-        android:text="김태성 님,\n한강에서 즐겨볼까요?"
+        android:text="김주현 님,\n한강에서 즐겨볼까요?"
         android:textColor="#333333"
         android:textSize="22sp" />
 

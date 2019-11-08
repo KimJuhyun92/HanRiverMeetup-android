@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
@@ -46,6 +47,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PrimitiveIterator;
 
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -74,7 +76,7 @@ public class MyPageFragment extends Fragment{
     private TextView tab2_tab;
     private TextView tab3_tab;
     private TextView main_text;
-    private ScrollView scrollView;
+//    private ScrollView scrollView;
     private ImageButton alarmButton;
     private ImageButton logoutButton;
     private View tabView1;
@@ -84,6 +86,9 @@ public class MyPageFragment extends Fragment{
     private Dialog alarmDialog;
     private Typeface normalFont,boldFont;
 
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private MyPageTabAdapter pagerAdapter;
+
 
     @Nullable
     @Override
@@ -91,11 +96,22 @@ public class MyPageFragment extends Fragment{
 
         View view = (View) inflater.inflate(R.layout.fragment_mypage, container, false);
 
+        swipeRefreshLayout = view.findViewById(R.id.mypage_refresh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                progressON();
+                pagerAdapter.notifyDataSetChanged();
+                Log.d("@@@@test","test");
+                bind();
+            }
+        });
+
         normalFont = ResourcesCompat.getFont(getContext(),R.font.nanumsquareregular);
         boldFont = ResourcesCompat.getFont(getContext(),R.font.nanumsquarebold);
 
-        scrollView = (ScrollView)view.findViewById(R.id.mypage_scroll);
-        scrollView.setOverScrollMode(View.OVER_SCROLL_NEVER);
+//        scrollView = (ScrollView)view.findViewById(R.id.mypage_scroll);
+//        scrollView.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
 
         main_text = view.findViewById(R.id.mypage_main_text);
@@ -159,7 +175,7 @@ public class MyPageFragment extends Fragment{
         viewPager = view.findViewById(R.id.viewpager2);
 
         // Creating TabPagerAdapter adapter
-        MyPageTabAdapter pagerAdapter = new MyPageTabAdapter(getChildFragmentManager(), tabLayout.getTabCount());
+        pagerAdapter = new MyPageTabAdapter(getChildFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
@@ -261,14 +277,17 @@ public class MyPageFragment extends Fragment{
     }
 
     private void setTab1Count(@NonNull final List<Tab1VO> tab1VOs) {
+        progressOFF();
         tab1VOList = tab1VOs;
     }
 
     private void setTab2Count(@NonNull final List<Tab2VO> tab2VOs) {
+        progressOFF();
         tab2VOList = tab2VOs;
     }
 
     private void setTab3Count(@NonNull final List<Tab3VO> tab3VOs) {
+        progressOFF();
         tab3VOList = tab3VOs;
     }
 
@@ -288,6 +307,14 @@ public class MyPageFragment extends Fragment{
             params.rightMargin = 70;
             vv.setLayoutParams(params);
         }
+    }
+
+    public void progressON(){
+        HanRiverMeetupApplication.getInstance().progressON(getActivity());
+    }
+
+    public void progressOFF(){
+        HanRiverMeetupApplication.getInstance().progressOFF(swipeRefreshLayout);
     }
 
 

@@ -4,8 +4,8 @@
   "CredentialsProvider": {
     "CognitoIdentity": {
       "Default": {
-        "PoolId": "us-east-1:90a0609d-028a-492b-92fd-895377a5036b",
-        "Region": "us-east-1"
+        "PoolId": "us-east-2:8bcd4296-bc3e-4e74-aca0-b90a620abe82",
+        "Region": "us-east-2"
       }
     }
   },
@@ -14,13 +14,13 @@
   },
   "S3TransferUtility": {
     "Default": {
-      "Bucket": "hanriver-userfiles-mobilehub-2110615695",
-      "Region": "us-east-1"
+      "Bucket": "hanriverimage-deployments-mobilehub-125258651",
+      "Region": "us-east-2"
     }
   },
   "PinpointAnalytics": {
     "Default": {
-      "AppId": "1c3051aa5c5e4e95bee6527e18a50a0b",
+      "AppId": "33a016bbc07f4e68aa30c7a0802c365e",
       "Region": "us-east-1"
     }
   },
@@ -31,8 +31,8 @@
   },
   "UserFileManager": {
     "Default": {
-      "Bucket": "hanriver-userfiles-mobilehub-2110615695",
-      "Region": "us-east-1"
+      "Bucket": "hanriverimage-deployments-mobilehub-125258651",
+      "Region": "us-east-2"
     }
   }
 }

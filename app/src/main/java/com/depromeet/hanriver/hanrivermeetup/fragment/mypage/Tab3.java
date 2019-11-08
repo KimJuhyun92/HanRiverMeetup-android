@@ -82,7 +82,6 @@ public class Tab3 extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
@@ -97,11 +96,6 @@ public class Tab3 extends Fragment {
 
     private void bind() {
         mCompositeDisposable = new CompositeDisposable();
-
-//        mCompositeDisposable.add(mTab3ViewModel.getAvailableTab3VOs()
-//                .subscribeOn(Schedulers.computation())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(this::setTab3VOs));
 
         mCompositeDisposable.add(MyPageService.getInstance()
                 .getMathcedMeeting(PreferencesManager.getUserID())

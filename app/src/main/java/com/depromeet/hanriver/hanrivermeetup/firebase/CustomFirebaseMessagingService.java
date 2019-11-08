@@ -1,21 +1,21 @@
 package com.depromeet.hanriver.hanrivermeetup.firebase;
 
-        import android.app.NotificationManager;
-        import android.app.PendingIntent;
-        import android.content.Context;
-        import android.content.Intent;
-        import android.graphics.Color;
-        import android.media.RingtoneManager;
-        import android.net.Uri;
-        import android.support.v4.app.NotificationCompat;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.support.v4.app.NotificationCompat;
 
-        import com.depromeet.hanriver.hanrivermeetup.R;
-        import com.depromeet.hanriver.hanrivermeetup.activity.main.MainActivity;
-        import com.google.firebase.messaging.FirebaseMessagingService;
-        import com.google.firebase.messaging.RemoteMessage;
+import com.depromeet.hanriver.hanrivermeetup.R;
+import com.depromeet.hanriver.hanrivermeetup.activity.main.MainActivity;
+import com.google.firebase.messaging.FirebaseMessagingService;
+import com.google.firebase.messaging.RemoteMessage;
 
-        import java.io.UnsupportedEncodingException;
-        import java.util.Map;
+import java.io.UnsupportedEncodingException;
+import java.util.Map;
 
 public class CustomFirebaseMessagingService extends FirebaseMessagingService {
     @Override
